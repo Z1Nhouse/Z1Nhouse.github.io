@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-07T07:51:48.445Z</updated>
+    <updated>2019-12-07T08:00:33.142Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,34 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[將Visual Studio Code語言修改為繁體中文]]></title>
+        <id>https://Z1Nhouse.github.io//post/UnHCMUvkF</id>
+        <link href="https://Z1Nhouse.github.io//post/UnHCMUvkF">
+        </link>
+        <updated>2019-12-07T07:54:36.000Z</updated>
+        <summary type="html"><![CDATA[<p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
+<!-- more -->
+<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
+<p>用於輸入指令。</p>
+<ul>
+<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
+<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
+</ul>
+<h2 id="修改方式">修改方式</h2>
+<ol>
+<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
+<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
+<li>安裝成功之後重啟VS Code即可。</li>
+</ol>
+<h2 id="其他">其他</h2>
+<p>關於VS Code的其他tips請參考官方文件：![https://github.com/Microsoft/vscode-tips-and-tricks]</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://Z1Nhouse.github.io//post/hello-gridea</id>

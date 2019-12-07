@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Z1N&#39;s house</title>
+<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print(&#34;Hello,World!&#34;);">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,6 +13,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
 
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -91,50 +97,60 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://Z1Nhouse.github.io//post/UnHCMUvkF">
-                  <h2 class="post-title">將Visual Studio Code語言修改為繁體中文</h2>
-                </a>
-                <div class="post-date">
-                  2019-12-07
-                </div>
-                <div class="post-abstract">
-                  <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
+          <div class="post-detail">
+            <h2 class="post-title">將Visual Studio Code語言修改為繁體中文</h2>
+            <div class="post-date">2019-12-07</div>
+            
+            <div class="post-content">
+              <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
+<!-- more -->
+<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
+<p>用於輸入指令。</p>
+<ul>
+<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
+<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
+</ul>
+<h2 id="修改方式">修改方式</h2>
+<ol>
+<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
+<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
+<li>安裝成功之後重啟VS Code即可。</li>
+</ol>
+<h2 id="其他">其他</h2>
+<p>關於VS Code的其他tips請參考官方文件：![https://github.com/Microsoft/vscode-tips-and-tricks]</p>
 
-                </div>
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="tag">
+                    VS Code
+                  </a>
+                
               </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
                 <a href="https://Z1Nhouse.github.io//post/hello-gridea">
-                  <h2 class="post-title">Hello Gridea</h2>
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
                 </a>
-                <div class="post-date">
-                  2018-12-12
-                </div>
-                <div class="post-abstract">
-                  <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-
-                </div>
               </div>
-              
-                <a class="right" href="https://Z1Nhouse.github.io//post/hello-gridea">
-                  <div class="feature-container" style="background-image: url('https://Z1Nhouse.github.io//post-images/hello-gridea.png')">
-                  </div>
-                </a>
-              
-            </article>
-          
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
 
         </div>
       </div>
@@ -156,6 +172,29 @@ var app = new Vue({
 })
 
 </script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'e5c1a1597ef592d472ea',
+        clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+        repo: 'z1nhouse.github.io',
+        owner: 'z1nhouse',
+        admin: ['z1nhouse'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
