@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
-
   </head>
   <body>
     <div id="app" class="main">
@@ -30,7 +29,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://Z1Nhouse.github.io/">
-        <img src="https://Z1Nhouse.github.io//images/avatar.png?v=1575706096562" class="site-logo">
+        <img src="https://Z1Nhouse.github.io//images/avatar.png?v=1575706239580" class="site-logo">
         <h1 class="site-title">Z1N&#39;s house</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -56,20 +55,21 @@
             標籤
           </a>
         
+      
         
           <a href="/post/about" class="site-nav">
             關於
           </a>
-
-	<a href="/article" class="site-nav">
+        
+      
+        
+          <a href="/article" class="site-nav">
             隨機文章
           </a>
         
       
     </div>
   </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <div class="Article">
 <h1>
@@ -104,6 +104,22 @@
  }
 </script>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
 
 
   </body>
