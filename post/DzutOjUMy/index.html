@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
+<title>每日文章 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print(&#34;Hello,World!&#34;);">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -104,42 +104,52 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">將Visual Studio Code語言修改為繁體中文</h2>
+            <h2 class="post-title">每日文章</h2>
             <div class="post-date">2019-12-07</div>
             
-              <div class="feature-container" style="background-image: url('https://Z1Nhouse.github.io//post-images/UnHCMUvkF.PNG')">
-              </div>
-            
             <div class="post-content">
-              <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
-<ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
-</ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div class="Article">
+<h1>
+<ins class="article-title">標題</ins></h1>
+<cite class="article-author">作者</cite>
+ <br />
+<blockquote>
+<div class="article-content">
+內文</div>
+</blockquote>
+</div>
+<button onclick="javascript:nextarticle();">Next</button>
+<script type="text/javascript">
+ function nextarticle(){
+  getArticle();
+ }
+<p>var title = &quot;標題&quot;;<br>
+var author = &quot;作者&quot;;<br>
+var content = &quot;內文&quot;;</p>
+<p>var getArticle = function(){<br>
+$.getJSON(&quot;https://interface.meiriyiwen.com/article/random?dev=1&quot;,function(json){<br>
+title = json.data.title;    //標題<br>
+author = json.data.author;        //作者<br>
+content = json.data.content;      //內容</p>
+<p>$(&quot;.article-content&quot;).html(content);<br>
+$(&quot;.article-author&quot;).html(author);<br>
+$(&quot;.article-title&quot;).html(title);<br>
+});<br>
+}<br>
+</script></p>
 
             </div>
             
-              <div class="tag-container">
-                
-                  <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="tag">
-                    VS Code
-                  </a>
-                
-              </div>
             
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Z1Nhouse.github.io//post/UnHCMUvkF">
+                  <h3 class="post-title">
+                    將Visual Studio Code語言修改為繁體中文
+                  </h3>
+                </a>
+              </div>
             
 
             

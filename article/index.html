@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | Z1N&#39;s house</title>
+<title>隨機文章 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print(&#34;Hello,World!&#34;);">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1575706239580">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1575706096562">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://Z1Nhouse.github.io/">
-        <img src="https://Z1Nhouse.github.io//images/avatar.png?v=1575706239580" class="site-logo">
+        <img src="https://Z1Nhouse.github.io//images/avatar.png?v=1575706096562" class="site-logo">
         <h1 class="site-title">Z1N&#39;s house</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -56,74 +56,53 @@
             標籤
           </a>
         
-      
         
           <a href="/post/about" class="site-nav">
             關於
           </a>
-        
-      
-        
-          <a href="/article" class="site-nav">
+
+	<a href="/article" class="site-nav">
             隨機文章
           </a>
         
       
     </div>
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-    <div class="site-description">
-      System.out.print("Hello,World!");
-    </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
-    </div>
-  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<div class="Article">
+<h1>
+<ins class="article-title">標題</ins></h1>
+<cite class="article-author">作者</cite>
+ <br />
+<blockquote>
+<div class="article-content">
+內文</div>
+</blockquote>
 </div>
+<button onclick="javascript:nextarticle();">Next</button>
+<script type="text/javascript">
+ function nextarticle(){
+  getArticle();
+ }
+ 
+ var title = "標題";
+ var author = "作者";
+ var content = "內文";
 
+ var getArticle = function(){
+  $.getJSON("https://interface.meiriyiwen.com/article/random?dev=1",function(json){
+   title = json.data.title;    //標題
+   author = json.data.author;        //作者
+   content = json.data.content;      //內容
 
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
-            
-              <a class="tag" href="https://Z1Nhouse.github.io//tag/g9-URoyfJ">VS Code</a>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script type="application/javascript">
-
-AOS.init();
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
+   $(".article-content").html(content);
+   $(".article-author").html(author);
+   $(".article-title").html(title);
+  });
+ }
 </script>
-
 
 
 
