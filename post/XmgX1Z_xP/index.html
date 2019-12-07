@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！ | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print(&#34;Hello,World!&#34;);">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1575731120682">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Z1Nhouse.github.io/">
+        <img src="https://Z1Nhouse.github.io//images/avatar.png?v=1575731120682" class="site-logo">
+        <h1 class="site-title">Z1N&#39;s house</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            歸檔
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            關於
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      System.out.print("Hello,World!");
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！</h2>
+            <div class="post-date">2019-12-07</div>
+            
+              <div class="feature-container" style="background-image: url('https://Z1Nhouse.github.io//post-images/XmgX1Z_xP.PNG')">
+              </div>
+            
+            <div class="post-content">
+              <p>上至百度雲限速破解下至圖片、Youtube影片下載，只要一個擴展什麼都能輕鬆解決。<br>
+最重要的是，免費而且簡單，不需要花費多少精力就可以達到效果，使用Chrome卻沒安裝油猴非常可惜！<br>
+順帶一提，油猴擴展不止Chrome有，它還支援Edge、Safari、Firefox、Opera...瀏覽器，擴展根據瀏覽器的不同下載的位置也不同。</p>
+<!-- more -->
+<h2 id="安裝油猴擴展">安裝油猴擴展</h2>
+<p>如果你是可以直接進入Chrome線上應用程式商店的，你可以直接在擴展商店下載<a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">油猴Tampermonkey</a>，這邊就不演示怎麼安裝擴展了。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729741784.PNG" alt=""></p>
+<p>若你無法進入Chrome的應用商店，你可以試試在<a href="https://www.crx4chrome.com/">Crx4Chrome</a>搜索Tampermonkey，直接下載<a href="https://www.crx4chrome.com/crx/755/">油猴的CRX檔</a><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729695013.PNG" alt=""></p>
+<h3 id="crx檔的安裝方式">CRX檔的安裝方式</h3>
+<p>下載好擴展的CRX檔之後，打開瀏覽器輸入<code>chrome://extensions/</code>，將CRX檔拖入後啟用。</p>
+<p>【注：此處僅作範例，不是拿油猴擴展做示範。】<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729476817.PNG" alt=""></p>
+<h4 id="暴力安裝法">暴力安裝法</h4>
+<p>若是上方拖CRX檔安裝的方式仍然無法安裝，你可以嘗試把下載好的<code>xxx.crx</code>擴展名改為<code>xxx.zip</code><br>
+瀏覽器打開<code>chrome://extensions/</code>右上方按鈕開啟<code>開發人員模式</code>，將<code>xxx.zip</code>文件拖移進去即可。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575730900180.PNG" alt=""></p>
+<h2 id="安裝腳本">安裝腳本</h2>
+<ul>
+<li>在這邊推薦一個油猴腳本的網站：<a href="https://greasyfork.org/zh-CN">Greasy Fork</a><br>
+支持中文，依據多種排序方式列出腳本，且都有詳細介紹腳本功能..等，非常適合新手用來搜索需要的腳本。</li>
+<li>其他還有像是<a href="https://openuserjs.org/">OpenUserJS</a>、<a href="https://userscripts-mirror.org/">Userscripts.org</a>但這兩個網站都是全英文介面，如果你的英文能力足夠不妨也可以上去看看有沒有需要的腳本。</li>
+</ul>
+<ol>
+<li>找到需要的腳本之後點擊<code>安裝腳本</code>。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729959349.PNG" alt=""></li>
+<li>點擊<code>安裝</code>。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729964532.PNG" alt=""></li>
+<li>腳本安裝完畢之後在瀏覽器上方點擊油猴圖標，打開控制台。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729983239.PNG" alt=""></li>
+<li>控制台-已安裝的腳本 可執行啟用、刪除、更新腳本...等操作。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575730060278.PNG" alt=""></li>
+<li>之後只要在有腳本適配的網站就能看見啟用的相對應腳本，你可以根據當前需求啟用或者關閉。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575730428350.PNG" alt=""></li>
+</ol>
+<h2 id="相關網站">相關網站</h2>
+<ul>
+<li><a href="https://www.tampermonkey.net/">油猴官網</a></li>
+<li><a href="https://www.crx4chrome.com/">Crx4Chrome</a></li>
+<li><a href="https://openuserjs.org/">OpenUserJS</a></li>
+<li><a href="https://userscripts-mirror.org/">Userscripts.org</a></li>
+<li><a href="https://greasyfork.org/zh-CN">Greasy Fork</a></li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://Z1Nhouse.github.io//tag/AsDU9VKmg" class="tag">
+                    油猴
+                  </a>
+                
+                  <a href="https://Z1Nhouse.github.io//tag/9JocazGNux" class="tag">
+                    chrome擴展
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Z1Nhouse.github.io//post/TYUbUGb80">
+                  <h3 class="post-title">
+                    用Chrome瀏覽器玩轉Youtube！影片、音頻下載、擷動圖、純音頻模式...
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'e5c1a1597ef592d472ea',
+        clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+        repo: 'z1nhouse.github.io',
+        owner: 'z1nhouse',
+        admin: ['z1nhouse'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

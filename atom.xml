@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-07T08:16:24.419Z</updated>
+    <updated>2019-12-07T15:05:30.269Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,122 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！]]></title>
+        <id>https://Z1Nhouse.github.io//post/XmgX1Z_xP</id>
+        <link href="https://Z1Nhouse.github.io//post/XmgX1Z_xP">
+        </link>
+        <updated>2019-12-07T14:24:25.000Z</updated>
+        <summary type="html"><![CDATA[<p>上至百度雲限速破解下至圖片、Youtube影片下載，只要一個擴展什麼都能輕鬆解決。<br>
+最重要的是，免費而且簡單，不需要花費多少精力就可以達到效果，使用Chrome卻沒安裝油猴非常可惜！<br>
+順帶一提，油猴擴展不止Chrome有，它還支援Edge、Safari、Firefox、Opera...瀏覽器，擴展根據瀏覽器的不同下載的位置也不同。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>上至百度雲限速破解下至圖片、Youtube影片下載，只要一個擴展什麼都能輕鬆解決。<br>
+最重要的是，免費而且簡單，不需要花費多少精力就可以達到效果，使用Chrome卻沒安裝油猴非常可惜！<br>
+順帶一提，油猴擴展不止Chrome有，它還支援Edge、Safari、Firefox、Opera...瀏覽器，擴展根據瀏覽器的不同下載的位置也不同。</p>
+<!-- more -->
+<h2 id="安裝油猴擴展">安裝油猴擴展</h2>
+<p>如果你是可以直接進入Chrome線上應用程式商店的，你可以直接在擴展商店下載<a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">油猴Tampermonkey</a>，這邊就不演示怎麼安裝擴展了。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729741784.PNG" alt=""></p>
+<p>若你無法進入Chrome的應用商店，你可以試試在<a href="https://www.crx4chrome.com/">Crx4Chrome</a>搜索Tampermonkey，直接下載<a href="https://www.crx4chrome.com/crx/755/">油猴的CRX檔</a><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729695013.PNG" alt=""></p>
+<h3 id="crx檔的安裝方式">CRX檔的安裝方式</h3>
+<p>下載好擴展的CRX檔之後，打開瀏覽器輸入<code>chrome://extensions/</code>，將CRX檔拖入後啟用。</p>
+<p>【注：此處僅作範例，不是拿油猴擴展做示範。】<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729476817.PNG" alt=""></p>
+<h4 id="暴力安裝法">暴力安裝法</h4>
+<p>若是上方拖CRX檔安裝的方式仍然無法安裝，你可以嘗試把下載好的<code>xxx.crx</code>擴展名改為<code>xxx.zip</code><br>
+瀏覽器打開<code>chrome://extensions/</code>右上方按鈕開啟<code>開發人員模式</code>，將<code>xxx.zip</code>文件拖移進去即可。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575730900180.PNG" alt=""></p>
+<h2 id="安裝腳本">安裝腳本</h2>
+<ul>
+<li>在這邊推薦一個油猴腳本的網站：<a href="https://greasyfork.org/zh-CN">Greasy Fork</a><br>
+支持中文，依據多種排序方式列出腳本，且都有詳細介紹腳本功能..等，非常適合新手用來搜索需要的腳本。</li>
+<li>其他還有像是<a href="https://openuserjs.org/">OpenUserJS</a>、<a href="https://userscripts-mirror.org/">Userscripts.org</a>但這兩個網站都是全英文介面，如果你的英文能力足夠不妨也可以上去看看有沒有需要的腳本。</li>
+</ul>
+<ol>
+<li>找到需要的腳本之後點擊<code>安裝腳本</code>。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729959349.PNG" alt=""></li>
+<li>點擊<code>安裝</code>。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729964532.PNG" alt=""></li>
+<li>腳本安裝完畢之後在瀏覽器上方點擊油猴圖標，打開控制台。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575729983239.PNG" alt=""></li>
+<li>控制台-已安裝的腳本 可執行啟用、刪除、更新腳本...等操作。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575730060278.PNG" alt=""></li>
+<li>之後只要在有腳本適配的網站就能看見啟用的相對應腳本，你可以根據當前需求啟用或者關閉。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575730428350.PNG" alt=""></li>
+</ol>
+<h2 id="相關網站">相關網站</h2>
+<ul>
+<li><a href="https://www.tampermonkey.net/">油猴官網</a></li>
+<li><a href="https://www.crx4chrome.com/">Crx4Chrome</a></li>
+<li><a href="https://openuserjs.org/">OpenUserJS</a></li>
+<li><a href="https://userscripts-mirror.org/">Userscripts.org</a></li>
+<li><a href="https://greasyfork.org/zh-CN">Greasy Fork</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[用Chrome瀏覽器玩轉Youtube！影片、音頻下載、擷動圖、純音頻模式...]]></title>
+        <id>https://Z1Nhouse.github.io//post/TYUbUGb80</id>
+        <link href="https://Z1Nhouse.github.io//post/TYUbUGb80">
+        </link>
+        <updated>2019-12-07T14:02:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>事前聲明：會使用到Chrome擴展以及油猴腳本，非瀏覽器自帶。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>事前聲明：會使用到Chrome擴展以及油猴腳本，非瀏覽器自帶。</p>
+<!-- more -->
+<h2 id="chrome擴展">Chrome擴展</h2>
+<ul>
+<li><a href="https://chrome.google.com/webstore/detail/%C2%AByou-clever%C2%BB-%E2%80%94-videocombi/agdpdlplhmfgonalmdooaojempaoncmp">«You Clever» — videocombine for Youtube™</a></li>
+</ul>
+<p>功能：</p>
+<ol>
+<li>可擷取當前畫面高清圖片</li>
+<li>可隨時錄製GIF</li>
+<li>可切換成音頻模式</li>
+<li>最小化窗口</li>
+<li>自動全屏<br>
+....等，其他請自行查看介紹。</li>
+</ol>
+<ul>
+<li>純音頻模式<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575728408060.PNG" alt=""></li>
+<li>影片截圖<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575728410331.PNG" alt=""></li>
+<li>擷取GIF<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575728413290.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575728415817.PNG" alt=""><br>
+GIF效果<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575728398806.gif" alt=""></li>
+</ul>
+<h2 id="油猴腳本">油猴腳本</h2>
+<p>關於油猴擴展的使用方式我有寫過一篇文章，請參考<a href="https://z1nhouse.github.io/post/XmgX1Z_xP">Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！</a></p>
+<ul>
+<li>油猴官網：<a href="https://www.tampermonkey.net/">https://www.tampermonkey.net/</a></li>
+<li>油猴擴展:<a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW">https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW</a></li>
+</ul>
+<ol>
+<li>安裝好油猴擴展之後，打開<a href="https://greasyfork.org/zh-TW">油猴腳本分享站Greasy Fork</a></li>
+<li>搜索Youtube可以查到相關的腳本，依據個人需求安裝。(或者也可以使用我下方推薦的幾個腳本)</li>
+</ol>
+<p>在這邊推薦兩個腳本</p>
+<ul>
+<li>
+<p><a href="https://greasyfork.org/zh-TW/scripts/391134-%E9%9A%90%E8%97%8Fyoutube%E5%B9%BF%E5%91%8A-%E8%87%AA%E5%8A%A8%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BF%87%E5%B9%BF%E5%91%8A-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-%E5%85%8D%E8%B4%B9%E8%BF%98%E4%B8%8D%E9%99%90%E6%B5%81%E9%87%8F-%E4%B8%8Ayoutube%E7%9C%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A1080p-%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6%E6%9B%B4%E5%A4%9A%E7%A6%8F%E5%88%A9%E7%AD%89%E4%BD%A0%E6%9D%A5">隐藏youtube广告，自动点击跳过广告;科学上网，免费还不限流量。上youtube看视频稳定1080P。破解软件更多福利等你来！</a><br>
+功能：跳過煩人的廣告。</p>
+</li>
+<li>
+<p><a href="https://greasyfork.org/zh-TW/scripts/369418-the-best-youtube-downloader-download-video-mp4-avi-mp3-hd-1080p-2k-4k-8k">The best Youtube Downloader, download video MP4, AVI, MP3, HD, 1080P, 2K, 4k &amp; 8K</a><br>
+功能：下載MP4,AVI影片以及MP3音頻</p>
+</li>
+</ul>
+<blockquote>
+<p>安裝腳本後重開Youtube影片就可以看見影片下方有Download Video的按鈕，根據個人需求下載。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575728405047.png" alt=""></p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[將Visual Studio Code語言修改為繁體中文]]></title>
         <id>https://Z1Nhouse.github.io//post/UnHCMUvkF</id>
