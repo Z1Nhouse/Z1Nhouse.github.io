@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-07T08:00:33.142Z</updated>
+    <updated>2019-12-07T08:02:01.195Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -35,7 +35,7 @@
 <li>安裝成功之後重啟VS Code即可。</li>
 </ol>
 <h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：![https://github.com/Microsoft/vscode-tips-and-tricks]</p>
+<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
 ]]></content>
     </entry>
     <entry>
