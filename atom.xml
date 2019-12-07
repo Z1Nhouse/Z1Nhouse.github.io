@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-07T08:15:42.695Z</updated>
+    <updated>2019-12-07T08:16:24.419Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,44 +10,6 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
-    <entry>
-        <title type="html"><![CDATA[每日文章]]></title>
-        <id>https://Z1Nhouse.github.io//post/DzutOjUMy</id>
-        <link href="https://Z1Nhouse.github.io//post/DzutOjUMy">
-        </link>
-        <updated>2019-12-07T08:08:42.000Z</updated>
-        <content type="html"><![CDATA[<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<div class="Article">
-<h1>
-<ins class="article-title">標題</ins></h1>
-<cite class="article-author">作者</cite>
- <br />
-<blockquote>
-<div class="article-content">
-內文</div>
-</blockquote>
-</div>
-<button onclick="javascript:nextarticle();">Next</button>
-<script type="text/javascript">
- function nextarticle(){
-  getArticle();
- }
-<p>var title = &quot;標題&quot;;<br>
-var author = &quot;作者&quot;;<br>
-var content = &quot;內文&quot;;</p>
-<p>var getArticle = function(){<br>
-$.getJSON(&quot;https://interface.meiriyiwen.com/article/random?dev=1&quot;,function(json){<br>
-title = json.data.title;    //標題<br>
-author = json.data.author;        //作者<br>
-content = json.data.content;      //內容</p>
-<p>$(&quot;.article-content&quot;).html(content);<br>
-$(&quot;.article-author&quot;).html(author);<br>
-$(&quot;.article-title&quot;).html(title);<br>
-});<br>
-}<br>
-</script></p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[將Visual Studio Code語言修改為繁體中文]]></title>
         <id>https://Z1Nhouse.github.io//post/UnHCMUvkF</id>
