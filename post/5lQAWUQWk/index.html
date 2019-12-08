@@ -1,86 +1,119 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
- <head>
-     <meta charset="utf-8" />
-  <title>【資料結構】平衡搜索樹 - 紅黑樹、B樹(2-3,2-3-4樹)、B+樹 | Z1N&#39;s house</title>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-  <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
- </head>
- <body>
-     <div class="sidebar animated fadeInDown">
-   <div class="logo-title">
-    <div class="title">
-     <img src="https://Z1Nhouse.github.io//images/avatar.png?v=1575815421250" style="width:127px;" />
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>【資料結構】平衡搜索樹 - 紅黑樹、B樹(2-3,2-3-4樹)、B+樹 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Hello,World!");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1575815587498">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
 
-     <div class="description">
-      <p>System.out.print("Hello,World!");</p>
-     </div>
-    </div>
-   </div>
-   <ul class="social-links">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1575815587498" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Hello,World!");
+  </p>
+  <div class="menu-container">
     
-
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
     
-
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
     
-
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
     
-
+      
+        <a href="/post/about" class="menu">
+          關於
+        </a>
+      
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-   </ul>
-   <div class="footer">
-    <div class="by_farbox">
-   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-    </div>
-    
-
-    </div>
-   </div>
   </div>
-  <div class="main">
-     <div class="page-top animated fadeInDown">
-    <div class="nav">
+  <div class="social-container">
     
-     <li><a  href="/">首頁</a></li>
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
 
-     <li><a  href="/archives">歸檔</a></li>
-
-     <li><a  href="/tags">標籤</a></li>
-
-     <li><a  href="/post/about">關於</a></li>
-
-    </div>
-    <div class="information">
-     <div class="back_btn">
-      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
-     </div>
-    </div>
-   </div>
-   <div class="autopagerize_page_element">
-    <div class="content">
-     <div class="post-page">
-      <div class="post animated fadeInDown">
-       <div class="post-title">
-        <h3><a>【資料結構】平衡搜索樹 - 紅黑樹、B樹(2-3,2-3-4樹)、B+樹</a></h3>
-       </div>
-       <div class="post-content">
-        <p>2-3樹與2-3-4樹為B樹的特例，所以特別拿出來細講。<br>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              【資料結構】平衡搜索樹 - 紅黑樹、B樹(2-3,2-3-4樹)、B+樹
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-08
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/kIcUV8jTk" class="post-tag">
+                  # B樹
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/QsaVuSwBl_" class="post-tag">
+                  # B+樹
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/pko_REMGZy" class="post-tag">
+                  # 資料結構
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/6KnFtkOxpu" class="post-tag">
+                  # 紅黑樹
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/VshjHIcuPM" class="post-tag">
+                  # 平衡搜索樹
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/5lQAWUQWk.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>2-3樹與2-3-4樹為B樹的特例，所以特別拿出來細講。<br>
 今天主要講解的內容包括：2-3樹、2-3-4樹、紅黑樹、B樹、B+樹。</p>
 <!-- more -->
 <h2 id="何謂平衡搜索樹">何謂「平衡搜索樹」？</h2>
@@ -302,47 +335,57 @@
 </ul>
 <p>就這樣~</p>
 
-       </div>
-       <div class="post-footer">
-        <div class="meta">
-         <div class="info">
-          <i class="fa fa-sun-o"></i>
-          <span class="date">2019-12-08</span>
-          <i class="fa fa-tag"></i>
-          
-          <a class="tag" href="https://Z1Nhouse.github.io//tag/kIcUV8jTk" title="B樹">B樹 </a>
-          
-          <a class="tag" href="https://Z1Nhouse.github.io//tag/QsaVuSwBl_" title="B+樹">B+樹 </a>
-          
-          <a class="tag" href="https://Z1Nhouse.github.io//tag/pko_REMGZy" title="資料結構">資料結構 </a>
-          
-          <a class="tag" href="https://Z1Nhouse.github.io//tag/6KnFtkOxpu" title="紅黑樹">紅黑樹 </a>
-          
-          <a class="tag" href="https://Z1Nhouse.github.io//tag/VshjHIcuPM" title="平衡搜索樹">平衡搜索樹 </a>
-          
-         </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BD%95%E8%AC%82%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A8%B9">何謂「平衡搜索樹」？</a></li>
+<li><a href="#%E5%B0%88%E6%A5%AD%E8%A1%93%E8%AA%9E">專業術語</a></li>
+<li><a href="#2-3%E6%A8%B9">2-3樹</a>
+<ul>
+<li><a href="#2-3%E6%A8%B9%E7%9A%84%E5%85%83%E7%B4%A0%E6%96%B0%E5%A2%9E">2-3樹的元素新增</a></li>
+<li><a href="#2-3%E6%A8%B9%E7%9A%84%E5%85%83%E7%B4%A0%E5%88%AA%E9%99%A4">2-3樹的元素刪除</a></li>
+</ul>
+</li>
+<li><a href="#2-3-4%E6%A8%B9">2-3-4樹</a>
+<ul>
+<li><a href="#2-3-4%E6%A8%B9%E7%9A%84%E5%85%83%E7%B4%A0%E6%96%B0%E5%A2%9E">2-3-4樹的元素新增</a></li>
+<li><a href="#2-3-4%E6%A8%B9%E7%9A%84%E5%85%83%E7%B4%A0%E5%88%AA%E9%99%A4">2-3-4樹的元素刪除</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BA%A2%E9%BB%91%E6%A8%B9redblack-tree">红黑樹(Red–black tree)</a>
+<ul>
+<li><a href="#2-3-4%E6%A8%B9%E8%BD%89%E6%8F%9B%E6%88%90%E7%BA%A2%E9%BB%91%E6%A8%B9">2-3-4樹轉換成红黑樹</a></li>
+</ul>
+</li>
+<li><a href="#b%E6%A8%B9b-tree">B樹(B-tree)</a></li>
+<li><a href="#b%E6%A8%B9">B+樹</a>
+<ul>
+<li><a href="#b%E6%A8%B9%E7%9A%84%E5%85%83%E7%B4%A0%E6%96%B0%E5%A2%9E">B+樹的元素新增</a></li>
+<li><a href="#b%E6%A8%B9%E7%9A%84%E5%85%83%E7%B4%A0%E5%88%AA%E9%99%A4">B+樹的元素刪除</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
-       </div>
-      </div>
-      <div class="share">
-       <div class="evernote">
-        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
-       </div>
-       <div class="weibo">
-        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
-       </div>
-       <div class="twitter">
-        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://Z1Nhouse.github.io//post/5lQAWUQWk,;"></a>
-       </div>
-      </div>
-      <div class="pagination">
-       <ul class="clearfix">
 
         
-        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://Z1Nhouse.github.io//post/XmgX1Z_xP" title=" Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！">下一篇</a></li>
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/XmgX1Z_xP">
+              <h3 class="post-title">
+                Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！
+              </h3>
+            </a>
+          </div>
         
-       </ul>
-      </div>
+
         
           
             <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
@@ -367,16 +410,57 @@
 </script>
 
           
+
           
         
-     </div>
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
     </div>
-   </div>
-  </div>
-  <script src="https://Z1Nhouse.github.io//media/scripts/jquery.js"></script>
-  <script src="https://Z1Nhouse.github.io//media/scripts/jquery-migrate-1.2.1.min.js"></script>
-  <script src="https://Z1Nhouse.github.io//media/scripts/jquery.appear.js"></script>
-
-
- </body>
+  </body>
 </html>
