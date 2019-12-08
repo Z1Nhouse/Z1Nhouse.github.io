@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-08T11:36:43.339Z</updated>
+    <updated>2019-12-08T11:54:59.506Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -204,7 +204,8 @@
 <li>所有葉節點鏈結成一個單鏈表(由小到大)。</li>
 </ol>
 <p>B+樹示意圖(此處的關鍵字代表元素)<br>
-<img src="https://images2018.cnblogs.com/blog/834468/201804/834468-20180406232853119-1460626460.png" alt="圖片來源nullzx"></p>
+<img src="https://images2018.cnblogs.com/blog/834468/201804/834468-20180406232853119-1460626460.png" alt=""><br>
+圖片來源nullzx</p>
 <h3 id="b樹的元素新增">B+樹的元素新增</h3>
 <p>假設今天有一筆資料<code>{33,21,11,4,66,77,32,56}</code>，而此B+樹為3階。</p>
 <p>首先加入資料33,21。<br>
