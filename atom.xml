@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-09T14:02:03.667Z</updated>
+    <updated>2019-12-09T14:13:06.227Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -57,9 +57,15 @@ MSYS2是構建Ruby的本機C / C ++擴展所必需的，而Ruby on Rails則是�
 <p>全部安裝完畢之後打開命令提示字元(cmd)輸入<code>ruby -v</code>測試一下安裝結果。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1575898210252.PNG" alt=""><br>
 至此為止，Ruby執行環境已經成功安裝。</p>
+<p><strong>PS.不知道什麼是cmd的話可以參考這篇文章<a href="https://lnpcd.blogspot.com/2012/07/01.html">命令提示字元 01：基本常識</a></strong></p>
+<h3 id="撰寫及執行第一支ruby程式">撰寫及執行第一支Ruby程式</h3>
 <p>打開編輯器，或是最基本的記事本，輸入指令<code>puts &quot;Hello World</code>並存成.rb副檔，打開cmd指向rb檔的位置，並輸入<code>ruby 檔名.rb</code>執行剛剛的程式。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1575898496288.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898552926.PNG" alt=""></p>
+<img src="https://Z1Nhouse.github.io//post-images/1575898552926.PNG" alt=""><br>
+當然你也可以使用Interactive Ruby(IRB)來輸出Hello World。</p>
+<p><strong>執行Ruby的方式可以參考下圖(圖片來源<a href="https://www.youtube.com/watch?v=ox42ZmkiZ5k">Joey Chen</a>)</strong><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575900721236.png" alt=""><br>
+注：終端機是Linux系統的叫法，和Windows系統的命令提示字元是一樣的東西。</p>
 <h3 id="interactive-ruby是什麼">Interactive Ruby是什麼？</h3>
 <p>在本地搜索Ruby可以搜索到Interactive Ruby，這是Ruby的指令互動環境，初學者只要知道這是可以讓你即時看到執行 Ruby 敘述的結果的程式就行。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1575898246633.png" alt=""></p>
