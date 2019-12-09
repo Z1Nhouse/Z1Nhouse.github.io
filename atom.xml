@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-09T14:16:22.046Z</updated>
+    <updated>2019-12-09T14:53:27.285Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -23,12 +23,20 @@
 •精巧、⾃然的語法<br>
 •創造者 Yukihiro Matsumoto, a.k.a. Matz<br>
 　　•靈感來來⾃自 Lisp, Perl, 和 Smalltalk</p>
-<p>Ruby 是動態強分型語⾔<br>
-•動態 Dynamic v.s. 靜態 Static typing<br>
-•Ruby/Perl/Python/PHP v.s. Java/C/C++<br>
-•強 Strong v.s. 弱 Weak typing<br>
+<p>Ruby 是動態強分型語⾔：</p>
+<p>•動態 Dynamic v.s. 靜態 Static typing<br>
+•Ruby/Perl/Python/PHP v.s. Java/C/C++</p>
+<p>•強 Strong v.s. 弱 Weak typing<br>
 •Ruby/Perl/Python/Java v.s. PHP/C/C++<br>
 <img src="https://Z1Nhouse.github.io//post-images/1575899848194.PNG" alt="ihower-ruby-intro"></p>
+<p>錯誤<br>
+<code>&quot;test&quot; + 1</code><br>
+原因：整數跟字串無法加在一起</p>
+<p>正確</p>
+<ul>
+<li><code>1 + 2</code></li>
+<li><code>&quot;test&quot; + &quot;demo&quot;</code></li>
+</ul>
 <h3 id="什麼是直譯式語言interpretive">什麼是直譯式語言(interpretive)？</h3>
 <p>是一種程式語言類型。這種類型的程式語言，會將程式碼一句一句直接執行，不需要像編譯語言（Compiled language）一樣，經過編譯器先行編譯為機器碼，之後再執行。這種程式語言需要利用直譯器，在執行期，動態將程式碼逐句直譯（interpret）為機器碼，或是已經預先編譯為機器碼的的子程式，之後再執行。</p>
 <figure data-type="image" tabindex="1"><img src="https://miro.medium.com/max/1447/1*WcRVXaudAW6Hb8TYqt4iCw.jpeg" alt="Walk Out 技術共筆"></figure>
@@ -77,7 +85,6 @@ puts 總是回傳 nil，nil 在 Ruby 中表示一個絕對的空值。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1575898316685.PNG" alt=""></p>
 </blockquote>
 <p>關於irb與ruby可以參考這篇文章：<a href="https://openhome.cc/Gossip/Ruby/IrbRubyUtility.html">https://openhome.cc/Gossip/Ruby/IrbRubyUtility.html</a></p>
-<p>順帶一提，IDE的部分我是使用Visual Studio Code，不知道什麼是IDE可以看看<a href="https://zh.wikipedia.org/wiki/%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">維基百科</a>。</p>
 <h2 id="推薦ruby學習網站">推薦Ruby學習網站</h2>
 <ul>
 <li>笨方法學Ruby：<a href="http://lrthw.github.io/intro/">http://lrthw.github.io/intro/</a></li>
