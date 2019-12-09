@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ruby 程式語言入門 - 安裝運行環境 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Hello,World!");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1575898790084">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1575898790084" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Hello,World!");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          關於
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Ruby 程式語言入門 - 安裝運行環境
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-09
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/YPvF7NWVX" class="post-tag">
+                  # ruby
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/g02aQkq5Z.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>之所以開始著手寫這個系列是因為想學Ruby on Rails，但是在學Ruby on Rails之前必須先了解Ruby，那就邊學習邊作筆記順便寫成文章，若學習過程中遇到的任何困難處也可以分享出來給更多的初學者，以避開一些坑，那麼今天要教的是Ruby的環境安裝，保證無論是否有程式基礎的人都可以輕鬆學會(只要你有過使用電腦的經驗...)，那麼廢話不多說直接開始吧。</p>
+<h2 id="何謂ruby">何謂Ruby？</h2>
+<p>Ruby是一種直譯式語言(interpretive)。它的靈感與特性來自於Perl、Smalltalk、Eiffel、Ada以及Lisp語言。由Ruby語言本身還發展出了JRuby（Java平台）、IronRuby（.NET平台）等其他平台的Ruby語言替代品。</p>
+<h3 id="什麼是直譯式語言interpretive">什麼是直譯式語言(interpretive)？</h3>
+<blockquote>
+<p>直譯語言是一種程式語言類型。在執行時會一行一行的動態將程式碼直譯(interpret)為機器碼，並執行。直譯語言多半以動態語言(dynamic language)為主，具有靈活的型別處理，動態生成與程式彈性，但速度會比編譯式語言要慢一些。<br>
+理論上，任何程式語言都可以是編譯式，或直譯式的。它們之間的區別，僅與程式的應用有關。許多程式語言同時採用編譯器與直譯器來實作，其中包括Lisp，Pascal，C，BASIC 與 Python。JAVA及C#採用混合方式，先將程式碼編譯為位元組碼，在執行時再進行直譯。<br>
+---<a href="https://zh.wikipedia.org/wiki/%E7%9B%B4%E8%AD%AF%E8%AA%9E%E8%A8%80">維基百科</a></p>
+</blockquote>
+<p>直譯語言如 — JavaScript、Python、Ruby等等。</p>
+<h2 id="ruby安裝">Ruby安裝</h2>
+<ul>
+<li>下載<a href="https://rubyinstaller.org/downloads/archives/">Ruby直譯器</a></li>
+</ul>
+<p>由於我是Windows10 x64，故之後所有的文章都是以Win10作為示範，若你是Linux或macOS系統可以使用第三方工具rbenv或RVM安裝。<br>
+目前最新的穩定版本是2.6.5。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575897803782.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575897806647.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575897809776.PNG" alt=""></p>
+<p>這邊提醒一下，建議下載Ruby+Devkit版本，原因如下：</p>
+<blockquote>
+<p>Ruby 2.4.0及更高版本使用MSYS2工具鏈作為開發套件。它作為可選組件捆綁到Ruby + Devkit安裝程序版本中，因此不需要其他下載/安裝。使用不帶Devkit版本的Ruby時，可以通過運行單獨安裝MSYS2 Devkit ridk install。<br>
+MSYS2是構建Ruby的本機C / C ++擴展所必需的，而Ruby on Rails則是必需的。而且，它允許下載和使用Ruby gems可以依賴的數百個開源庫。</p>
+</blockquote>
+<p>安裝好之後進行安裝，傻瓜式安裝步驟不做演示，記得勾選把Ruby執行檔的位置加到系統的環境變數中。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898070819.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898073239.PNG" alt=""><br>
+安裝Finish之後會自動幫你安裝MSYS2，安裝過程全程ENTER即可。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898103882.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898212922.PNG" alt=""></p>
+<p>全部安裝完畢之後打開命令提示字元(cmd)輸入<code>ruby -v</code>測試一下安裝結果。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898210252.PNG" alt=""><br>
+至此為止，Ruby執行環境已經成功安裝。</p>
+<p>打開編輯器，或是最基本的記事本，輸入指令<code>puts &quot;Hello World</code>並存成.rb副檔，打開cmd指向rb檔的位置，並輸入<code>ruby 檔名.rb</code>執行剛剛的程式。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898496288.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898552926.PNG" alt=""></p>
+<h3 id="interactive-ruby是什麼">Interactive Ruby是什麼？</h3>
+<p>在本地搜索Ruby可以搜索到Interactive Ruby，這是Ruby的指令互動環境，初學者只要知道這是可以讓你即時看到執行 Ruby 敘述的結果的程式就行。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898246633.png" alt=""></p>
+<p>輸入<code>puts &quot;Hello World&quot;</code>輸出Hello World。</p>
+<blockquote>
+<p>puts 是 Ruby 的基本輸出指令。<br>
+=&gt; nil則是那一行敘述的執行結果。<br>
+puts 總是回傳 nil，nil 在 Ruby 中表示一個絕對的空值。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1575898316685.PNG" alt=""></p>
+</blockquote>
+<p>關於irb與ruby可以參考這篇文章：<a href="https://openhome.cc/Gossip/Ruby/IrbRubyUtility.html">https://openhome.cc/Gossip/Ruby/IrbRubyUtility.html</a></p>
+<p>順帶一提，IDE的部分我是使用Visual Studio Code，不知道什麼是IDE可以看看<a href="https://zh.wikipedia.org/wiki/%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">維基百科</a>。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BD%95%E8%AC%82ruby">何謂Ruby？</a>
+<ul>
+<li><a href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E7%9B%B4%E8%AD%AF%E5%BC%8F%E8%AA%9E%E8%A8%80interpretive">什麼是直譯式語言(interpretive)？</a></li>
+</ul>
+</li>
+<li><a href="#ruby%E5%AE%89%E8%A3%9D">Ruby安裝</a>
+<ul>
+<li><a href="#interactive-ruby%E6%98%AF%E4%BB%80%E9%BA%BC">Interactive Ruby是什麼？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/5lQAWUQWk">
+              <h3 class="post-title">
+                【資料結構】平衡搜索樹 - 紅黑樹、B樹(2-3,2-3-4樹)、B+樹
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
