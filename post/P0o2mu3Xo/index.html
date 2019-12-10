@@ -1,0 +1,473 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ruby 程式語言入門 - 基本數字計算與輸出 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Hello,World!");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1575994976883">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1575994976883" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Hello,World!");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          關於
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Ruby 程式語言入門 - 基本數字計算與輸出
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-10
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/YPvF7NWVX" class="post-tag">
+                  # ruby
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/P0o2mu3Xo.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>在Ruby中，當想要將變數值、陣列之類的值印出時，可以使用<code>print</code>、<code>puts</code>及<code>p</code>等方法，而這三者之間的效果都有些微不同。</p>
+<pre><code>puts &quot;Hello World&quot;
+print &quot;Hello World&quot;
+p &quot;Hello World&quot;
+</code></pre>
+<h2 id="print-puts-p輸出方式的差異">print、puts、p輸出方式的差異</h2>
+<p><strong>puts</strong></p>
+<pre><code>irb(main):001:0&gt; puts &quot;Hello World&quot;
+Hello World
+=&gt; nil
+
+irb(main):008:0&gt; puts [1,2,3,4]
+1
+2
+3
+4
+=&gt; nil
+</code></pre>
+<p><strong>print</strong></p>
+<pre><code>irb(main):002:0&gt; print &quot;Hello World&quot;
+Hello World=&gt; nil
+
+irb(main):007:0&gt; print [1,2,3,4]
+[1, 2, 3, 4]=&gt; nil
+</code></pre>
+<p><strong>p</strong></p>
+<pre><code>irb(main):003:0&gt; p &quot;Hello World&quot;
+&quot;Hello World&quot;
+=&gt; &quot;Hello World&quot;
+
+irb(main):006:0&gt; p [1,2,3,4]
+[1, 2, 3, 4]
+=&gt; [1, 2, 3, 4]
+</code></pre>
+<p>由上方的例子可以得知：</p>
+<ul>
+<li><code>p</code>與<code>puts</code>後方有換行字元。</li>
+<li><code>puts</code>與<code>print</code>兩者都是沒有回傳值的輸出。</li>
+<li><code>p</code>與<code>print</code>方法可以完整的把型態跟結構印出來，例如 &quot;Hello World&quot; 字串以及 [1, 2, 3] 陣列，而 <code>puts</code> 則是把「內容物」印出來。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1575992556914.png" alt="圖片來源icelandcheng"></figure>
+<p>值得一提的是，<code>puts</code>搭配inspect也可以做到類似<code>p</code>方法的效果，但依舊沒有回傳值。</p>
+<pre><code>irb(main):004:0&gt; puts &quot;Hello World&quot;.inspect
+&quot;Hello World&quot;
+=&gt; nil
+
+irb(main):005:0&gt; puts [1,2,3,4].inspect
+[1, 2, 3, 4]
+=&gt; nil
+</code></pre>
+<h2 id="單雙引號和跳脫字元的使用">單雙引號和跳脫字元的使用</h2>
+<ul>
+<li><strong>字串可以使用單雙引號輸出：</strong></li>
+</ul>
+<p>例如：</p>
+<pre><code>irb(main):013:0&gt; puts 'Hello World'
+Hello World
+=&gt; nil
+
+irb(main):014:0&gt; puts &quot;Hello World&quot;
+Hello World
+=&gt; nil
+</code></pre>
+<ul>
+<li><strong>跳脫字元的使用</strong></li>
+</ul>
+<p>當你程式碼寫</p>
+<pre><code>puts &quot;Hello &quot;World&quot;&quot; 
+</code></pre>
+<p>會產生下方錯誤訊息：</p>
+<pre><code>test.rb:29: syntax error, unexpected tCONSTANT, expecting end-of-input
+puts &quot;Hello &quot;World&quot;&quot; 
+</code></pre>
+<p>你可以使用<code>\</code>來做跳脫字元，在字串內的雙引號使用<code>\</code>來隔開。</p>
+<pre><code>irb(main):011:0&gt; puts 'You\'re smart'
+You're smart
+=&gt; nil
+
+irb(main):012:0&gt; puts &quot;Hello \&quot;World\&quot;&quot;
+Hello &quot;World&quot;
+=&gt; nil
+</code></pre>
+<ul>
+<li><strong>字串之間可以使用<code>+</code>號相連</strong></li>
+</ul>
+<pre><code>irb(main):009:0&gt; puts &quot;Hello &quot;+&quot;World&quot;
+Hello World
+=&gt; nil
+
+irb(main):010:0&gt; puts 'Hello '+'World'
+Hello World
+=&gt; nil
+</code></pre>
+<h2 id="簡單的計算功能">簡單的計算功能</h2>
+<p>注意：使用<code>#</code>可以寫註解。</p>
+<h3 id="常用的運算符號">常用的運算符號</h3>
+<pre><code>+ 加號 
+- 減號 
+/ 除號 
+* 乘號 
+% 取餘數 
+&lt; 小於符號 
+&gt; 大於符號 
+&lt;= 小於等於符號 
+&gt;= 大於等於號
+</code></pre>
+<h3 id="簡單的加減乘除">簡單的加減乘除</h3>
+<p>下方做簡單的運算和演示：</p>
+<pre><code>#加法
+irb(main):015:0&gt; puts 2+3
+5
+=&gt; nil
+
+#減法
+irb(main):016:0&gt; puts 2-6
+-4
+=&gt; nil
+
+#負數減法
+irb(main):017:0&gt; puts 2.33-6
+-3.67
+=&gt; nil
+
+#乘法
+irb(main):018:0&gt; puts 3*2
+6
+=&gt; nil
+
+#除法
+irb(main):019:0&gt; puts 66/3
+22
+=&gt; nil
+
+#計算
+irb(main):043:0&gt; puts 3 + 1 % 4 - 2 / 3 + 9
+13
+=&gt; nil
+
+#判斷
+irb(main):041:0&gt; 5&gt;3
+=&gt; true
+
+irb(main):042:0&gt; 3&lt;1
+=&gt; false
+
+#使用逗號將字串與運算式連接
+irb(main):040:0&gt; puts &quot;237&quot; , 23*2 + 4/5
+237
+46
+=&gt; nil
+
+irb(main):045:0&gt; print &quot;12&quot;,34
+1234=&gt; nil
+</code></pre>
+<h3 id="次方與開根號">次方與開根號</h3>
+<p>若想使用n次方可以使用<code>值**次方</code>，如：</p>
+<pre><code>irb(main):020:0&gt; puts 3**3
+27
+=&gt; nil
+</code></pre>
+<p>若想使用開根號可以使用<code>Math.sqrt(值)</code>，如：</p>
+<pre><code>irb(main):021:0&gt; puts Math.sqrt(6)
+2.449489742783178
+=&gt; nil
+</code></pre>
+<h3 id="浮點數轉換">浮點數轉換</h3>
+<p>除法方面，若今天直接使用整數除法運算若有餘數會取下限值，想要得到餘數結果可以在除數或者被除數後方加上<code>.0</code>變成浮點數的型態，或者使用<code>.to_f</code>轉換成浮點數。</p>
+<pre><code>irb(main):022:0&gt; puts 36/3
+12
+=&gt; nil
+
+irb(main):023:0&gt; puts 38/3
+12
+=&gt; nil
+
+irb(main):024:0&gt; puts 37.0/3
+12.333333333333334
+=&gt; nil
+
+irb(main):025:0&gt; puts 37/3.0
+12.333333333333334
+=&gt; nil
+
+irb(main):026:0&gt; puts 37.to_f/3
+12.333333333333334
+=&gt; nil
+</code></pre>
+<h3 id="四捨五入與絕對值">四捨五入與絕對值</h3>
+<p>使用<code>.round</code>可以做到四捨五入的效果，而在<code>.round(值)</code>中輸入值可以呈現出取到小數幾位的效果。</p>
+<pre><code>irb(main):027:0&gt; puts 77.222222.round
+77
+=&gt; nil
+
+irb(main):028:0&gt; puts 77.555555.round
+78
+=&gt; nil
+
+irb(main):029:0&gt; puts 77.2353.round(3)
+77.235
+=&gt; nil
+</code></pre>
+<p>使用<code>.abs</code>可以取絕對值</p>
+<pre><code>irb(main):035:0&gt; puts -5.abs
+5
+=&gt; nil
+</code></pre>
+<h2 id="字串-整數-浮點數轉換">字串、整數、浮點數轉換</h2>
+<p>使用<code>.to_s</code>可以轉換為字串型態，使用<code>.to_i</code>可以轉換為整數型態，使用<code>.to_f</code>可以轉換為浮點數型態，<br>
+依靠這種轉換就可以達到許多神奇的效果。</p>
+<pre><code>irb(main):031:0&gt; puts 23.to_s
+23
+=&gt; nil
+
+irb(main):032:0&gt; puts &quot;21r&quot;.to_i
+21
+=&gt; nil
+
+irb(main):033:0&gt; puts &quot;21r&quot;.to_i+3
+24
+=&gt; nil
+
+irb(main):034:0&gt; puts 23.to_s + &quot;happy&quot;
+23happy
+=&gt; nil
+</code></pre>
+<h2 id="字串內插">字串內插</h2>
+<p>使用 <code>#{變數名稱}</code> 可以插入字串。</p>
+<pre><code>#學而不思則罔，思而不學則殆
+#Learning without thinking is vain; thinking without learning is perilous. 
+
+a = &quot;Learning&quot;
+b = &quot;thinking&quot;
+puts &quot;#{a} without #{b} is vain; #{b} without #{a} is perilous.&quot; 
+</code></pre>
+<p>輸出結果：</p>
+<pre><code>$ ruby calculate.rb
+Learning without thinking is vain; thinking without Learning is perilous.
+</code></pre>
+<h2 id="更多字串方法">更多字串方法</h2>
+<p>還有反向<code>reverse</code>、輸出字串長度<code>length</code>、大寫<code>upcase</code>、小寫<code>downcase</code>....等方法</p>
+<pre><code>irb(main):036:0&gt; puts &quot;TWICE&quot;.reverse
+ECIWT
+=&gt; nil
+
+irb(main):037:0&gt; puts &quot;TWICE&quot;.length
+5
+=&gt; nil
+
+irb(main):038:0&gt; puts &quot;twice&quot;.upcase
+TWICE
+=&gt; nil
+
+irb(main):039:0&gt; puts &quot;Twice&quot;.downcase
+twice
+=&gt; nil
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#print-puts-p%E8%BC%B8%E5%87%BA%E6%96%B9%E5%BC%8F%E7%9A%84%E5%B7%AE%E7%95%B0">print、puts、p輸出方式的差異</a></li>
+<li><a href="#%E5%96%AE%E9%9B%99%E5%BC%95%E8%99%9F%E5%92%8C%E8%B7%B3%E8%84%AB%E5%AD%97%E5%85%83%E7%9A%84%E4%BD%BF%E7%94%A8">單雙引號和跳脫字元的使用</a></li>
+<li><a href="#%E7%B0%A1%E5%96%AE%E7%9A%84%E8%A8%88%E7%AE%97%E5%8A%9F%E8%83%BD">簡單的計算功能</a>
+<ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E9%81%8B%E7%AE%97%E7%AC%A6%E8%99%9F">常用的運算符號</a></li>
+<li><a href="#%E7%B0%A1%E5%96%AE%E7%9A%84%E5%8A%A0%E6%B8%9B%E4%B9%98%E9%99%A4">簡單的加減乘除</a></li>
+<li><a href="#%E6%AC%A1%E6%96%B9%E8%88%87%E9%96%8B%E6%A0%B9%E8%99%9F">次方與開根號</a></li>
+<li><a href="#%E6%B5%AE%E9%BB%9E%E6%95%B8%E8%BD%89%E6%8F%9B">浮點數轉換</a></li>
+<li><a href="#%E5%9B%9B%E6%8D%A8%E4%BA%94%E5%85%A5%E8%88%87%E7%B5%95%E5%B0%8D%E5%80%BC">四捨五入與絕對值</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AD%97%E4%B8%B2-%E6%95%B4%E6%95%B8-%E6%B5%AE%E9%BB%9E%E6%95%B8%E8%BD%89%E6%8F%9B">字串、整數、浮點數轉換</a></li>
+<li><a href="#%E5%AD%97%E4%B8%B2%E5%85%A7%E6%8F%92">字串內插</a></li>
+<li><a href="#%E6%9B%B4%E5%A4%9A%E5%AD%97%E4%B8%B2%E6%96%B9%E6%B3%95">更多字串方法</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/g02aQkq5Z">
+              <h3 class="post-title">
+                Ruby 程式語言入門 - 安裝運行環境
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
