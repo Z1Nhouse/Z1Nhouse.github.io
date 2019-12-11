@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-11T15:15:04.832Z</updated>
+    <updated>2019-12-11T15:21:48.558Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -146,7 +146,7 @@ soup = BeautifulSoup(res.text, 'html.parser')
 </ul>
 <h3 id="安裝方法">安裝方法</h3>
 <p>安裝及使用教程<a href="https://2.python-requests.org//zh_CN/latest/user/install.html#install">官方網站</a>也有詳細的說明，這邊就簡單提一下。</p>
-<p>你只需要打開終端運行指令即可安裝，例如在Jupyter Notebook的首頁找到<code>New - Terminal</code>打開終端機，透過在終端機輸入指令來安裝requests：</p>
+<p>你只需要打開終端運行指令即可安裝，例如在Jupyter Notebook的首頁找到<code>New - Terminal</code>打開終端，透過在終端輸入指令來安裝requests：</p>
 <pre><code>pip install requests
 </code></pre>
 <p><img src="https://Z1Nhouse.github.io//post-images/1576072544945.png" alt=""><br>
