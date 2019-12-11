@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>用Chrome瀏覽器玩轉Youtube！影片、音頻下載、擷動圖、純音頻模式... | Z1N&#39;s house</title>
+<title>初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Hello,World!");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1576076802792">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -77,101 +77,112 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              用Chrome瀏覽器玩轉Youtube！影片、音頻下載、擷動圖、純音頻模式...
+              初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package
             </h2>
             <div class="post-info">
               <span>
-                2019-12-07
+                2019-12-11
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/AsDU9VKmg" class="post-tag">
-                  # 油猴
+                <a href="https://Z1Nhouse.github.io//tag/hjQflVP_Uf" class="post-tag">
+                  # python
                 </a>
               
-                <a href="https://Z1Nhouse.github.io//tag/9JocazGNux" class="post-tag">
-                  # chrome擴展
+                <a href="https://Z1Nhouse.github.io//tag/NfH4Wu_XQT" class="post-tag">
+                  # 爬蟲
                 </a>
               
-                <a href="https://Z1Nhouse.github.io//tag/3DTITsv3-p" class="post-tag">
-                  # Youtube
+                <a href="https://Z1Nhouse.github.io//tag/iUU4umdC52" class="post-tag">
+                  # Jupyter notebook
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/TYUbUGb80.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/3qgNl3ySw.png" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>事前聲明：會使用到Chrome擴展以及油猴腳本，非瀏覽器自帶。</p>
+                <p>上一篇：<a href="https://z1nhouse.github.io/post/lh0yq_CsU/">初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用</a></p>
+<p>今天會需要用到兩個package：</p>
+<ul>
+<li>Requests</li>
+<li>BeautifulSoup</li>
+</ul>
 <!-- more -->
-<h2 id="chrome擴展">Chrome擴展</h2>
+<h2 id="requests">Requests</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576073717730.png" alt=""><br>
+如果想要使用 Python 來下載網頁上的資料，最基本的作法就是以 requests 模組建立適當的 HTTP 請求，透過 HTTP 請求從網頁伺服器下載指定的資料。</p>
+<p>Requests 是以 PEP 20 的箴言為中心開發的</p>
 <ul>
-<li><a href="https://chrome.google.com/webstore/detail/%C2%AByou-clever%C2%BB-%E2%80%94-videocombi/agdpdlplhmfgonalmdooaojempaoncmp">«You Clever» — videocombine for Youtube™</a></li>
+<li>Beautiful is better than ugly.(美麗優於醜陋)</li>
+<li>Explicit is better than implicit.(直白優於含蓄)</li>
+<li>Simple is better than complex.(簡單優於復雜)</li>
+<li>Complex is better than complicated.(複雜優於繁瑣)</li>
+<li>Readability counts.(可讀性很重要)</li>
 </ul>
-<p>功能：</p>
-<ol>
-<li>可擷取當前畫面高清圖片</li>
-<li>可隨時錄製GIF</li>
-<li>可切換成音頻模式</li>
-<li>最小化窗口</li>
-<li>自動全屏<br>
-....等，其他請自行查看介紹。</li>
-</ol>
+<h3 id="功能特性">功能特性</h3>
+<p>Requests 完全滿足今日 web 的需求。</p>
 <ul>
-<li>純音頻模式<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728408060.PNG" alt=""></li>
-<li>影片截圖<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728410331.PNG" alt=""></li>
-<li>擷取GIF<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728413290.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728415817.PNG" alt=""><br>
-GIF效果<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728398806.gif" alt=""></li>
+<li>Keep-Alive &amp; 連接池</li>
+<li>國際化域名和 URL</li>
+<li>帶持久 Cookie 的會話</li>
+<li>瀏覽器式的 SSL 認證</li>
+<li>自動內容解碼</li>
+<li>基本/摘要式的身份認證</li>
+<li>優雅的 key/value Cookie</li>
+<li>自動解壓</li>
+<li>Unicode 響應體</li>
+<li>HTTP(S) 代理支持</li>
+<li>文件分塊上傳</li>
+<li>流下載</li>
+<li>連接超時</li>
+<li>分塊請求</li>
+<li>支持 .netrc</li>
 </ul>
-<h2 id="油猴腳本">油猴腳本</h2>
-<p>關於油猴擴展的使用方式我有寫過一篇文章，請參考<a href="https://z1nhouse.github.io/post/XmgX1Z_xP">Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！</a></p>
-<ul>
-<li><a href="https://www.tampermonkey.net/">油猴官網</a></li>
-<li><a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW">油猴擴展</a></li>
-</ul>
-<ol>
-<li>安裝好油猴擴展之後，打開<a href="https://greasyfork.org/zh-TW">油猴腳本分享站Greasy Fork</a></li>
-<li>搜索Youtube可以查到相關的腳本，依據個人需求安裝。(或者也可以使用我下方推薦的幾個腳本)</li>
-</ol>
-<p>在這邊推薦幾個我使用過認為值得安裝的腳本</p>
-<ul>
-<li><a href="https://greasyfork.org/zh-TW/scripts/391134-%E9%9A%90%E8%97%8Fyoutube%E5%B9%BF%E5%91%8A-%E8%87%AA%E5%8A%A8%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BF%87%E5%B9%BF%E5%91%8A-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-%E5%85%8D%E8%B4%B9%E8%BF%98%E4%B8%8D%E9%99%90%E6%B5%81%E9%87%8F-%E4%B8%8Ayoutube%E7%9C%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A1080p-%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6%E6%9B%B4%E5%A4%9A%E7%A6%8F%E5%88%A9%E7%AD%89%E4%BD%A0%E6%9D%A5">隐藏youtube广告，自动点击跳过广告;科学上网，免费还不限流量。上youtube看视频稳定1080P。破解软件更多福利等你来！</a><br>
-功能：跳過煩人的廣告。</li>
-</ul>
-<p>相同功能的還有<a href="https://greasyfork.org/zh-CN/scripts/9165-auto-close-youtube-ads">Auto Close YouTube Ads</a></p>
-<ul>
-<li><a href="https://greasyfork.org/en/scripts/20015-simple-youtube-mp3-button">Simple YouTube MP3 Button</a><br>
-功能：直接將Youtube影片以MP3檔案類型下載。</li>
-</ul>
-<blockquote>
-<p><img src="https://greasyfork.org/system/screenshots/screenshots/000/004/365/original/1.png" alt=""><br>
-<img src="https://greasyfork.org/system/screenshots/screenshots/000/004/366/original/2.png" alt=""></p>
-</blockquote>
-<ul>
-<li><a href="https://greasyfork.org/zh-TW/scripts/369418-the-best-youtube-downloader-download-video-mp4-avi-mp3-hd-1080p-2k-4k-8k">The best Youtube Downloader, download video MP4, AVI, MP3, HD, 1080P, 2K, 4k &amp; 8K</a><br>
-功能：下載MP4,AVI影片以及MP3音頻</li>
-</ul>
-<blockquote>
-<p>安裝腳本後重開Youtube影片就可以看見影片下方有Download Video的按鈕，根據個人需求下載。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575731533383.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728405047.png" alt=""></p>
-</blockquote>
+<h3 id="安裝方法">安裝方法</h3>
+<p>安裝及使用教程<a href="https://2.python-requests.org//zh_CN/latest/user/install.html#install">官方網站</a>也有詳細的說明，這邊就簡單提一下。</p>
+<p>你只需要打開終端運行指令即可安裝，例如在Jupyter Notebook的首頁找到<code>New - Terminal</code>打開終端機，透過在終端機輸入指令來安裝requests：</p>
+<pre><code>pip install requests
+</code></pre>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576072544945.png" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072815665.PNG" alt=""></p>
+<h3 id="引入模組方法">引入模組方法</h3>
+<pre><code># 引入 Requests 模組
+import requests
+</code></pre>
+<h2 id="beautiful-soup">Beautiful Soup</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576073722370.png" alt=""><br>
+Beautiful Soup 是一個可以從HTML或XML文件中提取數據的Python庫。</p>
+<h3 id="安裝方法-2">安裝方法</h3>
+<p>同requests的安裝方法。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576073463533.PNG" alt=""></p>
+<h3 id="引入模組方法-2">引入模組方法</h3>
+<pre><code># 引入 Beautiful Soup 模組
+from bs4 import BeautifulSoup
+</code></pre>
+<p>更多使用方法可以參閱<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/#">官方文檔</a></p>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#chrome%E6%93%B4%E5%B1%95">Chrome擴展</a></li>
-<li><a href="#%E6%B2%B9%E7%8C%B4%E8%85%B3%E6%9C%AC">油猴腳本</a></li>
+<li><a href="#requests">Requests</a>
+<ul>
+<li><a href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7">功能特性</a></li>
+<li><a href="#%E5%AE%89%E8%A3%9D%E6%96%B9%E6%B3%95">安裝方法</a></li>
+<li><a href="#%E5%BC%95%E5%85%A5%E6%A8%A1%E7%B5%84%E6%96%B9%E6%B3%95">引入模組方法</a></li>
+</ul>
+</li>
+<li><a href="#beautiful-soup">Beautiful Soup</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%9D%E6%96%B9%E6%B3%95-2">安裝方法</a></li>
+<li><a href="#%E5%BC%95%E5%85%A5%E6%A8%A1%E7%B5%84%E6%96%B9%E6%B3%95-2">引入模組方法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -184,9 +195,9 @@ GIF效果<br>
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/UnHCMUvkF">
+            <a href="https://Z1Nhouse.github.io//post/lh0yq_CsU">
               <h3 class="post-title">
-                將Visual Studio Code語言修改為繁體中文
+                初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用
               </h3>
             </a>
           </div>

@@ -1,0 +1,282 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>初學者也能快速上手的Python爬蟲(3) - 抓取Yahoo奇摩新聞首頁標題與連結 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Hello,World!");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1576076802792">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1576076802792" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Hello,World!");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          關於
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              初學者也能快速上手的Python爬蟲(3) - 抓取Yahoo奇摩新聞首頁標題與連結
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-11
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/hjQflVP_Uf" class="post-tag">
+                  # python
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/NfH4Wu_XQT" class="post-tag">
+                  # 爬蟲
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/Ks78sAGhX.PNG" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>本篇文章適用於對python以及html語法略懂皮毛的初學者，若什麼都不瞭解建議邊學邊google，畢竟現代科技非常發達嘛。<br>
+上一篇：<a href="https://z1nhouse.github.io/post/3qgNl3ySw/">初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package</a></p>
+<!-- more -->
+<h2 id="解析網頁內容及標籤">解析網頁內容及標籤</h2>
+<p>我們今天學習的目標是抓取<a href="https://tw.yahoo.com/">Yahoo奇摩</a>首頁的新聞標題。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576074601634.PNG" alt=""></p>
+<p>並且我希望呈現下方的形式：</p>
+<pre><code>新聞標題：xxxxxxx
+新聞地址：http://........
+</code></pre>
+<p>首先，你可以透過<code>Ctrl+Shift+I</code>或者<code>F12</code>打開&quot;開發人員工具&quot;，並且點擊選取工具指向想要抓取的資料位置，就會自動跳到該資料的程式碼位置。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576074233704.png" alt=""><br>
+注：建議使用Google Chrome或者Fire Fox瀏覽器。</p>
+<p>大致看一下每個標題之間標籤的共通點，例如這篇新聞標題是以連結標籤包裹住的，class名稱為<code>D-b Abu-C-b Fw-b Mb-6 Ell Fz-m Cur-p story-title</code>，若是你仔細觀察，可以發現每一個新聞標題超連結的class都是一樣的，我們可以只使用其中的一部分<code>story-title</code>或者全部使用皆可。</p>
+<pre><code>&lt;a href=&quot;https://bit.ly/2rDxQ5R&quot; class=&quot;D-b Abu-C-b Fw-b Mb-6 Ell Fz-m Cur-p 
+story-title&quot;data-ylk=&quot;rspns:nav;t1:a3;t2:td;t3:nav;sec:td-fea;elm:hdln;elmt:ct;itc:0;
+cpos:3;pkgt:1;ccode:p_zh_hant_tw_lm_or1;aid:id-6232;
+g:da398d27-7f67-354b-a8da-a233efb81343;cat:t5;subsec:t5;ct:1;ad:0;slk:賈靜雯也掃貨？櫃姐卻
+曝1憾;&quot; data-rapid_p=&quot;74&quot; data-v9y=&quot;1&quot; id=&quot;yui_3_12_0_3_1576066112353_2420&quot;&gt;&lt;span 
+class=&quot;Va-tt&quot; id=&quot;yui_3_12_0_3_1576066112353_2419&quot;&gt;賈靜雯也掃貨？櫃姐卻曝1憾&lt;/span&gt;&lt;/a&gt;
+</code></pre>
+<h2 id="抓取需要的資料">抓取需要的資料</h2>
+<ol>
+<li>在最開始需要先import requests和BeautifulSoup4。</li>
+</ol>
+<pre><code>import requests
+from bs4 import BeautifulSoup
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1576073982921.PNG" alt=""></figure>
+<ol start="2">
+<li>接著使用 GET 方式下載普通網頁，並將網頁內容儲存在res變數中，接著輸入<code>print(res.status_code)</code>來確認伺服器回應的狀態碼，若顯示<code>200</code>代表OK沒問題。</li>
+</ol>
+<pre><code>res = requests.get(&quot;https://tw.yahoo.com/&quot;)
+# 確認伺服器回應的狀態碼,可不寫
+print(res.status_code)
+</code></pre>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576074770071.PNG" alt=""><br>
+注：<a href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP狀態碼</a></p>
+<ol start="3">
+<li>輸入<code>print(res.text)</code>可以印出網頁的原始碼，你可以在這研究一下標題們的標籤之間的共同點。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576074895791.PNG" alt=""><br>
+你也可以透過BeautifulSoup提取網頁原始碼再印出。</li>
+</ol>
+<pre><code>soup = BeautifulSoup(res.text)
+print(soup)
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1576075006487.PNG" alt=""></figure>
+<ol start="4">
+<li>以 Beautiful Soup 解析 HTML 程式碼，並儲存在soup變數中。</li>
+</ol>
+<pre><code>#Python標準庫
+soup = BeautifulSoup(res.text, 'html.parser')
+</code></pre>
+<ol start="5">
+<li>我們可以利用<code>find_all</code> 找出所有特定的 HTML 標籤節點。</li>
+</ol>
+<pre><code>data = soup.find_all(&quot;標籤&quot;, &quot;class&quot;)
+</code></pre>
+<p>回憶一下我們剛剛是不是在yahoo奇摩首頁找到了新聞的標籤及class？<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576075576964.PNG" alt=""></p>
+<p>因此我們可以找到class為<code>story-title</code>的a標籤，並將之存在data變數當中。</p>
+<pre><code>data = soup.find_all(&quot;a&quot;, &quot;story-title&quot;)
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://Z1Nhouse.github.io//post-images/1576075735035.PNG" alt=""></figure>
+<ol start="6">
+<li>以 Python 的迴圈來依序輸出每個超連結的文字以及使用get來取得class為<code>story-title</code>的a標籤中的<code>href</code>內容：</li>
+</ol>
+<pre><code>for s in data:
+    print(&quot;新聞標題：&quot; + s.text)
+    print(&quot;新聞地址：&quot; + s.get(&quot;href&quot;))
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://Z1Nhouse.github.io//post-images/1576076216395.png" alt=""></figure>
+<p>至此，本節課的目標達成啦！但現在僅僅只是沾上爬蟲的邊，未來還有許多要學習呢！</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E8%A7%A3%E6%9E%90%E7%B6%B2%E9%A0%81%E5%85%A7%E5%AE%B9%E5%8F%8A%E6%A8%99%E7%B1%A4">解析網頁內容及標籤</a></li>
+<li><a href="#%E6%8A%93%E5%8F%96%E9%9C%80%E8%A6%81%E7%9A%84%E8%B3%87%E6%96%99">抓取需要的資料</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/3qgNl3ySw">
+              <h3 class="post-title">
+                初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

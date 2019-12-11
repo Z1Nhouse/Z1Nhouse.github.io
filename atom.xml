@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-10T16:26:28.376Z</updated>
+    <updated>2019-12-11T15:06:49.499Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,278 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[初學者也能快速上手的Python爬蟲(3) - 抓取Yahoo奇摩新聞首頁標題與連結]]></title>
+        <id>https://Z1Nhouse.github.io//post/Ks78sAGhX</id>
+        <link href="https://Z1Nhouse.github.io//post/Ks78sAGhX">
+        </link>
+        <updated>2019-12-11T14:16:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>本篇文章適用於對python以及html語法略懂皮毛的初學者，若什麼都不瞭解建議邊學邊google，畢竟現代科技非常發達嘛。<br>
+上一篇：<a href="https://z1nhouse.github.io/post/3qgNl3ySw/">初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本篇文章適用於對python以及html語法略懂皮毛的初學者，若什麼都不瞭解建議邊學邊google，畢竟現代科技非常發達嘛。<br>
+上一篇：<a href="https://z1nhouse.github.io/post/3qgNl3ySw/">初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package</a></p>
+<!-- more -->
+<h2 id="解析網頁內容及標籤">解析網頁內容及標籤</h2>
+<p>我們今天學習的目標是抓取<a href="https://tw.yahoo.com/">Yahoo奇摩</a>首頁的新聞標題。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576074601634.PNG" alt=""></p>
+<p>並且我希望呈現下方的形式：</p>
+<pre><code>新聞標題：xxxxxxx
+新聞地址：http://........
+</code></pre>
+<p>首先，你可以透過<code>Ctrl+Shift+I</code>或者<code>F12</code>打開&quot;開發人員工具&quot;，並且點擊選取工具指向想要抓取的資料位置，就會自動跳到該資料的程式碼位置。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576074233704.png" alt=""><br>
+注：建議使用Google Chrome或者Fire Fox瀏覽器。</p>
+<p>大致看一下每個標題之間標籤的共通點，例如這篇新聞標題是以連結標籤包裹住的，class名稱為<code>D-b Abu-C-b Fw-b Mb-6 Ell Fz-m Cur-p story-title</code>，若是你仔細觀察，可以發現每一個新聞標題超連結的class都是一樣的，我們可以只使用其中的一部分<code>story-title</code>或者全部使用皆可。</p>
+<pre><code>&lt;a href=&quot;https://bit.ly/2rDxQ5R&quot; class=&quot;D-b Abu-C-b Fw-b Mb-6 Ell Fz-m Cur-p 
+story-title&quot;data-ylk=&quot;rspns:nav;t1:a3;t2:td;t3:nav;sec:td-fea;elm:hdln;elmt:ct;itc:0;
+cpos:3;pkgt:1;ccode:p_zh_hant_tw_lm_or1;aid:id-6232;
+g:da398d27-7f67-354b-a8da-a233efb81343;cat:t5;subsec:t5;ct:1;ad:0;slk:賈靜雯也掃貨？櫃姐卻
+曝1憾;&quot; data-rapid_p=&quot;74&quot; data-v9y=&quot;1&quot; id=&quot;yui_3_12_0_3_1576066112353_2420&quot;&gt;&lt;span 
+class=&quot;Va-tt&quot; id=&quot;yui_3_12_0_3_1576066112353_2419&quot;&gt;賈靜雯也掃貨？櫃姐卻曝1憾&lt;/span&gt;&lt;/a&gt;
+</code></pre>
+<h2 id="抓取需要的資料">抓取需要的資料</h2>
+<ol>
+<li>在最開始需要先import requests和BeautifulSoup4。</li>
+</ol>
+<pre><code>import requests
+from bs4 import BeautifulSoup
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1576073982921.PNG" alt=""></figure>
+<ol start="2">
+<li>接著使用 GET 方式下載普通網頁，並將網頁內容儲存在res變數中，接著輸入<code>print(res.status_code)</code>來確認伺服器回應的狀態碼，若顯示<code>200</code>代表OK沒問題。</li>
+</ol>
+<pre><code>res = requests.get(&quot;https://tw.yahoo.com/&quot;)
+# 確認伺服器回應的狀態碼,可不寫
+print(res.status_code)
+</code></pre>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576074770071.PNG" alt=""><br>
+注：<a href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP狀態碼</a></p>
+<ol start="3">
+<li>輸入<code>print(res.text)</code>可以印出網頁的原始碼，你可以在這研究一下標題們的標籤之間的共同點。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576074895791.PNG" alt=""><br>
+你也可以透過BeautifulSoup提取網頁原始碼再印出。</li>
+</ol>
+<pre><code>soup = BeautifulSoup(res.text)
+print(soup)
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1576075006487.PNG" alt=""></figure>
+<ol start="4">
+<li>以 Beautiful Soup 解析 HTML 程式碼，並儲存在soup變數中。</li>
+</ol>
+<pre><code>#Python標準庫
+soup = BeautifulSoup(res.text, 'html.parser')
+</code></pre>
+<ol start="5">
+<li>我們可以利用<code>find_all</code> 找出所有特定的 HTML 標籤節點。</li>
+</ol>
+<pre><code>data = soup.find_all(&quot;標籤&quot;, &quot;class&quot;)
+</code></pre>
+<p>回憶一下我們剛剛是不是在yahoo奇摩首頁找到了新聞的標籤及class？<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576075576964.PNG" alt=""></p>
+<p>因此我們可以找到class為<code>story-title</code>的a標籤，並將之存在data變數當中。</p>
+<pre><code>data = soup.find_all(&quot;a&quot;, &quot;story-title&quot;)
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://Z1Nhouse.github.io//post-images/1576075735035.PNG" alt=""></figure>
+<ol start="6">
+<li>以 Python 的迴圈來依序輸出每個超連結的文字以及使用get來取得class為<code>story-title</code>的a標籤中的<code>href</code>內容：</li>
+</ol>
+<pre><code>for s in data:
+    print(&quot;新聞標題：&quot; + s.text)
+    print(&quot;新聞地址：&quot; + s.get(&quot;href&quot;))
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://Z1Nhouse.github.io//post-images/1576076216395.png" alt=""></figure>
+<p>至此，本節課的目標達成啦！但現在僅僅只是沾上爬蟲的邊，未來還有許多要學習呢！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package]]></title>
+        <id>https://Z1Nhouse.github.io//post/3qgNl3ySw</id>
+        <link href="https://Z1Nhouse.github.io//post/3qgNl3ySw">
+        </link>
+        <updated>2019-12-11T13:53:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>上一篇：<a href="https://z1nhouse.github.io/post/lh0yq_CsU/">初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用</a></p>
+<p>今天會需要用到兩個package：</p>
+<ul>
+<li>Requests</li>
+<li>BeautifulSoup</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<p>上一篇：<a href="https://z1nhouse.github.io/post/lh0yq_CsU/">初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用</a></p>
+<p>今天會需要用到兩個package：</p>
+<ul>
+<li>Requests</li>
+<li>BeautifulSoup</li>
+</ul>
+<!-- more -->
+<h2 id="requests">Requests</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576073717730.png" alt=""><br>
+如果想要使用 Python 來下載網頁上的資料，最基本的作法就是以 requests 模組建立適當的 HTTP 請求，透過 HTTP 請求從網頁伺服器下載指定的資料。</p>
+<p>Requests 是以 PEP 20 的箴言為中心開發的</p>
+<ul>
+<li>Beautiful is better than ugly.(美麗優於醜陋)</li>
+<li>Explicit is better than implicit.(直白優於含蓄)</li>
+<li>Simple is better than complex.(簡單優於復雜)</li>
+<li>Complex is better than complicated.(複雜優於繁瑣)</li>
+<li>Readability counts.(可讀性很重要)</li>
+</ul>
+<h3 id="功能特性">功能特性</h3>
+<p>Requests 完全滿足今日 web 的需求。</p>
+<ul>
+<li>Keep-Alive &amp; 連接池</li>
+<li>國際化域名和 URL</li>
+<li>帶持久 Cookie 的會話</li>
+<li>瀏覽器式的 SSL 認證</li>
+<li>自動內容解碼</li>
+<li>基本/摘要式的身份認證</li>
+<li>優雅的 key/value Cookie</li>
+<li>自動解壓</li>
+<li>Unicode 響應體</li>
+<li>HTTP(S) 代理支持</li>
+<li>文件分塊上傳</li>
+<li>流下載</li>
+<li>連接超時</li>
+<li>分塊請求</li>
+<li>支持 .netrc</li>
+</ul>
+<h3 id="安裝方法">安裝方法</h3>
+<p>安裝及使用教程<a href="https://2.python-requests.org//zh_CN/latest/user/install.html#install">官方網站</a>也有詳細的說明，這邊就簡單提一下。</p>
+<p>你只需要打開終端運行指令即可安裝，例如在Jupyter Notebook的首頁找到<code>New - Terminal</code>打開終端機，透過在終端機輸入指令來安裝requests：</p>
+<pre><code>pip install requests
+</code></pre>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576072544945.png" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072815665.PNG" alt=""></p>
+<h3 id="引入模組方法">引入模組方法</h3>
+<pre><code># 引入 Requests 模組
+import requests
+</code></pre>
+<h2 id="beautiful-soup">Beautiful Soup</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576073722370.png" alt=""><br>
+Beautiful Soup 是一個可以從HTML或XML文件中提取數據的Python庫。</p>
+<h3 id="安裝方法-2">安裝方法</h3>
+<p>同requests的安裝方法。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576073463533.PNG" alt=""></p>
+<h3 id="引入模組方法-2">引入模組方法</h3>
+<pre><code># 引入 Beautiful Soup 模組
+from bs4 import BeautifulSoup
+</code></pre>
+<p>更多使用方法可以參閱<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/#">官方文檔</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用]]></title>
+        <id>https://Z1Nhouse.github.io//post/lh0yq_CsU</id>
+        <link href="https://Z1Nhouse.github.io//post/lh0yq_CsU">
+        </link>
+        <updated>2019-12-11T12:46:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>Anaconda是目前最受歡迎的Python數據科學(Data Science)平台。<br>
+超過1200萬人使用Anaconda發行版本，並且Anaconda擁有超過1400個適用於Windows、Linux和MacOS的數據科學分析的package。</p>
+<p><strong>Anaconda Navigator包含如下應用：</strong><br>
+JupyterLab<br>
+Jupyter Notebook <strong>#我們需要使用到它</strong><br>
+QtConsole<br>
+Spyder<br>
+Glueviz<br>
+Orange<br>
+Rstudio<br>
+Visual Studio Code</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Anaconda是目前最受歡迎的Python數據科學(Data Science)平台。<br>
+超過1200萬人使用Anaconda發行版本，並且Anaconda擁有超過1400個適用於Windows、Linux和MacOS的數據科學分析的package。</p>
+<p><strong>Anaconda Navigator包含如下應用：</strong><br>
+JupyterLab<br>
+Jupyter Notebook <strong>#我們需要使用到它</strong><br>
+QtConsole<br>
+Spyder<br>
+Glueviz<br>
+Orange<br>
+Rstudio<br>
+Visual Studio Code</p>
+<!-- more -->
+<h2 id="安裝anaconda">安裝Anaconda</h2>
+<ul>
+<li><strong>下載<a href="https://www.anaconda.com/distribution/#download-section">Anaconda installer</a></strong><br>
+根據作業系統與位元挑選合適的版本下載(有Windows、macOS與Linux)。</li>
+</ul>
+<p>安裝過程中需要注意的是這個步驟，建議<strong>不要</strong>勾選<code>Add Anaconda to my PATH environment variable</code>，因為這可能會干擾其他軟件。你可以通過從“開始”菜單打開Anaconda Navigator或Anaconda Prompt來使用Anaconda軟件。</p>
+<figure data-type="image" tabindex="1"><img src="https://docs.anaconda.com/_images/win-install-options.png" alt=""></figure>
+<h3 id="驗證安裝">驗證安裝</h3>
+<p>安裝完成之後，Windows系統可以打開Anaconda Navigator，若可以正常開啟代表你已經成功安裝Anaconda。</p>
+<ul>
+<li>單擊開始，搜索或從菜單中選擇<code>Anaconda Navigator</code>。<br>
+<img src="https://docs.anaconda.com/_images/win-navigator.png" alt=""></li>
+</ul>
+<p>或者你也可以通過Anaconda Prompt使用conda來驗證安裝。</p>
+<ul>
+<li>單擊開始，搜索或從菜單中選擇<code>Anaconda Prompt</code>。輸入以下指令：</li>
+</ul>
+<pre><code>conda -V
+conda env list
+</code></pre>
+<p><img src="https://docs.anaconda.com/_images/win-anaconda-prompt.png" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576069480581.PNG" alt=""><br>
+如果Anaconda已安裝並正在運行，它將顯示conda的版本以及預設的虛擬環境。</p>
+<p>如果直到現在你還是不知道該如何安裝，可以參考<a href="https://docs.anaconda.com/anaconda/install/windows/">官方的說明文檔</a>。</p>
+<ul>
+<li>macOS的安裝方法見官方<a href="https://docs.anaconda.com/anaconda/install/">Installing on macOS</a></li>
+<li>Linux的安裝方法見官方<a href="https://docs.anaconda.com/anaconda/install/linux/">Installing on Linux</a></li>
+</ul>
+<h2 id="啟動jupyter-notebook">啟動Jupyter Notebook</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576070359020.png" alt=""><br>
+Jupyter Notebook舊稱IPython notebook，是一個介於IDE和Editor之間的寫code工具。<br>
+最大的特性是可以逐行執行且做到資料視覺化，可以輸出成html5遷入到任何網頁或者blog，或是用notebook的形式分享，因此被許多人喜愛。<br>
+支援多種主流直譯語言 ex:Python、R、Julia。</p>
+<p>你有三種方式可以啟動Jupyter Notebook：</p>
+<ol>
+<li>
+<p>開啟Anaconda Navigator後在Home頁面啟動Jupyter Notebook。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070329381.PNG" alt=""></p>
+</li>
+<li>
+<p>打開<code>Anaconda Prompt</code>輸入<code>Jupyter Notebook</code>指令啟動。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070613551.PNG" alt=""></p>
+</li>
+<li>
+<p>直接在&quot;開始&quot;菜單中找到<code>Jupyter Notebook</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070980393.png" alt=""></p>
+</li>
+</ol>
+<h2 id="使用jupyter-notebook">使用Jupyter Notebook</h2>
+<p>Jupyer Notebook會透過瀏覽器來啟動(預設是localhost:8890)，你可以在右側New一個Python3的Notebook。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070672292.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576071172920.png" alt=""></p>
+<h3 id="介面介紹">介面介紹</h3>
+<ul>
+<li>
+<p>將滑鼠移到檔名(預設為Untitled)單擊即可修改。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576071604899.png" alt=""></p>
+</li>
+<li>
+<p>Jupyter裡輸入程式碼的區塊叫做Cell，每一個Cell都可以單獨執行。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072014908.PNG" alt=""></p>
+</li>
+<li>
+<p>你可以點擊小鍵盤查看Jupyter Notebook的一些快捷鍵。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072139646.png" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072137023.png" alt=""><br>
+<strong>在選中cell時</strong></p>
+</li>
+</ul>
+<ol>
+<li>按下<code>x</code>：刪除當前選擇的cell</li>
+<li>按下<code>a</code>：在當前選擇的上方新增一個cell</li>
+<li>按下<code>b</code>：在當前選擇的下方新增一個cell</li>
+<li>按下<code>Shift-Enter</code>：執行當前的cell並且選到下一個cell</li>
+<li>按下<code>Ctrl-Enter</code>：執行當前cell</li>
+</ol>
+<ul>
+<li>你甚至可以在工具列上修改Cell的類型，有Code、Markdown、Raw NBConvert、Heading可選擇。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576071928351.png" alt=""></li>
+</ul>
+<p>基本操作以及一些玩法Google一下都有大把資料，甚至官方也有很詳細的說明，在這邊就不細講了。</p>
+<p>延伸：<a href="http://opus.konghy.cn/ipynb/jupyter-notebook-keyboard-shortcut.html">Jupyter NoteBook 的快捷键使用指南</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Ruby 程式語言入門 - 基本數字計算與輸出]]></title>
         <id>https://Z1Nhouse.github.io//post/P0o2mu3Xo</id>

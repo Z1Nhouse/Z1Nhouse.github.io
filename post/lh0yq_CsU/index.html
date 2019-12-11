@@ -1,0 +1,320 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Hello,World!");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1576076802792">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1576076802792" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Hello,World!");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          關於
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-11
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/_i8dclzFB" class="post-tag">
+                  # anaconda
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/hjQflVP_Uf" class="post-tag">
+                  # python
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/NfH4Wu_XQT" class="post-tag">
+                  # 爬蟲
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/iUU4umdC52" class="post-tag">
+                  # Jupyter notebook
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/lh0yq_CsU.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>Anaconda是目前最受歡迎的Python數據科學(Data Science)平台。<br>
+超過1200萬人使用Anaconda發行版本，並且Anaconda擁有超過1400個適用於Windows、Linux和MacOS的數據科學分析的package。</p>
+<p><strong>Anaconda Navigator包含如下應用：</strong><br>
+JupyterLab<br>
+Jupyter Notebook <strong>#我們需要使用到它</strong><br>
+QtConsole<br>
+Spyder<br>
+Glueviz<br>
+Orange<br>
+Rstudio<br>
+Visual Studio Code</p>
+<!-- more -->
+<h2 id="安裝anaconda">安裝Anaconda</h2>
+<ul>
+<li><strong>下載<a href="https://www.anaconda.com/distribution/#download-section">Anaconda installer</a></strong><br>
+根據作業系統與位元挑選合適的版本下載(有Windows、macOS與Linux)。</li>
+</ul>
+<p>安裝過程中需要注意的是這個步驟，建議<strong>不要</strong>勾選<code>Add Anaconda to my PATH environment variable</code>，因為這可能會干擾其他軟件。你可以通過從“開始”菜單打開Anaconda Navigator或Anaconda Prompt來使用Anaconda軟件。</p>
+<figure data-type="image" tabindex="1"><img src="https://docs.anaconda.com/_images/win-install-options.png" alt=""></figure>
+<h3 id="驗證安裝">驗證安裝</h3>
+<p>安裝完成之後，Windows系統可以打開Anaconda Navigator，若可以正常開啟代表你已經成功安裝Anaconda。</p>
+<ul>
+<li>單擊開始，搜索或從菜單中選擇<code>Anaconda Navigator</code>。<br>
+<img src="https://docs.anaconda.com/_images/win-navigator.png" alt=""></li>
+</ul>
+<p>或者你也可以通過Anaconda Prompt使用conda來驗證安裝。</p>
+<ul>
+<li>單擊開始，搜索或從菜單中選擇<code>Anaconda Prompt</code>。輸入以下指令：</li>
+</ul>
+<pre><code>conda -V
+conda env list
+</code></pre>
+<p><img src="https://docs.anaconda.com/_images/win-anaconda-prompt.png" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576069480581.PNG" alt=""><br>
+如果Anaconda已安裝並正在運行，它將顯示conda的版本以及預設的虛擬環境。</p>
+<p>如果直到現在你還是不知道該如何安裝，可以參考<a href="https://docs.anaconda.com/anaconda/install/windows/">官方的說明文檔</a>。</p>
+<ul>
+<li>macOS的安裝方法見官方<a href="https://docs.anaconda.com/anaconda/install/">Installing on macOS</a></li>
+<li>Linux的安裝方法見官方<a href="https://docs.anaconda.com/anaconda/install/linux/">Installing on Linux</a></li>
+</ul>
+<h2 id="啟動jupyter-notebook">啟動Jupyter Notebook</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576070359020.png" alt=""><br>
+Jupyter Notebook舊稱IPython notebook，是一個介於IDE和Editor之間的寫code工具。<br>
+最大的特性是可以逐行執行且做到資料視覺化，可以輸出成html5遷入到任何網頁或者blog，或是用notebook的形式分享，因此被許多人喜愛。<br>
+支援多種主流直譯語言 ex:Python、R、Julia。</p>
+<p>你有三種方式可以啟動Jupyter Notebook：</p>
+<ol>
+<li>
+<p>開啟Anaconda Navigator後在Home頁面啟動Jupyter Notebook。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070329381.PNG" alt=""></p>
+</li>
+<li>
+<p>打開<code>Anaconda Prompt</code>輸入<code>Jupyter Notebook</code>指令啟動。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070613551.PNG" alt=""></p>
+</li>
+<li>
+<p>直接在&quot;開始&quot;菜單中找到<code>Jupyter Notebook</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070980393.png" alt=""></p>
+</li>
+</ol>
+<h2 id="使用jupyter-notebook">使用Jupyter Notebook</h2>
+<p>Jupyer Notebook會透過瀏覽器來啟動(預設是localhost:8890)，你可以在右側New一個Python3的Notebook。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576070672292.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576071172920.png" alt=""></p>
+<h3 id="介面介紹">介面介紹</h3>
+<ul>
+<li>
+<p>將滑鼠移到檔名(預設為Untitled)單擊即可修改。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576071604899.png" alt=""></p>
+</li>
+<li>
+<p>Jupyter裡輸入程式碼的區塊叫做Cell，每一個Cell都可以單獨執行。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072014908.PNG" alt=""></p>
+</li>
+<li>
+<p>你可以點擊小鍵盤查看Jupyter Notebook的一些快捷鍵。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072139646.png" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576072137023.png" alt=""><br>
+<strong>在選中cell時</strong></p>
+</li>
+</ul>
+<ol>
+<li>按下<code>x</code>：刪除當前選擇的cell</li>
+<li>按下<code>a</code>：在當前選擇的上方新增一個cell</li>
+<li>按下<code>b</code>：在當前選擇的下方新增一個cell</li>
+<li>按下<code>Shift-Enter</code>：執行當前的cell並且選到下一個cell</li>
+<li>按下<code>Ctrl-Enter</code>：執行當前cell</li>
+</ol>
+<ul>
+<li>你甚至可以在工具列上修改Cell的類型，有Code、Markdown、Raw NBConvert、Heading可選擇。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576071928351.png" alt=""></li>
+</ul>
+<p>基本操作以及一些玩法Google一下都有大把資料，甚至官方也有很詳細的說明，在這邊就不細講了。</p>
+<p>延伸：<a href="http://opus.konghy.cn/ipynb/jupyter-notebook-keyboard-shortcut.html">Jupyter NoteBook 的快捷键使用指南</a></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%9Danaconda">安裝Anaconda</a>
+<ul>
+<li><a href="#%E9%A9%97%E8%AD%89%E5%AE%89%E8%A3%9D">驗證安裝</a></li>
+</ul>
+</li>
+<li><a href="#%E5%95%9F%E5%8B%95jupyter-notebook">啟動Jupyter Notebook</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8jupyter-notebook">使用Jupyter Notebook</a>
+<ul>
+<li><a href="#%E4%BB%8B%E9%9D%A2%E4%BB%8B%E7%B4%B9">介面介紹</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/P0o2mu3Xo">
+              <h3 class="post-title">
+                Ruby 程式語言入門 - 基本數字計算與輸出
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
