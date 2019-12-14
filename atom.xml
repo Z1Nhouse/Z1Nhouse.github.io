@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-13T09:08:58.132Z</updated>
+    <updated>2019-12-14T13:34:59.038Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,88 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[絕對可用，威力導演18破解版！]]></title>
+        <id>https://Z1Nhouse.github.io//post/2ih2aeMZB</id>
+        <link href="https://Z1Nhouse.github.io//post/2ih2aeMZB">
+        </link>
+        <updated>2019-12-14T13:19:14.000Z</updated>
+        <summary type="html"><![CDATA[<p>於2019/12/14測試可用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>於2019/12/14測試可用。</p>
+<!-- more -->
+<p>下載：<a href="https://mega.nz/#!M91kTI5B!-LaoHCQ158qfhpX993FoZISX35qj0eS_WygfFuGh5ms">MEGA</a></p>
+<h2 id="安裝及破解步驟">安裝及破解步驟</h2>
+<ol>
+<li>雙擊已經內置了破解補丁的安裝包，開始安裝<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329693892.PNG" alt=""></li>
+<li>此處省略安裝步驟<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329703029.PNG" alt=""></li>
+<li>安裝完畢請直接關閉，不要啟動<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329731360.PNG" alt=""></li>
+<li>打開<code>C:/Windows/System32/drivers/etc</code>文件夾，將裡頭的<code>hosts</code>文件複製到桌面。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329960161.PNG" alt=""></li>
+<li>用記事本打開，在最下方加上以下兩行，以屏蔽威力導演連線驗證。</li>
+</ol>
+<pre><code>127.0.0.1 cap.cyberlink.com 
+127.0.0.1 activation.cyberlink.com 
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1576329964188.PNG" alt=""></figure>
+<blockquote>
+<p>PS.若是無法修改，看看是否hosts為&quot;唯獨&quot;模式，如果是把勾取消掉即可。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330021505.PNG" alt=""></p>
+</blockquote>
+<ol start="6">
+<li>改完之後將hosts複製貼上到<code>C:/Windows/System32/drivers/etc</code>文件夾覆蓋。</li>
+<li>點擊 Reg Patch.reg 文件導入註冊表。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330101623.PNG" alt=""></li>
+<li>打開威力導演「不，謝謝」、「現在不要」<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330157315.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330163818.PNG" alt=""></li>
+<li>隨便找一個素材拖到時間軸上然後按&quot;輸出檔案&quot;。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330459045.PNG" alt=""></li>
+<li>選擇H.265 HEVC輸出會跳出聯網提示框，點擊&quot;我目前沒有Internet連接&quot;<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330296430.PNG" alt=""></li>
+<li>隨意輸入一串數字點擊&quot;確定&quot;即可完成驗證<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576330347821.PNG" alt=""></li>
+</ol>
+<p>至此，威力導演18已經破解完畢，可以正常使用了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[親測可用，After Effects CC 2017 14.0 破解免安装版]]></title>
+        <id>https://Z1Nhouse.github.io//post/g2rnGSLkr</id>
+        <link href="https://Z1Nhouse.github.io//post/g2rnGSLkr">
+        </link>
+        <updated>2019-12-14T13:12:14.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>原網址：<a href="https://www.pcsoft.com.cn/soft/150122.html">https://www.pcsoft.com.cn/soft/150122.html</a><br>
+於2019/12/14測試過可正常使用(Win10)。</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p>原網址：<a href="https://www.pcsoft.com.cn/soft/150122.html">https://www.pcsoft.com.cn/soft/150122.html</a><br>
+於2019/12/14測試過可正常使用(Win10)。</p>
+</blockquote>
+<!-- more -->
+<ul>
+<li>軟體大小：861.64MB</li>
+<li>軟體介面為英文</li>
+<li>應用平台：WinXP,Win7,WinAll</li>
+<li>下載鏈結：<a href="http://forspeed.pcsoft.com.cn/download/pc/AdobeAfterEffectsCC_2017.zip">點我</a>、備用載點</li>
+</ul>
+<p>##安裝教學</p>
+<ol>
+<li>下載完之後解壓縮至任意位置。</li>
+<li>打開&quot;Support Files&quot;直接點擊&quot;AfterFX.exe&quot;即可使用。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329369843.PNG" alt=""></li>
+<li>開啟可能會有錯誤提示框且沒有任何內容，點擊提示框右下角可以略過。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329426347.PNG" alt=""></li>
+<li>免安裝和激活就可以馬上使用了！<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576329458517.PNG" alt=""></li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[初學者也能快速上手的Python爬蟲(3) - 抓取Yahoo奇摩新聞首頁標題與連結]]></title>
         <id>https://Z1Nhouse.github.io//post/Ks78sAGhX</id>
@@ -1008,34 +1090,6 @@ GIF效果<br>
 <img src="https://Z1Nhouse.github.io//post-images/1575731533383.PNG" alt=""><br>
 <img src="https://Z1Nhouse.github.io//post-images/1575728405047.png" alt=""></p>
 </blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[將Visual Studio Code語言修改為繁體中文]]></title>
-        <id>https://Z1Nhouse.github.io//post/UnHCMUvkF</id>
-        <link href="https://Z1Nhouse.github.io//post/UnHCMUvkF">
-        </link>
-        <updated>2019-12-07T07:54:36.000Z</updated>
-        <summary type="html"><![CDATA[<p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
-<ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
-</ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
 ]]></content>
     </entry>
 </feed>
