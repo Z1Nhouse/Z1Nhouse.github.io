@@ -1,0 +1,291 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>在Windows底下安裝Ruby On Rails 開發環境及建立專案 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1576513824272">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1576513824272" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              在Windows底下安裝Ruby On Rails 開發環境及建立專案
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-16
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/nKfOzmdQX" class="post-tag">
+                  # Rails
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/YPvF7NWVX" class="post-tag">
+                  # ruby
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/LgyMo5WnT.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="事前準備">📌事前準備</h2>
+<p>在安裝Rails之前需先安装：</p>
+<ol>
+<li><a href="https://www.ruby-lang.org/en/downloads">Ruby</a> 1.9.3 及以上版本。<br>
+<strong>務必要先安裝Ruby啊...沒有Ruby何必學Rails...！</strong></li>
+</ol>
+<!-- more -->
+<ol start="2">
+<li><a href="https://rubygems.org/">RubyGems</a> 一個伴隨 Ruby 1.9+ 安裝的套件管理程式。<br>
+如果想學習更多有關於 RubyGems，請參考 <a href="http://guides.rubygems.org/">RubyGems 指南</a>。</li>
+<li><a href="https://www.sqlite.org/">SQLite3資料庫</a>。<br>
+可以在官網下載或者打開命令提示字元輸入<code>gem install sqlite3</code>安裝。</li>
+<li><a href="https://nodejs.org/en/download/">NodeJS</a>。</li>
+<li><a href="https://yarnpkg.com/en/docs/install#windows-stable">Yarn</a>。</li>
+<li><a href="https://git-scm.com/downloads">Git</a>。<br>
+NodeJS、Yarn、Git都是下載完安裝即可，這邊就不多提了。</li>
+</ol>
+<p>Rails是使用Ruby開發的Web框架，所以在學習Rails之前建議先擁有Ruby的相關經驗。<br>
+至於渠道也不需要我多提了吧，Google一下就能找到了，或者你也可以在<a href="https://www.ruby-lang.org/zh_tw/documentation/">Ruby的官方網站</a>查看文檔。</p>
+<hr>
+<h2 id="rails-開發哲學">📔Rails 開發哲學</h2>
+<ol>
+<li>不要重複你自己<br>
+DRY 是一個軟體工程的開發原則，“系統中每個功能的構思都必須要有單一、明確且讓人認同的表達方式”儘量避免一再重複的相同資訊，所寫的程式才容易維護、有擴展性且不容易出現 Bug。</li>
+<li>約定優於配置<br>
+Rails 不希望你浪費太多時間無止境的配置設定上，而是直接把最好的一些 Web 開發方式設為預設值，讓你熟悉之後就可以上手了。</li>
+</ol>
+<hr>
+<h2 id="安裝railsinstaller">🔧安裝RailsInstaller</h2>
+<p><strong>因為我是Win10，這邊示範使用<a href="http://railsinstaller.org/en">RailsInstaller</a>安裝Rails。<br>
+Mac系統也可以選擇使用<a href="https://github.com/tokaido/tokaidoapp">Tokaido</a>。</strong></p>
+<p>RailsInstaller3.4.0包含：</p>
+<ul>
+<li>Ruby 2.3.3</li>
+<li>Rails 5.1</li>
+<li>Bundler</li>
+<li>Git</li>
+<li>Sqlite</li>
+<li>TinyTDS</li>
+<li>SQL Server Support</li>
+<li>DevKit</li>
+</ul>
+<p>安裝過程省略，但是要特別注意的是<strong>確認是否有勾選「Install Git」版本管理及「Add executables for Ruby, DevKit and Git (if checked above) to the PATH」</strong>，如果你沒有很熟悉的話就是都打勾安裝就好。<strong>但如果已經安裝過Git可以取消勾選Install Git。</strong><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512159679.png" alt=""></p>
+<p>安裝完之後打開命令提示字元(cmd)輸入命令確認一下：</p>
+<pre><code>ruby -v
+sqlite3 --version
+</code></pre>
+<p>若都有正確顯示版本就可以開始安裝Rails了。<br>
+PS.<strong>sqlite3沒安裝的話要記得安裝哦，不知道怎麼安裝請看事前準備第三條</strong><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512394489.PNG" alt=""></p>
+<h3 id="安裝rails">🔧安裝Rails</h3>
+<p>輸入命令<code>gem install rails</code></p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576512499744.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512502197.PNG" alt=""></p>
+<p>沒有跳出任何錯誤信息，安裝完之後輸入命令<code>rails --version</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512549924.PNG" alt=""><br>
+確認版本訊息是否正確，以確保正確安裝。</p>
+<hr>
+<h2 id="建立專案">📝建立專案</h2>
+<p>進入專案位置<code>cd C:\sites</code> (或者你想在任何位置新建專案)輸入命令：</p>
+<pre><code>rails new demo
+</code></pre>
+<p>demo可以改為你自訂的專案名稱。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512773668.PNG" alt=""></p>
+<p>新建成功的話此時<code>C:\sites</code>底下會多出一個demo目錄，這個目錄中有許多自動產生的檔案和資料夾，這些是構成 Rails 應用程式的重要元素。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512845646.PNG" alt=""><br>
+下方為自動產生的目錄、檔案以及用途：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512991038.png" alt=""></p>
+<h3 id="啟動rails伺服器">💻啟動Rails伺服器</h3>
+<p>切換到demo目錄裡，輸入命令<code>rails s</code>或者<code>rails server</code>啟動 Rails 伺服器。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576513119128.PNG" alt=""></p>
+<p>啟動成功之後打開瀏覽器輸入<code>127.0.0.1:3000</code>便會看到 Rails 的預設頁面，你可以看見你的Rails以及Ruby版本。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576513250787.PNG" alt=""></p>
+<p>如想停止 WEB 伺服器，請在命令視窗按下 Ctrl+C 跳回命令提示字元就可以終止服務。</p>
+<hr>
+那麼以上就是在Windows系統中安裝Rails環境以及建立專案的完整過程，如果在安裝Rails的途中有遇到任何困難，可以先參考這篇文章--><a href="https://mycodeissuesandfixes.blogspot.com/2019/02/ruby-on-rails-issue-about-sqlite-3-gem.html">Ruby on Rails issue about Sqlite3 Gem</a>，可能大部分都是這個問題。
+如果是其他的問題，可以Google一下自行搜索解決呦。
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99">📌事前準備</a></li>
+<li><a href="#rails-%E9%96%8B%E7%99%BC%E5%93%B2%E5%AD%B8">📔Rails 開發哲學</a></li>
+<li><a href="#%E5%AE%89%E8%A3%9Drailsinstaller">🔧安裝RailsInstaller</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%9Drails">🔧安裝Rails</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%A1%88">📝建立專案</a>
+<ul>
+<li><a href="#%E5%95%9F%E5%8B%95rails%E4%BC%BA%E6%9C%8D%E5%99%A8">💻啟動Rails伺服器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/2ih2aeMZB">
+              <h3 class="post-title">
+                絕對可用，威力導演18破解版！
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-14T13:52:51.134Z</updated>
+    <updated>2019-12-16T16:30:34.223Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,99 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[在Windows底下安裝Ruby On Rails 開發環境及建立專案]]></title>
+        <id>https://Z1Nhouse.github.io//post/LgyMo5WnT</id>
+        <link href="https://Z1Nhouse.github.io//post/LgyMo5WnT">
+        </link>
+        <updated>2019-12-16T15:55:59.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="事前準備">📌事前準備</h2>
+<p>在安裝Rails之前需先安装：</p>
+<ol>
+<li><a href="https://www.ruby-lang.org/en/downloads">Ruby</a> 1.9.3 及以上版本。<br>
+<strong>務必要先安裝Ruby啊...沒有Ruby何必學Rails...！</strong></li>
+</ol>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="事前準備">📌事前準備</h2>
+<p>在安裝Rails之前需先安装：</p>
+<ol>
+<li><a href="https://www.ruby-lang.org/en/downloads">Ruby</a> 1.9.3 及以上版本。<br>
+<strong>務必要先安裝Ruby啊...沒有Ruby何必學Rails...！</strong></li>
+</ol>
+<!-- more -->
+<ol start="2">
+<li><a href="https://rubygems.org/">RubyGems</a> 一個伴隨 Ruby 1.9+ 安裝的套件管理程式。<br>
+如果想學習更多有關於 RubyGems，請參考 <a href="http://guides.rubygems.org/">RubyGems 指南</a>。</li>
+<li><a href="https://www.sqlite.org/">SQLite3資料庫</a>。<br>
+可以在官網下載或者打開命令提示字元輸入<code>gem install sqlite3</code>安裝。</li>
+<li><a href="https://nodejs.org/en/download/">NodeJS</a>。</li>
+<li><a href="https://yarnpkg.com/en/docs/install#windows-stable">Yarn</a>。</li>
+<li><a href="https://git-scm.com/downloads">Git</a>。<br>
+NodeJS、Yarn、Git都是下載完安裝即可，這邊就不多提了。</li>
+</ol>
+<p>Rails是使用Ruby開發的Web框架，所以在學習Rails之前建議先擁有Ruby的相關經驗。<br>
+至於渠道也不需要我多提了吧，Google一下就能找到了，或者你也可以在<a href="https://www.ruby-lang.org/zh_tw/documentation/">Ruby的官方網站</a>查看文檔。</p>
+<hr>
+<h2 id="rails-開發哲學">📔Rails 開發哲學</h2>
+<ol>
+<li>不要重複你自己<br>
+DRY 是一個軟體工程的開發原則，“系統中每個功能的構思都必須要有單一、明確且讓人認同的表達方式”儘量避免一再重複的相同資訊，所寫的程式才容易維護、有擴展性且不容易出現 Bug。</li>
+<li>約定優於配置<br>
+Rails 不希望你浪費太多時間無止境的配置設定上，而是直接把最好的一些 Web 開發方式設為預設值，讓你熟悉之後就可以上手了。</li>
+</ol>
+<hr>
+<h2 id="安裝railsinstaller">🔧安裝RailsInstaller</h2>
+<p><strong>因為我是Win10，這邊示範使用<a href="http://railsinstaller.org/en">RailsInstaller</a>安裝Rails。<br>
+Mac系統也可以選擇使用<a href="https://github.com/tokaido/tokaidoapp">Tokaido</a>。</strong></p>
+<p>RailsInstaller3.4.0包含：</p>
+<ul>
+<li>Ruby 2.3.3</li>
+<li>Rails 5.1</li>
+<li>Bundler</li>
+<li>Git</li>
+<li>Sqlite</li>
+<li>TinyTDS</li>
+<li>SQL Server Support</li>
+<li>DevKit</li>
+</ul>
+<p>安裝過程省略，但是要特別注意的是<strong>確認是否有勾選「Install Git」版本管理及「Add executables for Ruby, DevKit and Git (if checked above) to the PATH」</strong>，如果你沒有很熟悉的話就是都打勾安裝就好。<strong>但如果已經安裝過Git可以取消勾選Install Git。</strong><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512159679.png" alt=""></p>
+<p>安裝完之後打開命令提示字元(cmd)輸入命令確認一下：</p>
+<pre><code>ruby -v
+sqlite3 --version
+</code></pre>
+<p>若都有正確顯示版本就可以開始安裝Rails了。<br>
+PS.<strong>sqlite3沒安裝的話要記得安裝哦，不知道怎麼安裝請看事前準備第三條</strong><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512394489.PNG" alt=""></p>
+<h3 id="安裝rails">🔧安裝Rails</h3>
+<p>輸入命令<code>gem install rails</code></p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1576512499744.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512502197.PNG" alt=""></p>
+<p>沒有跳出任何錯誤信息，安裝完之後輸入命令<code>rails --version</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512549924.PNG" alt=""><br>
+確認版本訊息是否正確，以確保正確安裝。</p>
+<hr>
+<h2 id="建立專案">📝建立專案</h2>
+<p>進入專案位置<code>cd C:\sites</code> (或者你想在任何位置新建專案)輸入命令：</p>
+<pre><code>rails new demo
+</code></pre>
+<p>demo可以改為你自訂的專案名稱。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512773668.PNG" alt=""></p>
+<p>新建成功的話此時<code>C:\sites</code>底下會多出一個demo目錄，這個目錄中有許多自動產生的檔案和資料夾，這些是構成 Rails 應用程式的重要元素。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512845646.PNG" alt=""><br>
+下方為自動產生的目錄、檔案以及用途：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576512991038.png" alt=""></p>
+<h3 id="啟動rails伺服器">💻啟動Rails伺服器</h3>
+<p>切換到demo目錄裡，輸入命令<code>rails s</code>或者<code>rails server</code>啟動 Rails 伺服器。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576513119128.PNG" alt=""></p>
+<p>啟動成功之後打開瀏覽器輸入<code>127.0.0.1:3000</code>便會看到 Rails 的預設頁面，你可以看見你的Rails以及Ruby版本。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1576513250787.PNG" alt=""></p>
+<p>如想停止 WEB 伺服器，請在命令視窗按下 Ctrl+C 跳回命令提示字元就可以終止服務。</p>
+<hr>
+那麼以上就是在Windows系統中安裝Rails環境以及建立專案的完整過程，如果在安裝Rails的途中有遇到任何困難，可以先參考這篇文章--><a href="https://mycodeissuesandfixes.blogspot.com/2019/02/ruby-on-rails-issue-about-sqlite-3-gem.html">Ruby on Rails issue about Sqlite3 Gem</a>，可能大部分都是這個問題。
+如果是其他的問題，可以Google一下自行搜索解決呦。
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[絕對可用，威力導演18破解版！]]></title>
         <id>https://Z1Nhouse.github.io//post/2ih2aeMZB</id>
@@ -1021,75 +1114,6 @@ puts 總是回傳 nil，nil 在 Ruby 中表示一個絕對的空值，因為 put
 <li><a href="https://userscripts-mirror.org/">Userscripts.org</a></li>
 <li><a href="https://greasyfork.org/zh-CN">Greasy Fork</a></li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[用Chrome瀏覽器玩轉Youtube！影片、音頻下載、擷動圖、純音頻模式...]]></title>
-        <id>https://Z1Nhouse.github.io//post/TYUbUGb80</id>
-        <link href="https://Z1Nhouse.github.io//post/TYUbUGb80">
-        </link>
-        <updated>2019-12-07T14:02:55.000Z</updated>
-        <summary type="html"><![CDATA[<p>事前聲明：會使用到Chrome擴展以及油猴腳本，非瀏覽器自帶。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>事前聲明：會使用到Chrome擴展以及油猴腳本，非瀏覽器自帶。</p>
-<!-- more -->
-<h2 id="chrome擴展">Chrome擴展</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/%C2%AByou-clever%C2%BB-%E2%80%94-videocombi/agdpdlplhmfgonalmdooaojempaoncmp">«You Clever» — videocombine for Youtube™</a></li>
-</ul>
-<p>功能：</p>
-<ol>
-<li>可擷取當前畫面高清圖片</li>
-<li>可隨時錄製GIF</li>
-<li>可切換成音頻模式</li>
-<li>最小化窗口</li>
-<li>自動全屏<br>
-....等，其他請自行查看介紹。</li>
-</ol>
-<ul>
-<li>純音頻模式<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728408060.PNG" alt=""></li>
-<li>影片截圖<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728410331.PNG" alt=""></li>
-<li>擷取GIF<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728413290.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728415817.PNG" alt=""><br>
-GIF效果<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728398806.gif" alt=""></li>
-</ul>
-<h2 id="油猴腳本">油猴腳本</h2>
-<p>關於油猴擴展的使用方式我有寫過一篇文章，請參考<a href="https://z1nhouse.github.io/post/XmgX1Z_xP">Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！</a></p>
-<ul>
-<li><a href="https://www.tampermonkey.net/">油猴官網</a></li>
-<li><a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW">油猴擴展</a></li>
-</ul>
-<ol>
-<li>安裝好油猴擴展之後，打開<a href="https://greasyfork.org/zh-TW">油猴腳本分享站Greasy Fork</a></li>
-<li>搜索Youtube可以查到相關的腳本，依據個人需求安裝。(或者也可以使用我下方推薦的幾個腳本)</li>
-</ol>
-<p>在這邊推薦幾個我使用過認為值得安裝的腳本</p>
-<ul>
-<li><a href="https://greasyfork.org/zh-TW/scripts/391134-%E9%9A%90%E8%97%8Fyoutube%E5%B9%BF%E5%91%8A-%E8%87%AA%E5%8A%A8%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BF%87%E5%B9%BF%E5%91%8A-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-%E5%85%8D%E8%B4%B9%E8%BF%98%E4%B8%8D%E9%99%90%E6%B5%81%E9%87%8F-%E4%B8%8Ayoutube%E7%9C%8B%E8%A7%86%E9%A2%91%E7%A8%B3%E5%AE%9A1080p-%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6%E6%9B%B4%E5%A4%9A%E7%A6%8F%E5%88%A9%E7%AD%89%E4%BD%A0%E6%9D%A5">隐藏youtube广告，自动点击跳过广告;科学上网，免费还不限流量。上youtube看视频稳定1080P。破解软件更多福利等你来！</a><br>
-功能：跳過煩人的廣告。</li>
-</ul>
-<p>相同功能的還有<a href="https://greasyfork.org/zh-CN/scripts/9165-auto-close-youtube-ads">Auto Close YouTube Ads</a></p>
-<ul>
-<li><a href="https://greasyfork.org/en/scripts/20015-simple-youtube-mp3-button">Simple YouTube MP3 Button</a><br>
-功能：直接將Youtube影片以MP3檔案類型下載。</li>
-</ul>
-<blockquote>
-<p><img src="https://greasyfork.org/system/screenshots/screenshots/000/004/365/original/1.png" alt=""><br>
-<img src="https://greasyfork.org/system/screenshots/screenshots/000/004/366/original/2.png" alt=""></p>
-</blockquote>
-<ul>
-<li><a href="https://greasyfork.org/zh-TW/scripts/369418-the-best-youtube-downloader-download-video-mp4-avi-mp3-hd-1080p-2k-4k-8k">The best Youtube Downloader, download video MP4, AVI, MP3, HD, 1080P, 2K, 4k &amp; 8K</a><br>
-功能：下載MP4,AVI影片以及MP3音頻</li>
-</ul>
-<blockquote>
-<p>安裝腳本後重開Youtube影片就可以看見影片下方有Download Video的按鈕，根據個人需求下載。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575731533383.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575728405047.png" alt=""></p>
-</blockquote>
 ]]></content>
     </entry>
 </feed>
