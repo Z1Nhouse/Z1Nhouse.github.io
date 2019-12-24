@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>【資料結構】圖形結構(Graph)基礎篇(1) | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1577197845124">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1577198033937">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1577197845124" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1577198033937" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -210,7 +210,7 @@ E(G2)={(1,2), (1,3),(3,2),(3,4),(4,3)}</p>
 <p>圖形中的所有頂點都被拜訪到，且僅被拜訪到一次。<br>
 分為DFS深先搜尋與BFS廣先搜尋。</p>
 <h3 id="深先搜尋depth-first-search">📌<strong>深先搜尋(Depth First Search)</strong></h3>
-<p>包含<strong>遞迴應用</strong>的概念，因此可利用**堆疊(Stack)**保存走訪過程中間所走過的點。</p>
+<p>包含<strong>遞迴應用</strong>的概念，因此可利用<code>堆疊(Stack)</code>保存走訪過程中間所走過的點。</p>
 <p>如同前序追蹤，先遇到的頂點就先探索，如果節點有子節點，首先對其進行探索。<br>
 除非另有說明，否則通常從左到右。如果從任何已走訪過的頂點，都無法再走訪到一個尚未被走過的頂點時，則結束走訪。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1577193694728.png" alt=""></p>
@@ -219,7 +219,7 @@ E(G2)={(1,2), (1,3),(3,2),(3,4),(4,3)}</p>
 找到有向圖中的Strongly Connected Component(SCC)。</p>
 <h3 id="廣先搜尋breadth-first-search">📌<strong>廣先搜尋(Breadth First Search)</strong></h3>
 <p>BFS是廣義的層級探索(Level-Order Traversal)，將之從樹推廣至圖。<br>
-BFS運作流程基本上與DFS差不多，但BFS是利用**佇列(Queue)**保存走訪過程中間所走過的點。</p>
+BFS運作流程基本上與DFS差不多，但BFS是利用<code>佇列(Queue)</code>保存走訪過程中間所走過的點。</p>
 <p>由起始頂點15 開始走訪。所有相鄰至15且尚未被拜訪過的頂點，都會在下個步驟裡一一被走訪。<br>
 而相鄰至這些被走訪頂點且尚未走過的頂點，又將被一一走訪；重複上述，直到無頂點可被拜訪為止。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1577194220398.jpg" alt=""></p>
