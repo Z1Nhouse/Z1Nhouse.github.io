@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-16T16:40:02.364Z</updated>
+    <updated>2019-12-24T14:26:48.223Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,163 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【資料結構】圖形結構(Graph)基礎篇(1)]]></title>
+        <id>https://Z1Nhouse.github.io//post/BFgV-T9ON</id>
+        <link href="https://Z1Nhouse.github.io//post/BFgV-T9ON">
+        </link>
+        <updated>2019-12-24T12:35:04.000Z</updated>
+        <summary type="html"><![CDATA[<p>圖論(Graph theory)起源於著名的柯尼斯堡七橋問題(Koenigsberg bridge)。該問題於1736年被歐拉解決，因此普遍認為尤拉(Leonhard Euler)是圖論的創始人。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>圖論(Graph theory)起源於著名的柯尼斯堡七橋問題(Koenigsberg bridge)。該問題於1736年被歐拉解決，因此普遍認為尤拉(Leonhard Euler)是圖論的創始人。</p>
+<!-- more -->
+<h2 id="定義與種類">📜定義與種類</h2>
+<p>一個圖形是由頂點集合V與邊集合E所組成，數學上通常用G = (V,E)表示。</p>
+<p>下方為示意圖：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577190922243.PNG" alt=""><br>
+圖論中，依據線段(Edge)有沒有方向性可分為<strong>無向圖</strong>及<strong>有向圖</strong>：</p>
+<ul>
+<li>
+<p><strong>無向圖(Undirected graph)</strong><br>
+邊集合中的每一個邊都沒有方向性。</p>
+</li>
+<li>
+<p><strong>有向圖(Directed graph)</strong><br>
+邊集合中的每一個編都有方向性，以指向下一個頂點。</p>
+</li>
+</ul>
+<p>此無向圖G1的點集合與邊集合為：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577190934860.png" alt=""><br>
+V(G1)={1,2,3,4,5,6}<br>
+E(G1)={(1,2), (1,3),(2,4),(3,4),(3,5),(4,5),(4,6)}</p>
+<p>此有向圖G2的點集合與邊集合為：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577191098864.png" alt=""><br>
+V(G2)={1,2,3,4}<br>
+E(G2)={(1,2), (1,3),(3,2),(3,4),(4,3)}</p>
+<p>樹也是一種圖，但是樹可以出現環、連通，而樹不行。<br>
+注意，圖形不能有自我迴圈(self-loop)。</p>
+<h3 id="圖形結構的用詞">💬圖形結構的用詞</h3>
+<p>圖(1)<br>
+![圖(https://Z1Nhouse.github.io//post-images/1577191098864.png)<br>
+圖(2)<br>
+![圖(https://Z1Nhouse.github.io//post-images/1577191142220.png)</p>
+<ul>
+<li><strong>頂點(Vertex)</strong>：也可稱為資料節點(Node)，例如圖(1)的1,2,3,4。</li>
+<li><strong>邊(Edge)</strong>：每個頂點的連線就稱為邊。</li>
+<li><strong>相鄰(Adjacent)</strong>：例如圖(2)的1,2相鄰。</li>
+<li><strong>路徑(Path)</strong>：某個頂點到某個頂點的過程。</li>
+<li><strong>連通(Connected)</strong>：在一&quot;無向圖&quot;中，任何成對頂點之間皆有路徑存在。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577191912704.PNG" alt=""></li>
+</ul>
+<ol>
+<li>
+<p>強連通(Strongly connected)：<br>
+在&quot;有向圖&quot;中，<strong>任何</strong>成對頂點之間皆有路徑可以相互到達對方。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577192024532.PNG" alt=""></p>
+</li>
+<li>
+<p>弱連通(Weakly connected)：<br>
+在&quot;有向圖&quot;中，<strong>至少</strong>有兩個頂點無法以有向路徑相互到達對方。</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>簡單路徑(Simple path)</strong>：路徑上除了起點和終點可以相同之外，其餘頂點均不相同。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577191244570.png" alt=""></p>
+</li>
+<li>
+<p><strong>循環(Cycle)</strong>：若有一條簡單路徑的起點頂點與終點頂點相同，則稱這條路徑為cycle。</p>
+</li>
+<li>
+<p><strong>分支度(Degree)</strong>：(無向圖)為連接至該頂點的邊之個數。比如圖(2)，1的分支度為&quot;2&quot;，4的分支度為&quot;4&quot;。<br>
+有向圖還會區分為外分支度(Outdegree)與內分支度(Indegree)。</p>
+</li>
+<li>
+<p><strong>子圖(Subgraph)</strong>：圖中的某一部分。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577191627812.PNG" alt=""></p>
+</li>
+<li>
+<p><strong>完整圖(Complete Graph)</strong>：是一個擁有最多非重複邊線的圖：</p>
+</li>
+</ul>
+<ol>
+<li>無向圖：若圖具有n個頂點，則具有最多的非重複邊個數達<code>n(n-1)/2</code>時，此圖稱為完整圖。</li>
+<li>有向圖：若圖具有n個頂點，則具有最多的非重複邊個數達<code>n(n-1)</code>時，此圖稱為完整圖。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577191576654.gif" alt=""></li>
+</ol>
+<h2 id="表示方式">🔎表示方式</h2>
+<p>常用的表示方式：相鄰矩陣(Adjacency Matrix)、相鄰串列(Adjacency List)</p>
+<h3 id="相鄰矩陣adjacency-matrix">🎈相鄰矩陣(Adjacency Matrix)</h3>
+<p>對無向圖而言，根據項點數n，宣告一個n×n的二維矩陣。<br>
+矩陣中，每個1就代表該兩個項點有連線。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577192189083.PNG" alt=""></p>
+<ul>
+<li>無向圖的相鄰矩陣必為對稱(Symmetric)，對角線皆為0，因為自己與自己本身無法相連(<code>A[1][1]、A[2][2]....A[i][j]</code>)。</li>
+<li>有向圖的相鄰矩陣不一定為對稱，但當有向圖為完整圖時也會是對稱矩陣。</li>
+</ul>
+<h3 id="相鄰串列adjacency-list">🎈相鄰串列(Adjacency List)</h3>
+<p>有幾個頂點(n)就需要幾條相鄰串列與一個大小為n的一維陣列，其中A[i] 所存放的是頂點i 的相鄰串列，此串列中毎個Node皆記録著與頂點i 相鄰之其它頂點。</p>
+<ol>
+<li>
+<p>無向<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577192594214.gif" alt=""></p>
+</li>
+<li>
+<p>有向<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577192729326.gif" alt=""></p>
+</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1577192986524.PNG" alt=""></figure>
+<h2 id="圖形追蹤traverse-graph">📍圖形追蹤(Traverse Graph)</h2>
+<p>圖形中的所有頂點都被拜訪到，且僅被拜訪到一次。<br>
+分為DFS深先搜尋與BFS廣先搜尋。</p>
+<h3 id="深先搜尋depth-first-search">📌<strong>深先搜尋(Depth First Search)</strong></h3>
+<p>包含<strong>遞迴應用</strong>的概念，因此可利用**堆疊(Stack)**保存走訪過程中間所走過的點。</p>
+<p>如同前序追蹤，先遇到的頂點就先探索，如果節點有子節點，首先對其進行探索。<br>
+除非另有說明，否則通常從左到右。如果從任何已走訪過的頂點，都無法再走訪到一個尚未被走過的頂點時，則結束走訪。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577193694728.png" alt=""></p>
+<p>PS.DFS之順序並不唯一除非規定“拜訪時，依Node編號由小到大拜訪”才會唯一。</p>
+<p>我們可以利用DFS進行<strong>拓撲排序(Topological Sort)</strong>。<br>
+找到有向圖中的Strongly Connected Component(SCC)。</p>
+<h3 id="廣先搜尋breadth-first-search">📌<strong>廣先搜尋(Breadth First Search)</strong></h3>
+<p>BFS是廣義的層級探索(Level-Order Traversal)，將之從樹推廣至圖。<br>
+BFS運作流程基本上與DFS差不多，但BFS是利用**佇列(Queue)**保存走訪過程中間所走過的點。</p>
+<p>由起始頂點15 開始走訪。所有相鄰至15且尚未被拜訪過的頂點，都會在下個步驟裡一一被走訪。<br>
+而相鄰至這些被走訪頂點且尚未走過的頂點，又將被一一走訪；重複上述，直到無頂點可被拜訪為止。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577194220398.jpg" alt=""></p>
+<h2 id="aov-networks與toplogical">🔸AOV Networks與Toplogical</h2>
+<p>AOV全稱Activity On Vertex，假設G = &lt;V, E&gt;為一個&quot;有向圖&quot;，其中頂點表示工作(Activity)，線段表示工作執行之先後次序關係。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577195363117.png" alt=""></p>
+<p>應用: 求合理的工作執行順序，即：<strong>拓樸順序(Topological Order)</strong></p>
+<p><strong>🔸拓樸順序(Topological Order)</strong></p>
+<ol>
+<li>找出一個無前導(內分支度為0)的頂點將此頂點輸出。</li>
+<li>刪除此點及其線段。</li>
+<li>直到所有頂點已輸出，或剩下的點皆有前導存在。</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1577196549261.png" alt=""></figure>
+<ul>
+<li>若AOV Network有cycle，則無Topological Order。(<code>∵無法決定誰先做</code>)</li>
+<li>不具cycle的AOV Network，其Topological Order ≥1組。(<code>不一定唯一</code>)</li>
+</ul>
+<h2 id="aoe-networks">🔹AOE Networks</h2>
+<p>AOE全稱Activity On Edge，在<code>有加權的有向圖</code>上以Edge表示工作(Activity)，Vertex表示事件(Event)，Edge上具有加權值，表示工作完成所需的時間。<strong>與AOV不同之處在於，AOV以Vertex表示工作，而AOE是以Edge表示工作。</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://Z1Nhouse.github.io//post-images/1577196821362.png" alt=""></figure>
+<p><strong>完成此計畫所需之最少(最起碼)的工作時數?</strong><br>
+＝ 求從<code>Start → End</code>事件之最長路徑長度即：求<code>Critical path (臨界路徑)</code>的長度。</p>
+<p>上圖有可能的路徑為</p>
+<ol>
+<li>0→1→4→5→6 (持續時間=15)</li>
+<li>0→1→2→5→6 (持續時間=16)</li>
+<li>0→2→5→6 (持續時間=13)</li>
+<li>0→2→3→5→6 (持續時間=20)</li>
+<li>0→3→5→6 (持續時間=17)</li>
+</ol>
+<p>最長路徑的長度為20，因此有一條路徑為Critical path(臨界路徑)。</p>
+<p>由於在AOE Networks中有些活動可以並列地進行，所以完成工程的最短時間是從開始點到完成點的最長路徑的長度（路徑上各活動持續時間之和）。路徑長度最長的路徑叫做<code>關鍵路徑</code>。</p>
+<figure data-type="image" tabindex="4"><img src="https://Z1Nhouse.github.io//post-images/1577197501918.jpg" alt=""></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[在Windows底下安裝Ruby On Rails 開發環境及建立專案]]></title>
         <id>https://Z1Nhouse.github.io//post/LgyMo5WnT</id>
@@ -1056,64 +1213,6 @@ puts 總是回傳 nil，nil 在 Ruby 中表示一個絕對的空值，因為 put
 <img src="https://Z1Nhouse.github.io//post-images/1575804452522.PNG" alt=""></li>
 </ul>
 <p>就這樣~</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Chrome必裝擴展—Tampermonkey油猴，只要有腳本什麼都能辦到！]]></title>
-        <id>https://Z1Nhouse.github.io//post/XmgX1Z_xP</id>
-        <link href="https://Z1Nhouse.github.io//post/XmgX1Z_xP">
-        </link>
-        <updated>2019-12-07T14:24:25.000Z</updated>
-        <summary type="html"><![CDATA[<p>上至百度雲限速破解下至圖片、Youtube影片下載，只要一個擴展什麼都能輕鬆解決。<br>
-最重要的是，免費而且簡單，不需要花費多少精力就可以達到效果，使用Chrome卻沒安裝油猴非常可惜！<br>
-順帶一提，油猴擴展不止Chrome有，它還支援Edge、Safari、Firefox、Opera...瀏覽器，擴展根據瀏覽器的不同下載的位置也不同。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>上至百度雲限速破解下至圖片、Youtube影片下載，只要一個擴展什麼都能輕鬆解決。<br>
-最重要的是，免費而且簡單，不需要花費多少精力就可以達到效果，使用Chrome卻沒安裝油猴非常可惜！<br>
-順帶一提，油猴擴展不止Chrome有，它還支援Edge、Safari、Firefox、Opera...瀏覽器，擴展根據瀏覽器的不同下載的位置也不同。</p>
-<!-- more -->
-<h2 id="安裝油猴擴展">安裝油猴擴展</h2>
-<p>如果你是可以直接進入Chrome線上應用程式商店的，你可以直接在擴展商店下載<a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">油猴Tampermonkey</a>，這邊就不演示怎麼安裝擴展了。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575729741784.PNG" alt=""></p>
-<p>若你無法進入Chrome的應用商店，你可以試試在<a href="https://www.crx4chrome.com/">Crx4Chrome</a>搜索Tampermonkey，直接下載<a href="https://www.crx4chrome.com/crx/755/">油猴的CRX檔</a><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575729695013.PNG" alt=""></p>
-<h3 id="crx檔的安裝方式">CRX檔的安裝方式</h3>
-<p>下載好擴展的CRX檔之後，打開瀏覽器輸入<code>chrome://extensions/</code>，將CRX檔拖入後啟用。</p>
-<blockquote>
-<p>【注：此處僅作範例，不是拿油猴擴展做示範。】<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575731356003.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575729476817.PNG" alt=""></p>
-</blockquote>
-<h4 id="暴力安裝法">暴力安裝法</h4>
-<p>若是上方拖CRX檔安裝的方式仍然無法安裝，你可以嘗試把下載好的<code>xxx.crx</code>擴展名改為<code>xxx.zip</code><br>
-瀏覽器打開<code>chrome://extensions/</code>右上方按鈕開啟<code>開發人員模式</code>，將<code>xxx.zip</code>文件拖移進去即可。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575730900180.PNG" alt=""></p>
-<h2 id="安裝腳本">安裝腳本</h2>
-<ul>
-<li>在這邊推薦一個油猴腳本的網站：<a href="https://greasyfork.org/zh-CN">Greasy Fork</a><br>
-支持中文，依據多種排序方式列出腳本，且都有詳細介紹腳本功能..等，非常適合新手用來搜索需要的腳本。</li>
-<li>其他還有像是<a href="https://openuserjs.org/">OpenUserJS</a>、<a href="https://userscripts-mirror.org/">Userscripts.org</a>但這兩個網站都是全英文介面，如果你的英文能力足夠不妨也可以上去看看有沒有需要的腳本。</li>
-</ul>
-<ol>
-<li>找到需要的腳本之後點擊&quot;安裝腳本&quot;。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575729959349.PNG" alt=""></li>
-<li>點擊&quot;安裝&quot;。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575729964532.PNG" alt=""></li>
-<li>腳本安裝完畢之後在瀏覽器上方點擊油猴圖標，打開控制台。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575729983239.PNG" alt=""></li>
-<li>【控制台-已安裝的腳本】可執行啟用、刪除、更新腳本...等操作。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575730060278.PNG" alt=""></li>
-<li>之後只要在有腳本適配的網站就能看見相對應腳本，你可以根據當前需求啟用或者關閉。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575730428350.PNG" alt=""></li>
-</ol>
-<h2 id="相關網站">相關網站</h2>
-<ul>
-<li><a href="https://www.tampermonkey.net/">油猴官網</a></li>
-<li><a href="https://www.crx4chrome.com/">Crx4Chrome</a></li>
-<li><a href="https://openuserjs.org/">OpenUserJS</a></li>
-<li><a href="https://userscripts-mirror.org/">Userscripts.org</a></li>
-<li><a href="https://greasyfork.org/zh-CN">Greasy Fork</a></li>
-</ul>
 ]]></content>
     </entry>
 </feed>
