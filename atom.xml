@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-30T13:37:42.192Z</updated>
+    <updated>2019-12-30T13:39:11.835Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -27,7 +27,7 @@
 <p>假設今天有n個頂點的無向圖形擴張樹，則會有n-1個邊。<br>
 使用BFS方式追蹤產生的擴張樹稱為寬度優先擴張樹；使用DFS追蹤產生的擴張樹則稱為深度優先擴張樹。</p>
 <h2 id="花費最少擴張樹minimum-spanning-tree">✨花費最少擴張樹(Minimum Spanning Tree)</h2>
-<p>一副<strong>連通加權無向圖</strong>中擁有**最小成本(權重)**的擴張樹就稱為花費最少擴張樹。<br>
+<p>一副<strong>連通加權無向圖</strong>中擁有最小成本(權重)的擴張樹就稱為花費最少擴張樹。<br>
 那麼為何需要找到花費最少擴張樹？<br>
 因為很多情境都可由圖形來表示，例如從台北到西班牙轉機的距離就可以以此找出花費最少的方法。</p>
 <p>找出一個加權圖形中花費最少擴張樹可以利用以下三種演算法(當然不止這三種)：</p>
