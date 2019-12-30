@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-26T13:41:37.846Z</updated>
+    <updated>2019-12-30T13:37:42.192Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,46 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【資料結構】圖形結構(Graph)基礎篇(2) - 擴張樹(Spanning Tree)]]></title>
+        <id>https://Z1Nhouse.github.io//post/p0rM7JmKv</id>
+        <link href="https://Z1Nhouse.github.io//post/p0rM7JmKv">
+        </link>
+        <updated>2019-12-30T13:13:26.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="擴張樹spanning-tree">✨擴張樹(Spanning Tree)</h2>
+<p>擴張樹(Spanning Tree)又稱花費樹，一個圖形的擴張樹是以最少的邊來連結圖形中所有的頂點(且須避免循環)。</p>
+<ol>
+<li>一棵包含圖上所有頂點的樹，稱作該圖的擴張樹。</li>
+<li>一張圖的擴張樹可能會有很多種。</li>
+<li>完全連通圖才有擴張樹 (不連通時，則稱為擴張森林)。</li>
+<li>擴張樹的權重為樹上每條邊的權重總和。</li>
+</ol>
+<p>假設今天有n個頂點的無向圖形擴張樹，則會有n-1個邊。<br>
+使用BFS方式追蹤產生的擴張樹稱為寬度優先擴張樹；使用DFS追蹤產生的擴張樹則稱為深度優先擴張樹。</p>
+<h2 id="花費最少擴張樹minimum-spanning-tree">✨花費最少擴張樹(Minimum Spanning Tree)</h2>
+<p>一副<strong>連通加權無向圖</strong>中擁有**最小成本(權重)**的擴張樹就稱為花費最少擴張樹。<br>
+那麼為何需要找到花費最少擴張樹？<br>
+因為很多情境都可由圖形來表示，例如從台北到西班牙轉機的距離就可以以此找出花費最少的方法。</p>
+<p>找出一個加權圖形中花費最少擴張樹可以利用以下三種演算法(當然不止這三種)：</p>
+<ol>
+<li>Kruskal's Algorithm</li>
+<li>Prim's Algorithm</li>
+<li>Sollin's Algorithm</li>
+</ol>
+<p>這三種演算法皆是greedy algorithm(貪婪法則)。</p>
+<h3 id="kruskals-algorithm">🌸Kruskal's Algorithm</h3>
+<p>這個演算法較容易實作，由Spanning tree中<strong>花費最少的邊</strong>出發，每一次都選擇目前尚未被選擇的最少花費的邊，且避免形成循環，直到邊的個數為n-1(頂點為n)即找出花費最少擴張樹。</p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1577711708165.gif" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1577711903994.gif" alt=""></p>
+<h3 id="prims-algorithm">🌸Prim's Algorithm</h3>
+<p>先從Spanning tree中找一個頂點V作為起始點，找出與V相連且還沒有被選取的頂點裡面加權值最小的邊，直到找到n-1個邊(頂點為n)。</p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1577711713650.gif" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1577711910898.gif" alt=""></p>
+<h3 id="sollins-algorithm">🌸Sollin's Algorithm</h3>
+<p>每次選擇花費最少的子圖，並且再選取花費較少的邊將這些子圖相連(不能造成循環)，直到邊數為n-1(頂點為n)停止。</p>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1577712145202.gif" alt=""></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【資料結構】圖形結構(Graph)基礎篇(1)]]></title>
         <id>https://Z1Nhouse.github.io//post/BFgV-T9ON</id>
@@ -996,238 +1036,6 @@ puts 總是回傳 nil，nil 在 Ruby 中表示一個絕對的空值，因為 put
 <li>全英文Ruby學習教材：<a href="https://launchschool.com/books/ruby/read/introduction#briefhistory">https://launchschool.com/books/ruby/read/introduction#briefhistory</a></li>
 <li>Ruby筆記(全中文)：<a href="https://gradyli.wordpress.com/ruby%e6%95%99%e5%ad%b8/">https://gradyli.wordpress.com/ruby%e6%95%99%e5%ad%b8/</a></li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【資料結構】平衡搜索樹 - 紅黑樹、B樹(2-3,2-3-4樹)、B+樹]]></title>
-        <id>https://Z1Nhouse.github.io//post/5lQAWUQWk</id>
-        <link href="https://Z1Nhouse.github.io//post/5lQAWUQWk">
-        </link>
-        <updated>2019-12-08T09:35:49.000Z</updated>
-        <summary type="html"><![CDATA[<p>2-3樹與2-3-4樹為B樹的特例，所以特別拿出來細講。<br>
-今天主要講解的內容包括：2-3樹、2-3-4樹、紅黑樹、B樹、B+樹。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>2-3樹與2-3-4樹為B樹的特例，所以特別拿出來細講。<br>
-今天主要講解的內容包括：2-3樹、2-3-4樹、紅黑樹、B樹、B+樹。</p>
-<!-- more -->
-<h2 id="何謂平衡搜索樹">何謂「平衡搜索樹」？</h2>
-<p>平衡搜索樹常見的有：<strong>AVL、紅黑樹、B樹(2-3與2-3-4樹都是B樹的特例)</strong></p>
-<blockquote>
-<p>平衡樹的定義：若非空樹，則必須滿足父節點的左子樹與右子樹高度差絕對值不大於1。<br>
-這其中，AVL、紅黑樹皆屬於平衡二元搜索樹。</p>
-</blockquote>
-<p><strong>※平衡搜索樹（Balanced Search Tree）新增、刪除及搜索的時間複雜度皆為O(logn)</strong><br>
-不同平衡搜索樹的高度(height)：</p>
-<ul>
-<li>AVL樹：高度≦logn</li>
-<li>紅黑樹：高度≦2logn</li>
-<li>2-3樹：高度≦logn</li>
-<li>2-3-4樹：高度≦logn</li>
-</ul>
-<h2 id="專業術語">專業術語</h2>
-<ul>
-<li>節點(node)：用以代表資料(data)、狀態(state)。</li>
-<li>樹根(root)：樹中最上層的節點，也是唯一一個父節點為null的節點。</li>
-<li>子(Child)節點：一個節點的下一層節點。</li>
-<li>子樹(subtree)：去掉根節點，其餘的節點可分割成任意個數互斥的集合，每一個集合也都符合樹的定義。</li>
-<li>葉節點(leaf)：沒有child/subtree的節點。</li>
-<li>分支(degree)：一個node擁有的子樹個樹。</li>
-<li>階度(level)：以根節點的階度為1，其餘節點的階度為其父節點的階度+1。</li>
-<li>高度(height)：此樹的最高階度。</li>
-<li>siblings：擁有相同父節點的節點們，為兄弟節點。</li>
-</ul>
-<p>常見到有人說這是3階,4階的樹，這裡的3階指的是一個節點最多可以擁有三個子節點，4階則是指一個節點最多可以擁有四個子節點。</p>
-<h2 id="2-3樹">2-3樹</h2>
-<p>為何會叫2-3樹？原因為每個節點可以有2或3個子節點。</p>
-<ol>
-<li>滿足二元搜索樹的基本性質—左小右大，但不是二元樹(因為最多可以擁有三個子節點)。</li>
-<li>節點可以放1或2個元素(1個元素時有2個孩子；2個元素時有3個孩子)</li>
-<li>是一棵絕對平衡的樹(左右子樹高度一定相同，所有葉節點皆在同一level)</li>
-</ol>
-<p>當今天有2個元素(b,c)3個子節點時，左子節點≦b ; b&lt;中子節點≦c ; c&lt;右子節點<br>
-如下圖所示<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575798693292.PNG" alt=""></p>
-<h3 id="2-3樹的元素新增">2-3樹的元素新增</h3>
-<p>假設今天有一筆資料<code>{53,23,77,45,11,2,44,77,93,26,32,16,87,11}</code><br>
-按照搜索樹的性質依序加入資料，下方為新增的步驟<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575798934769.PNG" alt=""><br>
-當輸入到77時，一個節點有3個元素，此時需要進行平衡。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575798939021.PNG" alt=""><br>
-將53(大小位於中間的元素)往上提變成根節點，左子節點為23，右子節點為77。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575798995848.PNG" alt=""><br>
-接著輸入45,11，當輸入到11時左子樹又有三個元素，因此需要再平衡。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799165863.PNG" alt=""><br>
-將23往上提，11與45分別拆成左、中子節點。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799189813.PNG" alt=""><br>
-接著輸入2,44,77。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799298976.PNG" alt=""><br>
-再輸入93時，右子樹的元素為3個，需要再次平衡，將77往上提，如此一來根節點變成3個元素，因此將53再往上提一層，左子樹為23右子樹為77。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799452952.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799456176.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799458271.PNG" alt=""><br>
-接著輸入26，一樣需要平衡。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799568254.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799571173.PNG" alt=""><br>
-輸入32。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799681696.PNG" alt=""><br>
-輸入16，進行平衡。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799730864.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799767051.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799769563.PNG" alt=""><br>
-最後輸入87,11無須平衡，完成。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799822760.PNG" alt=""></p>
-<h3 id="2-3樹的元素刪除">2-3樹的元素刪除</h3>
-<p>刪除的部分稍微麻煩一點，需要判斷刪除的元素位置，以剛剛我們建好的2-3樹為例：<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799822760.PNG" alt=""></p>
-<ul>
-<li>
-<p>假設今天要刪除<code>93</code>，不影響任何節點，直接刪除即可。</p>
-</li>
-<li>
-<p>假設今天要刪除<code>16</code>，而16是11的右子節點，這個子節點中只有一個元素，則須將父節點的左子樹最大值拿來替補父節點，再用父節點替補刪除的節點16，如下圖所示。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575799953426.PNG" alt=""></p>
-</li>
-<li>
-<p>假設今天要刪除<code>44</code>，44非葉節點，底下還有左子樹與右子樹，我們需要將左子樹的最大值來做替補。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800160428.PNG" alt=""></p>
-</li>
-<li>
-<p>假設今天我們要刪除根節點的<code>23</code>，那就顯得非常麻煩了，首先需要將根節點左子樹最大值11替補23，再將左子樹的11與其子節點11合併，最後將中子樹32與左子樹合併。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800758833.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800805619.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800832554.PNG" alt=""></p>
-</li>
-<li>
-<p>假設今天要刪除<code>77</code>(由根節點開始搜索，第一個碰到的77)，先將左子節點77替補父節點77，再將77與子節點87合併，再將根節點53替補為77與87的父節點，將左子樹的32替補為根節點，完成。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800959792.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800962053.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575800964694.PNG" alt=""></p>
-</li>
-</ul>
-<h2 id="2-3-4樹">2-3-4樹</h2>
-<p>為何會叫2-3-4樹？原因與2-3樹相同，只不過2-3-4樹的每個節點可以有2、3或4個子節點。</p>
-<p>當一個節點有1個元素，則會有2個子節點，<br>
-當一個節點有2個元素，則會有3個子節點，<br>
-當一個節點有3個元素，則會有4個子節點。</p>
-<p>與2-3樹的性質基本相同，可以參考2-3樹的介紹。</p>
-<h3 id="2-3-4樹的元素新增">2-3-4樹的元素新增</h3>
-<p>假設今天有一筆資料<code>{23,66,34,12,1,77,34,23,44,77,1}</code></p>
-<p>加入資料23,66,34。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801163272.PNG" alt=""><br>
-再加入12時，根節點的元素變為4個，需要進行平衡，將中節點23往上提成根節點，12變為左子樹，右子樹為34與66。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801237617.PNG" alt=""><br>
-加入1,77。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801270756.PNG" alt=""><br>
-加入34後右子節點的元素變為4個，需要再次平衡，將中節點34往上提，左邊的34與右邊的66,77變為根節點的中、右子樹。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801328302.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801331864.PNG" alt=""></p>
-<p>加入23,44。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801462256.PNG" alt=""><br>
-加入77後需要再次平衡。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801575613.PNG" alt=""></p>
-<p>輸入1之後左子節點變為4個元素，需要將中間元素1往上提，但此時根節點也變為4個元素，再次將根節點的中間元素23往上提，左子節點為1，右子節點為34,66。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801578418.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801597278.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801622916.PNG" alt=""></p>
-<h3 id="2-3-4樹的元素刪除">2-3-4樹的元素刪除</h3>
-<p>拿上方建好的2-3-4樹作為例子。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801622916.PNG" alt=""></p>
-<ul>
-<li>
-<p>刪除葉節點的<code>12</code>，毫無影響直接刪除即可。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801850522.PNG" alt=""></p>
-</li>
-<li>
-<p>刪除非葉節點的<code>1</code>，將其左子節點的1提上來替補，再將1與23合併，最後將根節點23替補為左子樹，將右子樹最小值替補根節點進行平衡。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801856084.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801943259.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575801858586.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575802017706.PNG" alt=""></p>
-</li>
-<li>
-<p>刪除根節點<code>34</code>，先將左子樹底下的最大值替補根節點，再將左子樹23替補34，最後將左子節點最大值替補父節點23。(請忽略敘述，直接看圖理解。)<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575802308925.png" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575802189223.PNG" alt=""></p>
-</li>
-</ul>
-<h2 id="红黑樹redblack-tree">红黑樹(Red–black tree)</h2>
-<p>根據《算法導論》中紅黑樹必滿足以下五種特性：</p>
-<ol>
-<li>每個節點要不是紅色的，不然就是黑色的。</li>
-<li>根節點一定是黑色的。</li>
-<li>樹葉節點(最後的空節點)一定是黑的。</li>
-<li>如果一個節點是紅色，那他的子節點都是黑的。</li>
-<li>從任意一個節點到葉子節點，經過的黑色節點數是一樣的。</li>
-</ol>
-<p>保持黑平衡(從根節點到葉子節點所經過的黑色節點數一樣)的二元樹，嚴格來說不是平衡二元樹。</p>
-<h3 id="2-3-4樹轉換成红黑樹">2-3-4樹轉換成红黑樹</h3>
-<p>一個2-3-4樹可以轉換成不止一種型態的紅黑樹，但一個紅黑樹僅能轉換成一種2-3-4樹。</p>
-<p>假設根節點僅有一個元素，則將之設為紅黑樹的根節點；<br>
-若根節點有一個以上的元素，則隨意取一個設為紅黑樹的根節點，要注意的是，同個節點拆分出來的元素是紅色的。</p>
-<p>這是取自<a href="https://www.cnblogs.com/nullzx/p/6128416.html">nullzx</a>的圖<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575802847023.jpg" alt=""><br>
-大致了解一下即可，只要了解二元搜索樹及紅黑樹的性質就可以輕鬆轉換。</p>
-<blockquote>
-<p>雖然紅黑樹和AVL樹的時間複雜度都為O(logn)，但是紅黑樹的高度(2logn)比AVL樹(logn)高，所以在紅黑樹上「查找」較AVL樹慢，儘管如此，紅黑樹卻比AVL樹重要且常用，原因為紅黑樹添加與刪除元素的速度較AVL樹快。<strong>若光只查詢，AVL樹查詢的速度快於紅黑樹；若需要頻繁的新增與刪除元素，紅黑樹則優於AVL樹。</strong></p>
-</blockquote>
-<h2 id="b樹b-tree">B樹(B-tree)</h2>
-<p>B樹適用於讀寫相對大的數據塊的存儲系統，例如磁碟。B樹減少定位記錄時所經歷的中間過程，從而加快存取速度。B樹這種資料結構可以用來描述外部存儲。這種資料結構常被應用在資料庫和文件系統的實現上。</p>
-<p>2-3與2-3-4樹都是B樹的特例。</p>
-<p>若非空樹，則滿足：</p>
-<ol>
-<li>每個節點至多有m棵子樹(至多m-1個元素)</li>
-<li>若根節點非終端，則至少有兩棵子樹。</li>
-<li>除根節點外的所有非葉節點至少有⌈m/2⌉棵子樹。</li>
-<li>[n,P0,K1,P1,K2....Kn,Pn] n=節點中元素個數；Ki為節點的元素且K1&lt;K2...；Pi為指向子樹根節點的指針</li>
-<li>所有的葉節點出現在同一level。</li>
-</ol>
-<p>在此不多演示B樹的新增資料與刪除了，請參考2-3樹與2-3-4樹。<br>
-詳情見：<a href="https://zh.wikipedia.org/wiki/B%E6%A0%91">B樹維基百科</a></p>
-<h2 id="b樹">B+樹</h2>
-<p>常用於數據庫和文件系統中的一種用於查找的資料結構。</p>
-<p>B+與B樹的主要差異為：</p>
-<ol>
-<li>B+樹具有n個元素的節點只含有n棵子樹，每個元素對應一棵子樹，但是B樹n個元素會有n+1棵子樹。</li>
-<li>葉節點包含資料，所有非葉節點則是索引作用，索引只含有對應子樹的最大元素和指向該子樹的指針，而B樹每個節點都是一個元素。</li>
-<li>所有葉節點鏈結成一個單鏈表(由小到大)。</li>
-</ol>
-<p>B+樹示意圖(此處的關鍵字代表元素)<br>
-<img src="https://images2018.cnblogs.com/blog/834468/201804/834468-20180406232853119-1460626460.png" alt=""><br>
-圖片來源nullzx</p>
-<h3 id="b樹的元素新增">B+樹的元素新增</h3>
-<p>假設今天有一筆資料<code>{33,21,11,4,66,77,32,56}</code>，而此B+樹為3階。</p>
-<p>首先加入資料33,21。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575803906400.PNG" alt=""><br>
-加入11時由於此樹為3階，因此需要進行分裂，在此需要取中間值21作為索引key。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575803913991.PNG" alt=""><br>
-加入4,66，需要進行分裂，將中間值33往上提作為索引key。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804030133.PNG" alt=""><br>
-加入77。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804121178.PNG" alt=""><br>
-加入32,56。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804124551.PNG" alt=""></p>
-<h3 id="b樹的元素刪除">B+樹的元素刪除</h3>
-<p>使用上方建的B+樹進行示範。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804124551.PNG" alt=""></p>
-<ul>
-<li>
-<p>刪除<code>32</code>，直接刪除即可。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804245714.PNG" alt=""></p>
-</li>
-<li>
-<p>刪除<code>66</code>，要注意的是，刪除的是資料項66，而非索引的66，將剩餘的77往上提作為索引key。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804267222.PNG" alt=""></p>
-</li>
-</ul>
-<p>在此省略了刪除11的步驟。</p>
-<ul>
-<li>刪除<code>21</code>，將21索引與資料項刪除，將資料4與33,56連結在一起，再將根部的索引33與右子樹的索引77合併。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804443747.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804446458.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804449235.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575804452522.PNG" alt=""></li>
-</ul>
-<p>就這樣~</p>
 ]]></content>
     </entry>
 </feed>
