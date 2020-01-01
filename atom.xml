@@ -2,14 +2,106 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2019-12-30T13:39:11.835Z</updated>
+    <updated>2020-01-01T16:28:10.438Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
     <subtitle>System.out.print(&quot;Welcome to Z1N&apos;s house！&quot;);</subtitle>
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
-    <rights>All rights reserved 2019, Z1N&apos;s house</rights>
+    <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[使用jQuery取得JSON資料 - 簡易隨機詩詞產生器]]></title>
+        <id>https://Z1Nhouse.github.io//post/Oj8rJWuki</id>
+        <link href="https://Z1Nhouse.github.io//post/Oj8rJWuki">
+        </link>
+        <updated>2020-01-01T16:03:14.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="什麼是jquery">什麼是jQuery</h2>
+<p>jQuery是繼prototype之後又一個優秀的Javascript庫。它是輕量級的js庫，它兼容CSS3，還兼容各種瀏覽器（IE 6.0+, FF1.5+, Safari 2.0+, Opera 9.0+），jQuery2.0及後續版本將不再支持IE6/ 7/8瀏覽器。<br>
+　　jQuery使用戶能更方便地處理HTML、events、實現動畫效果，並且方便地為網站提供AJAX交互。jQuery還有一個比較大的優勢是，它的文檔說明很全，而且各種應用也說得很詳細，同時還有許多成熟的插件可供選擇。 jQuery能夠使用戶的html頁面保持代碼和html內容分離，也就是說，不用再在html裡面插入一堆js來調用命令了，只需要定義id即可。</p>
+<p>jquery官網提供2種jQuery的下載，一種是jquery.js另一種是jquery.min.js。</p>
+<p>文件名不一定完全相同，但通常情況下：</p>
+<ul>
+<li>
+<p>jquery.js是完整的未壓縮的jQuery庫，文件比較大，一般用於閱讀學習源碼或修改源碼，一般不用於線上項目。</p>
+</li>
+<li>
+<p>jquery.min.js是由完整版的jQu​​ery庫經過壓縮得來，壓縮後功能與未壓縮的完全一樣，只是將其中的空白字符、註釋、空行等與邏輯無關的內容刪除，並進行一些優化。這個版本一般用於網站引用使用，減小文件體積，降低網站流量，提升訪問速度等。</p>
+</li>
+</ul>
+<h2 id="載入jquery">載入jQuery</h2>
+<p>使用jQuery時你必須先將jQuery加進網頁的<code>&lt;head&gt;..&lt;/head&gt;</code>之間。</p>
+<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>當然你可以選擇將jquery.min.js下載上傳至網站直接使用，也可以藉由CDN載入。<br>
+使用CDN載入的好處是若不同的網站使用同樣的連結時可以避免重複下載，也不必在自己的伺服器上部署jQuery檔案。</p>
+<h2 id="隨機詩詞產生器">隨機詩詞產生器</h2>
+<p>當然這就需要API了，我們以今日詩詞的API作為示範：</p>
+<ul>
+<li><a href="https://www.jinrishici.com/">今日詩詞官網</a></li>
+<li><a href="https://www.jinrishici.com/doc/">今日詩詞使用說明</a></li>
+</ul>
+<p>以下為使用jQuery取得JSON資料的寫法，放在<code>&lt;head&gt;..&lt;/head&gt;</code>：</p>
+<pre><code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
+ function nextshi(){
+  getShi();
+ }
+ 
+ var title = &quot;標題&quot;;
+ var author = &quot;作者&quot;;
+ var content = &quot;內文&quot;;
+ var translate = &quot;翻譯&quot;;
+
+ var getShi = function(){
+  $.getJSON(&quot;https://v1.jinrishici.com/all.json&quot;,function(json){ //替換API的位址
+
+ /*json為function的名稱,後面接JSON中的類別,使用點(.)相連*/
+   category = json.category;    //分類
+   author = json.author;        //作者
+   content = json.content;      //內容
+   origin = json.origin; //原文
+
+/*使用json取得的資料改變元素的內容*/
+   $(&quot;.shi-content&quot;).html(content); 
+   $(&quot;.shi-author&quot;).html(author);
+   $(&quot;.shi-category&quot;).html(category);
+   $(&quot;.shi-origin&quot;).html(origin);
+  });
+ }
+&lt;/script&gt;
+</code></pre>
+<p></p>
+因為我們設定了shi-content、shi-author、shi-category、shi-origin這四個元素，因此我們也需要在網頁中插入相對應的呼叫，只需要使用 class="shi-origin" (以此類推)。
+<p>以下為放在<code>&lt;body&gt;...&lt;/body&gt;</code>的內容：</p>
+<pre><code class="language-html">&lt;h1&gt;&lt;ins class=&quot;shi-origin&quot;&gt;標題&lt;/ins&gt;&lt;/h1&gt;
+&lt;cite class=&quot;shi-author&quot;&gt;作者&lt;/cite&gt;
+&lt;br&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;shi-content&quot;&gt;內文&lt;/div&gt;
+&lt;/blockquote&gt;
+分類：&lt;font class=&quot;shi-category&quot;&gt;&lt;/font&gt;
+
+&lt;p&gt;
+&lt;button onclick=&quot;javascript:nextshi();&quot;&gt;Random&lt;/button&gt; //使用按鈕來隨機產生
+</code></pre>
+<h1>範例效果</h1>
+<ol>
+<li>未按按鈕前<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577895935822.PNG" alt=""></li>
+<li>隨機產生後<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577895939269.PNG" alt=""></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[【資料結構】圖形結構(Graph)基礎篇(3) - 最短路徑(Shortest Paths)]]></title>
+        <id>https://Z1Nhouse.github.io//post/W9lvX_AV-</id>
+        <link href="https://Z1Nhouse.github.io//post/W9lvX_AV-">
+        </link>
+        <updated>2019-12-30T13:39:35.000Z</updated>
+        <content type="html"><![CDATA[<p>b</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【資料結構】圖形結構(Graph)基礎篇(2) - 擴張樹(Spanning Tree)]]></title>
         <id>https://Z1Nhouse.github.io//post/p0rM7JmKv</id>
@@ -667,375 +759,6 @@ Jupyter Notebook舊稱IPython notebook，是一個介於IDE和Editor之間的寫
 </ul>
 <p>基本操作以及一些玩法Google一下都有大把資料，甚至官方也有很詳細的說明，在這邊就不細講了。</p>
 <p>延伸：<a href="http://opus.konghy.cn/ipynb/jupyter-notebook-keyboard-shortcut.html">Jupyter NoteBook 的快捷键使用指南</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Ruby 程式語言入門 - 基本數字計算與輸出]]></title>
-        <id>https://Z1Nhouse.github.io//post/P0o2mu3Xo</id>
-        <link href="https://Z1Nhouse.github.io//post/P0o2mu3Xo">
-        </link>
-        <updated>2019-12-10T15:07:00.000Z</updated>
-        <content type="html"><![CDATA[<p>在Ruby中，當想要將變數值、陣列之類的值印出時，可以使用<code>print</code>、<code>puts</code>及<code>p</code>等方法，而這三者之間的效果都有些微不同。</p>
-<pre><code>puts &quot;Hello World&quot;
-print &quot;Hello World&quot;
-p &quot;Hello World&quot;
-</code></pre>
-<h2 id="print-puts-p輸出方式的差異">print、puts、p輸出方式的差異</h2>
-<p><strong>puts</strong></p>
-<pre><code>irb(main):001:0&gt; puts &quot;Hello World&quot;
-Hello World
-=&gt; nil
-
-irb(main):008:0&gt; puts [1,2,3,4]
-1
-2
-3
-4
-=&gt; nil
-</code></pre>
-<p><strong>print</strong></p>
-<pre><code>irb(main):002:0&gt; print &quot;Hello World&quot;
-Hello World=&gt; nil
-
-irb(main):007:0&gt; print [1,2,3,4]
-[1, 2, 3, 4]=&gt; nil
-</code></pre>
-<p><strong>p</strong></p>
-<pre><code>irb(main):003:0&gt; p &quot;Hello World&quot;
-&quot;Hello World&quot;
-=&gt; &quot;Hello World&quot;
-
-irb(main):006:0&gt; p [1,2,3,4]
-[1, 2, 3, 4]
-=&gt; [1, 2, 3, 4]
-</code></pre>
-<p>由上方的例子可以得知：</p>
-<ul>
-<li><code>p</code>與<code>puts</code>後方有換行字元。</li>
-<li><code>puts</code>與<code>print</code>兩者都是沒有回傳值的輸出。</li>
-<li><code>p</code>與<code>print</code>方法可以完整的把型態跟結構印出來，例如 &quot;Hello World&quot; 字串以及 [1, 2, 3] 陣列，而 <code>puts</code> 則是把「內容物」印出來。</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1575992556914.png" alt="圖片來源icelandcheng"></figure>
-<p>值得一提的是，<code>puts</code>搭配inspect也可以做到類似<code>p</code>方法的效果，但依舊沒有回傳值。</p>
-<pre><code>irb(main):004:0&gt; puts &quot;Hello World&quot;.inspect
-&quot;Hello World&quot;
-=&gt; nil
-
-irb(main):005:0&gt; puts [1,2,3,4].inspect
-[1, 2, 3, 4]
-=&gt; nil
-</code></pre>
-<h2 id="單雙引號和跳脫字元的使用">單雙引號和跳脫字元的使用</h2>
-<ul>
-<li><strong>字串可以使用單雙引號輸出：</strong></li>
-</ul>
-<p>例如：</p>
-<pre><code>irb(main):013:0&gt; puts 'Hello World'
-Hello World
-=&gt; nil
-
-irb(main):014:0&gt; puts &quot;Hello World&quot;
-Hello World
-=&gt; nil
-</code></pre>
-<ul>
-<li><strong>跳脫字元的使用</strong></li>
-</ul>
-<p>當你程式碼寫</p>
-<pre><code>puts &quot;Hello &quot;World&quot;&quot; 
-</code></pre>
-<p>會產生下方錯誤訊息：</p>
-<pre><code>test.rb:29: syntax error, unexpected tCONSTANT, expecting end-of-input
-puts &quot;Hello &quot;World&quot;&quot; 
-</code></pre>
-<p>你可以使用<code>\</code>來做跳脫字元，在字串內的雙引號使用<code>\</code>來隔開。</p>
-<pre><code>irb(main):011:0&gt; puts 'You\'re smart'
-You're smart
-=&gt; nil
-
-irb(main):012:0&gt; puts &quot;Hello \&quot;World\&quot;&quot;
-Hello &quot;World&quot;
-=&gt; nil
-</code></pre>
-<ul>
-<li><strong>字串之間可以使用<code>+</code>號相連</strong></li>
-</ul>
-<pre><code>irb(main):009:0&gt; puts &quot;Hello &quot;+&quot;World&quot;
-Hello World
-=&gt; nil
-
-irb(main):010:0&gt; puts 'Hello '+'World'
-Hello World
-=&gt; nil
-</code></pre>
-<h2 id="簡單的計算功能">簡單的計算功能</h2>
-<p>注意：使用<code>#</code>可以寫註解。</p>
-<h3 id="常用的運算符號">常用的運算符號</h3>
-<pre><code>+ 加號 
-- 減號 
-/ 除號 
-* 乘號 
-% 取餘數 
-&lt; 小於符號 
-&gt; 大於符號 
-&lt;= 小於等於符號 
-&gt;= 大於等於號
-</code></pre>
-<h3 id="簡單的加減乘除">簡單的加減乘除</h3>
-<p>下方做簡單的運算和演示：</p>
-<pre><code>#加法
-irb(main):015:0&gt; puts 2+3
-5
-=&gt; nil
-
-#減法
-irb(main):016:0&gt; puts 2-6
--4
-=&gt; nil
-
-#負數減法
-irb(main):017:0&gt; puts 2.33-6
--3.67
-=&gt; nil
-
-#乘法
-irb(main):018:0&gt; puts 3*2
-6
-=&gt; nil
-
-#除法
-irb(main):019:0&gt; puts 66/3
-22
-=&gt; nil
-
-#計算
-irb(main):043:0&gt; puts 3 + 1 % 4 - 2 / 3 + 9
-13
-=&gt; nil
-
-#判斷
-irb(main):041:0&gt; 5&gt;3
-=&gt; true
-
-irb(main):042:0&gt; 3&lt;1
-=&gt; false
-
-#使用逗號將字串與運算式連接
-irb(main):040:0&gt; puts &quot;237&quot; , 23*2 + 4/5
-237
-46
-=&gt; nil
-
-irb(main):045:0&gt; print &quot;12&quot;,34
-1234=&gt; nil
-</code></pre>
-<h3 id="次方與開根號">次方與開根號</h3>
-<p>若想使用n次方可以使用<code>值**次方</code>，如：</p>
-<pre><code>irb(main):020:0&gt; puts 3**3
-27
-=&gt; nil
-</code></pre>
-<p>若想使用開根號可以使用<code>Math.sqrt(值)</code>，如：</p>
-<pre><code>irb(main):021:0&gt; puts Math.sqrt(6)
-2.449489742783178
-=&gt; nil
-</code></pre>
-<h3 id="浮點數轉換">浮點數轉換</h3>
-<p>除法方面，若今天直接使用整數除法運算若有餘數會取下限值，想要得到餘數結果可以在除數或者被除數後方加上<code>.0</code>變成浮點數的型態，或者使用<code>.to_f</code>轉換成浮點數。</p>
-<pre><code>irb(main):022:0&gt; puts 36/3
-12
-=&gt; nil
-
-irb(main):023:0&gt; puts 38/3
-12
-=&gt; nil
-
-irb(main):024:0&gt; puts 37.0/3
-12.333333333333334
-=&gt; nil
-
-irb(main):025:0&gt; puts 37/3.0
-12.333333333333334
-=&gt; nil
-
-irb(main):026:0&gt; puts 37.to_f/3
-12.333333333333334
-=&gt; nil
-</code></pre>
-<h3 id="四捨五入與絕對值">四捨五入與絕對值</h3>
-<p>使用<code>.round</code>可以做到四捨五入的效果，而在<code>.round(值)</code>中輸入值可以呈現出取到小數幾位的效果。</p>
-<pre><code>irb(main):027:0&gt; puts 77.222222.round
-77
-=&gt; nil
-
-irb(main):028:0&gt; puts 77.555555.round
-78
-=&gt; nil
-
-irb(main):029:0&gt; puts 77.2353.round(3)
-77.235
-=&gt; nil
-</code></pre>
-<p>使用<code>.abs</code>可以取絕對值</p>
-<pre><code>irb(main):035:0&gt; puts -5.abs
-5
-=&gt; nil
-</code></pre>
-<h2 id="字串-整數-浮點數轉換">字串、整數、浮點數轉換</h2>
-<p>使用<code>.to_s</code>可以轉換為字串型態，使用<code>.to_i</code>可以轉換為整數型態，使用<code>.to_f</code>可以轉換為浮點數型態，<br>
-依靠這種轉換就可以達到許多神奇的效果。</p>
-<pre><code>irb(main):031:0&gt; puts 23.to_s
-23
-=&gt; nil
-
-irb(main):032:0&gt; puts &quot;21r&quot;.to_i
-21
-=&gt; nil
-
-irb(main):033:0&gt; puts &quot;21r&quot;.to_i+3
-24
-=&gt; nil
-
-irb(main):034:0&gt; puts 23.to_s + &quot;happy&quot;
-23happy
-=&gt; nil
-</code></pre>
-<h2 id="字串內插">字串內插</h2>
-<p>使用 <code>#{變數名稱}</code> 可以插入字串。</p>
-<pre><code>#學而不思則罔，思而不學則殆
-#Learning without thinking is vain; thinking without learning is perilous. 
-
-a = &quot;Learning&quot;
-b = &quot;thinking&quot;
-puts &quot;#{a} without #{b} is vain; #{b} without #{a} is perilous.&quot; 
-</code></pre>
-<p>輸出結果：</p>
-<pre><code>$ ruby calculate.rb
-Learning without thinking is vain; thinking without Learning is perilous.
-</code></pre>
-<h2 id="更多字串方法">更多字串方法</h2>
-<p>還有反向<code>reverse</code>、輸出字串長度<code>length</code>、大寫<code>upcase</code>、小寫<code>downcase</code>....等方法</p>
-<pre><code>irb(main):036:0&gt; puts &quot;TWICE&quot;.reverse
-ECIWT
-=&gt; nil
-
-irb(main):037:0&gt; puts &quot;TWICE&quot;.length
-5
-=&gt; nil
-
-irb(main):038:0&gt; puts &quot;twice&quot;.upcase
-TWICE
-=&gt; nil
-
-irb(main):039:0&gt; puts &quot;Twice&quot;.downcase
-twice
-=&gt; nil
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Ruby 程式語言入門 - 安裝運行環境]]></title>
-        <id>https://Z1Nhouse.github.io//post/g02aQkq5Z</id>
-        <link href="https://Z1Nhouse.github.io//post/g02aQkq5Z">
-        </link>
-        <updated>2019-12-09T12:57:58.000Z</updated>
-        <content type="html"><![CDATA[<p>之所以開始著手寫這個系列是因為想學Ruby on Rails，但是在學Ruby on Rails之前必須先了解Ruby，那就邊學習邊作筆記順便寫成文章，若學習過程中遇到的任何困難處也可以分享出來給更多的初學者，以避開一些坑，那麼今天要教的是Ruby的環境安裝，保證無論是否有程式基礎的人都可以輕鬆學會(只要你有過使用電腦的經驗...)，那麼廢話不多說直接開始吧。</p>
-<h2 id="何謂ruby">何謂Ruby？</h2>
-<p>•開放源碼、物件導向的動態直譯式(interpreted)程式語⾔<br>
-•簡單哲學、⾼生產力<br>
-•精巧、⾃然的語法<br>
-•創造者 Yukihiro Matsumoto, a.k.a. Matz<br>
-　　•靈感來來⾃自 Lisp, Perl, 和 Smalltalk</p>
-<p>Ruby 是動態強分型語⾔：</p>
-<p>•動態 Dynamic v.s. 靜態 Static typing<br>
-•Ruby/Perl/Python/PHP v.s. Java/C/C++</p>
-<p>•強 Strong v.s. 弱 Weak typing<br>
-•Ruby/Perl/Python/Java v.s. PHP/C/C++<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575899848194.PNG" alt="ihower-ruby-intro"></p>
-<p>錯誤<br>
-<code>&quot;test&quot; + 1</code><br>
-原因：整數跟字串無法加在一起</p>
-<p>正確</p>
-<ul>
-<li><code>1 + 2</code></li>
-<li><code>&quot;test&quot; + &quot;demo&quot;</code></li>
-</ul>
-<h3 id="什麼是直譯式語言interpretive">什麼是直譯式語言(interpretive)？</h3>
-<p>是一種程式語言類型。這種類型的程式語言，會將程式碼一句一句直接執行，不需要像編譯語言（Compiled language）一樣，經過編譯器先行編譯為機器碼，之後再執行。這種程式語言需要利用直譯器，在執行期，動態將程式碼逐句直譯（interpret）為機器碼，或是已經預先編譯為機器碼的的子程式，之後再執行。</p>
-<figure data-type="image" tabindex="1"><img src="https://miro.medium.com/max/1447/1*WcRVXaudAW6Hb8TYqt4iCw.jpeg" alt="Walk Out 技術共筆"></figure>
-<p>直譯語言列表：<br>
-BASIC、LISP、Perl、Python、Ruby、JavaScript、PHP、R...</p>
-<h2 id="ruby安裝">Ruby安裝</h2>
-<ul>
-<li>下載<a href="https://rubyinstaller.org/downloads/archives/">Ruby直譯器</a></li>
-</ul>
-<p>由於我是Windows10 x64，故之後所有的文章都是以Win10作為示範，若你是Linux或macOS系統可以使用第三方工具rbenv或RVM安裝。<br>
-目前最新的穩定版本是2.6.5。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575897803782.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575897806647.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575897809776.PNG" alt=""></p>
-<p>這邊提醒一下，建議下載Ruby+Devkit版本，原因如下：</p>
-<blockquote>
-<p>Ruby 2.4.0及更高版本使用MSYS2工具鏈作為開發套件。它作為可選組件捆綁到Ruby + Devkit安裝程序版本中，因此不需要其他下載/安裝。使用不帶Devkit版本的Ruby時，可以通過運行單獨安裝MSYS2 Devkit ridk install。<br>
-MSYS2是構建Ruby的本機C / C ++擴展所必需的，而Ruby on Rails則是必需的。而且，它允許下載和使用Ruby gems可以依賴的數百個開源庫。</p>
-</blockquote>
-<p>安裝好之後進行安裝，傻瓜式安裝步驟不做演示，記得勾選把Ruby執行檔的位置加到系統的環境變數中。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898070819.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898073239.PNG" alt=""><br>
-安裝Finish之後會自動幫你安裝MSYS2，安裝過程全程ENTER即可。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898103882.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898212922.PNG" alt=""></p>
-<p>全部安裝完畢之後打開命令提示字元(cmd)輸入<code>ruby -v</code>測試一下安裝結果。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898210252.PNG" alt=""><br>
-至此為止，Ruby執行環境已經成功安裝。</p>
-<p><strong>PS.不知道什麼是cmd的話可以參考這篇文章<a href="https://lnpcd.blogspot.com/2012/07/01.html">命令提示字元 01：基本常識</a></strong></p>
-<h2 id="如何執行ruby程式">如何執行Ruby程式？</h2>
-<p><strong>執行Ruby的方式可以參考下圖(圖片來源<a href="https://www.youtube.com/watch?v=ox42ZmkiZ5k">Joey Chen</a>)</strong><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575900721236.png" alt=""><br>
-注：終端機是Linux系統的叫法，和Windows系統的命令提示字元是一樣的東西。</p>
-<p>Ruby 的程式很多是在非圖形介面下執行，大多是終端機環境，常見有幾種方式：</p>
-<h3 id="1單行程式">1.單行程式</h3>
-<p>可以直接在終端機輸入</p>
-<pre><code>ruby -e &quot;puts 'Hello World'&quot;
-</code></pre>
-<h3 id="2存成檔案">2.存成檔案</h3>
-<p>程式碼通常不會只有一行，於是把程式碼存成一個檔案，副檔名為.rb</p>
-<pre><code>#hello.rb
-puts &quot;Hello World&quot;
-</code></pre>
-<h3 id="3irb">3.IRB</h3>
-<p>Ruby內建的Interactive Ruby互動介面可以讓你輸入即見效果</p>
-<pre><code>$ irb
-&gt;&gt; puts &quot;Hello World&quot;
-Hello World
-=&gt; nil
-</code></pre>
-<p>nil 代表「本次執行結果的回傳值」，會出現 nil 是因為 puts 方法本身並沒有回傳值。</p>
-<p>像這樣的環境我們又稱之 REPL（Read-Eval-Print Loop）。</p>
-<h2 id="撰寫及執行第一支ruby程式">撰寫及執行第一支Ruby程式</h2>
-<p>打開編輯器，或是最基本的記事本，輸入指令<code>puts &quot;Hello World&quot;</code>並存成.rb副檔，打開cmd指向rb檔的位置，並輸入<code>ruby 檔名.rb</code>執行剛剛的程式。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898496288.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898552926.PNG" alt=""></p>
-<h3 id="interactive-ruby是什麼">Interactive Ruby是什麼？</h3>
-<p>在本地搜索Ruby可以搜索到Interactive Ruby，這是Ruby的指令互動環境，初學者只要知道這是可以讓你即時看到執行 Ruby 敘述的結果的程式就行。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898246633.png" alt=""></p>
-<p>輸入<code>puts &quot;Hello World&quot;</code>輸出Hello World。</p>
-<blockquote>
-<p>puts 是 Ruby 的基本輸出指令。<br>
-=&gt; nil代表本次執行結果的回傳值。<br>
-puts 總是回傳 nil，nil 在 Ruby 中表示一個絕對的空值，因為 puts 方法本身並沒有回傳值。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1575898316685.PNG" alt=""></p>
-</blockquote>
-<p>關於irb與ruby可以參考這篇文章：<a href="https://openhome.cc/Gossip/Ruby/IrbRubyUtility.html">https://openhome.cc/Gossip/Ruby/IrbRubyUtility.html</a></p>
-<h2 id="推薦ruby學習網站">推薦Ruby學習網站</h2>
-<ul>
-<li>笨方法學Ruby：<a href="http://lrthw.github.io/intro/">http://lrthw.github.io/intro/</a></li>
-<li>線上編輯器學習Ruby：<a href="https://ruby.github.io/TryRuby/">https://ruby.github.io/TryRuby/</a></li>
-<li>二十分鐘 Ruby 體驗：<a href="https://www.ruby-lang.org/zh_tw/documentation/quickstart/">https://www.ruby-lang.org/zh_tw/documentation/quickstart/</a></li>
-<li>Ruby使用手冊(繁體中文)：<a href="https://guides.ruby.tw/ruby/">https://guides.ruby.tw/ruby/</a></li>
-<li>全英文Ruby學習教材：<a href="https://launchschool.com/books/ruby/read/introduction#briefhistory">https://launchschool.com/books/ruby/read/introduction#briefhistory</a></li>
-<li>Ruby筆記(全中文)：<a href="https://gradyli.wordpress.com/ruby%e6%95%99%e5%ad%b8/">https://gradyli.wordpress.com/ruby%e6%95%99%e5%ad%b8/</a></li>
-</ul>
 ]]></content>
     </entry>
 </feed>

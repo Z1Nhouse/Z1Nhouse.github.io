@@ -1,0 +1,283 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>使用jQuery取得JSON資料 - 簡易隨機詩詞產生器 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1577896087511">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1577896087511" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              使用jQuery取得JSON資料 - 簡易隨機詩詞產生器
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-01-02
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/dwZc8pl-N" class="post-tag">
+                  # API
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/eKh47Dhj55" class="post-tag">
+                  # JSON
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/H0JaMsnUV1" class="post-tag">
+                  # jQuery
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/Oj8rJWuki.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="什麼是jquery">什麼是jQuery</h2>
+<p>jQuery是繼prototype之後又一個優秀的Javascript庫。它是輕量級的js庫，它兼容CSS3，還兼容各種瀏覽器（IE 6.0+, FF1.5+, Safari 2.0+, Opera 9.0+），jQuery2.0及後續版本將不再支持IE6/ 7/8瀏覽器。<br>
+　　jQuery使用戶能更方便地處理HTML、events、實現動畫效果，並且方便地為網站提供AJAX交互。jQuery還有一個比較大的優勢是，它的文檔說明很全，而且各種應用也說得很詳細，同時還有許多成熟的插件可供選擇。 jQuery能夠使用戶的html頁面保持代碼和html內容分離，也就是說，不用再在html裡面插入一堆js來調用命令了，只需要定義id即可。</p>
+<p>jquery官網提供2種jQuery的下載，一種是jquery.js另一種是jquery.min.js。</p>
+<p>文件名不一定完全相同，但通常情況下：</p>
+<ul>
+<li>
+<p>jquery.js是完整的未壓縮的jQuery庫，文件比較大，一般用於閱讀學習源碼或修改源碼，一般不用於線上項目。</p>
+</li>
+<li>
+<p>jquery.min.js是由完整版的jQu​​ery庫經過壓縮得來，壓縮後功能與未壓縮的完全一樣，只是將其中的空白字符、註釋、空行等與邏輯無關的內容刪除，並進行一些優化。這個版本一般用於網站引用使用，減小文件體積，降低網站流量，提升訪問速度等。</p>
+</li>
+</ul>
+<h2 id="載入jquery">載入jQuery</h2>
+<p>使用jQuery時你必須先將jQuery加進網頁的<code>&lt;head&gt;..&lt;/head&gt;</code>之間。</p>
+<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>當然你可以選擇將jquery.min.js下載上傳至網站直接使用，也可以藉由CDN載入。<br>
+使用CDN載入的好處是若不同的網站使用同樣的連結時可以避免重複下載，也不必在自己的伺服器上部署jQuery檔案。</p>
+<h2 id="隨機詩詞產生器">隨機詩詞產生器</h2>
+<p>當然這就需要API了，我們以今日詩詞的API作為示範：</p>
+<ul>
+<li><a href="https://www.jinrishici.com/">今日詩詞官網</a></li>
+<li><a href="https://www.jinrishici.com/doc/">今日詩詞使用說明</a></li>
+</ul>
+<p>以下為使用jQuery取得JSON資料的寫法，放在<code>&lt;head&gt;..&lt;/head&gt;</code>：</p>
+<pre><code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
+ function nextshi(){
+  getShi();
+ }
+ 
+ var title = &quot;標題&quot;;
+ var author = &quot;作者&quot;;
+ var content = &quot;內文&quot;;
+ var translate = &quot;翻譯&quot;;
+
+ var getShi = function(){
+  $.getJSON(&quot;https://v1.jinrishici.com/all.json&quot;,function(json){ //替換API的位址
+
+ /*json為function的名稱,後面接JSON中的類別,使用點(.)相連*/
+   category = json.category;    //分類
+   author = json.author;        //作者
+   content = json.content;      //內容
+   origin = json.origin; //原文
+
+/*使用json取得的資料改變元素的內容*/
+   $(&quot;.shi-content&quot;).html(content); 
+   $(&quot;.shi-author&quot;).html(author);
+   $(&quot;.shi-category&quot;).html(category);
+   $(&quot;.shi-origin&quot;).html(origin);
+  });
+ }
+&lt;/script&gt;
+</code></pre>
+<p></p>
+因為我們設定了shi-content、shi-author、shi-category、shi-origin這四個元素，因此我們也需要在網頁中插入相對應的呼叫，只需要使用 class="shi-origin" (以此類推)。
+<p>以下為放在<code>&lt;body&gt;...&lt;/body&gt;</code>的內容：</p>
+<pre><code class="language-html">&lt;h1&gt;&lt;ins class=&quot;shi-origin&quot;&gt;標題&lt;/ins&gt;&lt;/h1&gt;
+&lt;cite class=&quot;shi-author&quot;&gt;作者&lt;/cite&gt;
+&lt;br&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;shi-content&quot;&gt;內文&lt;/div&gt;
+&lt;/blockquote&gt;
+分類：&lt;font class=&quot;shi-category&quot;&gt;&lt;/font&gt;
+
+&lt;p&gt;
+&lt;button onclick=&quot;javascript:nextshi();&quot;&gt;Random&lt;/button&gt; //使用按鈕來隨機產生
+</code></pre>
+<h1>範例效果</h1>
+<ol>
+<li>未按按鈕前<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577895935822.PNG" alt=""></li>
+<li>隨機產生後<br>
+<img src="https://Z1Nhouse.github.io//post-images/1577895939269.PNG" alt=""></li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E9%BA%BC%E6%98%AFjquery">什麼是jQuery</a></li>
+<li><a href="#%E8%BC%89%E5%85%A5jquery">載入jQuery</a></li>
+<li><a href="#%E9%9A%A8%E6%A9%9F%E8%A9%A9%E8%A9%9E%E7%94%A2%E7%94%9F%E5%99%A8">隨機詩詞產生器</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/W9lvX_AV-">
+              <h3 class="post-title">
+                【資料結構】圖形結構(Graph)基礎篇(3) - 最短路徑(Shortest Paths)
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
