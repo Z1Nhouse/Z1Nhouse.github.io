@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-01T16:30:11.222Z</updated>
+    <updated>2020-01-04T08:59:30.695Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -43,16 +43,7 @@
 </ul>
 <p>以下為使用jQuery取得JSON資料的寫法，放在<code>&lt;head&gt;..&lt;/head&gt;</code>：</p>
 <pre><code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
- function nextshi(){
-  getShi();
- }
- 
- var title = &quot;標題&quot;;
- var author = &quot;作者&quot;;
- var content = &quot;內文&quot;;
- var translate = &quot;翻譯&quot;;
-
- var getShi = function(){
+function nextshi(){
   $.getJSON(&quot;https://v1.jinrishici.com/all.json&quot;,function(json){ //替換API的位址
 
  /*json為function的名稱,後面接JSON中的類別,使用點(.)相連*/

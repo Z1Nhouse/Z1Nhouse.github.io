@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>使用jQuery取得JSON資料 - 簡易隨機詩詞產生器 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1577896209516">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578128367944">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1577896209516" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1578128367944" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -126,16 +126,7 @@
 </ul>
 <p>以下為使用jQuery取得JSON資料的寫法，放在<code>&lt;head&gt;..&lt;/head&gt;</code>：</p>
 <pre><code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
- function nextshi(){
-  getShi();
- }
- 
- var title = &quot;標題&quot;;
- var author = &quot;作者&quot;;
- var content = &quot;內文&quot;;
- var translate = &quot;翻譯&quot;;
-
- var getShi = function(){
+function nextshi(){
   $.getJSON(&quot;https://v1.jinrishici.com/all.json&quot;,function(json){ //替換API的位址
 
  /*json為function的名稱,後面接JSON中的類別,使用點(.)相連*/
