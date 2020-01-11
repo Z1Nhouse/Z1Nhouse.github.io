@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-09T06:37:36.026Z</updated>
+    <updated>2020-01-11T14:47:16.149Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,225 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 100 - The 3n+1 problem]]></title>
+        <id>https://Z1Nhouse.github.io//post/ljIr-M6_B</id>
+        <link href="https://Z1Nhouse.github.io//post/ljIr-M6_B">
+        </link>
+        <updated>2020-01-11T14:04:12.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?Itemid=8&amp;option=com_onlinejudge&amp;page=show_problem&amp;problem=36">https://onlinejudge.org/index.php?Itemid=8&amp;option=com_onlinejudge&amp;page=show_problem&amp;problem=36</a></p>
+<p><strong>Sample Input</strong><br>
+1  10<br>
+100  200<br>
+201  210<br>
+900  1000</p>
+<p><strong>Sample Output</strong><br>
+1  10  20<br>
+100  200  125<br>
+201  210  89<br>
+900  1000  174</p>
+<p><strong>題目大意：給定一個範圍(a~b)，範圍內所有整數都跑一遍3n+1問題，並計算每個數需要多少次迴圈才能得到1，最後輸出範圍內需跑迴圈數最多的值。</strong></p>
+<p>3n+1跑法：如果n是奇數則n = 3n+1，否則n = n/2</p>
+<p>注意：假設input為<code>22</code>，跑法則為：<code>22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1</code>，因此22的迴圈次數為16次(22本身也算1次)。</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+
+            while(sc.hasNextInt()){
+            
+            int a=sc.nextInt(),b=sc.nextInt();
+            
+            if(a&gt;b){ //因為給定的兩數範圍並不一定是小到大,若a&gt;b需要做調換動作
+            int c = a;
+            a = b;
+            b = c;
+            }
+
+            int aa=a,bb=b,max=0; //將調換後的a,b存入aa,bb , max為最大迴圈數
+
+            for(int i = a;i&lt;=b ; i++){
+            	int n = i;
+            	int l = 1;
+            	while(true){
+            	
+            	if(n==1)break;
+            	l++;
+
+            	if(n%2==0){
+            	n = n/2;
+            	}else{
+            	n = n*3+1;
+            	}
+            	
+            	if(l&gt;max){
+            	max = l;
+            	}
+            	
+            	}
+            }
+            System.out.println(aa+&quot; &quot;+bb+&quot; &quot;+max);
+            }
+       
+    }
+    }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10035 - Primary Arithmetic]]></title>
+        <id>https://Z1Nhouse.github.io//post/VOy2ZIurR</id>
+        <link href="https://Z1Nhouse.github.io//post/VOy2ZIurR">
+        </link>
+        <updated>2020-01-11T13:21:24.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=976">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=976</a></p>
+<p><strong>Sample Input</strong><br>
+123 456<br>
+555 555<br>
+123 594<br>
+0 0<br>
+<strong>Sample Output</strong><br>
+No carry operation.<br>
+3 carry operations.<br>
+1 carry operation.</p>
+<p><strong>題目大意：判斷兩整數相加後產生多少個進位，當兩數皆為0則停止程式。</strong><br>
+<code>特別要注意的是，本題所有變數都為int，因此不會有小數的出現。</code></p>
+<p>以<code>123+456</code>作為範例，首先第一輪sum=123%10+456%10+carry = 3+6+0 = 9 , sum沒有大於10所以carries保持為0,carry=sum/10所以也是0 , 接著a = a/10 =&gt; 123/10 = 12, b = b/10 =&gt; 456/10 = 45;</p>
+<p>第二輪sum = 12%10+45%10+carry = 2+5+0 = 7 , carry=0,carries=0 , a = 12/10 = 1 , b = 45/10 = 4;</p>
+<p>第三輪sum = 1%10+4%10+carry = 1+4+0 = 5 ,carry=0,carries=0 , a = 1/10 = 0 , b = 4/10 = 0 , 是以a與b皆為0，程式結束。</p>
+<p>而最終carries = 0  , 所以output為No carry operation.</p>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578750760319.png" alt=""></figure>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+            
+            while(true){
+            int a=sc.nextInt(),b=sc.nextInt();
+            if(a==0&amp;&amp;b==0){ //當兩數皆為0則停止程式
+            	break;
+            }
+        	
+        	int carry=0,carries=0;
+        	
+        	while(a!=0||b!=0){ //a或者b任意一個不為0則繼續判斷
+        	
+        	int sum = a%10+b%10+carry; //從個位數慢慢往前推,判斷有無進位
+        	
+        	if(sum&gt;=10){
+        		++carries;
+        	}
+        	
+        	carry = sum/10;
+        	a /= 10;  // a=a/10 每判斷完一個位數,就將它捨去
+        	b /= 10;  // b=b/10 每判斷完一個位數,就將它捨去
+        	
+        	}
+        	
+        	if(carries==0){
+        	System.out.println(&quot;No carry operation.&quot;);
+        	}else if(carries==1){
+        	System.out.println(&quot;1 carry operation.&quot;);
+        	}else{
+        	System.out.println(carries + &quot; carry operations.&quot;);
+        	}
+            
+            }
+           
+        }
+    }
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10055 - Hashmat the Brave Warroir]]></title>
+        <id>https://Z1Nhouse.github.io//post/oOp8OrXuI</id>
+        <link href="https://Z1Nhouse.github.io//post/oOp8OrXuI">
+        </link>
+        <updated>2020-01-11T13:12:08.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996</a></p>
+<p><strong>Sample Input</strong><br>
+10 12<br>
+10 14<br>
+100 200<br>
+<strong>Sample Output</strong><br>
+2<br>
+4<br>
+100</p>
+<p>題目大意：取兩數差，題目限制最大值為2^32，因此需要使用long。</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+            while(sc.hasNextLong()){
+            long a = sc.nextLong(),b = sc.nextLong();
+    		System.out.println(Math.abs(a-b));
+    		}
+    }
+};
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10041 - Vito's Family]]></title>
+        <id>https://Z1Nhouse.github.io//post/UNd1D1Awb</id>
+        <link href="https://Z1Nhouse.github.io//post/UNd1D1Awb">
+        </link>
+        <updated>2020-01-11T13:00:40.000Z</updated>
+        <content type="html"><![CDATA[<p>UVa10041 Vito's family 題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982</a></p>
+<p><strong>Sample Input</strong><br>
+2<br>
+2 2 4<br>
+3 2 4 6<br>
+<strong>Sample Output</strong><br>
+2<br>
+4</p>
+<p>解題順序：</p>
+<ol>
+<li>先將成員由小到大排序</li>
+<li>找出該組成員的中位數</li>
+<li>輸出中位數成員到各成員的距離總和。</li>
+</ol>
+<p>現在來看範例：<br>
+<strong>Sample Input</strong><br>
+2  <code>&lt;--這邊的2指的是有兩組要比對的資料</code><br>
+2 2 4     <code>&lt;--第一個2表示該組有2個成員，分別為2,4</code><br>
+3 2 4 6   <code>&lt;--該組有3個成員，分別為2,4,6</code><br>
+<strong>Sample Output</strong><br>
+2 <code>以2為中位數，所有成員與2的距離為|4-2|=2</code><br>
+4 <code>以4為中位數，所有成員與4的距離為|2-4|+|6-4|=4</code></p>
+<p>當成員數為偶數時，中間兩個數任意選一個即可。</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+     
+            Scanner sc=new Scanner(System.in);
+            int n= sc.nextInt(); //共幾組
+            while((--n)&gt;=0){
+            
+            int p = sc.nextInt(); //幾個成員
+            int house[] = new int[p]; //令一個成員數大小的陣列
+            
+            for(int i = 0 ; i&lt;p ; i++){
+            	house[i] = sc.nextInt(); //輸入成員的值
+            }
+            
+            Arrays.sort(house); //將成員由小到大排序
+            
+            int len=0;
+            
+            for(int i = 0 ; i&lt;p ; i++){
+            	len+=Math.abs(house[i]-house[i/2]); //計算所有成員與中位數的絕對值距離總和
+            }
+            System.out.println(len);
+            }
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[如何使用JS讓PHP表單內容填寫空白時跳出提醒？]]></title>
         <id>https://Z1Nhouse.github.io//post/gd_Z3CfkC</id>
@@ -365,265 +584,6 @@ BFS運作流程基本上與DFS差不多，但BFS是利用<code>佇列(Queue)</co
 <figure data-type="image" tabindex="5"><img src="https://Z1Nhouse.github.io//post-images/1577196821362.png" alt=""></figure>
 <p>以上圖計算最早及最晚時間，結果如下：</p>
 <figure data-type="image" tabindex="6"><img src="https://Z1Nhouse.github.io//post-images/1577367557250.PNG" alt=""></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[在Windows底下安裝Ruby On Rails 開發環境及建立專案]]></title>
-        <id>https://Z1Nhouse.github.io//post/LgyMo5WnT</id>
-        <link href="https://Z1Nhouse.github.io//post/LgyMo5WnT">
-        </link>
-        <updated>2019-12-16T15:55:59.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="事前準備">📌事前準備</h2>
-<p>在安裝Rails之前需先安装：</p>
-<ol>
-<li><a href="https://www.ruby-lang.org/en/downloads">Ruby</a> 1.9.3 及以上版本。<br>
-<strong>務必要先安裝Ruby啊...沒有Ruby何必學Rails...！</strong></li>
-</ol>
-]]></summary>
-        <content type="html"><![CDATA[<h2 id="事前準備">📌事前準備</h2>
-<p>在安裝Rails之前需先安装：</p>
-<ol>
-<li><a href="https://www.ruby-lang.org/en/downloads">Ruby</a> 1.9.3 及以上版本。<br>
-<strong>務必要先安裝Ruby啊...沒有Ruby何必學Rails...！</strong></li>
-</ol>
-<!-- more -->
-<ol start="2">
-<li><a href="https://rubygems.org/">RubyGems</a> 一個伴隨 Ruby 1.9+ 安裝的套件管理程式。<br>
-如果想學習更多有關於 RubyGems，請參考 <a href="http://guides.rubygems.org/">RubyGems 指南</a>。</li>
-<li><a href="https://www.sqlite.org/">SQLite3資料庫</a>。<br>
-可以在官網下載或者打開命令提示字元輸入<code>gem install sqlite3</code>安裝。</li>
-<li><a href="https://nodejs.org/en/download/">NodeJS</a>。</li>
-<li><a href="https://yarnpkg.com/en/docs/install#windows-stable">Yarn</a>。</li>
-<li><a href="https://git-scm.com/downloads">Git</a>。<br>
-NodeJS、Yarn、Git都是下載完安裝即可，這邊就不多提了。</li>
-</ol>
-<p>Rails是使用Ruby開發的Web框架，所以在學習Rails之前建議先擁有Ruby的相關經驗。<br>
-至於渠道也不需要我多提了吧，Google一下就能找到了，或者你也可以在<a href="https://www.ruby-lang.org/zh_tw/documentation/">Ruby的官方網站</a>查看文檔。</p>
-<hr>
-<h2 id="rails-開發哲學">📔Rails 開發哲學</h2>
-<ol>
-<li>不要重複你自己<br>
-DRY 是一個軟體工程的開發原則，“系統中每個功能的構思都必須要有單一、明確且讓人認同的表達方式”儘量避免一再重複的相同資訊，所寫的程式才容易維護、有擴展性且不容易出現 Bug。</li>
-<li>約定優於配置<br>
-Rails 不希望你浪費太多時間無止境的配置設定上，而是直接把最好的一些 Web 開發方式設為預設值，讓你熟悉之後就可以上手了。</li>
-</ol>
-<hr>
-<h2 id="安裝railsinstaller">🔧安裝RailsInstaller</h2>
-<p><strong>因為我是Win10，這邊示範使用<a href="http://railsinstaller.org/en">RailsInstaller</a>安裝Rails。<br>
-Mac系統也可以選擇使用<a href="https://github.com/tokaido/tokaidoapp">Tokaido</a>。</strong></p>
-<p>RailsInstaller3.4.0包含：</p>
-<ul>
-<li>Ruby 2.3.3</li>
-<li>Rails 5.1</li>
-<li>Bundler</li>
-<li>Git</li>
-<li>Sqlite</li>
-<li>TinyTDS</li>
-<li>SQL Server Support</li>
-<li>DevKit</li>
-</ul>
-<p>安裝過程省略，但是要特別注意的是<strong>確認是否有勾選「Install Git」版本管理及「Add executables for Ruby, DevKit and Git (if checked above) to the PATH」</strong>，如果你沒有很熟悉的話就是都打勾安裝就好。<strong>但如果已經安裝過Git可以取消勾選Install Git。</strong><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512159679.png" alt=""></p>
-<p>安裝完之後打開命令提示字元(cmd)輸入命令確認一下：</p>
-<pre><code>ruby -v
-sqlite3 --version
-</code></pre>
-<p>若都有正確顯示版本就可以開始安裝Rails了。<br>
-PS.<strong>sqlite3沒安裝的話要記得安裝哦，不知道怎麼安裝請看事前準備第三條</strong><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512394489.PNG" alt=""></p>
-<h3 id="安裝rails">🔧安裝Rails</h3>
-<p>輸入命令<code>gem install rails</code></p>
-<p><img src="https://Z1Nhouse.github.io//post-images/1576514385760.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512502197.PNG" alt=""></p>
-<p>沒有跳出任何錯誤信息，安裝完之後輸入命令<code>rails --version</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512549924.PNG" alt=""><br>
-確認版本訊息是否正確，以確保正確安裝。</p>
-<hr>
-<h2 id="建立專案">📝建立專案</h2>
-<p>進入專案位置<code>cd C:\sites</code> (或者你想在任何位置新建專案)輸入命令：</p>
-<pre><code>rails new demo
-</code></pre>
-<p>demo可以改為你自訂的專案名稱。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512773668.PNG" alt=""></p>
-<p>新建成功的話此時<code>C:\sites</code>底下會多出一個demo目錄，這個目錄中有許多自動產生的檔案和資料夾，這些是構成 Rails 應用程式的重要元素。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512845646.PNG" alt=""><br>
-下方為自動產生的目錄、檔案以及用途：<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576512991038.png" alt=""></p>
-<h3 id="啟動rails伺服器">💻啟動Rails伺服器</h3>
-<p>切換到demo目錄裡，輸入命令<code>rails s</code>或者<code>rails server</code>啟動 Rails 伺服器。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576513119128.PNG" alt=""></p>
-<p>啟動成功之後打開瀏覽器輸入<code>127.0.0.1:3000</code>便會看到 Rails 的預設頁面，你可以看見你的Rails以及Ruby版本。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576513250787.PNG" alt=""></p>
-<p>如想停止 WEB 伺服器，請在命令視窗按下 Ctrl+C 跳回命令提示字元就可以終止服務。</p>
-<hr>
-那麼以上就是在Windows系統中安裝Rails環境以及建立專案的完整過程，如果在安裝Rails的途中有遇到任何困難，可以先參考這篇文章--><a href="https://mycodeissuesandfixes.blogspot.com/2019/02/ruby-on-rails-issue-about-sqlite-3-gem.html">Ruby on Rails issue about Sqlite3 Gem</a>，可能大部分都是這個問題。
-如果是其他的問題，可以Google一下自行搜索解決呦。
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[絕對可用，威力導演18破解版！]]></title>
-        <id>https://Z1Nhouse.github.io//post/2ih2aeMZB</id>
-        <link href="https://Z1Nhouse.github.io//post/2ih2aeMZB">
-        </link>
-        <updated>2019-12-14T13:19:14.000Z</updated>
-        <summary type="html"><![CDATA[<p>於2019/12/14測試可用。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>於2019/12/14測試可用。</p>
-<!-- more -->
-<p>下載：<a href="https://mega.nz/#!M91kTI5B!-LaoHCQ158qfhpX993FoZISX35qj0eS_WygfFuGh5ms">MEGA</a></p>
-<h2 id="安裝及破解步驟">安裝及破解步驟</h2>
-<ol>
-<li>雙擊已經內置了破解補丁的安裝包，開始安裝<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329693892.PNG" alt=""></li>
-<li>此處省略安裝步驟<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329703029.PNG" alt=""></li>
-<li>安裝完畢請直接關閉，不要啟動<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329731360.PNG" alt=""></li>
-<li>打開<code>C:/Windows/System32/drivers/etc</code>文件夾，將裡頭的<code>hosts</code>文件複製到桌面。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329960161.PNG" alt=""></li>
-<li>用記事本打開，在最下方加上以下兩行，以屏蔽威力導演連線驗證。</li>
-</ol>
-<pre><code>127.0.0.1 cap.cyberlink.com 
-127.0.0.1 activation.cyberlink.com 
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1576329964188.PNG" alt=""></figure>
-<blockquote>
-<p>PS.若是無法修改，看看是否hosts為&quot;唯獨&quot;模式，如果是把勾取消掉即可。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330021505.PNG" alt=""></p>
-</blockquote>
-<ol start="6">
-<li>改完之後將hosts複製貼上到<code>C:/Windows/System32/drivers/etc</code>文件夾覆蓋。</li>
-<li>點擊 Reg Patch.reg 文件導入註冊表。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330101623.PNG" alt=""></li>
-<li>打開威力導演「不，謝謝」、「現在不要」<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330157315.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330163818.PNG" alt=""></li>
-<li>隨便找一個素材拖到時間軸上然後按&quot;輸出檔案&quot;。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330459045.PNG" alt=""></li>
-<li>選擇H.265 HEVC輸出會跳出聯網提示框，點擊&quot;我目前沒有Internet連接&quot;<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330296430.PNG" alt=""></li>
-<li>隨意輸入一串數字點擊&quot;確定&quot;即可完成驗證<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330347821.PNG" alt=""></li>
-</ol>
-<p>至此，威力導演18已經破解完畢，可以正常使用了。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[親測可用，After Effects CC 2017 14.0 破解免安装版]]></title>
-        <id>https://Z1Nhouse.github.io//post/g2rnGSLkr</id>
-        <link href="https://Z1Nhouse.github.io//post/g2rnGSLkr">
-        </link>
-        <updated>2019-12-14T13:12:14.000Z</updated>
-        <summary type="html"><![CDATA[<blockquote>
-<p>原網址：<a href="https://www.pcsoft.com.cn/soft/150122.html">https://www.pcsoft.com.cn/soft/150122.html</a><br>
-於2019/12/14測試過可正常使用(Win10)。</p>
-</blockquote>
-]]></summary>
-        <content type="html"><![CDATA[<blockquote>
-<p>原網址：<a href="https://www.pcsoft.com.cn/soft/150122.html">https://www.pcsoft.com.cn/soft/150122.html</a><br>
-於2019/12/14測試過可正常使用(Win10)。</p>
-</blockquote>
-<!-- more -->
-<ul>
-<li>軟體大小：861.64MB</li>
-<li>軟體介面為英文</li>
-<li>應用平台：WinXP,Win7,WinAll</li>
-<li>下載鏈結：<a href="http://forspeed.pcsoft.com.cn/download/pc/AdobeAfterEffectsCC_2017.zip">點我</a>、備用載點</li>
-</ul>
-<h2 id="安裝教學">安裝教學</h2>
-<ol>
-<li>下載完之後解壓縮至任意位置。</li>
-<li>打開&quot;Support Files&quot;直接點擊&quot;AfterFX.exe&quot;即可使用。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329369843.PNG" alt=""></li>
-<li>開啟可能會有錯誤提示框且沒有任何內容，點擊提示框右下角可以略過。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329426347.PNG" alt=""></li>
-<li>免安裝和激活就可以馬上使用了！<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329458517.PNG" alt=""></li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[初學者也能快速上手的Python爬蟲(3) - 抓取Yahoo奇摩新聞首頁標題與連結]]></title>
-        <id>https://Z1Nhouse.github.io//post/Ks78sAGhX</id>
-        <link href="https://Z1Nhouse.github.io//post/Ks78sAGhX">
-        </link>
-        <updated>2019-12-11T14:16:57.000Z</updated>
-        <summary type="html"><![CDATA[<p>本篇文章適用於對python以及html語法略懂皮毛的初學者，若什麼都不瞭解建議邊學邊google，畢竟現代科技非常發達嘛。<br>
-上一篇：<a href="https://z1nhouse.github.io/post/3qgNl3ySw/">初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package</a></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>本篇文章適用於對python以及html語法略懂皮毛的初學者，若什麼都不瞭解建議邊學邊google，畢竟現代科技非常發達嘛。<br>
-上一篇：<a href="https://z1nhouse.github.io/post/3qgNl3ySw/">初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package</a></p>
-<!-- more -->
-<h2 id="解析網頁內容及標籤">解析網頁內容及標籤</h2>
-<p>我們今天學習的目標是抓取<a href="https://tw.yahoo.com/">Yahoo奇摩</a>首頁的新聞標題。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576074601634.PNG" alt=""></p>
-<p>並且我希望呈現下方的形式：</p>
-<pre><code>新聞標題：xxxxxxx
-新聞地址：http://........
-</code></pre>
-<p>首先，你可以透過<code>Ctrl+Shift+I</code>或者<code>F12</code>打開&quot;開發人員工具&quot;，並且點擊選取工具指向想要抓取的資料位置，就會自動跳到該資料的程式碼位置。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576074233704.png" alt=""><br>
-注：建議使用Google Chrome或者Fire Fox瀏覽器。</p>
-<p>大致看一下每個標題之間標籤的共通點，例如這篇新聞標題是以連結標籤包裹住的，class名稱為<code>D-b Abu-C-b Fw-b Mb-6 Ell Fz-m Cur-p story-title</code>，若是你仔細觀察，可以發現每一個新聞標題超連結的class都是一樣的，我們可以只使用其中的一部分<code>story-title</code>或者全部使用皆可。</p>
-<pre><code>&lt;a href=&quot;https://bit.ly/2rDxQ5R&quot; class=&quot;D-b Abu-C-b Fw-b Mb-6 Ell Fz-m Cur-p 
-story-title&quot;data-ylk=&quot;rspns:nav;t1:a3;t2:td;t3:nav;sec:td-fea;elm:hdln;elmt:ct;itc:0;
-cpos:3;pkgt:1;ccode:p_zh_hant_tw_lm_or1;aid:id-6232;
-g:da398d27-7f67-354b-a8da-a233efb81343;cat:t5;subsec:t5;ct:1;ad:0;slk:賈靜雯也掃貨？櫃姐卻
-曝1憾;&quot; data-rapid_p=&quot;74&quot; data-v9y=&quot;1&quot; id=&quot;yui_3_12_0_3_1576066112353_2420&quot;&gt;&lt;span 
-class=&quot;Va-tt&quot; id=&quot;yui_3_12_0_3_1576066112353_2419&quot;&gt;賈靜雯也掃貨？櫃姐卻曝1憾&lt;/span&gt;&lt;/a&gt;
-</code></pre>
-<h2 id="抓取需要的資料">抓取需要的資料</h2>
-<ol>
-<li>在最開始需要先import requests和BeautifulSoup4。</li>
-</ol>
-<pre><code>import requests
-from bs4 import BeautifulSoup
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1576073982921.PNG" alt=""></figure>
-<ol start="2">
-<li>接著使用 GET 方式下載普通網頁，並將網頁內容儲存在res變數中，接著輸入<code>print(res.status_code)</code>來確認伺服器回應的狀態碼，若顯示<code>200</code>代表OK沒問題。</li>
-</ol>
-<pre><code>res = requests.get(&quot;https://tw.yahoo.com/&quot;)
-# 確認伺服器回應的狀態碼,可不寫
-print(res.status_code)
-</code></pre>
-<p><img src="https://Z1Nhouse.github.io//post-images/1576074770071.PNG" alt=""><br>
-注：<a href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP狀態碼</a></p>
-<ol start="3">
-<li>輸入<code>print(res.text)</code>可以印出網頁的原始碼，你可以在這研究一下標題們的標籤之間的共同點。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576074895791.PNG" alt=""><br>
-你也可以透過BeautifulSoup提取網頁原始碼再印出。</li>
-</ol>
-<pre><code>soup = BeautifulSoup(res.text)
-print(soup)
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1576075006487.PNG" alt=""></figure>
-<ol start="4">
-<li>以 Beautiful Soup 解析 HTML 程式碼，並儲存在soup變數中。</li>
-</ol>
-<pre><code>#Python標準庫
-soup = BeautifulSoup(res.text, 'html.parser')
-</code></pre>
-<ol start="5">
-<li>我們可以利用<code>find_all</code> 找出所有特定的 HTML 標籤節點。</li>
-</ol>
-<pre><code>data = soup.find_all(&quot;標籤&quot;, &quot;class&quot;)
-</code></pre>
-<p>回憶一下我們剛剛是不是在yahoo奇摩首頁找到了新聞的標籤及class？<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576075576964.PNG" alt=""></p>
-<p>因此我們可以找到class為<code>story-title</code>的a標籤，並將之存在data變數當中。</p>
-<pre><code>data = soup.find_all(&quot;a&quot;, &quot;story-title&quot;)
-</code></pre>
-<figure data-type="image" tabindex="3"><img src="https://Z1Nhouse.github.io//post-images/1576075735035.PNG" alt=""></figure>
-<ol start="6">
-<li>以 Python 的迴圈來依序輸出每個超連結的文字以及使用get來取得class為<code>story-title</code>的a標籤中的<code>href</code>內容：</li>
-</ol>
-<pre><code>for s in data:
-    print(&quot;新聞標題：&quot; + s.text)
-    print(&quot;新聞地址：&quot; + s.get(&quot;href&quot;))
-</code></pre>
-<figure data-type="image" tabindex="4"><img src="https://Z1Nhouse.github.io//post-images/1576076216395.png" alt=""></figure>
-<p>至此，本節課的目標達成啦！但現在僅僅只是沾上爬蟲的邊，未來還有許多要學習呢！</p>
 ]]></content>
     </entry>
 </feed>

@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10055 - Hashmat the Brave Warroir | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578754031966">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,62 +71,68 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              將Visual Studio Code語言修改為繁體中文
+              【JAVA】UVA 10055 - Hashmat the Brave Warroir
             </h2>
             <div class="post-info">
               <span>
-                2019-12-07
+                2020-01-11
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="post-tag">
-                  # VS Code
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/UnHCMUvkF.PNG" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
-<ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
-</ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996</a></p>
+<p><strong>Sample Input</strong><br>
+10 12<br>
+10 14<br>
+100 200<br>
+<strong>Sample Output</strong><br>
+2<br>
+4<br>
+100</p>
+<p>題目大意：取兩數差，題目限制最大值為2^32，因此需要使用long。</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+            while(sc.hasNextLong()){
+            long a = sc.nextLong(),b = sc.nextLong();
+    		System.out.println(Math.abs(a-b));
+    		}
+    }
+};
+
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#vs-code%E5%91%BD%E4%BB%A4%E9%9D%A2%E6%9D%BF">【VS Code命令面板】</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F">修改方式</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/UNd1D1Awb">
+              <h3 class="post-title">
+                【JAVA】UVA 10041 - Vito&#39;s Family
+              </h3>
+            </a>
+          </div>
         
 
         

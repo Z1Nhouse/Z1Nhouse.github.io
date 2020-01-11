@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10041 - Vito&#39;s Family | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578754031966">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,62 +71,96 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              將Visual Studio Code語言修改為繁體中文
+              【JAVA】UVA 10041 - Vito&#39;s Family
             </h2>
             <div class="post-info">
               <span>
-                2019-12-07
+                2020-01-11
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="post-tag">
-                  # VS Code
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/UnHCMUvkF.PNG" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
+                <p>UVa10041 Vito's family 題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982</a></p>
+<p><strong>Sample Input</strong><br>
+2<br>
+2 2 4<br>
+3 2 4 6<br>
+<strong>Sample Output</strong><br>
+2<br>
+4</p>
+<p>解題順序：</p>
 <ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
+<li>先將成員由小到大排序</li>
+<li>找出該組成員的中位數</li>
+<li>輸出中位數成員到各成員的距離總和。</li>
 </ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
+<p>現在來看範例：<br>
+<strong>Sample Input</strong><br>
+2  <code>&lt;--這邊的2指的是有兩組要比對的資料</code><br>
+2 2 4     <code>&lt;--第一個2表示該組有2個成員，分別為2,4</code><br>
+3 2 4 6   <code>&lt;--該組有3個成員，分別為2,4,6</code><br>
+<strong>Sample Output</strong><br>
+2 <code>以2為中位數，所有成員與2的距離為|4-2|=2</code><br>
+4 <code>以4為中位數，所有成員與4的距離為|2-4|+|6-4|=4</code></p>
+<p>當成員數為偶數時，中間兩個數任意選一個即可。</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+     
+            Scanner sc=new Scanner(System.in);
+            int n= sc.nextInt(); //共幾組
+            while((--n)&gt;=0){
+            
+            int p = sc.nextInt(); //幾個成員
+            int house[] = new int[p]; //令一個成員數大小的陣列
+            
+            for(int i = 0 ; i&lt;p ; i++){
+            	house[i] = sc.nextInt(); //輸入成員的值
+            }
+            
+            Arrays.sort(house); //將成員由小到大排序
+            
+            int len=0;
+            
+            for(int i = 0 ; i&lt;p ; i++){
+            	len+=Math.abs(house[i]-house[i/2]); //計算所有成員與中位數的絕對值距離總和
+            }
+            System.out.println(len);
+            }
+    }
+};
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#vs-code%E5%91%BD%E4%BB%A4%E9%9D%A2%E6%9D%BF">【VS Code命令面板】</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F">修改方式</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/gd_Z3CfkC">
+              <h3 class="post-title">
+                如何使用JS讓PHP表單內容填寫空白時跳出提醒？
+              </h3>
+            </a>
+          </div>
         
 
         

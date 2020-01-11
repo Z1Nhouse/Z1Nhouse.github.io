@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10035 - Primary Arithmetic | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578754031966">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,62 +71,104 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              將Visual Studio Code語言修改為繁體中文
+              【JAVA】UVA 10035 - Primary Arithmetic
             </h2>
             <div class="post-info">
               <span>
-                2019-12-07
+                2020-01-11
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="post-tag">
-                  # VS Code
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/UnHCMUvkF.PNG" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
-<ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
-</ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=976">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=976</a></p>
+<p><strong>Sample Input</strong><br>
+123 456<br>
+555 555<br>
+123 594<br>
+0 0<br>
+<strong>Sample Output</strong><br>
+No carry operation.<br>
+3 carry operations.<br>
+1 carry operation.</p>
+<p><strong>題目大意：判斷兩整數相加後產生多少個進位，當兩數皆為0則停止程式。</strong><br>
+<code>特別要注意的是，本題所有變數都為int，因此不會有小數的出現。</code></p>
+<p>以<code>123+456</code>作為範例，首先第一輪sum=123%10+456%10+carry = 3+6+0 = 9 , sum沒有大於10所以carries保持為0,carry=sum/10所以也是0 , 接著a = a/10 =&gt; 123/10 = 12, b = b/10 =&gt; 456/10 = 45;</p>
+<p>第二輪sum = 12%10+45%10+carry = 2+5+0 = 7 , carry=0,carries=0 , a = 12/10 = 1 , b = 45/10 = 4;</p>
+<p>第三輪sum = 1%10+4%10+carry = 1+4+0 = 5 ,carry=0,carries=0 , a = 1/10 = 0 , b = 4/10 = 0 , 是以a與b皆為0，程式結束。</p>
+<p>而最終carries = 0  , 所以output為No carry operation.</p>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578750760319.png" alt=""></figure>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+            
+            while(true){
+            int a=sc.nextInt(),b=sc.nextInt();
+            if(a==0&amp;&amp;b==0){ //當兩數皆為0則停止程式
+            	break;
+            }
+        	
+        	int carry=0,carries=0;
+        	
+        	while(a!=0||b!=0){ //a或者b任意一個不為0則繼續判斷
+        	
+        	int sum = a%10+b%10+carry; //從個位數慢慢往前推,判斷有無進位
+        	
+        	if(sum&gt;=10){
+        		++carries;
+        	}
+        	
+        	carry = sum/10;
+        	a /= 10;  // a=a/10 每判斷完一個位數,就將它捨去
+        	b /= 10;  // b=b/10 每判斷完一個位數,就將它捨去
+        	
+        	}
+        	
+        	if(carries==0){
+        	System.out.println(&quot;No carry operation.&quot;);
+        	}else if(carries==1){
+        	System.out.println(&quot;1 carry operation.&quot;);
+        	}else{
+        	System.out.println(carries + &quot; carry operations.&quot;);
+        	}
+            
+            }
+           
+        }
+    }
+
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#vs-code%E5%91%BD%E4%BB%A4%E9%9D%A2%E6%9D%BF">【VS Code命令面板】</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F">修改方式</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/oOp8OrXuI">
+              <h3 class="post-title">
+                【JAVA】UVA 10055 - Hashmat the Brave Warroir
+              </h3>
+            </a>
+          </div>
         
 
         

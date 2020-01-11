@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
+<title>【JAVA】UVA 100 - The 3n+1 problem | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578754031966">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,62 +71,95 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              將Visual Studio Code語言修改為繁體中文
+              【JAVA】UVA 100 - The 3n+1 problem
             </h2>
             <div class="post-info">
               <span>
-                2019-12-07
+                2020-01-11
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
-              
-                <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="post-tag">
-                  # VS Code
-                </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/UnHCMUvkF.PNG" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
-<ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
-</ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?Itemid=8&amp;option=com_onlinejudge&amp;page=show_problem&amp;problem=36">https://onlinejudge.org/index.php?Itemid=8&amp;option=com_onlinejudge&amp;page=show_problem&amp;problem=36</a></p>
+<p><strong>Sample Input</strong><br>
+1  10<br>
+100  200<br>
+201  210<br>
+900  1000</p>
+<p><strong>Sample Output</strong><br>
+1  10  20<br>
+100  200  125<br>
+201  210  89<br>
+900  1000  174</p>
+<p><strong>題目大意：給定一個範圍(a~b)，範圍內所有整數都跑一遍3n+1問題，並計算每個數需要多少次迴圈才能得到1，最後輸出範圍內需跑迴圈數最多的值。</strong></p>
+<p>3n+1跑法：如果n是奇數則n = 3n+1，否則n = n/2</p>
+<p>注意：假設input為<code>22</code>，跑法則為：<code>22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1</code>，因此22的迴圈次數為16次(22本身也算1次)。</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+
+            while(sc.hasNextInt()){
+            
+            int a=sc.nextInt(),b=sc.nextInt();
+            
+            if(a&gt;b){ //因為給定的兩數範圍並不一定是小到大,若a&gt;b需要做調換動作
+            int c = a;
+            a = b;
+            b = c;
+            }
+
+            int aa=a,bb=b,max=0; //將調換後的a,b存入aa,bb , max為最大迴圈數
+
+            for(int i = a;i&lt;=b ; i++){
+            	int n = i;
+            	int l = 1;
+            	while(true){
+            	
+            	if(n==1)break;
+            	l++;
+
+            	if(n%2==0){
+            	n = n/2;
+            	}else{
+            	n = n*3+1;
+            	}
+            	
+            	if(l&gt;max){
+            	max = l;
+            	}
+            	
+            	}
+            }
+            System.out.println(aa+&quot; &quot;+bb+&quot; &quot;+max);
+            }
+       
+    }
+    }
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#vs-code%E5%91%BD%E4%BB%A4%E9%9D%A2%E6%9D%BF">【VS Code命令面板】</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F">修改方式</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/VOy2ZIurR">
+              <h3 class="post-title">
+                【JAVA】UVA 10035 - Primary Arithmetic
+              </h3>
+            </a>
+          </div>
         
 
         
