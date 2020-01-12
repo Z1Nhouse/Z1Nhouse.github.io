@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>絕對可用，威力導演18破解版！ | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10929 - You can say 11 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578811458976">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,71 +71,110 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              絕對可用，威力導演18破解版！
+              【JAVA】UVA 10929 - You can say 11
             </h2>
             <div class="post-info">
               <span>
-                2019-12-14
+                2020-01-12
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/RQO9x6Ivu" class="post-tag">
-                  # 威力導演18
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/2ih2aeMZB.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/_-VlC1oUM.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>於2019/12/14測試可用。</p>
-<!-- more -->
-<p>下載：<a href="https://mega.nz/#!M91kTI5B!-LaoHCQ158qfhpX993FoZISX35qj0eS_WygfFuGh5ms">MEGA</a></p>
-<h2 id="安裝及破解步驟">安裝及破解步驟</h2>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870</a></p>
+<p><strong>Sample Input</strong></p>
+<p>112233<br>
+30800<br>
+2937<br>
+323455693<br>
+5038297<br>
+112234<br>
+0</p>
+<p><strong>Sample Output</strong></p>
+<p>112233 is a multiple of 11.<br>
+30800 is a multiple of 11.<br>
+2937 is a multiple of 11.<br>
+323455693 is a multiple of 11.<br>
+5038297 is a multiple of 11.<br>
+112234 is not a multiple of 11.</p>
+<p><strong>題目大意：判斷一個1000位以下的正整數是否為11的倍數，若輸入0則停止程式。</strong></p>
+<h2 id="解題方向">解題方向：</h2>
 <ol>
-<li>雙擊已經內置了破解補丁的安裝包，開始安裝<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329693892.PNG" alt=""></li>
-<li>此處省略安裝步驟<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329703029.PNG" alt=""></li>
-<li>安裝完畢請直接關閉，不要啟動<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329731360.PNG" alt=""></li>
-<li>打開<code>C:/Windows/System32/drivers/etc</code>文件夾，將裡頭的<code>hosts</code>文件複製到桌面。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576329960161.PNG" alt=""></li>
-<li>用記事本打開，在最下方加上以下兩行，以屏蔽威力導演連線驗證。</li>
+<li>
+<p>判斷11的倍數：<br>
+a)奇位數總和減去偶位數總和等於0或11的倍數<br>
+b)直接取11的餘數看是否為0</p>
+</li>
+<li>
+<p>位數最多到1000位，所以用BigInteger</p>
+</li>
 </ol>
-<pre><code>127.0.0.1 cap.cyberlink.com 
-127.0.0.1 activation.cyberlink.com 
+<h3 id="biginteger的用法">BigInteger的用法：</h3>
+<p>透過字串將數字傳給BigInteger。</p>
+<p>常使用的建構子有:</p>
+<ul>
+<li><strong>BigInteger(String val)</strong> : 將BigInteger的十進制String表示轉換為BigInteger。</li>
+<li><strong>BigInteger(String val, int radix)</strong>: 用於轉換為BigInteger的指定基數為一個BigInteger的字符串表示形式。</li>
+</ul>
+<p>更多用法請看<a href="http://tw.gitbook.net/java/math/java_math_biginteger.html">Java.math.BigInteger類實例</a></p>
+<p>若是有不能處理的數字<code>142543256745643257535</code>則使用BigInteger處理：</p>
+<pre><code class="language-java">String bigIntStr = &quot;142543256745643257535&quot;;  
+BigInteger a = new BigInteger(bigIntStr);  
+System.out.print(a);
 </code></pre>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1576329964188.PNG" alt=""></figure>
-<blockquote>
-<p>PS.若是無法修改，看看是否hosts為&quot;唯獨&quot;模式，如果是把勾取消掉即可。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330021505.PNG" alt=""></p>
-</blockquote>
-<ol start="6">
-<li>改完之後將hosts複製貼上到<code>C:/Windows/System32/drivers/etc</code>文件夾覆蓋。</li>
-<li>點擊 Reg Patch.reg 文件導入註冊表。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330101623.PNG" alt=""></li>
-<li>打開威力導演「不，謝謝」、「現在不要」<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330157315.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330163818.PNG" alt=""></li>
-<li>隨便找一個素材拖到時間軸上然後按&quot;輸出檔案&quot;。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330459045.PNG" alt=""></li>
-<li>選擇H.265 HEVC輸出會跳出聯網提示框，點擊&quot;我目前沒有Internet連接&quot;<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330296430.PNG" alt=""></li>
-<li>隨意輸入一串數字點擊&quot;確定&quot;即可完成驗證<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576330347821.PNG" alt=""></li>
-</ol>
-<p>至此，威力導演18已經破解完畢，可以正常使用了。</p>
+<p>執行結果：142543256745643257535</p>
+<h2 id="解法">解法</h2>
+<pre><code class="language-java">
+import java.util.*;
+import java.math.BigInteger; //記得要將BigInteger import進來
+
+public class main{
+    public static void main(String[] args) {
+        
+            Scanner sc=new Scanner(System.in);
+            while(sc.hasNext()){
+            String y = sc.next();
+            BigInteger x = new BigInteger(y);  //透過字串將數字傳給BigInteger
+
+            if(x.equals(BigInteger.ZERO))break; //當BigInteger值等於0時結束程式
+            if(x.mod(new BigInteger(&quot;11&quot;)).equals(BigInteger.ZERO)){ //當BigInteger值能被11整除時代表該數為11的倍數
+            System.out.println(y+&quot; is a multiple of 11.&quot;);
+            }else{
+            System.out.println(y+&quot; is not a multiple of 11.&quot;);
+            }
+            
+            }
+    }
+};
+
+
+</code></pre>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%AE%89%E8%A3%9D%E5%8F%8A%E7%A0%B4%E8%A7%A3%E6%AD%A5%E9%A9%9F">安裝及破解步驟</a></li>
+<li><a href="#%E8%A7%A3%E9%A1%8C%E6%96%B9%E5%90%91">解題方向：</a>
+<ul>
+<li><a href="#biginteger%E7%9A%84%E7%94%A8%E6%B3%95">BigInteger的用法：</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A7%A3%E6%B3%95">解法</a></li>
 </ul>
 </li>
 </ul>
@@ -148,9 +187,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/g2rnGSLkr">
+            <a href="https://Z1Nhouse.github.io//post/ljIr-M6_B">
               <h3 class="post-title">
-                親測可用，After Effects CC 2017 14.0 破解免安装版
+                【JAVA】UVA 100 - The 3n+1 problem
               </h3>
             </a>
           </div>
