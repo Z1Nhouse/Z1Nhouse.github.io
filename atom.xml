@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-12T15:07:34.354Z</updated>
+    <updated>2020-01-12T16:39:38.633Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,73 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10008 - What's Cryptanalysis?]]></title>
+        <id>https://Z1Nhouse.github.io//post/uz3BVb7RV</id>
+        <link href="https://Z1Nhouse.github.io//post/uz3BVb7RV">
+        </link>
+        <updated>2020-01-12T16:20:50.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=949">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=949</a></p>
+<p><strong>Sample Input</strong><br>
+3 <code>要判斷幾行文字</code><br>
+This is a test.<br>
+Count me 1 2 3 4 5.<br>
+Wow!!!!  Is this question easy?</p>
+<p><strong>Sample Output</strong><br>
+S 7<br>
+T 6<br>
+I 5<br>
+E 4<br>
+O 3<br>
+A 2<br>
+H 2<br>
+N 2<br>
+U 2<br>
+W 2<br>
+C 1<br>
+M 1<br>
+Q 1<br>
+Y 1</p>
+<p>注意：</p>
+<ol>
+<li>只需要計算英文字母且大小寫不分，範例輸出可看出皆為大寫，因此直接將所有英文字母轉為大寫。</li>
+<li>按照英文字母的使用頻率由小到大輸出，若有一樣次數的英文字母則由字母先後順序輸出。</li>
+</ol>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+        
+            Scanner sc=new Scanner(System.in);
+            int data[] = new int[26];
+            int Length=0,count=sc.nextInt(); //count代表有幾行字串
+            String a = sc.nextLine(); 
+            while(count-- &gt;0){
+            	String temp = sc.nextLine().toUpperCase(); //字串內容,將之轉為大寫
+            	Length += temp.length();
+            	
+            	for(int i=0 ; i&lt;temp.length();i++){
+            		if('A'&lt;=temp.charAt(i) &amp;&amp; temp.charAt(i)&lt;='Z'){
+            			data[(int)temp.charAt(i)-65]++; //將英文字母存至對應數的陣列中,若有重複則++ , 這邊的-65是ASCII減去大寫A
+            		}
+            	}
+            
+            }
+            
+            while(--Length&gt;0){ 
+            	for(int i=0;i&lt;26;i++){
+            		if(data[i]==Length){
+            			System.out.println(((char)(i+65))+&quot; &quot;+data[i]);
+            		}
+            	
+            	}
+            
+            }
+    }
+};
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【JAVA】UVA 10420 - List of Conquests]]></title>
         <id>https://Z1Nhouse.github.io//post/Frm4A2j3f</id>
@@ -525,80 +592,6 @@ function formcheck(){
 事實上，departments還可以再增加許多內容，比如科系主任、科系教授數量...等。</p>
 <p>students資料表的科系代碼欄位是屬於外鍵，departments資料表的科系代碼則是主鍵，students的外鍵對應到departments的主鍵，可以省略很多重複的資料。</p>
 <p>之所以需要使用關聯資料表，是因為我們不希望在學生資料上記載關於科系的詳細資料，這兩份資料表有各自明確的功能，我們只需要創造兩張表的&quot;關聯&quot;，就可以在必要的時候查找資訊。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[使用jQuery取得JSON資料 - 簡易隨機詩詞產生器]]></title>
-        <id>https://Z1Nhouse.github.io//post/Oj8rJWuki</id>
-        <link href="https://Z1Nhouse.github.io//post/Oj8rJWuki">
-        </link>
-        <updated>2020-01-01T16:03:14.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="什麼是jquery">什麼是jQuery</h2>
-<p>jQuery是繼prototype之後又一個優秀的Javascript庫。它是輕量級的js庫，它兼容CSS3，還兼容各種瀏覽器（IE 6.0+, FF1.5+, Safari 2.0+, Opera 9.0+），jQuery2.0及後續版本將不再支持IE6/ 7/8瀏覽器。<br>
-　　jQuery使用戶能更方便地處理HTML、events、實現動畫效果，並且方便地為網站提供AJAX交互。jQuery還有一個比較大的優勢是，它的文檔說明很全，而且各種應用也說得很詳細，同時還有許多成熟的插件可供選擇。 jQuery能夠使用戶的html頁面保持代碼和html內容分離，也就是說，不用再在html裡面插入一堆js來調用命令了，只需要定義id即可。</p>
-<p>jquery官網提供2種jQuery的下載，一種是jquery.js另一種是jquery.min.js。</p>
-<p>文件名不一定完全相同，但通常情況下：</p>
-<ul>
-<li>
-<p>jquery.js是完整的未壓縮的jQuery庫，文件比較大，一般用於閱讀學習源碼或修改源碼，一般不用於線上項目。</p>
-</li>
-<li>
-<p>jquery.min.js是由完整版的jQu​​ery庫經過壓縮得來，壓縮後功能與未壓縮的完全一樣，只是將其中的空白字符、註釋、空行等與邏輯無關的內容刪除，並進行一些優化。這個版本一般用於網站引用使用，減小文件體積，降低網站流量，提升訪問速度等。</p>
-</li>
-</ul>
-<h2 id="載入jquery">載入jQuery</h2>
-<p>使用jQuery時你必須先將jQuery加進網頁的<code>&lt;head&gt;..&lt;/head&gt;</code>之間。</p>
-<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>當然你可以選擇將jquery.min.js下載上傳至網站直接使用，也可以藉由CDN載入。<br>
-使用CDN載入的好處是若不同的網站使用同樣的連結時可以避免重複下載，也不必在自己的伺服器上部署jQuery檔案。</p>
-<h2 id="隨機詩詞產生器">隨機詩詞產生器</h2>
-<p>當然這就需要API了，我們以今日詩詞的API作為示範：</p>
-<ul>
-<li><a href="https://www.jinrishici.com/">今日詩詞官網</a></li>
-<li><a href="https://www.jinrishici.com/doc/">今日詩詞使用說明</a></li>
-</ul>
-<p>以下為使用jQuery取得JSON資料的寫法，放在<code>&lt;head&gt;..&lt;/head&gt;</code>：</p>
-<pre><code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
-function nextshi(){
-  $.getJSON(&quot;https://v1.jinrishici.com/all.json&quot;,function(json){ //替換API的位址
-
- /*json為function的名稱,後面接JSON中的類別,使用點(.)相連*/
-   category = json.category;    //分類
-   author = json.author;        //作者
-   content = json.content;      //內容
-   origin = json.origin; //原文
-
-/*使用json取得的資料改變元素的內容*/
-   $(&quot;.shi-content&quot;).html(content); 
-   $(&quot;.shi-author&quot;).html(author);
-   $(&quot;.shi-category&quot;).html(category);
-   $(&quot;.shi-origin&quot;).html(origin);
-  });
- }
-&lt;/script&gt;
-</code></pre>
-<p></p>
-因為我們設定了shi-content、shi-author、shi-category、shi-origin這四個元素，因此我們也需要在網頁中插入相對應的呼叫，只需要使用 class="shi-origin" (以此類推)。
-<p>以下為放在<code>&lt;body&gt;...&lt;/body&gt;</code>的內容：</p>
-<pre><code class="language-html">&lt;h1&gt;&lt;ins class=&quot;shi-origin&quot;&gt;標題&lt;/ins&gt;&lt;/h1&gt;
-&lt;cite class=&quot;shi-author&quot;&gt;作者&lt;/cite&gt;
-&lt;br&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;shi-content&quot;&gt;內文&lt;/div&gt;
-&lt;/blockquote&gt;
-分類：&lt;font class=&quot;shi-category&quot;&gt;&lt;/font&gt;
-
-&lt;p&gt;
-&lt;button onclick=&quot;javascript:nextshi();&quot;&gt;Random&lt;/button&gt; //使用按鈕來隨機產生
-</code></pre>
-<h1>範例效果</h1>
-<ol>
-<li>未按按鈕前<br>
-<img src="https://Z1Nhouse.github.io//post-images/1577895935822.PNG" alt=""></li>
-<li>隨機產生後<br>
-<img src="https://Z1Nhouse.github.io//post-images/1577895939269.PNG" alt=""></li>
-</ol>
 ]]></content>
     </entry>
 </feed>

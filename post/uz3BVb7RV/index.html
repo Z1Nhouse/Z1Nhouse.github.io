@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>帶你兩分鐘了解什麼是關聯式資料庫？ | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10008 - What&#39;s Cryptanalysis? | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578847173529">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,59 +71,93 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              帶你兩分鐘了解什麼是關聯式資料庫？
+              【JAVA】UVA 10008 - What&#39;s Cryptanalysis?
             </h2>
             <div class="post-info">
               <span>
-                2020-01-09
+                2020-01-13
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/qAXnPFadV" class="post-tag">
-                  # 關聯式資料庫
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/IPygPpR2t.png" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/uz3BVb7RV.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="關聯式資料庫簡介">關聯式資料庫簡介</h2>
-<p>關聯式資料庫（Relational database）是建立在<strong>關聯模型</strong>基礎上的資料庫，藉助於集合代數等數學概念和方法來處理資料庫中的資料。<br>
-現如今雖然對此模型有一些批評意見，但它還是資料儲存的傳統標準。<br>
-標準資料查詢語言<strong>SQL</strong>就是一種基於關聯式資料庫的語言，這種語言執行對關聯式資料庫中資料的檢索和操作。</p>
-<h2 id="關係鍵">關係鍵</h2>
-<p>其實還有其他關係鍵，但這邊暫且用不到，所以只介紹主鍵與外鍵。</p>
-<ul>
-<li>
-<p><code>主鍵(primary key)</code>資料庫表中對儲存資料物件予以唯一和完整標識的資料列或屬性的組合。<br>
-一個資料表<strong>只能有一個主鍵，且主鍵的取值不能缺失，即不能為空值（Null）</strong>。</p>
-</li>
-<li>
-<p><code>外鍵(foreign key)</code>是關聯式資料庫的重要組成部分。在關聯式資料庫中，每個資料表都是由關聯來連繫彼此的關係，父資料表（Parent Entity）的主鍵（primary key）會放在另一個資料表，當做屬性以建立彼此的關聯，而這個屬性就是外來鍵。</p>
-</li>
-</ul>
-<h2 id="圖解">圖解</h2>
-<p><img src="https://Z1Nhouse.github.io//post-images/1578550721047.png" alt=""><br>
-事實上，departments還可以再增加許多內容，比如科系主任、科系教授數量...等。</p>
-<p>students資料表的科系代碼欄位是屬於外鍵，departments資料表的科系代碼則是主鍵，students的外鍵對應到departments的主鍵，可以省略很多重複的資料。</p>
-<p>之所以需要使用關聯資料表，是因為我們不希望在學生資料上記載關於科系的詳細資料，這兩份資料表有各自明確的功能，我們只需要創造兩張表的&quot;關聯&quot;，就可以在必要的時候查找資訊。</p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=949">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=949</a></p>
+<p><strong>Sample Input</strong><br>
+3 <code>要判斷幾行文字</code><br>
+This is a test.<br>
+Count me 1 2 3 4 5.<br>
+Wow!!!!  Is this question easy?</p>
+<p><strong>Sample Output</strong><br>
+S 7<br>
+T 6<br>
+I 5<br>
+E 4<br>
+O 3<br>
+A 2<br>
+H 2<br>
+N 2<br>
+U 2<br>
+W 2<br>
+C 1<br>
+M 1<br>
+Q 1<br>
+Y 1</p>
+<p>注意：</p>
+<ol>
+<li>只需要計算英文字母且大小寫不分，範例輸出可看出皆為大寫，因此直接將所有英文字母轉為大寫。</li>
+<li>按照英文字母的使用頻率由小到大輸出，若有一樣次數的英文字母則由字母先後順序輸出。</li>
+</ol>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+        
+            Scanner sc=new Scanner(System.in);
+            int data[] = new int[26];
+            int Length=0,count=sc.nextInt(); //count代表有幾行字串
+            String a = sc.nextLine(); 
+            while(count-- &gt;0){
+            	String temp = sc.nextLine().toUpperCase(); //字串內容,將之轉為大寫
+            	Length += temp.length();
+            	
+            	for(int i=0 ; i&lt;temp.length();i++){
+            		if('A'&lt;=temp.charAt(i) &amp;&amp; temp.charAt(i)&lt;='Z'){
+            			data[(int)temp.charAt(i)-65]++; //將英文字母存至對應數的陣列中,若有重複則++ , 這邊的-65是ASCII減去大寫A
+            		}
+            	}
+            
+            }
+            
+            while(--Length&gt;0){ 
+            	for(int i=0;i&lt;26;i++){
+            		if(data[i]==Length){
+            			System.out.println(((char)(i+65))+&quot; &quot;+data[i]);
+            		}
+            	
+            	}
+            
+            }
+    }
+};
+
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E9%97%9C%E8%81%AF%E5%BC%8F%E8%B3%87%E6%96%99%E5%BA%AB%E7%B0%A1%E4%BB%8B">關聯式資料庫簡介</a></li>
-<li><a href="#%E9%97%9C%E4%BF%82%E9%8D%B5">關係鍵</a></li>
-<li><a href="#%E5%9C%96%E8%A7%A3">圖解</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -132,9 +166,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/Oj8rJWuki">
+            <a href="https://Z1Nhouse.github.io//post/Frm4A2j3f">
               <h3 class="post-title">
-                使用jQuery取得JSON資料 - 簡易隨機詩詞產生器
+                【JAVA】UVA 10420 - List of Conquests
               </h3>
             </a>
           </div>
