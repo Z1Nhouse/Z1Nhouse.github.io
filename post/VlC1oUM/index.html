@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>如何使用JS讓PHP表單內容填寫空白時跳出提醒？ | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10929 - You can say 11 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578841652109">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,60 +71,114 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              如何使用JS讓PHP表單內容填寫空白時跳出提醒？
+              【JAVA】UVA 10929 - You can say 11
             </h2>
             <div class="post-info">
               <span>
-                2020-01-09
+                2020-01-12
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/lpyicRK-T" class="post-tag">
-                  # javascript
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
                 </a>
               
-                <a href="https://Z1Nhouse.github.io//tag/XYkY2RxOcS" class="post-tag">
-                  # PHP
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/gd_Z3CfkC.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/VlC1oUM.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>直接上代碼，應該不需要解釋了吧。</p>
-<p>先在<code>&lt;body&gt;..&lt;/body&gt;</code>之間新建一個表單：</p>
-<pre><code>&lt;form method=&quot;POST&quot; action=&quot;alert1.php&quot; name=&quot;Regist&quot; onsubmit=&quot;return formcheck();&quot;&gt;
-
-帳號：&lt;input type=&quot;text&quot; name=&quot;id&quot;&gt;
-&lt;input type=&quot;submit&quot; value=&quot;送出&quot;&gt;
-
-&lt;/form&gt;
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870</a></p>
+<p><strong>Sample Input</strong></p>
+<p>112233<br>
+30800<br>
+2937<br>
+323455693<br>
+5038297<br>
+112234<br>
+0</p>
+<p><strong>Sample Output</strong></p>
+<p>112233 is a multiple of 11.<br>
+30800 is a multiple of 11.<br>
+2937 is a multiple of 11.<br>
+323455693 is a multiple of 11.<br>
+5038297 is a multiple of 11.<br>
+112234 is not a multiple of 11.</p>
+<p><strong>題目大意：判斷一個1000位以下的正整數是否為11的倍數，若輸入0則停止程式。</strong></p>
+<h2 id="解題方向">解題方向：</h2>
+<ol>
+<li>
+<p>判斷11的倍數：<br>
+a)奇位數總和減去偶位數總和等於0或11的倍數<br>
+b)直接取11的餘數看是否為0</p>
+</li>
+<li>
+<p>位數最多到1000位，所以用BigInteger</p>
+</li>
+</ol>
+<h3 id="biginteger的用法">BigInteger的用法：</h3>
+<p>透過字串將數字傳給BigInteger。</p>
+<p>常使用的建構子有:</p>
+<ul>
+<li><strong>BigInteger(String val)</strong> : 將BigInteger的十進制String表示轉換為BigInteger。</li>
+<li><strong>BigInteger(String val, int radix)</strong>: 用於轉換為BigInteger的指定基數為一個BigInteger的字符串表示形式。</li>
+</ul>
+<p>更多用法請看<a href="http://tw.gitbook.net/java/math/java_math_biginteger.html">Java.math.BigInteger類實例</a></p>
+<p>若是有不能處理的數字<code>142543256745643257535</code>則使用BigInteger處理：</p>
+<pre><code class="language-java">String bigIntStr = &quot;142543256745643257535&quot;;  
+BigInteger a = new BigInteger(bigIntStr);  
+System.out.print(a);
 </code></pre>
-<p>在<code>&lt;head&gt;...&lt;/head&gt;</code>之間插入function：</p>
-<pre><code>&lt;script language=&quot;javascript&quot;&gt;
+<p>執行結果：142543256745643257535</p>
+<h2 id="解法">解法</h2>
+<pre><code class="language-java">
+import java.util.*;
+import java.math.BigInteger; //記得要將BigInteger import進來
 
-function formcheck(){
+public class main{
+    public static void main(String[] args) {
+        
+            Scanner sc=new Scanner(System.in);
+            while(sc.hasNext()){
+            String y = sc.next();
+            BigInteger x = new BigInteger(y);  //透過字串將數字傳給BigInteger
 
-    if(Regist.id.value==&quot;&quot;){
-        alert(&quot;請填寫帳號！&quot;);
-        Regist.id.focus();  //focus到錯誤欄位
-        return false;
+            if(x.equals(BigInteger.ZERO))break; //當BigInteger值等於0時結束程式
+            if(x.mod(new BigInteger(&quot;11&quot;)).equals(BigInteger.ZERO)){ //當BigInteger值能被11整除時代表該數為11的倍數
+            System.out.println(y+&quot; is a multiple of 11.&quot;);
+            }else{
+            System.out.println(y+&quot; is not a multiple of 11.&quot;);
+            }
+            
+            }
     }
-    return true;
-}
+};
 
-&lt;/script&gt;
+
 </code></pre>
-<p>如此一來只要帳號欄位空白送出時，瀏覽器就會跳出提醒視窗&quot;請填寫帳號!&quot;，並且focus到帳號欄位。</p>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578551667434.PNG" alt=""></figure>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E8%A7%A3%E9%A1%8C%E6%96%B9%E5%90%91">解題方向：</a>
+<ul>
+<li><a href="#biginteger%E7%9A%84%E7%94%A8%E6%B3%95">BigInteger的用法：</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A7%A3%E6%B3%95">解法</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -133,9 +187,9 @@ function formcheck(){
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/IPygPpR2t">
+            <a href="https://Z1Nhouse.github.io//post/ljIr-M6_B">
               <h3 class="post-title">
-                帶你兩分鐘了解什麼是關聯式資料庫？
+                【JAVA】UVA 100 - The 3n+1 problem
               </h3>
             </a>
           </div>

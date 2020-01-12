@@ -2,9 +2,9 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>【JAVA】UVA 10929 - You can say 11 | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10420 - List of Conquests | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578811458976">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578841652109">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1578811458976" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1578841652109" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -71,7 +71,7 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              【JAVA】UVA 10929 - You can say 11
+              【JAVA】UVA 10420 - List of Conquests
             </h2>
             <div class="post-info">
               <span>
@@ -91,77 +91,82 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/_-VlC1oUM.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/Frm4A2j3f.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870</a></p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1361">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1361</a></p>
+<p><strong>題目大意：按照英文字母順序由小到大排序，先排序國家再計算每個國家愛人人數。</strong></p>
 <p><strong>Sample Input</strong></p>
-<p>112233<br>
-30800<br>
-2937<br>
-323455693<br>
-5038297<br>
-112234<br>
-0</p>
+<p>3 <code>愛人的數目</code><br>
+Spain Donna Elvira <code>國家與愛人的名字</code><br>
+England Jane Doe<br>
+Spain Donna Anna</p>
 <p><strong>Sample Output</strong></p>
-<p>112233 is a multiple of 11.<br>
-30800 is a multiple of 11.<br>
-2937 is a multiple of 11.<br>
-323455693 is a multiple of 11.<br>
-5038297 is a multiple of 11.<br>
-112234 is not a multiple of 11.</p>
-<p><strong>題目大意：判斷一個1000位以下的正整數是否為11的倍數，若輸入0則停止程式。</strong></p>
-<h2 id="解題方向">解題方向：</h2>
+<p>England 1<br>
+Spain 2</p>
 <ol>
-<li>
-<p>判斷11的倍數：<br>
-a)奇位數總和減去偶位數總和等於0或11的倍數<br>
-b)直接取11的餘數看是否為0</p>
-</li>
-<li>
-<p>位數最多到1000位，所以用BigInteger</p>
-</li>
+<li>按照國家名稱由小而大的順序</li>
+<li>輸出國家的名稱與愛人人數</li>
 </ol>
-<h3 id="biginteger的用法">BigInteger的用法：</h3>
-<p>透過字串將數字傳給BigInteger。</p>
-<p>常使用的建構子有:</p>
-<ul>
-<li><strong>BigInteger(String val)</strong> : 將BigInteger的十進制String表示轉換為BigInteger。</li>
-<li><strong>BigInteger(String val, int radix)</strong>: 用於轉換為BigInteger的指定基數為一個BigInteger的字符串表示形式。</li>
-</ul>
-<p>更多用法請看<a href="http://tw.gitbook.net/java/math/java_math_biginteger.html">Java.math.BigInteger類實例</a></p>
-<p>若是有不能處理的數字<code>142543256745643257535</code>則使用BigInteger處理：</p>
-<pre><code class="language-java">String bigIntStr = &quot;142543256745643257535&quot;;  
-BigInteger a = new BigInteger(bigIntStr);  
-System.out.print(a);
+<h2 id="java-map">JAVA MAP</h2>
+<p>此題可利用java map，下方只提本題會使用到的部分。</p>
+<h3 id="創建">創建</h3>
+<pre><code class="language-java">Map&lt;String,Integer&gt; map =new HashMap&lt;String, Integer&gt;();
 </code></pre>
-<p>執行結果：142543256745643257535</p>
-<h2 id="解法">解法</h2>
-<pre><code class="language-java">
-import java.util.*;
-import java.math.BigInteger; //記得要將BigInteger import進來
-
+<p>其中鍵值對中的值不可為int，必須為Integer，前者是代表key（關鍵標識符，類似sql中的主鍵），後者代表 value，代表主鍵對應的值</p>
+<h3 id="加入值">加入值</h3>
+<pre><code class="language-java">map.put(&quot;A&quot;,1);
+map.put(&quot;B&quot;,2); //通過put的方式加入，對應出事創建好的參數類型
+</code></pre>
+<h3 id="判斷">判斷</h3>
+<ul>
+<li>通過key判斷這個值是不是已經存儲，返回一個boolean類型:</li>
+</ul>
+<pre><code class="language-java">map.containsKey(&quot;A&quot;);
+</code></pre>
+<ul>
+<li>通過value判斷這個值是不是已經存儲：</li>
+</ul>
+<pre><code class="language-java">map.containsValue(2);
+</code></pre>
+<h3 id="增強for循環遍歷">增強for循環遍歷</h3>
+<ul>
+<li>使用keySet()遍歷</li>
+</ul>
+<pre><code class="language-java">for (String key : map.keySet()) {
+    System.out.println(key + &quot; ：&quot; + map.get(key));
+}
+</code></pre>
+<h2 id="程式碼">🌟程式碼</h2>
+<pre><code class="language-java">import java.util.*;
 public class main{
-    public static void main(String[] args) {
-        
-            Scanner sc=new Scanner(System.in);
-            while(sc.hasNext()){
-            String y = sc.next();
-            BigInteger x = new BigInteger(y);  //透過字串將數字傳給BigInteger
 
-            if(x.equals(BigInteger.ZERO))break; //當BigInteger值等於0時結束程式
-            if(x.mod(new BigInteger(&quot;11&quot;)).equals(BigInteger.ZERO)){ //當BigInteger值能被11整除時代表該數為11的倍數
-            System.out.println(y+&quot; is a multiple of 11.&quot;);
-            }else{
-            System.out.println(y+&quot; is not a multiple of 11.&quot;);
-            }
-            
-            }
-    }
-};
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);  
+        Map&lt;String, Integer&gt; countries = new TreeMap&lt;String, Integer&gt;();  
+        int n = sc.nextInt();  
 
-
+        while ((n--) &gt; 0) {  
+            String country = sc.next();  
+            if (!countries.containsKey(country)) {  
+                    countries.put(country, 1);  
+            }  
+            else  
+            {  
+                countries.put(country, countries.get(country)+1);  
+            }  
+              
+            sc.nextLine();  
+        }  
+          
+        for(String each:countries.keySet())  
+        {  
+            System.out.println(each+&quot; &quot;+countries.get(each));  
+              
+        }
+	}
+}
 </code></pre>
 
               </div>
@@ -169,12 +174,15 @@ public class main{
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E8%A7%A3%E9%A1%8C%E6%96%B9%E5%90%91">解題方向：</a>
+<li><a href="#java-map">JAVA MAP</a>
 <ul>
-<li><a href="#biginteger%E7%9A%84%E7%94%A8%E6%B3%95">BigInteger的用法：</a></li>
+<li><a href="#%E5%89%B5%E5%BB%BA">創建</a></li>
+<li><a href="#%E5%8A%A0%E5%85%A5%E5%80%BC">加入值</a></li>
+<li><a href="#%E5%88%A4%E6%96%B7">判斷</a></li>
+<li><a href="#%E5%A2%9E%E5%BC%B7for%E5%BE%AA%E7%92%B0%E9%81%8D%E6%AD%B7">增強for循環遍歷</a></li>
 </ul>
 </li>
-<li><a href="#%E8%A7%A3%E6%B3%95">解法</a></li>
+<li><a href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC">🌟程式碼</a></li>
 </ul>
 </li>
 </ul>
@@ -187,9 +195,9 @@ public class main{
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/ljIr-M6_B">
+            <a href="https://Z1Nhouse.github.io//post/vfdBp0VQV">
               <h3 class="post-title">
-                【JAVA】UVA 100 - The 3n+1 problem
+                【JAVA】UVA 10101 - Bangla Numbers
               </h3>
             </a>
           </div>

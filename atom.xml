@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-12T06:44:22.296Z</updated>
+    <updated>2020-01-12T15:07:34.354Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,87 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10420 - List of Conquests]]></title>
+        <id>https://Z1Nhouse.github.io//post/Frm4A2j3f</id>
+        <link href="https://Z1Nhouse.github.io//post/Frm4A2j3f">
+        </link>
+        <updated>2020-01-12T14:12:55.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1361">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1361</a></p>
+<p><strong>題目大意：按照英文字母順序由小到大排序，先排序國家再計算每個國家愛人人數。</strong></p>
+<p><strong>Sample Input</strong></p>
+<p>3 <code>愛人的數目</code><br>
+Spain Donna Elvira <code>國家與愛人的名字</code><br>
+England Jane Doe<br>
+Spain Donna Anna</p>
+<p><strong>Sample Output</strong></p>
+<p>England 1<br>
+Spain 2</p>
+<ol>
+<li>按照國家名稱由小而大的順序</li>
+<li>輸出國家的名稱與愛人人數</li>
+</ol>
+<h2 id="java-map">JAVA MAP</h2>
+<p>此題可利用java map，下方只提本題會使用到的部分。</p>
+<h3 id="創建">創建</h3>
+<pre><code class="language-java">Map&lt;String,Integer&gt; map =new HashMap&lt;String, Integer&gt;();
+</code></pre>
+<p>其中鍵值對中的值不可為int，必須為Integer，前者是代表key（關鍵標識符，類似sql中的主鍵），後者代表 value，代表主鍵對應的值</p>
+<h3 id="加入值">加入值</h3>
+<pre><code class="language-java">map.put(&quot;A&quot;,1);
+map.put(&quot;B&quot;,2); //通過put的方式加入，對應出事創建好的參數類型
+</code></pre>
+<h3 id="判斷">判斷</h3>
+<ul>
+<li>通過key判斷這個值是不是已經存儲，返回一個boolean類型:</li>
+</ul>
+<pre><code class="language-java">map.containsKey(&quot;A&quot;);
+</code></pre>
+<ul>
+<li>通過value判斷這個值是不是已經存儲：</li>
+</ul>
+<pre><code class="language-java">map.containsValue(2);
+</code></pre>
+<h3 id="增強for循環遍歷">增強for循環遍歷</h3>
+<ul>
+<li>使用keySet()遍歷</li>
+</ul>
+<pre><code class="language-java">for (String key : map.keySet()) {
+    System.out.println(key + &quot; ：&quot; + map.get(key));
+}
+</code></pre>
+<h2 id="程式碼">🌟程式碼</h2>
+<pre><code class="language-java">import java.util.*;
+public class main{
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);  
+        Map&lt;String, Integer&gt; countries = new TreeMap&lt;String, Integer&gt;();  
+        int n = sc.nextInt();  
+
+        while ((n--) &gt; 0) {  
+            String country = sc.next();  
+            if (!countries.containsKey(country)) {  
+                    countries.put(country, 1);  
+            }  
+            else  
+            {  
+                countries.put(country, countries.get(country)+1);  
+            }  
+              
+            sc.nextLine();  
+        }  
+          
+        for(String each:countries.keySet())  
+        {  
+            System.out.println(each+&quot; &quot;+countries.get(each));  
+              
+        }
+	}
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【JAVA】UVA 10101 - Bangla Numbers]]></title>
         <id>https://Z1Nhouse.github.io//post/vfdBp0VQV</id>
@@ -91,8 +172,8 @@ public class Main {
     </entry>
     <entry>
         <title type="html"><![CDATA[【JAVA】UVA 10929 - You can say 11]]></title>
-        <id>https://Z1Nhouse.github.io//post/_-VlC1oUM</id>
-        <link href="https://Z1Nhouse.github.io//post/_-VlC1oUM">
+        <id>https://Z1Nhouse.github.io//post/VlC1oUM</id>
+        <link href="https://Z1Nhouse.github.io//post/VlC1oUM">
         </link>
         <updated>2020-01-12T06:11:21.000Z</updated>
         <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870</a></p>
@@ -518,15 +599,6 @@ function nextshi(){
 <li>隨機產生後<br>
 <img src="https://Z1Nhouse.github.io//post-images/1577895939269.PNG" alt=""></li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【資料結構】圖形結構(Graph)基礎篇(3) - 最短路徑(Shortest Paths)]]></title>
-        <id>https://Z1Nhouse.github.io//post/W9lvX_AV-</id>
-        <link href="https://Z1Nhouse.github.io//post/W9lvX_AV-">
-        </link>
-        <updated>2019-12-30T13:39:35.000Z</updated>
-        <content type="html"><![CDATA[<p>勤奮編輯中....!</p>
 ]]></content>
     </entry>
 </feed>
