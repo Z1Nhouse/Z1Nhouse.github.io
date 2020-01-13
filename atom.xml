@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-12T16:39:38.633Z</updated>
+    <updated>2020-01-13T06:28:01.943Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,121 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 11349 Symmetric Matrix]]></title>
+        <id>https://Z1Nhouse.github.io//post/BdPgbm1W1</id>
+        <link href="https://Z1Nhouse.github.io//post/BdPgbm1W1">
+        </link>
+        <updated>2020-01-13T06:27:38.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2324">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2324</a></p>
+<p><strong>Sample Input</strong><br>
+2<br>
+N = 3<br>
+5 1 3<br>
+2 0 2<br>
+3 1 5</p>
+<p>N = 3<br>
+5 1 3<br>
+2 0 2<br>
+0 1 5</p>
+<p><strong>Sample Output</strong></p>
+<p>Test #1: Symmetric.<br>
+Test #2: Non-symmetric.</p>
+<p><strong>題目大意：判斷是否為對稱矩陣，(1,1)=(3,3),(1,2)=(3,2),(1,3)=(3,1),(2,1)=(2,3)</strong></p>
+<p>注意：若矩陣A與其置換矩陣A^T相等，則A稱為對稱矩陣，且對稱矩陣必為方陣。<br>
+(A^T)ij=(A)ji</p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+            Scanner sc=new Scanner(System.in);
+           	int n = sc.nextInt(); //有幾個對稱矩陣需要判斷
+           	
+           	for(int i=0;i&lt;n;i++){
+           		String t1=sc.next(),t2=sc.next(); //t1為N , t2為=
+           		
+           		int k = sc.nextInt(); //幾乘幾的對稱矩陣
+           		long arr[] = new long [k*k];
+           		int size = k*k;
+           		
+           		for(int j=0;j&lt;size;j++){
+           			arr[j] = sc.nextInt(); //輸入矩陣所有的值
+           		}
+           		
+           		boolean flag=true;
+           		
+           		for(int j=0;j&lt;size;j++){
+           			if(arr[j]&lt;0 || arr[j]!=arr[size-1-j]){ //判斷是否為對稱
+           				flag=false;
+           				break;
+           			}
+           		}
+           		if(flag){
+           			System.out.println(&quot;Test #&quot;+(i+1)+&quot;: Symmetric.&quot;);
+           		}else{
+           			System.out.println(&quot;Test #&quot;+(i+1)+&quot;: Non-symmetric.&quot;);
+           		}
+           		
+           	}
+    }
+};
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 11417 - GCD]]></title>
+        <id>https://Z1Nhouse.github.io//post/fa6-qmAAf</id>
+        <link href="https://Z1Nhouse.github.io//post/fa6-qmAAf">
+        </link>
+        <updated>2020-01-13T05:39:24.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=2412">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=2412</a></p>
+<p><strong>Sample Input</strong><br>
+10<br>
+100<br>
+500<br>
+0</p>
+<p><strong>Sample Output</strong><br>
+67<br>
+13015<br>
+442011</p>
+<p><strong>題目大意：題目已經把程式碼給了，只需要再寫一個最大公因式的副程式。</strong></p>
+<p>透過輾轉相除法求最大公因式，重複執行大減小</p>
+<ol>
+<li>其中一方結果為1，表示互質</li>
+<li>其中一方結果為0，另一數為GCD</li>
+</ol>
+<pre><code class="language-java">import java.util.*;
+public class main{
+
+	public static int GCD(int i ,int j){
+		return (j==0) ? i : GCD(j , i%j);
+	}
+	
+    public static void main(String[] args) {
+        
+            Scanner sc=new Scanner(System.in);
+            
+            while(sc.hasNext()){
+            	int G=0,N=sc.nextInt();
+            	
+            	if(N == 0){
+            		break;
+            	}
+            	
+            	for(int i =1;i&lt;N;i++){
+            		for(int j =i+1;j&lt;=N;j++){
+            			G+=GCD(i,j);
+            		}
+            	}
+            	System.out.println(G);
+            }
+            
+    }
+};
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【JAVA】UVA 10008 - What's Cryptanalysis?]]></title>
         <id>https://Z1Nhouse.github.io//post/uz3BVb7RV</id>
@@ -530,68 +645,6 @@ public class main{
     }
 };
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[如何使用JS讓PHP表單內容填寫空白時跳出提醒？]]></title>
-        <id>https://Z1Nhouse.github.io//post/gd_Z3CfkC</id>
-        <link href="https://Z1Nhouse.github.io//post/gd_Z3CfkC">
-        </link>
-        <updated>2020-01-09T06:28:52.000Z</updated>
-        <content type="html"><![CDATA[<p>直接上代碼，應該不需要解釋了吧。</p>
-<p>先在<code>&lt;body&gt;..&lt;/body&gt;</code>之間新建一個表單：</p>
-<pre><code>&lt;form method=&quot;POST&quot; action=&quot;alert1.php&quot; name=&quot;Regist&quot; onsubmit=&quot;return formcheck();&quot;&gt;
-
-帳號：&lt;input type=&quot;text&quot; name=&quot;id&quot;&gt;
-&lt;input type=&quot;submit&quot; value=&quot;送出&quot;&gt;
-
-&lt;/form&gt;
-</code></pre>
-<p>在<code>&lt;head&gt;...&lt;/head&gt;</code>之間插入function：</p>
-<pre><code>&lt;script language=&quot;javascript&quot;&gt;
-
-function formcheck(){
-
-    if(Regist.id.value==&quot;&quot;){
-        alert(&quot;請填寫帳號！&quot;);
-        Regist.id.focus();  //focus到錯誤欄位
-        return false;
-    }
-    return true;
-}
-
-&lt;/script&gt;
-</code></pre>
-<p>如此一來只要帳號欄位空白送出時，瀏覽器就會跳出提醒視窗&quot;請填寫帳號!&quot;，並且focus到帳號欄位。</p>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578551667434.PNG" alt=""></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[帶你兩分鐘了解什麼是關聯式資料庫？]]></title>
-        <id>https://Z1Nhouse.github.io//post/IPygPpR2t</id>
-        <link href="https://Z1Nhouse.github.io//post/IPygPpR2t">
-        </link>
-        <updated>2020-01-09T06:16:41.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="關聯式資料庫簡介">關聯式資料庫簡介</h2>
-<p>關聯式資料庫（Relational database）是建立在<strong>關聯模型</strong>基礎上的資料庫，藉助於集合代數等數學概念和方法來處理資料庫中的資料。<br>
-現如今雖然對此模型有一些批評意見，但它還是資料儲存的傳統標準。<br>
-標準資料查詢語言<strong>SQL</strong>就是一種基於關聯式資料庫的語言，這種語言執行對關聯式資料庫中資料的檢索和操作。</p>
-<h2 id="關係鍵">關係鍵</h2>
-<p>其實還有其他關係鍵，但這邊暫且用不到，所以只介紹主鍵與外鍵。</p>
-<ul>
-<li>
-<p><code>主鍵(primary key)</code>資料庫表中對儲存資料物件予以唯一和完整標識的資料列或屬性的組合。<br>
-一個資料表<strong>只能有一個主鍵，且主鍵的取值不能缺失，即不能為空值（Null）</strong>。</p>
-</li>
-<li>
-<p><code>外鍵(foreign key)</code>是關聯式資料庫的重要組成部分。在關聯式資料庫中，每個資料表都是由關聯來連繫彼此的關係，父資料表（Parent Entity）的主鍵（primary key）會放在另一個資料表，當做屬性以建立彼此的關聯，而這個屬性就是外來鍵。</p>
-</li>
-</ul>
-<h2 id="圖解">圖解</h2>
-<p><img src="https://Z1Nhouse.github.io//post-images/1578550721047.png" alt=""><br>
-事實上，departments還可以再增加許多內容，比如科系主任、科系教授數量...等。</p>
-<p>students資料表的科系代碼欄位是屬於外鍵，departments資料表的科系代碼則是主鍵，students的外鍵對應到departments的主鍵，可以省略很多重複的資料。</p>
-<p>之所以需要使用關聯資料表，是因為我們不希望在學生資料上記載關於科系的詳細資料，這兩份資料表有各自明確的功能，我們只需要創造兩張表的&quot;關聯&quot;，就可以在必要的時候查找資訊。</p>
 ]]></content>
     </entry>
 </feed>

@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>【JAVA】UVA 10055 - Hashmat the Brave Warrior | Z1N&#39;s house</title>
+<title>【JAVA】UVA 11417 - GCD | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578896879637">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,11 +71,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              【JAVA】UVA 10055 - Hashmat the Brave Warrior
+              【JAVA】UVA 11417 - GCD
             </h2>
             <div class="post-info">
               <span>
-                2020-01-11
+                2020-01-13
               </span>
               <span>
                 1 min read
@@ -91,28 +91,52 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/oOp8OrXuI.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/fa6-qmAAf.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996</a></p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=2412">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=2412</a></p>
 <p><strong>Sample Input</strong><br>
-10 12<br>
-10 14<br>
-100 200<br>
-<strong>Sample Output</strong><br>
-2<br>
-4<br>
-100</p>
-<p>題目大意：取兩數差，題目限制最大值為2^32，因此需要使用long。</p>
+10<br>
+100<br>
+500<br>
+0</p>
+<p><strong>Sample Output</strong><br>
+67<br>
+13015<br>
+442011</p>
+<p><strong>題目大意：題目已經把程式碼給了，只需要再寫一個最大公因式的副程式。</strong></p>
+<p>透過輾轉相除法求最大公因式，重複執行大減小</p>
+<ol>
+<li>其中一方結果為1，表示互質</li>
+<li>其中一方結果為0，另一數為GCD</li>
+</ol>
 <pre><code class="language-java">import java.util.*;
 public class main{
+
+	public static int GCD(int i ,int j){
+		return (j==0) ? i : GCD(j , i%j);
+	}
+	
     public static void main(String[] args) {
+        
             Scanner sc=new Scanner(System.in);
-            while(sc.hasNextLong()){
-            long a = sc.nextLong(),b = sc.nextLong();
-    		System.out.println(Math.abs(a-b));
-    		}
+            
+            while(sc.hasNext()){
+            	int G=0,N=sc.nextInt();
+            	
+            	if(N == 0){
+            		break;
+            	}
+            	
+            	for(int i =1;i&lt;N;i++){
+            		for(int j =i+1;j&lt;=N;j++){
+            			G+=GCD(i,j);
+            		}
+            	}
+            	System.out.println(G);
+            }
+            
     }
 };
 
@@ -129,9 +153,9 @@ public class main{
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/UNd1D1Awb">
+            <a href="https://Z1Nhouse.github.io//post/uz3BVb7RV">
               <h3 class="post-title">
-                【JAVA】UVA 10041 - Vito&#39;s Family
+                【JAVA】UVA 10008 - What&#39;s Cryptanalysis?
               </h3>
             </a>
           </div>
