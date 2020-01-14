@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-14T08:27:15.363Z</updated>
+    <updated>2020-01-14T08:38:36.522Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -22,6 +22,25 @@
         <content type="html"><![CDATA[<p>不限定版本，目前已成功架設的版本有：118,120,134,155,189...<br>
 架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
 <!-- more -->
+<h2 id="架設教程">架設教程</h2>
+<p>先放上文字版的私服架設教程(Youtube上很多教程,87楓谷也有詳細的教程)：<br>
+首先需要安裝<code>WAMP、N8、JDK8</code>，並且準備好端口以及相對應版本的客戶端。</p>
+<ol>
+<li>開啟WAMP並將WAMP切換到上線狀態</li>
+<li>將端口內dist資料夾裡的java檔放到：</li>
+</ol>
+<pre><code>C:\Program Files\Java\jdk1.8.0_231\jre\lib\ext
+C:\Program Files\Java\jdk1.8.0_231\jre\lib\security
+C:\Program Files\Java\jre1.8.0_231\lib\ext
+C:\Program Files\Java\jre1.8.0_231\lib\security
+</code></pre>
+<p>依照個人JAVA安裝位置的不同請自行尋找對應的位置。<br>
+3. 打開N8 檔案 - 新增連線 - 名稱<code>localhost</code>其他不動，按確定<br>
+4. 在localhost上右鍵 - 新增資料庫 - <code>maplestory</code><br>
+5. 點擊maplestory，在maplestory上按右鍵 - 執行批次任務檔案*(勾選遇到錯誤繼續) - 選擇端口內的sql檔案後按開始<br>
+6. 開啟伺服器<br>
+7. 製作登入器(若已有就直接打開吧，成功按play就可以開啟遊戲了)</p>
+<p>下方為相關問題彙總：</p>
 <h2 id="wamp">WAMP</h2>
 <p>首先是新手最容易卡住的部分<strong>WAMP</strong>：</p>
 <ol>
@@ -61,9 +80,17 @@ A：WAMP沒打開，或者沒將WAMP上線。</li>
 <p>A：將開啟伺服器的檔案用記事本打開，把15000M改成1024M。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1578990014444.PNG" alt=""></p>
 <hr>
+<h2 id="登入器製作">登入器製作</h2>
+<ol>
+<li>在客戶端資料夾內新增一個文字文件並打開編輯</li>
+<li>輸入<code>start MapleStory.exe 127.0.0.1 8484</code></li>
+<li>另存成<code>.bat</code>檔</li>
+</ol>
+<p>注意：127.0.0.1為本機位置，若是想給其他人玩，記得要修改成hamachi上的IP。</p>
 <h2 id="相關檔案">相關檔案</h2>
 <ul>
 <li><code>ijl15.dll</code>：<a href="https://mega.nz/#!5wY3hAjL!IH1hoWXOp52swXgiuIW7dn6YMRNhGltf6bMQ_s-gNJk">點擊下載</a></li>
+<li>87楓之谷私服架設教學及工具包：<a href="https://www.87ms.net/erection">私服架設教學及工具包</a></li>
 </ul>
 ]]></content>
     </entry>
