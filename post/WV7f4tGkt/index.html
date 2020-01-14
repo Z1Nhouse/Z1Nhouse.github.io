@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>帶你兩分鐘了解什麼是關聯式資料庫？ | Z1N&#39;s house</title>
+<title>【楓之谷私服架設 相關問題彙整+解決辦法】 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1578990213693">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,55 +71,73 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              帶你兩分鐘了解什麼是關聯式資料庫？
+              【楓之谷私服架設 相關問題彙整+解決辦法】
             </h2>
             <div class="post-info">
               <span>
-                2020-01-09
+                2020-01-14
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/qAXnPFadV" class="post-tag">
-                  # 關聯式資料庫
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/IPygPpR2t.png" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/WV7f4tGkt.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="關聯式資料庫簡介">關聯式資料庫簡介</h2>
-<p>關聯式資料庫（Relational database）是建立在<strong>關聯模型</strong>基礎上的資料庫，藉助於集合代數等數學概念和方法來處理資料庫中的資料。<br>
-現如今雖然對此模型有一些批評意見，但它還是資料儲存的傳統標準。<br>
-標準資料查詢語言<strong>SQL</strong>就是一種基於關聯式資料庫的語言，這種語言執行對關聯式資料庫中資料的檢索和操作。</p>
-<h2 id="關係鍵">關係鍵</h2>
-<p>其實還有其他關係鍵，但這邊暫且用不到，所以只介紹主鍵與外鍵。</p>
-<ul>
-<li>
-<p><code>主鍵(primary key)</code>資料庫表中對儲存資料物件予以唯一和完整標識的資料列或屬性的組合。<br>
-一個資料表<strong>只能有一個主鍵，且主鍵的取值不能缺失，即不能為空值（Null）</strong>。</p>
-</li>
-<li>
-<p><code>外鍵(foreign key)</code>是關聯式資料庫的重要組成部分。在關聯式資料庫中，每個資料表都是由關聯來連繫彼此的關係，父資料表（Parent Entity）的主鍵（primary key）會放在另一個資料表，當做屬性以建立彼此的關聯，而這個屬性就是外來鍵。</p>
-</li>
-</ul>
-<h2 id="圖解">圖解</h2>
-<p><img src="https://Z1Nhouse.github.io//post-images/1578550721047.png" alt=""><br>
-事實上，departments還可以再增加許多內容，比如科系主任、科系教授數量...等。</p>
-<p>students資料表的科系代碼欄位是屬於外鍵，departments資料表的科系代碼則是主鍵，students的外鍵對應到departments的主鍵，可以省略很多重複的資料。</p>
-<p>之所以需要使用關聯資料表，是因為我們不希望在學生資料上記載關於科系的詳細資料，這兩份資料表有各自明確的功能，我們只需要創造兩張表的&quot;關聯&quot;，就可以在必要的時候查找資訊。</p>
+                <p>不限定版本，目前已成功架設的版本有：118,120,134,155,189...<br>
+架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
+<h2 id="wamp">WAMP</h2>
+<p>首先是新手最容易卡住的部分<strong>WAMP</strong>：</p>
+<ol>
+<li><strong>WAMP亮黃燈怎麼辦？或者提示could not execute menu item internal error怎麼辦？</strong></li>
+</ol>
+<p>A：首先測試<code>80</code>端口是否被占用，若有被占用很有可能是你安裝其他的東西被占用到端口。<br>
+例如你可能安裝過xampp或者appserv(裡頭有自帶apache,MySQL...等)。</p>
+<p><strong>如何測試？在wamp圖示上按<code>左鍵 - Apache - service - 測試80port</code></strong></p>
+<p>如果發現80端被占用了，只需要把wamp的port改掉,把80改成8080或者8088...</p>
+<p>如果還是不亮白色，看看你的<code>MySQL</code>是不是也被佔用了，以至於wamp的MySQL無法啟用</p>
+<p><strong>Win+R輸入services.msc，找到mysql，如果啟動的話請關閉。</strong></p>
+<p>圖文步驟：<a href="https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html">https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html</a></p>
+<ol start="2">
+<li>特別要注意的一點是，請一定要讓wamp在上線狀態...</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578989823252.PNG" alt=""></figure>
+<hr>
+## MySQL
+<p><strong>MySQL</strong>相關問題：</p>
+<ol>
+<li>當點擊資料庫卻出現下方提示：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1578990068270.PNG" alt=""><br>
+A：WAMP沒打開，或者沒將WAMP上線。</li>
+</ol>
+<hr>
+## 伺服器
+<p>接著是開啟<strong>伺服器</strong>會遇到的問題：</p>
+<ol>
+<li>假設你有遇到如下的問題：</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1578989859254.PNG" alt=""></figure>
+<p>A：請重新安裝<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8</a>並記得設定環境變數。<br>
+設定java環境變數的方法：<a href="https://dotblogs.com.tw/897920/2017/04/29/031442">https://dotblogs.com.tw/897920/2017/04/29/031442</a></p>
+<ol start="2">
+<li>開啟伺服器時出現Invalid maximum heap size ....</li>
+</ol>
+<p>A：將開啟伺服器的檔案用記事本打開，把15000M改成1024M。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1578990014444.PNG" alt=""></p>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E9%97%9C%E8%81%AF%E5%BC%8F%E8%B3%87%E6%96%99%E5%BA%AB%E7%B0%A1%E4%BB%8B">關聯式資料庫簡介</a></li>
-<li><a href="#%E9%97%9C%E4%BF%82%E9%8D%B5">關係鍵</a></li>
-<li><a href="#%E5%9C%96%E8%A7%A3">圖解</a></li>
+<li><a href="#wamp">WAMP</a></li>
 </ul>
 </li>
 </ul>
@@ -132,9 +150,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/Oj8rJWuki">
+            <a href="https://Z1Nhouse.github.io//post/BdPgbm1W1">
               <h3 class="post-title">
-                使用jQuery取得JSON資料 - 簡易隨機詩詞產生器
+                【JAVA】UVA 11349 Symmetric Matrix
               </h3>
             </a>
           </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-13T06:28:01.943Z</updated>
+    <updated>2020-01-14T08:23:43.472Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,54 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【楓之谷私服架設 相關問題彙整+解決辦法】]]></title>
+        <id>https://Z1Nhouse.github.io//post/WV7f4tGkt</id>
+        <link href="https://Z1Nhouse.github.io//post/WV7f4tGkt">
+        </link>
+        <updated>2020-01-14T08:11:18.000Z</updated>
+        <content type="html"><![CDATA[<p>不限定版本，目前已成功架設的版本有：118,120,134,155,189...<br>
+架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
+<h2 id="wamp">WAMP</h2>
+<p>首先是新手最容易卡住的部分<strong>WAMP</strong>：</p>
+<ol>
+<li><strong>WAMP亮黃燈怎麼辦？或者提示could not execute menu item internal error怎麼辦？</strong></li>
+</ol>
+<p>A：首先測試<code>80</code>端口是否被占用，若有被占用很有可能是你安裝其他的東西被占用到端口。<br>
+例如你可能安裝過xampp或者appserv(裡頭有自帶apache,MySQL...等)。</p>
+<p><strong>如何測試？在wamp圖示上按<code>左鍵 - Apache - service - 測試80port</code></strong></p>
+<p>如果發現80端被占用了，只需要把wamp的port改掉,把80改成8080或者8088...</p>
+<p>如果還是不亮白色，看看你的<code>MySQL</code>是不是也被佔用了，以至於wamp的MySQL無法啟用</p>
+<p><strong>Win+R輸入services.msc，找到mysql，如果啟動的話請關閉。</strong></p>
+<p>圖文步驟：<a href="https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html">https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html</a></p>
+<ol start="2">
+<li>特別要注意的一點是，請一定要讓wamp在上線狀態...</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578989823252.PNG" alt=""></figure>
+<hr>
+## MySQL
+<p><strong>MySQL</strong>相關問題：</p>
+<ol>
+<li>當點擊資料庫卻出現下方提示：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1578990068270.PNG" alt=""><br>
+A：WAMP沒打開，或者沒將WAMP上線。</li>
+</ol>
+<hr>
+## 伺服器
+<p>接著是開啟<strong>伺服器</strong>會遇到的問題：</p>
+<ol>
+<li>假設你有遇到如下的問題：</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1578989859254.PNG" alt=""></figure>
+<p>A：請重新安裝<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8</a>並記得設定環境變數。<br>
+設定java環境變數的方法：<a href="https://dotblogs.com.tw/897920/2017/04/29/031442">https://dotblogs.com.tw/897920/2017/04/29/031442</a></p>
+<ol start="2">
+<li>開啟伺服器時出現Invalid maximum heap size ....</li>
+</ol>
+<p>A：將開啟伺服器的檔案用記事本打開，把15000M改成1024M。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1578990014444.PNG" alt=""></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【JAVA】UVA 11349 Symmetric Matrix]]></title>
         <id>https://Z1Nhouse.github.io//post/BdPgbm1W1</id>
@@ -586,64 +634,6 @@ public class main{
     }
 };
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 10041 - Vito's Family]]></title>
-        <id>https://Z1Nhouse.github.io//post/UNd1D1Awb</id>
-        <link href="https://Z1Nhouse.github.io//post/UNd1D1Awb">
-        </link>
-        <updated>2020-01-11T13:00:40.000Z</updated>
-        <content type="html"><![CDATA[<p>UVa10041 Vito's family 題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982</a></p>
-<p><strong>Sample Input</strong><br>
-2<br>
-2 2 4<br>
-3 2 4 6<br>
-<strong>Sample Output</strong><br>
-2<br>
-4</p>
-<p>解題順序：</p>
-<ol>
-<li>先將成員由小到大排序</li>
-<li>找出該組成員的中位數</li>
-<li>輸出中位數成員到各成員的距離總和。</li>
-</ol>
-<p>現在來看範例：<br>
-<strong>Sample Input</strong><br>
-2  <code>&lt;--這邊的2指的是有兩組要比對的資料</code><br>
-2 2 4     <code>&lt;--第一個2表示該組有2個成員，分別為2,4</code><br>
-3 2 4 6   <code>&lt;--該組有3個成員，分別為2,4,6</code><br>
-<strong>Sample Output</strong><br>
-2 <code>以2為中位數，所有成員與2的距離為|4-2|=2</code><br>
-4 <code>以4為中位數，所有成員與4的距離為|2-4|+|6-4|=4</code></p>
-<p>當成員數為偶數時，中間兩個數任意選一個即可。</p>
-<pre><code class="language-java">import java.util.*;
-public class main{
-    public static void main(String[] args) {
-     
-            Scanner sc=new Scanner(System.in);
-            int n= sc.nextInt(); //共幾組
-            while((--n)&gt;=0){
-            
-            int p = sc.nextInt(); //幾個成員
-            int house[] = new int[p]; //令一個成員數大小的陣列
-            
-            for(int i = 0 ; i&lt;p ; i++){
-            	house[i] = sc.nextInt(); //輸入成員的值
-            }
-            
-            Arrays.sort(house); //將成員由小到大排序
-            
-            int len=0;
-            
-            for(int i = 0 ; i&lt;p ; i++){
-            	len+=Math.abs(house[i]-house[i/2]); //計算所有成員與中位數的絕對值距離總和
-            }
-            System.out.println(len);
-            }
-    }
-};
 </code></pre>
 ]]></content>
     </entry>
