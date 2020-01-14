@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>【JAVA】UVA 299 - Train Swapping | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10056 - What is the Probability?  | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1579015039051">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,14 +71,14 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              【JAVA】UVA 299 - Train Swapping
+              【JAVA】UVA 10056 - What is the Probability? 
             </h2>
             <div class="post-info">
               <span>
                 2020-01-14
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
               
                 <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
@@ -91,55 +91,43 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/1eStMfufa.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/OnsEcwuX-.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=235">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=235</a></p>
-<p><strong>題目大意：首行輸入有幾台車需要排列，第二行輸入有幾節車廂，第三行輸入車廂的號碼，最後輸出需要幾次才能將車廂號碼由小到大排序完成(一次只能和一台換)。</strong></p>
-<p>解題方向：使用氣泡排序法(Bubble Sort)</p>
-<p>範例：假設今天有4節車廂，號碼為<code>4,3,2,1</code>，依照氣泡排序法排序：<br>
-4 3 2 1<br>
-3 2 1 4  3次(4→3,4→2,4→1)<br>
-2 1 3 4  2次(3→2,3→1)<br>
-1 2 3 4  1次(2→1)<br>
-####################<br>
-6次</p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=997">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=997</a></p>
+<p><strong>Sample Input:</strong><br>
+2<br>
+2 0.166666 1<br>
+2 0.166666 2</p>
+<p><strong>Sample Output:</strong><br>
+0.5455<br>
+0.4545</p>
+<p><strong>題目大意：給你一個骰子，設現在有n人，骰到某數獲勝(1/6)，計算出獲勝的機率。</strong></p>
+<p>第一行輸入<code>幾組測資</code><br>
+第二行輸入<code>參加遊戲的人數、獲勝的機率、第幾個人獲勝</code></p>
+<p>※設N=人數、P=獲勝機率、I=第幾個人獲勝</p>
+<p>那麼每個回合獲勝的機率即為：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1579014935551.png" alt=""></p>
 <pre><code class="language-java">import java.util.*;
 public class main{
     public static void main(String[] args) {
-        
-            Scanner sc=new Scanner(System.in);
-            
-            int cases=sc.nextInt();
-            
-            for(int i =0;i&lt;cases;i++){
-            	int L = sc.nextInt();
-            	int arr[]=new int[L];
-            	
-            	for(int j=0;j&lt;L;j++){
-            		arr[j] = sc.nextInt();
-            	}
-            	
-            	int count=0;
-            	
-            	for(int j=0;j&lt;L-1;j++){
-            		for(int k=0;k&lt;L-j-1;k++){
-            			if(arr[k]&gt;arr[k+1]){
-            				int temp=arr[k];
-            				arr[k] = arr[k+1];
-            				arr[k+1] = temp;
-            				count++;
-            			}
-            		}
-            	}
-            	
-            	System.out.println(&quot;Optimal train swapping takes &quot;+count+&quot; swaps.&quot;);
-            }
-            
-            
+        Scanner sc = new Scanner(System.in);
+		int count = sc.nextInt();
+
+		for (int i = 0; i &lt; count; i++) {
+		int N = sc.nextInt();
+		double P = sc.nextDouble();
+		int I = sc.nextInt();
+	
+		System.out.printf(&quot;%.4f&quot;, P == 0 ? P : P * Math.pow(1 - P, I - 1) / (1 - Math.pow(1 - P, N)));
+		System.out.println();
+		}
+
+		sc.close();
     }
 };
+
 </code></pre>
 
               </div>
@@ -153,9 +141,9 @@ public class main{
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/YvvDHQ42k">
+            <a href="https://Z1Nhouse.github.io//post/1eStMfufa">
               <h3 class="post-title">
-                【JAVA】UVA 10071 - Back to High School Physics
+                【JAVA】UVA 299 - Train Swapping
               </h3>
             </a>
           </div>

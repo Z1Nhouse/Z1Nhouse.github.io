@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-14T14:46:25.983Z</updated>
+    <updated>2020-01-14T15:17:21.089Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,48 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10056 - What is the Probability? ]]></title>
+        <id>https://Z1Nhouse.github.io//post/OnsEcwuX-</id>
+        <link href="https://Z1Nhouse.github.io//post/OnsEcwuX-">
+        </link>
+        <updated>2020-01-14T15:00:16.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=997">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=997</a></p>
+<p><strong>Sample Input:</strong><br>
+2<br>
+2 0.166666 1<br>
+2 0.166666 2</p>
+<p><strong>Sample Output:</strong><br>
+0.5455<br>
+0.4545</p>
+<p><strong>題目大意：給你一個骰子，設現在有n人，骰到某數獲勝(1/6)，計算出獲勝的機率。</strong></p>
+<p>第一行輸入<code>幾組測資</code><br>
+第二行輸入<code>參加遊戲的人數、獲勝的機率、第幾個人獲勝</code></p>
+<p>※設N=人數、P=獲勝機率、I=第幾個人獲勝</p>
+<p>那麼每個回合獲勝的機率即為：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1579014935551.png" alt=""></p>
+<pre><code class="language-java">import java.util.*;
+public class main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+		int count = sc.nextInt();
+
+		for (int i = 0; i &lt; count; i++) {
+		int N = sc.nextInt();
+		double P = sc.nextDouble();
+		int I = sc.nextInt();
+	
+		System.out.printf(&quot;%.4f&quot;, P == 0 ? P : P * Math.pow(1 - P, I - 1) / (1 - Math.pow(1 - P, N)));
+		System.out.println();
+		}
+
+		sc.close();
+    }
+};
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【JAVA】UVA 299 - Train Swapping]]></title>
         <id>https://Z1Nhouse.github.io//post/1eStMfufa</id>
@@ -573,82 +615,6 @@ public class Main {
 		}
 	}
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 10929 - You can say 11]]></title>
-        <id>https://Z1Nhouse.github.io//post/VlC1oUM</id>
-        <link href="https://Z1Nhouse.github.io//post/VlC1oUM">
-        </link>
-        <updated>2020-01-12T06:11:21.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870">https://onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1870</a></p>
-<p><strong>Sample Input</strong></p>
-<p>112233<br>
-30800<br>
-2937<br>
-323455693<br>
-5038297<br>
-112234<br>
-0</p>
-<p><strong>Sample Output</strong></p>
-<p>112233 is a multiple of 11.<br>
-30800 is a multiple of 11.<br>
-2937 is a multiple of 11.<br>
-323455693 is a multiple of 11.<br>
-5038297 is a multiple of 11.<br>
-112234 is not a multiple of 11.</p>
-<p><strong>題目大意：判斷一個1000位以下的正整數是否為11的倍數，若輸入0則停止程式。</strong></p>
-<h2 id="解題方向">解題方向：</h2>
-<ol>
-<li>
-<p>判斷11的倍數：<br>
-a)奇位數總和減去偶位數總和等於0或11的倍數<br>
-b)直接取11的餘數看是否為0</p>
-</li>
-<li>
-<p>位數最多到1000位，所以用BigInteger</p>
-</li>
-</ol>
-<h3 id="biginteger的用法">BigInteger的用法：</h3>
-<p>透過字串將數字傳給BigInteger。</p>
-<p>常使用的建構子有:</p>
-<ul>
-<li><strong>BigInteger(String val)</strong> : 將BigInteger的十進制String表示轉換為BigInteger。</li>
-<li><strong>BigInteger(String val, int radix)</strong>: 用於轉換為BigInteger的指定基數為一個BigInteger的字符串表示形式。</li>
-</ul>
-<p>更多用法請看<a href="http://tw.gitbook.net/java/math/java_math_biginteger.html">Java.math.BigInteger類實例</a></p>
-<p>若是有不能處理的數字<code>142543256745643257535</code>則使用BigInteger處理：</p>
-<pre><code class="language-java">String bigIntStr = &quot;142543256745643257535&quot;;  
-BigInteger a = new BigInteger(bigIntStr);  
-System.out.print(a);
-</code></pre>
-<p>執行結果：142543256745643257535</p>
-<h2 id="解法">解法</h2>
-<pre><code class="language-java">
-import java.util.*;
-import java.math.BigInteger; //記得要將BigInteger import進來
-
-public class main{
-    public static void main(String[] args) {
-        
-            Scanner sc=new Scanner(System.in);
-            while(sc.hasNext()){
-            String y = sc.next();
-            BigInteger x = new BigInteger(y);  //透過字串將數字傳給BigInteger
-
-            if(x.equals(BigInteger.ZERO))break; //當BigInteger值等於0時結束程式
-            if(x.mod(new BigInteger(&quot;11&quot;)).equals(BigInteger.ZERO)){ //當BigInteger值能被11整除時代表該數為11的倍數
-            System.out.println(y+&quot; is a multiple of 11.&quot;);
-            }else{
-            System.out.println(y+&quot; is not a multiple of 11.&quot;);
-            }
-            
-            }
-    }
-};
-
-
 </code></pre>
 ]]></content>
     </entry>
