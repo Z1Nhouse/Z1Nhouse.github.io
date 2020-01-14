@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-14T08:23:43.472Z</updated>
+    <updated>2020-01-14T08:27:15.363Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -16,8 +16,12 @@
         <link href="https://Z1Nhouse.github.io//post/WV7f4tGkt">
         </link>
         <updated>2020-01-14T08:11:18.000Z</updated>
+        <summary type="html"><![CDATA[<p>不限定版本，目前已成功架設的版本有：118,120,134,155,189...<br>
+架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
+]]></summary>
         <content type="html"><![CDATA[<p>不限定版本，目前已成功架設的版本有：118,120,134,155,189...<br>
 架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
+<!-- more -->
 <h2 id="wamp">WAMP</h2>
 <p>首先是新手最容易卡住的部分<strong>WAMP</strong>：</p>
 <ol>
@@ -35,7 +39,7 @@
 </ol>
 <figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578989823252.PNG" alt=""></figure>
 <hr>
-## MySQL
+<h2 id="mysql">MySQL</h2>
 <p><strong>MySQL</strong>相關問題：</p>
 <ol>
 <li>當點擊資料庫卻出現下方提示：<br>
@@ -43,7 +47,7 @@
 A：WAMP沒打開，或者沒將WAMP上線。</li>
 </ol>
 <hr>
-## 伺服器
+<h2 id="伺服器">伺服器</h2>
 <p>接著是開啟<strong>伺服器</strong>會遇到的問題：</p>
 <ol>
 <li>假設你有遇到如下的問題：</li>
@@ -56,6 +60,11 @@ A：WAMP沒打開，或者沒將WAMP上線。</li>
 </ol>
 <p>A：將開啟伺服器的檔案用記事本打開，把15000M改成1024M。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1578990014444.PNG" alt=""></p>
+<hr>
+<h2 id="相關檔案">相關檔案</h2>
+<ul>
+<li><code>ijl15.dll</code>：<a href="https://mega.nz/#!5wY3hAjL!IH1hoWXOp52swXgiuIW7dn6YMRNhGltf6bMQ_s-gNJk">點擊下載</a></li>
+</ul>
 ]]></content>
     </entry>
     <entry>
