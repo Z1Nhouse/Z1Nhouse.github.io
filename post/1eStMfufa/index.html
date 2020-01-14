@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>【JAVA】UVA 10041 - Vito&#39;s Family | Z1N&#39;s house</title>
+<title>【JAVA】UVA 299 - Train Swapping | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1579013183425">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,11 +71,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              【JAVA】UVA 10041 - Vito&#39;s Family
+              【JAVA】UVA 299 - Train Swapping
             </h2>
             <div class="post-info">
               <span>
-                2020-01-11
+                2020-01-14
               </span>
               <span>
                 2 min read
@@ -91,57 +91,53 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/UNd1D1Awb.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/1eStMfufa.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>UVa10041 Vito's family 題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=982</a></p>
-<p><strong>Sample Input</strong><br>
-2<br>
-2 2 4<br>
-3 2 4 6<br>
-<strong>Sample Output</strong><br>
-2<br>
-4</p>
-<p>解題順序：</p>
-<ol>
-<li>先將成員由小到大排序</li>
-<li>找出該組成員的中位數</li>
-<li>輸出中位數成員到各成員的距離總和。</li>
-</ol>
-<p>現在來看範例：<br>
-<strong>Sample Input</strong><br>
-2  <code>&lt;--這邊的2指的是有兩組要比對的資料</code><br>
-2 2 4     <code>&lt;--第一個2表示該組有2個成員，分別為2,4</code><br>
-3 2 4 6   <code>&lt;--該組有3個成員，分別為2,4,6</code><br>
-<strong>Sample Output</strong><br>
-2 <code>以2為中位數，所有成員與2的距離為|4-2|=2</code><br>
-4 <code>以4為中位數，所有成員與4的距離為|2-4|+|6-4|=4</code></p>
-<p>當成員數為偶數時，中間兩個數任意選一個即可。</p>
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=235">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=235</a></p>
+<p><strong>題目大意：首行輸入有幾台車需要排列，第二行輸入有幾節車廂，第三行輸入車廂的號碼，最後輸出需要幾次才能將車廂號碼由小到大排序完成(一次只能和一台換)。</strong></p>
+<p>解題方向：使用氣泡排序法(Bubble Sort)</p>
+<p>範例：假設今天有4節車廂，號碼為<code>4,3,2,1</code>，依照氣泡排序法排序：<br>
+4 3 2 1<br>
+3 2 1 4  3次(4→3,4→2,4→1)<br>
+2 1 3 4  2次(3→2,3→1)<br>
+1 2 3 4  1次(2→1)<br>
+####################<br>
+6次</p>
 <pre><code class="language-java">import java.util.*;
 public class main{
     public static void main(String[] args) {
-     
+        
             Scanner sc=new Scanner(System.in);
-            int n= sc.nextInt(); //共幾組
-            while((--n)&gt;=0){
             
-            int p = sc.nextInt(); //幾個成員
-            int house[] = new int[p]; //令一個成員數大小的陣列
+            int cases=sc.nextInt();
             
-            for(int i = 0 ; i&lt;p ; i++){
-            	house[i] = sc.nextInt(); //輸入成員的值
+            for(int i =0;i&lt;cases;i++){
+            	int L = sc.nextInt();
+            	int arr[]=new int[L];
+            	
+            	for(int j=0;j&lt;L;j++){
+            		arr[j] = sc.nextInt();
+            	}
+            	
+            	int count=0;
+            	
+            	for(int j=0;j&lt;L-1;j++){
+            		for(int k=0;k&lt;L-j-1;k++){
+            			if(arr[k]&gt;arr[k+1]){
+            				int temp=arr[k];
+            				arr[k] = arr[k+1];
+            				arr[k+1] = temp;
+            				count++;
+            			}
+            		}
+            	}
+            	
+            	System.out.println(&quot;Optimal train swapping takes &quot;+count+&quot; swaps.&quot;);
             }
             
-            Arrays.sort(house); //將成員由小到大排序
             
-            int len=0;
-            
-            for(int i = 0 ; i&lt;p ; i++){
-            	len+=Math.abs(house[i]-house[i/2]); //計算所有成員與中位數的絕對值距離總和
-            }
-            System.out.println(len);
-            }
     }
 };
 </code></pre>
@@ -157,9 +153,9 @@ public class main{
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/gd_Z3CfkC">
+            <a href="https://Z1Nhouse.github.io//post/YvvDHQ42k">
               <h3 class="post-title">
-                如何使用JS讓PHP表單內容填寫空白時跳出提醒？
+                【JAVA】UVA 10071 - Back to High School Physics
               </h3>
             </a>
           </div>
