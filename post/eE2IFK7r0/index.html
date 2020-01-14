@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>如何使用JS讓PHP表單內容填寫空白時跳出提醒？ | Z1N&#39;s house</title>
+<title>【JAVA】UVA 10409 - die game | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1579011071108">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,60 +71,90 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              如何使用JS讓PHP表單內容填寫空白時跳出提醒？
+              【JAVA】UVA 10409 - die game
             </h2>
             <div class="post-info">
               <span>
-                2020-01-09
+                2020-01-14
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/lpyicRK-T" class="post-tag">
-                  # javascript
+                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
+                  # UVA
                 </a>
               
-                <a href="https://Z1Nhouse.github.io//tag/XYkY2RxOcS" class="post-tag">
-                  # PHP
+                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
+                  # JAVA
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/gd_Z3CfkC.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/eE2IFK7r0.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>直接上代碼，應該不需要解釋了吧。</p>
-<p>先在<code>&lt;body&gt;..&lt;/body&gt;</code>之間新建一個表單：</p>
-<pre><code>&lt;form method=&quot;POST&quot; action=&quot;alert1.php&quot; name=&quot;Regist&quot; onsubmit=&quot;return formcheck();&quot;&gt;
-
-帳號：&lt;input type=&quot;text&quot; name=&quot;id&quot;&gt;
-&lt;input type=&quot;submit&quot; value=&quot;送出&quot;&gt;
-
-&lt;/form&gt;
+                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1350">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1350</a></p>
+<p><strong>Sample Input</strong><br>
+1<br>
+north<br>
+3<br>
+north<br>
+east<br>
+south<br>
+0</p>
+<p><strong>Sample Output</strong><br>
+5<br>
+1</p>
+<p><strong>題目大意：先輸入一個數字，表示要翻轉幾次，最後輸出翻轉到的骰子點數。</strong></p>
+<h2 id="骰子攤開圖">骰子攤開圖</h2>
+<figure data-type="image" tabindex="1"><img src="http://www.mathland.idv.tw/life/dice.gif" alt=""></figure>
+<h2 id="程式碼">程式碼</h2>
+<pre><code class="language-java">Scanner sc=new Scanner(System.in);
+		
+		int cases; 
+		while(sc.hasNextInt() &amp;&amp; (cases=sc.nextInt())!=0){
+			
+			int currPost=1;
+			int N=2,W=3,S=5,E=4;
+			
+			for(int i=0;i&lt;cases;i++){
+				String st=sc.next();
+				if(st.equals(&quot;north&quot;)){
+					N=currPost;
+					currPost=S;
+					S=7-N;
+				}else if(st.equals(&quot;south&quot;)){
+					S=currPost;
+					currPost=N;
+					N=7-S;
+				}else if(st.equals(&quot;east&quot;)){
+					E=currPost;
+					currPost=W;
+					W=7-E;
+				}else if(st.equals(&quot;west&quot;)){
+					W=currPost;
+					currPost=E;
+					E=7-W;
+				}
+			}
+			
+			System.out.println(currPost);
+		}
 </code></pre>
-<p>在<code>&lt;head&gt;...&lt;/head&gt;</code>之間插入function：</p>
-<pre><code>&lt;script language=&quot;javascript&quot;&gt;
-
-function formcheck(){
-
-    if(Regist.id.value==&quot;&quot;){
-        alert(&quot;請填寫帳號！&quot;);
-        Regist.id.focus();  //focus到錯誤欄位
-        return false;
-    }
-    return true;
-}
-
-&lt;/script&gt;
-</code></pre>
-<p>如此一來只要帳號欄位空白送出時，瀏覽器就會跳出提醒視窗&quot;請填寫帳號!&quot;，並且focus到帳號欄位。</p>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578551667434.PNG" alt=""></figure>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%AA%B0%E5%AD%90%E6%94%A4%E9%96%8B%E5%9C%96">骰子攤開圖</a></li>
+<li><a href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC">程式碼</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -133,9 +163,9 @@ function formcheck(){
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/IPygPpR2t">
+            <a href="https://Z1Nhouse.github.io//post/WV7f4tGkt">
               <h3 class="post-title">
-                帶你兩分鐘了解什麼是關聯式資料庫？
+                【楓之谷私服架設 相關問題彙整+解決辦法】
               </h3>
             </a>
           </div>

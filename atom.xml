@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-14T08:38:36.522Z</updated>
+    <updated>2020-01-14T14:11:13.090Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,62 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[【JAVA】UVA 10409 - die game]]></title>
+        <id>https://Z1Nhouse.github.io//post/eE2IFK7r0</id>
+        <link href="https://Z1Nhouse.github.io//post/eE2IFK7r0">
+        </link>
+        <updated>2020-01-14T14:07:01.000Z</updated>
+        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1350">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1350</a></p>
+<p><strong>Sample Input</strong><br>
+1<br>
+north<br>
+3<br>
+north<br>
+east<br>
+south<br>
+0</p>
+<p><strong>Sample Output</strong><br>
+5<br>
+1</p>
+<p><strong>題目大意：先輸入一個數字，表示要翻轉幾次，最後輸出翻轉到的骰子點數。</strong></p>
+<h2 id="骰子攤開圖">骰子攤開圖</h2>
+<figure data-type="image" tabindex="1"><img src="http://www.mathland.idv.tw/life/dice.gif" alt=""></figure>
+<h2 id="程式碼">程式碼</h2>
+<pre><code class="language-java">Scanner sc=new Scanner(System.in);
+		
+		int cases; 
+		while(sc.hasNextInt() &amp;&amp; (cases=sc.nextInt())!=0){
+			
+			int currPost=1;
+			int N=2,W=3,S=5,E=4;
+			
+			for(int i=0;i&lt;cases;i++){
+				String st=sc.next();
+				if(st.equals(&quot;north&quot;)){
+					N=currPost;
+					currPost=S;
+					S=7-N;
+				}else if(st.equals(&quot;south&quot;)){
+					S=currPost;
+					currPost=N;
+					N=7-S;
+				}else if(st.equals(&quot;east&quot;)){
+					E=currPost;
+					currPost=W;
+					W=7-E;
+				}else if(st.equals(&quot;west&quot;)){
+					W=currPost;
+					currPost=E;
+					E=7-W;
+				}
+			}
+			
+			System.out.println(currPost);
+		}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【楓之谷私服架設 相關問題彙整+解決辦法】]]></title>
         <id>https://Z1Nhouse.github.io//post/WV7f4tGkt</id>
@@ -639,36 +695,6 @@ public class main{
            
         }
     }
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 10055 - Hashmat the Brave Warrior]]></title>
-        <id>https://Z1Nhouse.github.io//post/oOp8OrXuI</id>
-        <link href="https://Z1Nhouse.github.io//post/oOp8OrXuI">
-        </link>
-        <updated>2020-01-11T13:12:08.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996</a></p>
-<p><strong>Sample Input</strong><br>
-10 12<br>
-10 14<br>
-100 200<br>
-<strong>Sample Output</strong><br>
-2<br>
-4<br>
-100</p>
-<p>題目大意：取兩數差，題目限制最大值為2^32，因此需要使用long。</p>
-<pre><code class="language-java">import java.util.*;
-public class main{
-    public static void main(String[] args) {
-            Scanner sc=new Scanner(System.in);
-            while(sc.hasNextLong()){
-            long a = sc.nextLong(),b = sc.nextLong();
-    		System.out.println(Math.abs(a-b));
-    		}
-    }
-};
 
 </code></pre>
 ]]></content>
