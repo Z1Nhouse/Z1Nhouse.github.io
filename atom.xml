@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-14T15:17:21.089Z</updated>
+    <updated>2020-01-20T16:48:47.143Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -262,6 +262,19 @@ A：WAMP沒打開，或者沒將WAMP上線。</li>
 <p>A：將開啟伺服器的檔案用記事本打開，把15000M改成1024M。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1578990014444.PNG" alt=""></p>
 <hr>
+<h2 id="遊戲開啟">遊戲開啟</h2>
+<ol>
+<li>
+<p><strong>[Error:32a1000b]認證檔案無法下載%1</strong><br>
+A：將破解過的ijl15.dll檔案覆蓋到主程式資料夾。<br>
+<img src="https://truth.bahamut.com.tw/s01/201107/27ec263add9d1280c6d1abbbbf489f8b.JPG" alt=""></p>
+</li>
+<li>
+<p><strong>Error code: Failed in finding proper screen made for Gr2D</strong><br>
+A：將MapleStory.exe 右鍵 - 內容 - 相容性 -勾選以相容模式執行這個程式(Windows7)、以系統管理員的身分執行此程式<br>
+<img src="https://static.wixstatic.com/media/2344aa_cffdd31e05b442be93b9ba483f0ee001~mv2.png/v1/fill/w_394,h_114,al_c,lg_1,q_85/2344aa_cffdd31e05b442be93b9ba483f0ee001~mv2.webp" alt=""></p>
+</li>
+</ol>
 <h2 id="登入器製作">登入器製作</h2>
 <ol>
 <li>在客戶端資料夾內新增一個文字文件並打開編輯</li>
