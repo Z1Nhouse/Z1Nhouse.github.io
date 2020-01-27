@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>【楓之谷私服架設 相關問題彙整+解決辦法】 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1579538924542">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1580133489943">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1579538924542" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1580133489943" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -78,7 +78,7 @@
                 2020-01-14
               </span>
               <span>
-                4 min read
+                6 min read
               </span>
               
                 <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
@@ -91,7 +91,7 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>不限定版本，目前已成功架設的版本有：118,120,134,155,189...<br>
+                <p>不限定版本，目前已成功架設的版本有：118,120,134,155,189... (目前專注於120白狐端)<br>
 架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
 <!-- more -->
 <h2 id="架設教程">架設教程</h2>
@@ -172,11 +172,84 @@ A：將MapleStory.exe 右鍵 - 內容 - 相容性 -勾選以相容模式執行�
 <li>另存成<code>.bat</code>檔</li>
 </ol>
 <p>注意：127.0.0.1為本機位置，若是想給其他人玩，記得要修改成hamachi上的IP。</p>
+<h2 id="改wz-腳本-src相關">改WZ、腳本、SRC相關</h2>
+<p>常改的java檔：</p>
+<pre><code>MapleServerHandler //把拍賣改成呼叫NPC改這個檔案的ENTER_MTS處
+MaplePacketCreator //120白狐端高級美髮無效請改這個檔案
+NPCConversationManager //改NPC的指令函數
+MapleCharacter //角色的設定
+client\messages //改指令
+...其他的記不得
+</code></pre>
+<ol>
+<li>
+<p>使用HaRepacker導出xml錯誤率高，建議導出xml一律使用WzRepacker<br>
+像我有一次改String用HaRepacker導出xml，結果出現了下方的錯誤訊息，特別去翻了翻這個檔案才知道是<code>eqp.img</code>這個檔案的問題。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1580132657706.PNG" alt=""></p>
+</li>
+<li>
+<p>WZ從新版本加東西進舊版本，記得要刪除舊版本沒有的節點，最基本的就是要刪除info裡頭的<code>setItemId</code>，還有要注意info裡頭圖標如果是使用連結記得把outlink跟hash刪除，然後把圖標重傳。</p>
+</li>
+<li>
+<p><code>120白狐端</code>高級美髮沒反應的解決辦法(tools/MaplePacketCreator.java)：</p>
+</li>
+</ol>
+<pre><code class="language-JAVA">public static MaplePacket getNPCTalkStyle(int npc, String talk, int... args)
+mplew.writeShort(7);
+將這句改成
+mplew.writeShort(8);
+</code></pre>
+<ol start="4">
+<li><code>120白狐端</code>將拍賣改成呼叫NPC<br>
+記得在最開始先import</li>
+</ol>
+<pre><code>import tools.MaplePacketCreator;
+import scripting.NPCScriptManager;
+</code></pre>
+<p>然後再搜索ENTER_MTS改成以下內容：</p>
+<pre><code class="language-JAVA">case ENTER_MTS:
+
+if (c.getPlayer().getLevel() &lt; 10) {
+    c.getPlayer().dropMessage(5, &quot;尚未達到10級將無法使用。&quot;);
+    } else {
+    NPCScriptManager.getInstance().start(c, 9000020); //9000020為NPC id
+    }
+    c.getSession().write(MaplePacketCreator.enableActions());
+break;
+</code></pre>
+<ol start="5">
+<li>商城的東西跟商店的東西在sql改；NPC腳本在端口的<code>Libs\scripts\npc</code>改；WZ的話不只要改端口的xml還有客戶端的WZ檔；再其他的就是改SRC了。</li>
+</ol>
+<hr>
 <h2 id="相關檔案">相關檔案</h2>
 <ul>
 <li><code>ijl15.dll</code>：<a href="https://mega.nz/#!5wY3hAjL!IH1hoWXOp52swXgiuIW7dn6YMRNhGltf6bMQ_s-gNJk">點擊下載</a></li>
+<li></li>
 <li>87楓之谷私服架設教學及工具包：<a href="https://www.87ms.net/erection">私服架設教學及工具包</a></li>
 </ul>
+<h2 id="推薦網站">推薦網站</h2>
+<ol>
+<li>代碼搜索</li>
+</ol>
+<ul>
+<li><a href="https://bingfeng.tw/wz/map.html">地圖</a></li>
+<li><a href="https://bingfeng.tw/wz/item.html">物品</a></li>
+<li><a href="https://bingfeng.tw/wz/npc.html">NPC</a></li>
+</ul>
+<ol start="2">
+<li>
+<p>簡易 JS 語法<br>
+<a href="http://aicltw.blogspot.com/2017/06/js.html">http://aicltw.blogspot.com/2017/06/js.html</a></p>
+</li>
+<li>
+<p>臉型新增的邏輯與概念攻略(髮型也相同)<br>
+<a href="http://aicltw.blogspot.com/2017/07/blog-post_15.html">http://aicltw.blogspot.com/2017/07/blog-post_15.html</a></p>
+</li>
+<li>
+<p>新增戒指戰略指南<br>
+<a href="http://aicltw.blogspot.com/2018/05/blog-post_8.html">http://aicltw.blogspot.com/2018/05/blog-post_8.html</a></p>
+</li>
+</ol>
 
               </div>
               <div class="toc-container">
@@ -189,7 +262,9 @@ A：將MapleStory.exe 右鍵 - 內容 - 相容性 -勾選以相容模式執行�
 <li><a href="#%E4%BC%BA%E6%9C%8D%E5%99%A8">伺服器</a></li>
 <li><a href="#%E9%81%8A%E6%88%B2%E9%96%8B%E5%95%9F">遊戲開啟</a></li>
 <li><a href="#%E7%99%BB%E5%85%A5%E5%99%A8%E8%A3%BD%E4%BD%9C">登入器製作</a></li>
+<li><a href="#%E6%94%B9wz-%E8%85%B3%E6%9C%AC-src%E7%9B%B8%E9%97%9C">改WZ、腳本、SRC相關</a></li>
 <li><a href="#%E7%9B%B8%E9%97%9C%E6%AA%94%E6%A1%88">相關檔案</a></li>
+<li><a href="#%E6%8E%A8%E8%96%A6%E7%B6%B2%E7%AB%99">推薦網站</a></li>
 </ul>
 </li>
 </ul>
