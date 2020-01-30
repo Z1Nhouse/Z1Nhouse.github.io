@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-30T07:22:01.418Z</updated>
+    <updated>2020-01-30T13:23:50.146Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -485,7 +485,8 @@ C:\Program Files\Java\jre1.8.0_231\lib\security
 <p>如果發現80端被占用了，只需要把wamp的port改掉,把80改成8080或者8088...</p>
 <p>如果還是不亮白色，看看你的<code>MySQL</code>是不是也被佔用了，以至於wamp的MySQL無法啟用</p>
 <p><strong>Win+R輸入services.msc，找到mysql，如果啟動的話請關閉。</strong></p>
-<p>圖文步驟：<a href="https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html">https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html</a></p>
+<p>圖文步驟：<a href="https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html">https://jingyan.baidu.com/article/48b37f8d0a02811a6564887b.html</a><br>
+─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 <ol start="2">
 <li>特別要注意的一點是，請一定要讓wamp在上線狀態...</li>
 </ol>
@@ -506,7 +507,8 @@ A：WAMP沒打開，或者沒將WAMP上線。</li>
 </ol>
 <figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1578989859254.PNG" alt=""></figure>
 <p>A：請重新安裝<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8</a>並記得設定環境變數。<br>
-設定java環境變數的方法：<a href="https://dotblogs.com.tw/897920/2017/04/29/031442">https://dotblogs.com.tw/897920/2017/04/29/031442</a></p>
+設定java環境變數的方法：<a href="https://dotblogs.com.tw/897920/2017/04/29/031442">https://dotblogs.com.tw/897920/2017/04/29/031442</a><br>
+─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 <ol start="2">
 <li>開啟伺服器時出現Invalid maximum heap size ....</li>
 </ol>
@@ -518,7 +520,8 @@ A：WAMP沒打開，或者沒將WAMP上線。</li>
 <li>
 <p><strong>[Error:32a1000b]認證檔案無法下載%1</strong><br>
 A：將破解過的ijl15.dll檔案覆蓋到主程式資料夾。<br>
-<img src="https://truth.bahamut.com.tw/s01/201107/27ec263add9d1280c6d1abbbbf489f8b.JPG" alt=""></p>
+<img src="https://truth.bahamut.com.tw/s01/201107/27ec263add9d1280c6d1abbbbf489f8b.JPG" alt=""><br>
+─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 </li>
 <li>
 <p><strong>Error code: Failed in finding proper screen made for Gr2D</strong><br>
@@ -542,14 +545,17 @@ MapleCharacter //角色的設定
 client\messages //改指令
 ...其他的記不得
 </code></pre>
+<p>─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 <ol>
 <li>
 <p>使用HaRepacker導出xml錯誤率高，建議導出xml一律使用WzRepacker<br>
 像我有一次改String用HaRepacker導出xml，結果出現了下方的錯誤訊息，特別去翻了翻這個檔案才知道是<code>eqp.img</code>這個檔案的問題。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1580132657706.PNG" alt=""></p>
+<img src="https://Z1Nhouse.github.io//post-images/1580132657706.PNG" alt=""><br>
+─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 </li>
 <li>
-<p>WZ從新版本加東西進舊版本，記得要刪除舊版本沒有的節點，最基本的就是要刪除info裡頭的<code>setItemId</code>，還有要注意info裡頭圖標如果是使用連結記得把outlink跟hash刪除，然後把圖標重傳。</p>
+<p>WZ從新版本加東西進舊版本，記得要刪除舊版本沒有的節點，最基本的就是要刪除info裡頭的<code>setItemId</code>，還有要注意info裡頭圖標如果是使用連結記得把outlink跟hash刪除，然後把圖標重傳。<br>
+─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 </li>
 <li>
 <p><code>120白狐端</code>高級美髮沒反應的解決辦法(tools/MaplePacketCreator.java)：</p>
@@ -560,7 +566,8 @@ mplew.writeShort(7);
 將這句改成
 mplew.writeShort(8);
 </code></pre>
-<ol start="4">
+<p>─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
+<ol>
 <li><code>120白狐端</code>將拍賣改成呼叫NPC<br>
 記得在最開始先import</li>
 </ol>
@@ -578,9 +585,21 @@ if (c.getPlayer().getLevel() &lt; 10) {
     c.getSession().write(MaplePacketCreator.enableActions());
 break;
 </code></pre>
+<p>─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 <ol start="5">
 <li>商城的東西跟商店的東西在sql改；NPC腳本在端口的<code>Libs\scripts\npc</code>改；WZ的話不只要改端口的xml還有客戶端的WZ檔；再其他的就是改SRC了。</li>
 </ol>
+<p>─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
+<ol start="6">
+<li>商城販賣的商品如何統一一個價錢？<br>
+打開http://127.0.0.1/phpmyadmin/ 選擇你私服的資料庫，在sql輸入sql語法</li>
+</ol>
+<pre><code class="language-sql">UPDATE `cashshop_modified_items` SET `discount_price`='1'   
+</code></pre>
+<p>這是將商城sql裡頭的價格欄位全部調至1，若你想個別調整，則輸入：</p>
+<pre><code class="language-sql">UPDATE `cashshop_modified_items` SET `discount_price`='1' WHERE (`serial`='20000026')
+</code></pre>
+<p><strong>serial = 商品序列號，你也可以將serial調整成其他條件，比如只改某一種類別的商品。</strong></p>
 <hr>
 <h2 id="相關檔案">相關檔案</h2>
 <ul>
