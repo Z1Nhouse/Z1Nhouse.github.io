@@ -1,0 +1,338 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>楓之谷私服v120 點裝附魔系統 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1580488257454">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1580488257454" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              楓之谷私服v120 點裝附魔系統
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-01
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/ttJAM9tXu.PNG" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><img src="https://Z1Nhouse.github.io//post-images/1580488136327.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1580488139108.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1580488141737.PNG" alt=""></p>
+<h2 id="src">SRC</h2>
+<ol>
+<li>打開<code>scripting\NPCConversationManager.java</code> 在最下方}前加上：<br>
+仔細看，裡頭可以修改附魔的能力，按照個人喜好設定。</li>
+</ol>
+<pre><code class="language-java">//點裝附魔
+   public String EnchantCashEqip(byte slot) {
+        Equip item = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot);
+        Equip sel = (Equip) item;
+        int itemid = c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot).getItemId();
+        boolean isCash = MapleItemInformationProvider.getInstance().isCash(itemid);
+        String msg = &quot;&quot;;
+
+        if (isCash) {
+            msg += &quot;您此次所附魔的點裝為#b#z&quot; + itemid + &quot;##k\r\n&quot;;
+            msg += &quot;您此次的附魔為:\r\n&quot;;
+            msg += &quot;－－－－－－－－－－－－－－－－－－－－－－－\r\n&quot;;
+
+            short Str = (short) Randomizer.rand(5, 10);
+            sel.setStr((short) (sel.getStr() + Str));
+            msg += &quot;力量 +&quot; + &quot; &quot; + Str + &quot;\r\n&quot;;
+
+            short Dex = (short) Randomizer.rand(5, 10);
+            sel.setDex((short) (sel.getDex() + Dex));
+            msg += &quot;敏捷: &quot; + &quot; &quot; + Dex + &quot;\r\n&quot;;
+
+            short Int = (short) Randomizer.rand(5, 10);
+            sel.setInt((short) (sel.getInt() + Int));
+            msg += &quot;智力: &quot; + &quot; &quot; + Int + &quot;\r\n&quot;;
+
+            short Luk = (short) Randomizer.rand(5, 10);
+            sel.setLuk((short) (sel.getLuk() + Luk));
+            msg += &quot;幸運: &quot; + &quot; &quot; + Luk + &quot;\r\n&quot;;
+
+            short Watk = (short) Randomizer.rand(5, 10);
+            sel.setWatk((short) (sel.getWatk() + Watk));
+            msg += &quot;物理攻擊: &quot; + &quot; &quot; + Watk + &quot;\r\n&quot;;
+
+            short Matk = (short) Randomizer.rand(5, 10);
+            sel.setMatk((short) (sel.getMatk() + Matk));
+            msg += &quot;魔法攻擊: &quot; + &quot; &quot; + Matk + &quot;\r\n&quot;;
+            msg += &quot;－－－－－－－－－－－－－－－－－－－－－－－\r\n&quot;;
+            msg += &quot;請問您是否要繼續附魔?\r\n#d[點選#r是#d,繼續附魔] [點選#r否#d,存取目前附魔]\r\n#d若裝備素質未改變,請重新登入或換頻即可生效!&quot;;
+            int used = StringTool.getIntFromString(sel.getOwner());
+            used++;
+            sel.setOwner(&quot;已附魔&quot; + used + &quot;次&quot;);
+            item = (Equip) sel.copy();
+            MapleInventoryManipulator.removeFromSlot(getClient(), MapleInventoryType.EQUIP, (short) slot, item.getQuantity(), false);
+            MapleInventoryManipulator.addFromDrop(getClient(), item, false);
+            c.getPlayer().equipChanged();
+            return msg;
+        } else {
+            return &quot;此裝備並非點裝唷!僅有點裝才可以附魔~&quot;;
+        }
+    }
+</code></pre>
+<h2 id="npc腳本">NPC腳本</h2>
+<p>隨便找一個NPC塞下方的腳本：</p>
+<pre><code class="language-javascript">load('nashorn:mozilla_compat.js');
+importPackage(java.lang);
+var status = -1;
+var slot = Array();
+var sel;
+var item = 4001126; //
+
+function start() {
+    //status = -1;
+    action(1, 0, 0);
+}
+var icon01 = &quot;#fUI/UIWindow.img/CashTradingRoom/BtCoin/normal/0#&quot;;
+var icon02 = &quot;#fUI/UIWindow.img/UserInfo/bossPetCrown#&quot;;
+var icon03 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/0#&quot;;
+var icon04 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/1#&quot;;
+var icon05 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/2#&quot;;
+var icon06 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/3#&quot;;
+var icon07 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/4#&quot;;
+var icon08 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/5#&quot;;
+var icon09 = &quot;#fUI/UIWindow.img/Megaphone/0#&quot;;
+var icon10 = &quot;#fUI/UIWindow.img/CashTradingRoom/icon1#&quot;;
+
+var status = -1;
+
+function action(mode, type, selection) {
+    if (mode == 0 &amp;&amp; status == 0) {
+        cm.dispose();
+        return;
+    }
+    if (mode == 1) {
+        status++;
+    } else {
+        status--;
+    }
+    if (status == 0) {
+        cm.sendSimple(
+		&quot;#b請問您是否要使用點裝附魔功能呢?#d&quot;+	
+		&quot;\r\n\r\n#L1#附魔一次需要使用#r#z&quot;+item+&quot;##k#d350個!#l&quot;
+		);
+    } else if (status == 1) {
+		sel = selection;
+        var avail = &quot;&quot;;
+        for (var i = 0; i &lt; 96; i++) {
+            if (cm.getInventory(1).getItem(i) != null) {
+                if (Packages.server.MapleItemInformationProvider.getInstance().isCash(cm.getInventory(1).getItem(i).getItemId())) {
+                    avail += &quot;#L&quot; + Math.abs(i) + &quot;##z&quot; + cm.getInventory(1).getItem(i).getItemId() + &quot;##l\r\n&quot;;
+                }
+            }
+        }
+        if(avail == &quot;&quot;){
+             avail += &quot;很抱歉,您的裝備欄沒有任何的點裝哦!!~&quot;;    
+            }
+        cm.sendSimple(&quot;想要附魔哪一件點數裝備呢？？\r\n#b&quot; + avail);
+    } else if (status == 2) {
+        selected = selection;
+        cm.sendYesNo(&quot;你想要附魔的點裝是 #b#t&quot; + cm.getInventory(1).getItem(selected).getItemId() + &quot;##k.\r\n您確定要對此點裝賦魔？？\r\n&quot;);
+    } else if (status == 3) {
+		var type ;
+        if (cm.haveItem(item, 350)) {
+            status = 5;
+            cm.sendYesNo(cm.EnchantCashEqip(selected));
+			cm.gainItem(item,-350);
+        } else {
+            status = 3;
+            cm.sendOk(&quot;您的#b#z&quot; + item + &quot;##k不足哦!!&quot;);
+
+        }
+    } else if (status == 4) {
+        //cm.getPlayer().fakeRelog();
+        cm.dispose();
+
+    } else if (status == 6) {
+        status = 2;
+        cm.sendOk(&quot;即將花費#b#z&quot;+item+&quot;##k350個重新附魔此點裝...&quot;);
+    }
+    
+    }
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#src">SRC</a></li>
+<li><a href="#npc%E8%85%B3%E6%9C%AC">NPC腳本</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/6o_CeDq_a">
+              <h3 class="post-title">
+                楓之谷私服v120 當前地圖怪物掉寶查詢
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

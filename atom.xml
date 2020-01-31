@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-31T16:12:12.197Z</updated>
+    <updated>2020-01-31T16:31:07.609Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,153 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服v120 點裝附魔系統]]></title>
+        <id>https://Z1Nhouse.github.io//post/ttJAM9tXu</id>
+        <link href="https://Z1Nhouse.github.io//post/ttJAM9tXu">
+        </link>
+        <updated>2020-01-31T16:25:01.000Z</updated>
+        <content type="html"><![CDATA[<p><img src="https://Z1Nhouse.github.io//post-images/1580488136327.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1580488139108.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1580488141737.PNG" alt=""></p>
+<h2 id="src">SRC</h2>
+<ol>
+<li>打開<code>scripting\NPCConversationManager.java</code> 在最下方}前加上：<br>
+仔細看，裡頭可以修改附魔的能力，按照個人喜好設定。</li>
+</ol>
+<pre><code class="language-java">//點裝附魔
+   public String EnchantCashEqip(byte slot) {
+        Equip item = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot);
+        Equip sel = (Equip) item;
+        int itemid = c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot).getItemId();
+        boolean isCash = MapleItemInformationProvider.getInstance().isCash(itemid);
+        String msg = &quot;&quot;;
+
+        if (isCash) {
+            msg += &quot;您此次所附魔的點裝為#b#z&quot; + itemid + &quot;##k\r\n&quot;;
+            msg += &quot;您此次的附魔為:\r\n&quot;;
+            msg += &quot;－－－－－－－－－－－－－－－－－－－－－－－\r\n&quot;;
+
+            short Str = (short) Randomizer.rand(5, 10);
+            sel.setStr((short) (sel.getStr() + Str));
+            msg += &quot;力量 +&quot; + &quot; &quot; + Str + &quot;\r\n&quot;;
+
+            short Dex = (short) Randomizer.rand(5, 10);
+            sel.setDex((short) (sel.getDex() + Dex));
+            msg += &quot;敏捷: &quot; + &quot; &quot; + Dex + &quot;\r\n&quot;;
+
+            short Int = (short) Randomizer.rand(5, 10);
+            sel.setInt((short) (sel.getInt() + Int));
+            msg += &quot;智力: &quot; + &quot; &quot; + Int + &quot;\r\n&quot;;
+
+            short Luk = (short) Randomizer.rand(5, 10);
+            sel.setLuk((short) (sel.getLuk() + Luk));
+            msg += &quot;幸運: &quot; + &quot; &quot; + Luk + &quot;\r\n&quot;;
+
+            short Watk = (short) Randomizer.rand(5, 10);
+            sel.setWatk((short) (sel.getWatk() + Watk));
+            msg += &quot;物理攻擊: &quot; + &quot; &quot; + Watk + &quot;\r\n&quot;;
+
+            short Matk = (short) Randomizer.rand(5, 10);
+            sel.setMatk((short) (sel.getMatk() + Matk));
+            msg += &quot;魔法攻擊: &quot; + &quot; &quot; + Matk + &quot;\r\n&quot;;
+            msg += &quot;－－－－－－－－－－－－－－－－－－－－－－－\r\n&quot;;
+            msg += &quot;請問您是否要繼續附魔?\r\n#d[點選#r是#d,繼續附魔] [點選#r否#d,存取目前附魔]\r\n#d若裝備素質未改變,請重新登入或換頻即可生效!&quot;;
+            int used = StringTool.getIntFromString(sel.getOwner());
+            used++;
+            sel.setOwner(&quot;已附魔&quot; + used + &quot;次&quot;);
+            item = (Equip) sel.copy();
+            MapleInventoryManipulator.removeFromSlot(getClient(), MapleInventoryType.EQUIP, (short) slot, item.getQuantity(), false);
+            MapleInventoryManipulator.addFromDrop(getClient(), item, false);
+            c.getPlayer().equipChanged();
+            return msg;
+        } else {
+            return &quot;此裝備並非點裝唷!僅有點裝才可以附魔~&quot;;
+        }
+    }
+</code></pre>
+<h2 id="npc腳本">NPC腳本</h2>
+<p>隨便找一個NPC塞下方的腳本：</p>
+<pre><code class="language-javascript">load('nashorn:mozilla_compat.js');
+importPackage(java.lang);
+var status = -1;
+var slot = Array();
+var sel;
+var item = 4001126; //
+
+function start() {
+    //status = -1;
+    action(1, 0, 0);
+}
+var icon01 = &quot;#fUI/UIWindow.img/CashTradingRoom/BtCoin/normal/0#&quot;;
+var icon02 = &quot;#fUI/UIWindow.img/UserInfo/bossPetCrown#&quot;;
+var icon03 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/0#&quot;;
+var icon04 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/1#&quot;;
+var icon05 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/2#&quot;;
+var icon06 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/3#&quot;;
+var icon07 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/4#&quot;;
+var icon08 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/5#&quot;;
+var icon09 = &quot;#fUI/UIWindow.img/Megaphone/0#&quot;;
+var icon10 = &quot;#fUI/UIWindow.img/CashTradingRoom/icon1#&quot;;
+
+var status = -1;
+
+function action(mode, type, selection) {
+    if (mode == 0 &amp;&amp; status == 0) {
+        cm.dispose();
+        return;
+    }
+    if (mode == 1) {
+        status++;
+    } else {
+        status--;
+    }
+    if (status == 0) {
+        cm.sendSimple(
+		&quot;#b請問您是否要使用點裝附魔功能呢?#d&quot;+	
+		&quot;\r\n\r\n#L1#附魔一次需要使用#r#z&quot;+item+&quot;##k#d350個!#l&quot;
+		);
+    } else if (status == 1) {
+		sel = selection;
+        var avail = &quot;&quot;;
+        for (var i = 0; i &lt; 96; i++) {
+            if (cm.getInventory(1).getItem(i) != null) {
+                if (Packages.server.MapleItemInformationProvider.getInstance().isCash(cm.getInventory(1).getItem(i).getItemId())) {
+                    avail += &quot;#L&quot; + Math.abs(i) + &quot;##z&quot; + cm.getInventory(1).getItem(i).getItemId() + &quot;##l\r\n&quot;;
+                }
+            }
+        }
+        if(avail == &quot;&quot;){
+             avail += &quot;很抱歉,您的裝備欄沒有任何的點裝哦!!~&quot;;    
+            }
+        cm.sendSimple(&quot;想要附魔哪一件點數裝備呢？？\r\n#b&quot; + avail);
+    } else if (status == 2) {
+        selected = selection;
+        cm.sendYesNo(&quot;你想要附魔的點裝是 #b#t&quot; + cm.getInventory(1).getItem(selected).getItemId() + &quot;##k.\r\n您確定要對此點裝賦魔？？\r\n&quot;);
+    } else if (status == 3) {
+		var type ;
+        if (cm.haveItem(item, 350)) {
+            status = 5;
+            cm.sendYesNo(cm.EnchantCashEqip(selected));
+			cm.gainItem(item,-350);
+        } else {
+            status = 3;
+            cm.sendOk(&quot;您的#b#z&quot; + item + &quot;##k不足哦!!&quot;);
+
+        }
+    } else if (status == 4) {
+        //cm.getPlayer().fakeRelog();
+        cm.dispose();
+
+    } else if (status == 6) {
+        status = 2;
+        cm.sendOk(&quot;即將花費#b#z&quot;+item+&quot;##k350個重新附魔此點裝...&quot;);
+    }
+    
+    }
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷私服v120 當前地圖怪物掉寶查詢]]></title>
         <id>https://Z1Nhouse.github.io//post/6o_CeDq_a</id>
@@ -63,7 +210,7 @@
     }
 </code></pre>
 <ol start="2">
-<li>打開<code>scripts\NPCConversationManager.java</code></li>
+<li>打開<code>scripting\NPCConversationManager.java</code></li>
 </ol>
 <p>在最下方}前貼上</p>
 <pre><code class="language-java">public String checkDrop(int mobId) {
@@ -1131,60 +1278,6 @@ public class main{
            		}
            		
            	}
-    }
-};
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 11417 - GCD]]></title>
-        <id>https://Z1Nhouse.github.io//post/fa6-qmAAf</id>
-        <link href="https://Z1Nhouse.github.io//post/fa6-qmAAf">
-        </link>
-        <updated>2020-01-13T05:39:24.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=2412">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=2412</a></p>
-<p><strong>Sample Input</strong><br>
-10<br>
-100<br>
-500<br>
-0</p>
-<p><strong>Sample Output</strong><br>
-67<br>
-13015<br>
-442011</p>
-<p><strong>題目大意：題目已經把程式碼給了，只需要再寫一個最大公因式的副程式。</strong></p>
-<p>透過輾轉相除法求最大公因式，重複執行大減小</p>
-<ol>
-<li>其中一方結果為1，表示互質</li>
-<li>其中一方結果為0，另一數為GCD</li>
-</ol>
-<pre><code class="language-java">import java.util.*;
-public class main{
-
-	public static int GCD(int i ,int j){
-		return (j==0) ? i : GCD(j , i%j);
-	}
-	
-    public static void main(String[] args) {
-        
-            Scanner sc=new Scanner(System.in);
-            
-            while(sc.hasNext()){
-            	int G=0,N=sc.nextInt();
-            	
-            	if(N == 0){
-            		break;
-            	}
-            	
-            	for(int i =1;i&lt;N;i++){
-            		for(int j =i+1;j&lt;=N;j++){
-            			G+=GCD(i,j);
-            		}
-            	}
-            	System.out.println(G);
-            }
-            
     }
 };
 
