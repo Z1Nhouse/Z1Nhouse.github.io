@@ -1,0 +1,455 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>楓之谷私服v120 每日簽到系統 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1580486871182">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1580486871182" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              楓之谷私服v120 每日簽到系統
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-01-31
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/h_VbKyk9Z" class="post-tag">
+                  # 每日簽到
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/Kfyq7c531.PNG" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>網上絕對不會有人隨便分享這個...<br>
+剛剛翻找之前檔案的時候看見的，隨手分享一下，<br>
+這也不是我搞的，忘了從哪裡扒來的。<br>
+時間有點久遠，如果有哪裡漏掉了自行研究吧。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1580485046227.PNG" alt=""><br>
+簽到成功<br>
+<img src="https://Z1Nhouse.github.io//post-images/1580485049904.PNG" alt=""><br>
+簽到過或者時長不足<br>
+<img src="https://Z1Nhouse.github.io//post-images/1580485053777.PNG" alt=""><br>
+簽到後會在資料表中自動寫入今天日期以及簽到的帳號id。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1580484996486.PNG" alt=""><br>
+概念就是：寫方法 - 用資料庫做紀錄 - 寫NPC腳本來使用<br>
+很籠統，大概理解就行。<br>
+即使無程式基礎也能自己改私服。</p>
+<h2 id="新建資料表">新建資料表</h2>
+<p>首先，在資料庫新增一個資料表<code>prizelog_n</code>：</p>
+<ul>
+<li>id/int/10/勾選主索引鍵/自動遞增</li>
+<li>accid/int/10</li>
+<li>bossid/varchar/20/字元集:utf8 整理:utf8_general_ci</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1580484064199.PNG" alt=""></figure>
+<h2 id="改src">改SRC</h2>
+<ol>
+<li>打開<code>client\MapleCharacter.java</code>，在最後一個}前貼上：</li>
+</ol>
+<pre><code class="language-java">public int getPrizeLog_n(String bossid) {
+        Connection con1 = DatabaseConnection.getConnection();
+        try {
+            int ret_count = 0;
+            PreparedStatement ps;
+            ps = con1.prepareStatement(&quot;select count(*) from prizelog_n where accid = ? and bossid = ?&quot;);
+            ps.setInt(1, getClient().getAccID());
+            ps.setString(2, bossid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ret_count = rs.getInt(1);
+            } else {
+                ret_count = -1;
+            }
+            rs.close();
+            ps.close();
+            return ret_count;
+        } catch (Exception Wx) {
+            return -1;
+        }
+    }
+    
+    public void setPrizeLog_n(String bossid) {
+       Connection con1 = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement ps;
+            ps = con1.prepareStatement(&quot;insert into prizelog_n (accid, bossid) values (?,?)&quot;);
+            ps.setInt(1, getClient().getAccID());
+            ps.setString(2, bossid);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception Wx) {
+        }
+    }
+</code></pre>
+<ol start="2">
+<li>同樣是<code>MapleCharacter.java</code></li>
+</ol>
+<p>在上方一串變數宣告附近加上</p>
+<pre><code class="language-java">private long onlineTime;//上線時間
+</code></pre>
+<p>在一串變數宣告下方貼上</p>
+<pre><code class="language-java">/** 
+OnlineTime 系統
+*/
+    public void initOnlineTime() {
+        onlineTime = getEventCount(&quot;OnlineTime&quot;, 0);
+    }
+//獲得在線時間
+    public int getOnlineTime() {
+        long l2;
+        long l3 = getDaybyDay(1).getTimeInMillis() - getLogintime();
+        if (onlineTime &lt; 0) {
+            resetEventCount(&quot;OnlineTime&quot;, 0);
+            initOnlineTime();
+        }
+        if (l3 &gt;= 86400000) {//86400000 = 一天毫秒
+            l2 = getDaybyDay(1).getTimeInMillis() - 86400000;
+            setLogintime(getDaybyDay(0).getTimeInMillis());
+        } else {
+            l2 = getLogintime() - onlineTime;
+        }
+        return (int) (System.currentTimeMillis() - l2);
+    }
+
+    public void setOnlineTime() {
+        if (getLogintime() &gt; 0) {
+            long l2 = getDaybyDay(1).getTimeInMillis() - getLogintime();
+            if (onlineTime &lt; 0) {
+                resetEventCount(&quot;OnlineTime&quot;, 0);
+            }
+            setEventCount(&quot;OnlineTime&quot;, 0, (int) (System.currentTimeMillis() - (l2 &gt;= 86400000 ? getDaybyDay(1).getTimeInMillis() - 86400000 : getLogintime())));
+            setLogintime(System.currentTimeMillis());
+        }
+    }
+
+    public void setOnlineTime(long onlineTime) {
+        this.onlineTime = onlineTime;
+    }
+</code></pre>
+<h2 id="簽到npc腳本">簽到NPC腳本</h2>
+<p>最後一步就是找個NPC把腳本貼上，當成每日簽到的NPC來用。<br>
+腳本直接放上..自行研究吧。<br>
+可以調整每日贈送不一樣的物品或者點數，當然也可以都給..看你開心。</p>
+<pre><code class="language-javascript">var status = 0;
+var objDate=new Date();
+var day=objDate.getDay();
+var Month= objDate.getMonth();
+var MonthS =[&quot;1月&quot;,&quot;2月&quot;,&quot;3月&quot;,&quot;4月&quot;,&quot;5月&quot;,&quot;6月&quot;,&quot;7月&quot;,&quot;8月&quot;,&quot;9月&quot;,&quot;10月&quot;,&quot;11月&quot;,&quot;12月&quot;];
+var weekday = [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;];
+var MonthB=objDate.getMonth()-1;
+var tzc =objDate.getDate();
+var Year =objDate.getFullYear();
+
+var itemList = Array(
+Array(5561000, 5),//從下一個開始
+Array(5561000, 3),//1 任意門高級劵
+Array(5220000, 10),//2 轉蛋劵
+Array(2450000, 3),//3 獵人的幸運
+Array(2022179, 5),//4 紫色的蘋果
+Array(2022462, 3),//5 卡4
+Array(2022463, 3),//6 卡5
+Array(2450000, 2),//7 獵人的幸運
+Array(5220010, 3),//8 超級轉蛋劵
+Array(5510000, 5),//9 原地復活術
+Array(5201003, 2),//10 小鋼珠盒子(100)
+Array(2101120, 5),//11 魚怪召喚袋
+Array(2450000, 1),//12 獵人的幸運
+Array(2450000, 1),//13 獵人的幸運
+Array(2450000, 1),//14 獵人的幸運
+Array(5201001, 1),//15 小鋼珠盒子(500)
+Array(4000313, 200),//16 黃金楓葉
+Array(2101120, 5), //17 魚怪召喚袋
+Array(2101120, 5),//18 魚怪召喚袋
+Array(5220010, 1),//19 超級轉蛋劵
+Array(2022179, 5),//20 紫色的蘋果
+Array(2022179, 5),//21 紫色的蘋果
+Array(4000313, 200),//22 黃金楓葉
+Array(5220000, 30),//23 轉蛋劵
+Array(2022462, 5),//24 卡4
+Array(2022463, 5),//25 卡5
+Array(5201003, 3),//26 小鋼珠盒子(100)
+Array(4000313, 200),//27 黃金楓葉
+Array(5561000 , 10),//28 任意門高級劵
+Array(5220000, 50),//29 轉蛋劵
+Array(5510000, 10),//30 原地復活術
+Array(5201001, 1) //31 小鋼珠盒子(500)
+
+); // 因為沒0日 從第1開始設置物品 第一格道具id 第二格設置數量
+
+var debug = false;
+
+function start() {
+    status = -1;
+	if(debug &amp;&amp; cm.getPlayer().getGMLevel() &lt; 4){
+		cm.dispose();
+		return;
+	}
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (mode == 0 &amp;&amp; status == 0) {
+            cm.dispose();
+            return;
+        }
+        if (mode == 1) status++;
+        else status--;
+        if (status == 0) {
+
+
+var tt=31;
+if (Month == 0 || Month == 2 || Month == 4 || Month == 6|| Month == 7 || Month == 9 || Month == 11) { // 1月 3月 5月 78 月 10月 12月
+tt=32;
+}
+if (Month == 1) { // 2月的話
+tt=29;
+}			
+              var text3 = 0;
+for(var i=1; i&lt;tt; i++) {
+text3+= cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+i+&quot;日&quot;);}
+             
+              var ta=&quot;#b&quot;;
+
+              var text = &quot;&quot;;
+
+		for(var i=1,ytz=1; i&lt;tt; i++,ytz++) {
+if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+i+&quot;日&quot;) == 0) {
+ta=&quot;#b&quot;;
+}
+if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+i+&quot;日&quot;) != 0) {
+ta=&quot;#r&quot;;
+}
+			text+=ta+ytz+&quot;#i&quot;+itemList[i][0]+&quot;#&quot;+((i + 0) % 7 == 0 ? &quot;\r\n&quot;: &quot;&quot;);
+		}
+            var text2 = 0;
+
+ cm.sendSimple(&quot;#e現在時間:#b&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日星期&quot;+weekday[day]+&quot;\r\n#k本月累積簽到【 #r&quot;+ text3 +&quot;#k 】天&quot;+&quot;\r\n#k本日在線時間【 #r&quot;+ cm.getOnlineTime() +&quot;#k 】分&quot;+&quot;\r\n#b上線時間需滿60分鐘才可進行每日簽到&quot;+&quot;\r\n#k&quot;+&quot;\r\n#L0# #r每日簽到獲得100點#l\r\n\r\n#k&quot;);
+} else if (status == 1) {
+
+
+            if (selection == 0) {
+ if(!cm.canHold(itemList[tzc][0], itemList[tzc][1])){
+             cm.sendOk(&quot;您的背包空間不足&quot;);
+             cm.dispose();
+             return;   
+             }
+  if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日&quot;) &lt; 1 &amp;&amp; cm.getOnlineTime() &gt;= 60) { // 在線時數
+                    cm.getPlayer().setPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日&quot;);
+           
+                  //  cm.gainItem(itemList[tzc][0], itemList[tzc][1]);
+					cm.getPlayer().modifyCSPoints(1, 100, true);
+
+                    cm.sendOk(&quot;恭喜您成功進行簽到並獲取100點!!&quot;);
+     cm.worldMessage(5,&quot;『xx谷』&quot; + &quot; : &quot; + &quot;玩家 &quot; + cm.getChar().getName() + &quot; 已進行每日簽到!!!&quot;);
+                    cm.dispose();
+                        
+                } else{ 
+                    cm.sendOk(&quot;已進行每日簽到或上線時間未達60分鐘!。&quot;);
+                    cm.dispose();
+                 } 
+
+
+        } //else if (selection == 1) {
+
+/*if(MonthB &lt; 0)
+MonthB=11;
+cm.sendSimple(&quot;#r★★★★★★★★★★★★\r\n#b#L0#&quot;+MonthS[Month]+&quot;限定簽到獎勵#l\r\n\r\n#r★★★★★★★★★★★★&quot;);
+                    
+
+}
+}else if (status == 2) {
+ cm.dispose();
+   if (selection == 0) {
+              cm.openNpc(9010000, &quot;累積簽到&quot;);
+            /*} else if (selection == 1) {
+            cm.openNpc(9010000, &quot;累積簽到&quot;);*/
+         } 
+}
+
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%96%B0%E5%BB%BA%E8%B3%87%E6%96%99%E8%A1%A8">新建資料表</a></li>
+<li><a href="#%E6%94%B9src">改SRC</a></li>
+<li><a href="#%E7%B0%BD%E5%88%B0npc%E8%85%B3%E6%9C%AC">簽到NPC腳本</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/dIb0rHox">
+              <h3 class="post-title">
+                楓之谷私服武陵道場NPC JS腳本
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

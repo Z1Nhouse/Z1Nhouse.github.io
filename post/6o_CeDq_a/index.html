@@ -1,0 +1,376 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>楓之谷私服v120 當前地圖怪物掉寶查詢 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1580486871182">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1580486871182" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              楓之谷私服v120 當前地圖怪物掉寶查詢
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-01-31
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/6o_CeDq_a.PNG" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>照樣是搬來的，製作是彩虹工作室，但不記得從哪扒來的。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1580486644944.PNG" alt=""></p>
+<h2 id="改src">改SRC</h2>
+<p>其實應該看著NPC腳本就會知道怎麼改了...<br>
+腳本的getAllMonstersThreadsafe是原端自帶<br>
+真正要加的是getAllUniqueMonsters、checkMapDrop以及checkDrop函數</p>
+<ol>
+<li>打開<code>Sever\Maps\MapleMap.java</code><br>
+在一串變數宣告下方貼上</li>
+</ol>
+<pre><code class="language-java">public List&lt;Integer&gt; getAllUniqueMonsters() {
+        ArrayList&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
+        mapobjectlocks.get(MapleMapObjectType.MONSTER).readLock().lock();
+        try {
+            for (MapleMapObject mmo : mapobjects.get(MapleMapObjectType.MONSTER).values()) {
+                int theId = ((MapleMonster) mmo).getId();
+                if (!ret.contains(theId)) {
+                    ret.add(theId);
+                }
+            }
+        } finally {
+            mapobjectlocks.get(MapleMapObjectType.MONSTER).readLock().unlock();
+        }
+        return ret;
+    }
+
+    /*怪物查詢*/
+    private Map&lt;Integer, MapleMapObject&gt; mapobjects1 = new LinkedHashMap&lt;Integer, MapleMapObject&gt;();
+
+    public Collection&lt;MapleMapObject&gt; getMapObjects() {
+        return Collections.unmodifiableCollection(mapobjects1.values());
+    }
+
+    public List&lt;Integer&gt; getUniqueMonsters() {
+        List&lt;Integer&gt; mobs = new ArrayList&lt;Integer&gt;();
+        for (MapleMapObject obj : this.getMapObjects()) {
+            MapleMonster mob = this.getMonsterByOid(obj.getObjectId());
+            if (mob != null) {
+                if (!mobs.contains(mob.getId())) {
+                    mobs.add(mob.getId());
+                }
+            }
+        }
+        return mobs;
+    }
+</code></pre>
+<ol start="2">
+<li>打開<code>scripts\NPCConversationManager.java</code></li>
+</ol>
+<p>在最下方}前貼上</p>
+<pre><code class="language-java">public String checkDrop(int mobId) {
+        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+        List&lt;MonsterDropEntry&gt; ranks = MapleMonsterInformationProvider.getInstance().retrieveDrop(mobId);
+        if (!ranks.isEmpty() &amp;&amp; ranks.size() &gt; 0) {
+            int num = 0, itemId, chance;
+            MonsterDropEntry de;
+            StringBuilder name = new StringBuilder();
+            for (MonsterDropEntry rank : ranks) {
+                de = rank;
+                if (de.chance &gt; 0 &amp;&amp; (de.questid &lt;= 0 || (de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0))) {
+                    itemId = de.itemId;
+                    if (itemId == 0) {
+                        continue;
+                    } else if (!ii.itemExists(itemId)) {
+                        continue;
+                    }
+                    if (num == 0) {
+                        name.append(&quot;當前怪物 #o&quot;).append(mobId).append(&quot;# 的掉寶率為:\r\n&quot;);
+                        name.append(&quot;--------------------------------------\r\n&quot;);
+                    }
+                    String namez = &quot;&quot;;
+                    if (itemId == 0) { //金幣 物品ID為0就是金幣道具
+                        itemId = 4031041; //休咪的錢包 display sack of cash
+                        namez = (de.Minimum * getClient().getChannelServer().getMesoRate()) + &quot; - &quot; + (de.Maximum * getClient().getChannelServer().getMesoRate()) + &quot; 的金幣&quot;;
+                    } else {
+                        namez = &quot;#z&quot; + itemId + &quot;#&quot;;
+                    }
+                    chance = de.chance * getClient().getChannelServer().getDropRate();
+                    if (getPlayer().isAdmin()) {
+                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(namez).append(&quot; - &quot;).append(Integer.valueOf(chance &gt;= 999999 ? 1000000 : chance).doubleValue() / 10000.0).append(&quot;%的掉寶率. &quot;).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
+                    } else {
+                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(namez).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
+                    }
+                    num++;
+                }
+            }
+            if (name.length() &gt; 0) {
+                return name.toString();
+            }
+        }
+        return &quot;沒有找到這個怪物的掉寶率數據。&quot;;
+    }
+
+     public String checkMapDrop() {
+        List&lt;MonsterGlobalDropEntry&gt; ranks = new ArrayList&lt;&gt;(MapleMonsterInformationProvider.getInstance().getGlobalDrop());
+        int mapid = getPlayer().getMap().getId();
+//        int cashServerRate = getClient().getChannelServer().getCashRate(); //點卷掉寶率
+        //int globalServerRate = getClient().getChannelServer().getDropgRate(); //特殊數據庫道具掉寶率
+        int globalServerRate = 1; //特殊數據庫道具掉寶率
+        if (ranks != null &amp;&amp; ranks.size() &gt; 0) {
+            int num = 0, itemId, chance;
+            MonsterGlobalDropEntry de;
+            StringBuilder name = new StringBuilder();
+            for (MonsterGlobalDropEntry rank : ranks) {
+                de = rank;
+                if (de.continent &lt; 0 || (de.continent &lt; 10 &amp;&amp; mapid / 100000000 == de.continent) || (de.continent &lt; 100 &amp;&amp; mapid / 10000000 == de.continent) || (de.continent &lt; 1000 &amp;&amp; mapid / 1000000 == de.continent)) {
+                    itemId = de.itemId;
+                    if (num == 0) {
+                        name.append(&quot;當前地圖 #r&quot;).append(mapid).append(&quot;#k - #m&quot;).append(mapid).append(&quot;# 的全局掉寶率為:&quot;);
+                        name.append(&quot;\r\n--------------------------------------\r\n&quot;);
+                    }
+                    String names = &quot;#z&quot; + itemId + &quot;#&quot;;
+//                    if (itemId == 0 &amp;&amp; cashServerRate != 0) {
+//                        itemId = 4031041;
+//                        names = (de.minimum * cashServerRate) + &quot; - &quot; + (de.maximum * cashServerRate) + &quot; 的抵用卷&quot;;
+//                    }
+                    chance = de.chance * globalServerRate;
+                    if (getPlayer().isAdmin()) {
+                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(names).append(&quot; - &quot;).append(Integer.valueOf(chance &gt;= 999999 ? 1000000 : chance).doubleValue() / 10000.0).append(&quot;%的掉寶率. &quot;).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
+                    } else {
+                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(names).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
+                    }
+                    num++;
+                }
+            }
+            if (name.length() &gt; 0) {
+                return name.toString();
+            }
+        }
+        return &quot;當前地圖沒有設置全局掉寶率。&quot;;
+    }
+</code></pre>
+<h2 id="npc腳本">NPC腳本</h2>
+<p>隨便塞給一個NPC就行</p>
+<pre><code class="language-javascript">/*
+	製作：彩虹工作室
+	功能：查看地圖怪物爆率
+	時間：2016年12月23日
+*/
+
+var status = -1;
+
+function action(mode, type, selection) {
+    if (mode == 1) {
+        status++;
+    } else {
+        if (status == 0) {
+            cm.dispose();
+        }
+        status--;
+    }
+    if (status == 0) {
+        if (cm.getMap().getAllMonstersThreadsafe().size() &lt;= 0) {
+            cm.sendOk(&quot;當前地圖沒有刷新怪物，無法查看怪物掉寶資訊。&quot;);
+            cm.dispose();
+            return;
+        }
+        var selStr = &quot;請選擇你要查看怪物的掉寶資訊。\r\n\r\n#b&quot;;
+        var iz = cm.getMap().getAllUniqueMonsters().iterator();
+        while (iz.hasNext()) {
+            var zz = iz.next();
+            selStr += &quot;#L&quot; + zz + &quot;##o&quot; + zz + &quot;##l\r\n&quot;;
+        }
+        if (cm.getPlayer().isAdmin()) {
+            selStr += &quot;\r\n#L0# #r查看全地圖掉寶資訊#k#l&quot;;
+        }
+        cm.sendSimple(selStr);
+    } else if (status == 1) {
+        if (selection == 0) {
+            cm.sendNext(cm.checkMapDrop());
+        } else {
+             cm.sendOk(cm.checkDrop(selection));
+        }
+        cm.dispose();
+    }
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%94%B9src">改SRC</a></li>
+<li><a href="#npc%E8%85%B3%E6%9C%AC">NPC腳本</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/Kfyq7c531">
+              <h3 class="post-title">
+                楓之谷私服v120 每日簽到系統
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
