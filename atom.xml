@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-01-31T16:31:07.609Z</updated>
+    <updated>2020-02-13T18:31:55.624Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,45 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服v120 中文化101時空的裂縫 + 改BOSS關BUG]]></title>
+        <id>https://Z1Nhouse.github.io//post/NyJ2cyQTk</id>
+        <link href="https://Z1Nhouse.github.io//post/NyJ2cyQTk">
+        </link>
+        <updated>2020-02-13T18:25:37.000Z</updated>
+        <content type="html"><![CDATA[<p>涉及相關NPC與地圖代碼：</p>
+<p><strong>愛奧斯塔101樓 221024500</strong><br>
+NPC標示牌 2040034</p>
+<p><strong>第一關 玩偶之家 922000010</strong><br>
+紅氣球2040036<br>
+士兵安德森2040036</p>
+<p><strong>第二關 遺棄之塔 922010200</strong><br>
+橘氣球2040037</p>
+<p><strong>第三關 遺棄之塔 922010300</strong><br>
+黃氣球2040038</p>
+<p><strong>第四關 遺棄之塔 922010400</strong><br>
+黃綠氣球 2040039</p>
+<p><strong>第五關 遺棄之塔 922010500</strong><br>
+綠氣球 2040040</p>
+<p><strong>第六關 遺棄之塔 922010600</strong><br>
+海藍氣球 2040041</p>
+<p><strong>第七關 遺棄之塔 922010700</strong><br>
+天藍氣球 2040042</p>
+<p><strong>第八關 遺棄之塔 922010800</strong><br>
+藍氣球 2040043</p>
+<p><strong>第九關 時空的裂縫 922010900</strong><br>
+紫氣球 2040044</p>
+<p><strong>Bonus 922011000</strong><br>
+粉紅氣球 2040045</p>
+<h2 id="bug">BUG</h2>
+<p>BOSS關卡部分，紫氣球會有函數問題，因此將錯誤函數修掉，改以檢測身上物品通關。<br>
+但也因此通關機制就被打破了，最終Bonus關卡不會有時間限制(或者再另外寫吧)<br>
+需要點擊NPC離開Bonus關卡。</p>
+<p>以下是所有關卡NPC JS腳本的檔案下載：<a href="">Download</a></p>
+<h2 id="圖片示意">圖片示意</h2>
+<p>暫時未上傳</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷私服v120 點裝附魔系統]]></title>
         <id>https://Z1Nhouse.github.io//post/ttJAM9tXu</id>
@@ -1221,67 +1260,6 @@ break;
 <a href="http://aicltw.blogspot.com/2018/05/blog-post_8.html">http://aicltw.blogspot.com/2018/05/blog-post_8.html</a></p>
 </li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 11349 Symmetric Matrix]]></title>
-        <id>https://Z1Nhouse.github.io//post/BdPgbm1W1</id>
-        <link href="https://Z1Nhouse.github.io//post/BdPgbm1W1">
-        </link>
-        <updated>2020-01-13T06:27:38.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2324">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2324</a></p>
-<p><strong>Sample Input</strong><br>
-2<br>
-N = 3<br>
-5 1 3<br>
-2 0 2<br>
-3 1 5</p>
-<p>N = 3<br>
-5 1 3<br>
-2 0 2<br>
-0 1 5</p>
-<p><strong>Sample Output</strong></p>
-<p>Test #1: Symmetric.<br>
-Test #2: Non-symmetric.</p>
-<p><strong>題目大意：判斷是否為對稱矩陣，(1,1)=(3,3),(1,2)=(3,2),(1,3)=(3,1),(2,1)=(2,3)</strong></p>
-<p>注意：若矩陣A與其置換矩陣A^T相等，則A稱為對稱矩陣，且對稱矩陣必為方陣。<br>
-(A^T)ij=(A)ji</p>
-<pre><code class="language-java">import java.util.*;
-public class main{
-    public static void main(String[] args) {
-            Scanner sc=new Scanner(System.in);
-           	int n = sc.nextInt(); //有幾個對稱矩陣需要判斷
-           	
-           	for(int i=0;i&lt;n;i++){
-           		String t1=sc.next(),t2=sc.next(); //t1為N , t2為=
-           		
-           		int k = sc.nextInt(); //幾乘幾的對稱矩陣
-           		long arr[] = new long [k*k];
-           		int size = k*k;
-           		
-           		for(int j=0;j&lt;size;j++){
-           			arr[j] = sc.nextInt(); //輸入矩陣所有的值
-           		}
-           		
-           		boolean flag=true;
-           		
-           		for(int j=0;j&lt;size;j++){
-           			if(arr[j]&lt;0 || arr[j]!=arr[size-1-j]){ //判斷是否為對稱
-           				flag=false;
-           				break;
-           			}
-           		}
-           		if(flag){
-           			System.out.println(&quot;Test #&quot;+(i+1)+&quot;: Symmetric.&quot;);
-           		}else{
-           			System.out.println(&quot;Test #&quot;+(i+1)+&quot;: Non-symmetric.&quot;);
-           		}
-           		
-           	}
-    }
-};
-
-</code></pre>
 ]]></content>
     </entry>
 </feed>

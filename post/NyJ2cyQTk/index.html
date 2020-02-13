@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>【JAVA】UVA 10101 - Bangla Numbers | Z1N&#39;s house</title>
+<title>楓之谷私服v120 中文化101時空的裂縫 + 改BOSS關BUG | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1581618711375">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,105 +71,69 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              【JAVA】UVA 10101 - Bangla Numbers
+              楓之谷私服v120 中文化101時空的裂縫 + 改BOSS關BUG
             </h2>
             <div class="post-info">
               <span>
-                2020-01-12
+                2020-02-14
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
-                  # UVA
-                </a>
-              
-                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
-                  # JAVA
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/vfdBp0VQV.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/NyJ2cyQTk.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1042">https://onlinejudge.org/index.php?option=onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1042</a></p>
-<p><strong>題目大意：把輸入的阿拉伯數字改成孟加拉單位輸出</strong><br>
-kuti = 10,000,000 (千萬)<br>
-lakh = 100,000 (十萬)<br>
-hajar = 1000 (千)<br>
-shata = 100 (百)</p>
-<p><strong>Sample Input</strong><br>
-23764<br>
-45897458973958<br>
-0</p>
-<p><strong>Sample Output</strong></p>
-<ol>
-<li>23 hajar 7 shata 64</li>
-<li>
-<ol start="2">
-<li>45 lakh 89 hajar 7 shata 45 kuti 89 lakh 73 hajar 9 shata 58</li>
-</ol>
-</li>
-<li>0</li>
-</ol>
-<p>超過7位數就重新編排，透過kuti連接。</p>
-<pre><code class="language-java">import java.util.*;
-
-public class Main {
-	public static void calculate(long num) {
-		if (num == 0) 
-			return;
-		
-		if (num &gt;= 10000000) {	
-			calculate(num/10000000);
-			System.out.print(&quot; kuti&quot;);
-			calculate(num%10000000);
-		}
-    
-		else if (num &gt;= 100000) {
-			System.out.print(&quot; &quot; + num/100000 + &quot; lakh&quot;);
-			calculate(num%100000);
-		}
-    
-		else if (num &gt;= 1000) {
-			System.out.print(&quot; &quot; + num/1000 + &quot; hajar&quot;);
-			calculate(num%1000);
-		}
-    
-		else if (num &gt;= 100) {
-			System.out.print(&quot; &quot; + num/100 + &quot; shata&quot;);
-			calculate(num%100);
-		}
-    
-		else if (num % 100 != 0) 
-			System.out.print(&quot; &quot; + num);
-	}
-	
-	public static void main(String args[]) {
-		Scanner sc = new Scanner(System.in);
-		int count = 0;
-		while (sc.hasNextLine()) {
-			count++;
-			long num = Long.parseLong(sc.nextLine());
-			System.out.printf(&quot;%4d.&quot;, count);
-      
-			if (num == 0)
-				System.out.printf(&quot; 0&quot;);
-			else
-				calculate(num);
-        
-			System.out.println();
-		}
-	}
-}
-</code></pre>
+                <p>涉及相關NPC與地圖代碼：</p>
+<p><strong>愛奧斯塔101樓 221024500</strong><br>
+NPC標示牌 2040034</p>
+<p><strong>第一關 玩偶之家 922000010</strong><br>
+紅氣球2040036<br>
+士兵安德森2040036</p>
+<p><strong>第二關 遺棄之塔 922010200</strong><br>
+橘氣球2040037</p>
+<p><strong>第三關 遺棄之塔 922010300</strong><br>
+黃氣球2040038</p>
+<p><strong>第四關 遺棄之塔 922010400</strong><br>
+黃綠氣球 2040039</p>
+<p><strong>第五關 遺棄之塔 922010500</strong><br>
+綠氣球 2040040</p>
+<p><strong>第六關 遺棄之塔 922010600</strong><br>
+海藍氣球 2040041</p>
+<p><strong>第七關 遺棄之塔 922010700</strong><br>
+天藍氣球 2040042</p>
+<p><strong>第八關 遺棄之塔 922010800</strong><br>
+藍氣球 2040043</p>
+<p><strong>第九關 時空的裂縫 922010900</strong><br>
+紫氣球 2040044</p>
+<p><strong>Bonus 922011000</strong><br>
+粉紅氣球 2040045</p>
+<h2 id="bug">BUG</h2>
+<p>BOSS關卡部分，紫氣球會有函數問題，因此將錯誤函數修掉，改以檢測身上物品通關。<br>
+但也因此通關機制就被打破了，最終Bonus關卡不會有時間限制(或者再另外寫吧)<br>
+需要點擊NPC離開Bonus關卡。</p>
+<p>以下是所有關卡NPC JS腳本的檔案下載：<a href="">Download</a></p>
+<h2 id="圖片示意">圖片示意</h2>
+<p>暫時未上傳</p>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#bug">BUG</a></li>
+<li><a href="#%E5%9C%96%E7%89%87%E7%A4%BA%E6%84%8F">圖片示意</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -178,9 +142,9 @@ public class Main {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/VlC1oUM">
+            <a href="https://Z1Nhouse.github.io//post/ttJAM9tXu">
               <h3 class="post-title">
-                【JAVA】UVA 10929 - You can say 11
+                楓之谷私服v120 點裝附魔系統
               </h3>
             </a>
           </div>
