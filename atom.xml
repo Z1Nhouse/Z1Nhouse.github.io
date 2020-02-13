@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-13T18:31:55.624Z</updated>
+    <updated>2020-02-13T18:34:34.822Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -44,7 +44,8 @@ NPC標示牌 2040034</p>
 <p>BOSS關卡部分，紫氣球會有函數問題，因此將錯誤函數修掉，改以檢測身上物品通關。<br>
 但也因此通關機制就被打破了，最終Bonus關卡不會有時間限制(或者再另外寫吧)<br>
 需要點擊NPC離開Bonus關卡。</p>
-<p>以下是所有關卡NPC JS腳本的檔案下載：<a href="">Download</a></p>
+<p>以下是所有關卡NPC JS腳本的檔案下載：<a href="">Download</a><br>
+附上LudiMazePQ以及LudiPQ的Event：<a href="">Download</a></p>
 <h2 id="圖片示意">圖片示意</h2>
 <p>暫時未上傳</p>
 ]]></content>
