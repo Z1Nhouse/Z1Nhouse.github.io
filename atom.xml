@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-20T07:22:30.723Z</updated>
+    <updated>2020-02-20T14:41:08.373Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,44 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服v120 新增 打怪掉點 功能]]></title>
+        <id>https://Z1Nhouse.github.io//post/cb3av_hPP</id>
+        <link href="https://Z1Nhouse.github.io//post/cb3av_hPP">
+        </link>
+        <updated>2020-02-20T14:32:31.000Z</updated>
+        <content type="html"><![CDATA[<p>來自夢夢谷端口。<br>
+很簡單，只需要改SRC，兩步驟就解決。</p>
+<h2 id="改src">改SRC</h2>
+<ol>
+<li>打開<code>constants.ServerConstants.java</code></li>
+</ol>
+<p>搜索<code>//End of Poll</code> 下方加上：</p>
+<pre><code>public static String 點數掉落 = &quot;1,3,15&quot;;
+</code></pre>
+<ol start="2">
+<li>打開<code>server.maps.MapleMap.java</code></li>
+</ol>
+<p>在最開始import加上</p>
+<pre><code>import constants.ServerConstants
+</code></pre>
+<p>在<code>dropFromMonster</code>函數的最後一個括號前加上：</p>
+<pre><code>        int moblevel = mob.getStats().getLevel();
+        int difference = chr.getLevel() &gt; 120 ? chr.getLevel() &gt; 150 ? 75 : 75 : 75;//相差等級
+        boolean YesNo = (chr.getLevel() - moblevel) &lt;= difference;
+        int Percentage = Randomizer.rand(1, 100);//轉換百分比
+        int GetPoints = (int) Randomizer.rand(Integer.parseInt(ServerConstants.點數掉落.split(&quot;,&quot;)[0]), Integer.parseInt(ServerConstants.點數掉落.split(&quot;,&quot;)[1])); //最少1 最多3
+        if (Percentage &lt; Integer.parseInt(ServerConstants.點數掉落.split(&quot;,&quot;)[2]) &amp;&amp; chr.getLevel() &gt; 10) { //隨機產生數由1~100 如果&lt;15 才會掉點
+            if (YesNo) {
+                chr.modifyCSPoints(2, GetPoints); //掉點類型 1為CASH 2為楓葉點數
+                chr.dropMessage(-1, &quot;從怪物身上獲得了 &quot; + GetPoints + &quot; 楓葉點數&quot;);
+            } else {
+                chr.dropMessage(-1, &quot;與怪物等級相差大於 &quot; + difference + &quot; 故無法獲得點數。&quot;);
+            }
+        }
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷私服 賭博JS(21點、倍數賭博機、比大小、踩地雷、老虎機)]]></title>
         <id>https://Z1Nhouse.github.io//post/5KthHuPnW</id>
@@ -1218,32 +1256,44 @@ function action(mode, type, selection) {
         <link href="https://Z1Nhouse.github.io//post/Kfyq7c531">
         </link>
         <updated>2020-01-31T15:19:48.000Z</updated>
-        <content type="html"><![CDATA[<p>網上絕對不會有人隨便分享這個...<br>
-剛剛翻找之前檔案的時候看見的，隨手分享一下，<br>
-這也不是我搞的，忘了從哪裡扒來的。<br>
-時間有點久遠，如果有哪裡漏掉了自行研究吧。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1580485046227.PNG" alt=""><br>
-簽到成功<br>
+        <content type="html"><![CDATA[<p>夢夢谷端口扒來的。<br>
+時間有點久遠，如果有哪裡漏掉了import還是什麼的...請自行補上吧。</p>
+<p>簽到成功<br>
 <img src="https://Z1Nhouse.github.io//post-images/1580485049904.PNG" alt=""><br>
 簽到過或者時長不足<br>
 <img src="https://Z1Nhouse.github.io//post-images/1580485053777.PNG" alt=""><br>
-簽到後會在資料表中自動寫入今天日期以及簽到的帳號id。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1580484996486.PNG" alt=""><br>
-概念就是：寫方法 - 用資料庫做紀錄 - 寫NPC腳本來使用<br>
-很籠統，大概理解就行。<br>
-即使無程式基礎也能自己改私服。</p>
-<h2 id="新建資料表">新建資料表</h2>
-<p>首先，在資料庫新增一個資料表<code>prizelog_n</code>：</p>
+簽到後會在資料表中自動寫入今天日期以及簽到的帳號id。</p>
+<hr>
+<h2 id="️新建資料表">❗️新建資料表</h2>
+<ol>
+<li>首先，在資料庫新增一個資料表<code>prizelog_n</code>：</li>
+</ol>
 <ul>
 <li>id/int/10/勾選主索引鍵/自動遞增</li>
 <li>accid/int/10</li>
 <li>bossid/varchar/20/字元集:utf8 整理:utf8_general_ci</li>
 </ul>
 <figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1580484064199.PNG" alt=""></figure>
-<h2 id="改src">改SRC</h2>
-<ol>
-<li>打開<code>client\MapleCharacter.java</code>，在最後一個}前貼上：</li>
+<ol start="2">
+<li>再新增第二個資料表<code>accounts_event</code>：<br>
+直接用sql語法新增，或者參考語法手動新增。</li>
 </ol>
+<pre><code>CREATE TABLE `accounts_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accId` int(11) NOT NULL DEFAULT '0',
+  `eventId` varchar(20) NOT NULL DEFAULT '',
+  `count` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) NOT NULL DEFAULT '0',
+  `updateTime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `accid` (`accId`),
+  KEY `eventid` (`eventId`) 
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=big5;
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1582208152754.PNG" alt=""></figure>
+<hr>
+<h2 id="️改src">❗️改SRC</h2>
+<p>▶️1. 打開<code>client\MapleCharacter.java</code>，在最後一個}前貼上：</p>
 <pre><code class="language-java">public int getPrizeLog_n(String bossid) {
         Connection con1 = DatabaseConnection.getConnection();
         try {
@@ -1266,7 +1316,7 @@ function action(mode, type, selection) {
         }
     }
     
-    public void setPrizeLog_n(String bossid) {
+public void setPrizeLog_n(String bossid) {
        Connection con1 = DatabaseConnection.getConnection();
         try {
             PreparedStatement ps;
@@ -1279,20 +1329,23 @@ function action(mode, type, selection) {
         }
     }
 </code></pre>
-<ol start="2">
-<li>同樣是<code>MapleCharacter.java</code></li>
-</ol>
-<p>在上方一串變數宣告附近加上</p>
-<pre><code class="language-java">private long onlineTime;//上線時間
+<p><strong>📣PS.如果你的端口已經有prizelog函數，此步驟可以跳過。</strong></p>
+<p>▶️2. 同樣是<code>MapleCharacter.java</code></p>
+<p>在最上方一堆變數宣告加上以下變數宣告</p>
+<pre><code class="language-java">private long logintime;//登入時間
+private long onlineTime;//上線時間
+//角色一些特殊變量數據
+private Timestamp todayonlinetimestamp;
 </code></pre>
-<p>在一串變數宣告下方貼上</p>
-<pre><code class="language-java">/** 
-OnlineTime 系統
-*/
+<p>在最後一個} 前加上</p>
+<pre><code class="language-java">/*
+     * OnlineTime 系統
+     */
     public void initOnlineTime() {
         onlineTime = getEventCount(&quot;OnlineTime&quot;, 0);
     }
-//獲得在線時間
+
+    //獲得在線時間
     public int getOnlineTime() {
         long l2;
         long l3 = getDaybyDay(1).getTimeInMillis() - getLogintime();
@@ -1323,8 +1376,144 @@ OnlineTime 系統
     public void setOnlineTime(long onlineTime) {
         this.onlineTime = onlineTime;
     }
+
+    /*
+     * Logintime 系統
+     */
+    public long getLogintime() {
+        return logintime;
+    }
+
+    public void setLogintime(long logintime) {
+        this.logintime = logintime;
+    }
+
+    public Calendar getDaybyDay(int n2) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + n2);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.AM_PM, 0);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
+    
+    /*
+     * 新增函數
+     * 帳號下的角色統計計算每日活動次數
+     */
+    public int getEventCount(String eventId) {
+        return getEventCount(eventId, 0);
+    }
+
+    public int getEventCount(String eventId, int type) {
+        try (Connection con = DatabaseConnection.getConnection()) {
+            int count = 0;
+            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM accounts_event WHERE accId = ? AND eventId = ?&quot;);
+            ps.setInt(1, getClient().getAccID()); //1
+            ps.setString(2, eventId); //2
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                /*
+                 * 年：calendar.get(Calendar.YEAR)
+                 * 月：calendar.get(Calendar.MONTH)+1
+                 * 日：calendar.get(Calendar.DAY_OF_MONTH)
+                 * 星期：calendar.get(Calendar.DAY_OF_WEEK)-1
+                 */
+                count = rs.getInt(&quot;count&quot;);
+                Timestamp updateTime = rs.getTimestamp(&quot;updateTime&quot;);
+                if (type == 0) {
+                    Calendar sqlcal = Calendar.getInstance();
+                    if (updateTime != null) {
+                        sqlcal.setTimeInMillis(updateTime.getTime());
+                    }
+                    if (sqlcal.get(Calendar.DAY_OF_MONTH) + 1 &lt;= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) || sqlcal.get(Calendar.MONTH) + 1 &lt;= Calendar.getInstance().get(Calendar.MONTH) || sqlcal.get(Calendar.YEAR) + 1 &lt;= Calendar.getInstance().get(Calendar.YEAR)) {
+                        count = 0;
+                        PreparedStatement psu = con.prepareStatement(&quot;UPDATE accounts_event SET count = 0, updateTime = CURRENT_TIMESTAMP() WHERE accId = ? AND eventId = ?&quot;);
+                        psu.setInt(1, id); //1
+                        psu.setString(2, eventId); //2
+                        psu.executeUpdate();
+                        psu.close();
+                    }
+                }
+            } else {
+                PreparedStatement psu = con.prepareStatement(&quot;INSERT INTO accounts_event (accId, eventId, count, type) VALUES (?, ?, ?, ?)&quot;);
+                psu.setInt(1, getClient().getAccID()); //1 - 4
+                psu.setString(2, eventId);
+                psu.setInt(3, 0);
+                psu.setInt(4, type);
+                psu.executeUpdate();
+                psu.close();
+            }
+            rs.close();
+            ps.close();
+            return count;
+        } catch (Exception Ex) {
+            System.err.println(&quot;獲取 EventCount 次數.&quot; + Ex);
+            return -1;
+        }
+    }
+
+    /*
+     * 增加帳號下的角色統計計算每日活動次數
+     */
+    public void setEventCount(String eventId) {
+        setEventCount(eventId, 0);
+    }
+
+    public void setEventCount(String eventId, int type) {
+        setEventCount(eventId, type, 1);
+    }
+
+    public void setEventCount(String eventId, int type, int count) {
+        int eventCount = getEventCount(eventId, type);
+        try (Connection con = DatabaseConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(&quot;UPDATE accounts_event SET count = ?, type = ?, updateTime = CURRENT_TIMESTAMP() WHERE accId = ? AND eventId = ?&quot;);
+            ps.setInt(1, eventCount + count);
+            ps.setInt(2, type); //2
+            ps.setInt(3, getClient().getAccID()); //3
+            ps.setString(4, eventId); //4
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception Ex) {
+            System.err.println(&quot;增加 EventCount 次數失敗.&quot; + Ex);
+        }
+    }
+    
+    /*
+     * 重置帳號下的角色統計計算每日活動次數
+     */
+    public void resetEventCount(String eventId) {
+        resetEventCount(eventId, 0);
+    }
+
+    public void resetEventCount(String eventId, int type) {
+        try (Connection con = DatabaseConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(&quot;UPDATE accounts_event SET count = 0, type = ?, updateTime = CURRENT_TIMESTAMP() WHERE accId = ? AND eventId = ?&quot;);
+            ps.setInt(1, type); //1
+            ps.setInt(2, getClient().getAccID()); //2
+            ps.setString(3, eventId); //3
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception Ex) {
+            System.err.println(&quot;重置 EventCount 次數失敗&quot; + Ex);
+        }
+    }
 </code></pre>
-<h2 id="簽到npc腳本">簽到NPC腳本</h2>
+<p>▶️3. 還是<code>MapleCharacter.java</code>沒變，搜索<strong>函數MapleCharacter</strong>底下的<code>if (ChannelServer) {</code></p>
+<p>在下方加上</p>
+<pre><code class="language-JAVA">todayonlinetimestamp = new Timestamp(System.currentTimeMillis());//今天在線時間
+</code></pre>
+<p>▶️4. 打開<code>handling.channel.handler.InterServerHandler.java</code></p>
+<p>搜索 <code>player.sendMacros();</code> ，在上面加上</p>
+<pre><code class="language-JAVA">//更新在線時間
+c.getPlayer().initOnlineTime();
+player.setLogintime(System.currentTimeMillis());
+</code></pre>
+<hr>
+<h2 id="️簽到npc腳本">❗️簽到NPC腳本</h2>
 <p>最後一步就是找個NPC把腳本貼上，當成每日簽到的NPC來用。<br>
 腳本直接放上..自行研究吧。<br>
 可以調整每日贈送不一樣的物品或者點數，當然也可以都給..看你開心。</p>
@@ -1448,25 +1637,9 @@ ta=&quot;#r&quot;;
                     cm.sendOk(&quot;已進行每日簽到或上線時間未達60分鐘!。&quot;);
                     cm.dispose();
                  } 
-
-
-        } //else if (selection == 1) {
-
-/*if(MonthB &lt; 0)
-MonthB=11;
-cm.sendSimple(&quot;#r★★★★★★★★★★★★\r\n#b#L0#&quot;+MonthS[Month]+&quot;限定簽到獎勵#l\r\n\r\n#r★★★★★★★★★★★★&quot;);
-                    
-
+} 
+} 
 }
-}else if (status == 2) {
- cm.dispose();
-   if (selection == 0) {
-              cm.openNpc(9010000, &quot;累積簽到&quot;);
-            /*} else if (selection == 1) {
-            cm.openNpc(9010000, &quot;累積簽到&quot;);*/
-         } 
-}
-
 }
 </code></pre>
 ]]></content>
@@ -1812,36 +1985,6 @@ public class main{
             }
             
             
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 10071 - Back to High School Physics]]></title>
-        <id>https://Z1Nhouse.github.io//post/YvvDHQ42k</id>
-        <link href="https://Z1Nhouse.github.io//post/YvvDHQ42k">
-        </link>
-        <updated>2020-01-14T14:23:34.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1012">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1012</a></p>
-<p><strong>Sample Input</strong><br>
-0 0<br>
-5 12<br>
-<strong>Sample Output</strong><br>
-0<br>
-120</p>
-<p>從範例大概也能推測出來，輸入結果為兩數相乘的兩倍。</p>
-<p><strong>題目大意：求出2倍時間的距離。</strong></p>
-<p>可能是最簡單的題目了</p>
-<pre><code class="language-java">import java.util.*;
-public class main{
-    public static void main(String[] args) {
-        
-            Scanner sc=new Scanner(System.in);
-           	while(sc.hasNextInt()){
-           		int v = sc.nextInt(),t = sc.nextInt();
-           		System.out.println(v*t*2);
-           	}
     }
 };
 </code></pre>

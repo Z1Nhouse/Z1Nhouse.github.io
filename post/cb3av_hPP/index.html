@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>將Visual Studio Code語言修改為繁體中文 | Z1N&#39;s house</title>
+<title>楓之谷私服v120 新增 打怪掉點 功能 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582209665532">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,53 +71,63 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              將Visual Studio Code語言修改為繁體中文
+              楓之谷私服v120 新增 打怪掉點 功能
             </h2>
             <div class="post-info">
               <span>
-                2019-12-07
+                2020-02-20
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="post-tag">
-                  # VS Code
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/UnHCMUvkF.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/cb3av_hPP.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>VS Code安裝後的介面預設語言為英文，若想將軟體語言改為繁體中文請參照以下方式修改。</p>
-<!-- more -->
-<h2 id="vs-code命令面板">【VS Code命令面板】</h2>
-<p>用於輸入指令。</p>
-<ul>
-<li>Mac：<code>cmd+shift+p</code>或<code>f1</code></li>
-<li>Windows/Linux：<code>ctrl+shift+p</code>或<code>f1</code></li>
-</ul>
-<h2 id="修改方式">修改方式</h2>
+                <p>來自夢夢谷端口。<br>
+很簡單，只需要改SRC，兩步驟就解決。</p>
+<h2 id="改src">改SRC</h2>
 <ol>
-<li>打開VS Code，按下<code>f1</code>打開命令面板，輸入<code>lang</code>，選擇<code>Configure Display Language</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705298348.PNG" alt=""></li>
-<li>在左側找到<code>Chinese(Traditional) Language Pack for VS Code</code>，點擊下方藍色的<code>install</code><br>
-<img src="https://Z1Nhouse.github.io//post-images/1575705301533.PNG" alt=""></li>
-<li>安裝成功之後重啟VS Code即可。</li>
+<li>打開<code>constants.ServerConstants.java</code></li>
 </ol>
-<h2 id="其他">其他</h2>
-<p>關於VS Code的其他tips請參考官方文件：<a href="https://github.com/Microsoft/vscode-tips-and-tricks">https://github.com/Microsoft/vscode-tips-and-tricks</a></p>
+<p>搜索<code>//End of Poll</code> 下方加上：</p>
+<pre><code>public static String 點數掉落 = &quot;1,3,15&quot;;
+</code></pre>
+<ol start="2">
+<li>打開<code>server.maps.MapleMap.java</code></li>
+</ol>
+<p>在最開始import加上</p>
+<pre><code>import constants.ServerConstants
+</code></pre>
+<p>在<code>dropFromMonster</code>函數的最後一個括號前加上：</p>
+<pre><code>        int moblevel = mob.getStats().getLevel();
+        int difference = chr.getLevel() &gt; 120 ? chr.getLevel() &gt; 150 ? 75 : 75 : 75;//相差等級
+        boolean YesNo = (chr.getLevel() - moblevel) &lt;= difference;
+        int Percentage = Randomizer.rand(1, 100);//轉換百分比
+        int GetPoints = (int) Randomizer.rand(Integer.parseInt(ServerConstants.點數掉落.split(&quot;,&quot;)[0]), Integer.parseInt(ServerConstants.點數掉落.split(&quot;,&quot;)[1])); //最少1 最多3
+        if (Percentage &lt; Integer.parseInt(ServerConstants.點數掉落.split(&quot;,&quot;)[2]) &amp;&amp; chr.getLevel() &gt; 10) { //隨機產生數由1~100 如果&lt;15 才會掉點
+            if (YesNo) {
+                chr.modifyCSPoints(2, GetPoints); //掉點類型 1為CASH 2為楓葉點數
+                chr.dropMessage(-1, &quot;從怪物身上獲得了 &quot; + GetPoints + &quot; 楓葉點數&quot;);
+            } else {
+                chr.dropMessage(-1, &quot;與怪物等級相差大於 &quot; + difference + &quot; 故無法獲得點數。&quot;);
+            }
+        }
+</code></pre>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#vs-code%E5%91%BD%E4%BB%A4%E9%9D%A2%E6%9D%BF">【VS Code命令面板】</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F">修改方式</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+<li><a href="#%E6%94%B9src">改SRC</a></li>
 </ul>
 </li>
 </ul>
@@ -127,6 +137,15 @@
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/5KthHuPnW">
+              <h3 class="post-title">
+                楓之谷私服 賭博JS(21點、倍數賭博機、比大小、踩地雷、老虎機)
+              </h3>
+            </a>
+          </div>
         
 
         
