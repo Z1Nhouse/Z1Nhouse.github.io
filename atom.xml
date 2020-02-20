@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-18T11:05:59.511Z</updated>
+    <updated>2020-02-20T07:22:30.723Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,803 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服 賭博JS(21點、倍數賭博機、比大小、踩地雷、老虎機)]]></title>
+        <id>https://Z1Nhouse.github.io//post/5KthHuPnW</id>
+        <link href="https://Z1Nhouse.github.io//post/5KthHuPnW">
+        </link>
+        <updated>2020-02-20T06:35:38.000Z</updated>
+        <content type="html"><![CDATA[<p>這些資源是從對岸拿到的，我也不記得是從哪個拿的，就分享一下我比較常逛的論壇：<br>
+<a href="https://www.fengyewuyu.com/">楓業物語論壇</a>與 <a href="https://bbs.ytmxd.com/forum-93-1.html">冒險島私服論壇</a><br>
+我記得原本是可以輸入賭注的，但是我架的服輸入問題還沒解決，所以全部改為統一賭注，<br>
+如果有需要輸入賭注的話可以自己修改掉。<br>
+有一些已經很多人分享過了，我這邊就再貼一次順便加上一些註解</p>
+<p>在開始之前先說幾個重點函數：</p>
+<ol>
+<li>Math.random() 函數隨機產生一數在範圍[0，1)，從0（包括0）往上，但是不包括1（排除1）。</li>
+<li>Math.floor() 函式會回傳無條件捨去後的最大整數。<br>
+其他可以參考<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">MDN</a></li>
+</ol>
+<p>端口常用的函數：</p>
+<ol>
+<li>cm.getPlayer().getCSPoints(1)//判斷玩家GASH數 (1是GASH,2是楓葉點數</li>
+<li>cm.getPlayer().modifyCSPoints(1, -50, true); //給予或扣除GASH</li>
+<li>cm.haveItem(物品id,數);  //判断玩家背包是否有此道具</li>
+<li>cm.gainItem(物品id,數);  //给予或者收取指定物品</li>
+<li>cm.getPlayer().itemQuantity(物品id) //判斷玩家背包中這個物品有多少數</li>
+<li>cm.getPlayer().getMeso() //判斷玩家楓幣數</li>
+<li>cm.gainMeso(-10000000); //給予或扣除玩家楓幣</li>
+<li>cm.getPlayer().getLevel() //判斷玩家等級</li>
+<li>cm.worldMessage(6,&quot;公告&quot;); //6為藍字廣播,5為紅字廣播</li>
+</ol>
+<h2 id="21點">21點</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582180727380.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582180730513.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582180733154.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582180735242.PNG" alt=""></p>
+<p>JS</p>
+<pre><code>/*
+ * 賭博21点
+ *
+ *
+ */
+
+var text = &quot;&quot;;
+var text1 = &quot;&quot;;
+var score = 0;
+var zhuangScore = 0;
+var xianScore = 0;
+var paiArray = Array(&quot;A&quot;, 2, 3, 4, 5, 6, 7, 8, 9, 10, &quot;J&quot;, &quot;Q&quot;, &quot;K&quot;);
+var paiArray2 = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10);
+var ran = -1;
+
+
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (status == 0 &amp;&amp; mode == 0) {
+
+            cm.sendOk(&quot;歡迎下次光臨~&quot;);
+            cm.dispose();
+            return;
+        }
+        if (mode == 1) {
+            status++;
+        } else {
+            if (status == 0) {
+                cm.sendNext(&quot;歡迎下次光臨~&quot;);
+                cm.dispose();
+            }
+            status--;
+        }
+        if (status == 0) {
+            score = cm.getMeso();
+            text += &quot;#fUI/UIWindow/Quest/icon3/6# &quot;;
+            text += &quot;你好，在我這裡可以玩21點，一次#r50GASH#k哦。&quot;;
+            text += &quot; #fUI/UIWindow/Quest/icon3/6#\r\n&quot;;
+            text += &quot;#L0# 開始遊戲 #l\r\n&quot;;
+            text += &quot;#L1# 遊戲說明 #l\r\n&quot;;
+            cm.sendSimple(text);
+        } else if (status == 1) {
+            if (selection == 0) {
+                cm.sendOk(&quot;賭友你要繼續下注嗎？&quot;);
+            } else if (selection == 1) {
+                text1 += &quot;#fUI/UIWindow/Quest/icon3/6# &quot;;
+                text1 += &quot;玩法說明：&quot;;
+                text1 += &quot; #fUI/UIWindow/Quest/icon3/6#\r\n&quot;;
+                text1 += &quot;    莊家的點數會在15點-22點之間（#r莊家也有可能爆掉#k），你有4次要牌的機會，如果你的點數大於莊家的點數即贏得你下注的金額，如果大於21點或者小於等於莊家的點數，即輸掉你所下注的金額，10、J、Q、K都算十點，小賭怡情，大賭傷人，請慎重。&quot;;
+                cm.sendOk(text1);
+                cm.dispose();
+            }
+        }
+        //-------------第一次要牌-----------------//
+        else if (status == 2) {
+            if (cm.getPlayer().getLevel() &lt; 70) {    //這邊可以設定玩家等級限制
+                cm.sendOk(&quot;必須達到70級才能使用。&quot;);
+                cm.dispose();
+            } else if (cm.getPlayer().getCSPoints(1) &lt; 50) { //這邊可以設置賭注
+                cm.sendOk(&quot;你沒有50GASH&quot;);
+                cm.dispose();
+            } else {
+                cm.getPlayer().modifyCSPoints(1, -50, true);
+                zhuangScore = parseInt(Math.random() * 8 + 15);
+                ran = parseInt(Math.random() * paiArray.length);
+                xianScore = paiArray2[ran];
+                var text2 = &quot;&quot;;
+                text2 += &quot;拿到了 #r#e&quot; + paiArray[ran] + &quot;#n#k,您目前的點數為： #r#e&quot; + xianScore + &quot;#n#k ，&quot;;
+                text2 += &quot;您繼續要牌嗎？ \r\n&quot;;
+                text2 += &quot;#L2# 要  \r\n&quot;;
+                text2 += &quot;#L3# 不要  \r\n&quot;;
+                cm.sendSimple(text2);
+            }
+
+        }
+
+        //------------第二次要牌------------------//
+
+        else if (status == 3) {
+            if (selection == 2) {
+                ran = parseInt(Math.random() * paiArray.length);
+                xianScore += paiArray2[ran];
+                if (xianScore &gt; 21) {
+                    cm.sendOk(&quot;對不起，您的點數大於21點，您輸了。&quot;);
+                    cm.dispose();
+                } else {
+                    text2 = &quot;&quot;;
+                    text2 += &quot;拿到了 #r#e&quot; + paiArray[ran] + &quot;#n#k,您目前的點數為： #r#e&quot; + xianScore + &quot;#n#k ，&quot;;
+                    text2 += &quot;您繼續要牌嗎？ \r\n&quot;;
+                    text2 += &quot;#L4# 要  \r\n&quot;;
+                    text2 += &quot;#L5# 不要  \r\n&quot;;
+                    cm.sendSimple(text2);
+                }
+            } else if (selection == 3) {
+                if ((xianScore &lt; 22 &amp;&amp; xianScore &lt;= zhuangScore &amp;&amp; zhuangScore &lt; 22) || (xianScore &gt;= 22 &amp;&amp; zhuangScore &gt;= 22)) {
+                    cm.sendOk(&quot;莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您輸了。&quot;);
+                    cm.dispose();
+                } else {
+                    cm.sendOk(&quot;#fUI/UIWindow/Quest/reward#\r\n  莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您贏了。&quot;);
+                    cm.worldMessage(6,&quot;[賭博公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場二十一點贏了，將籌碼翻了【兩倍】獲得100點GASH!&quot;);
+                    cm.getPlayer().modifyCSPoints(1, 100, true);
+                    cm.gainItem(4031189,1); //這裡可以另外設定獎勵，不要的話可刪除
+                    cm.dispose();
+                }
+            }
+
+
+        }
+        //-----------第三次要牌---------------
+        else if (status == 4) {
+            if (selection == 4) {
+                ran = parseInt(Math.random() * paiArray.length);
+                xianScore += paiArray2[ran];
+                if (xianScore &gt; 21) {
+                    cm.sendOk(&quot;對不起，您的點數大於21點，您輸了&quot;);
+                    cm.dispose();
+                } else {
+                    text2 = &quot;&quot;;
+                    text2 += &quot;拿到了 #r#e&quot; + paiArray[ran] + &quot;#n#k,您目前的點數為： #r#e&quot; + xianScore + &quot;#n#k ，&quot;;
+                    text2 += &quot;您繼續要牌嗎？ \r\n&quot;;
+                    text2 += &quot;#L6# 要  \r\n&quot;;
+                    text2 += &quot;#L7# 不要  \r\n&quot;;
+                    cm.sendSimple(text2);
+                }
+            } else if (selection == 5) {
+                if ((xianScore &lt; 22 &amp;&amp; xianScore &lt;= zhuangScore &amp;&amp; zhuangScore &lt; 22) || (xianScore &gt;= 22 &amp;&amp; zhuangScore &gt;= 22)) {
+                    cm.sendOk(&quot;莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您輸了。&quot;);
+                    cm.dispose();
+                } else {
+                    cm.sendOk(&quot;#fUI/UIWindow/Quest/reward#\r\n  莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您贏了。&quot;);
+                    cm.worldMessage(6,&quot;[賭博公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場二十一點贏了，將籌碼翻了【兩倍】獲得100點GASH!&quot;);
+                    cm.getPlayer().modifyCSPoints(1,100, true);
+                    cm.gainItem(4031189,1);
+                    cm.dispose();
+                }
+            }
+
+
+        }
+
+        //--------第四次要牌----------
+        else if (status == 5) {
+            if (selection == 6) {
+                ran = parseInt(Math.random() * paiArray.length);
+                xianScore += paiArray2[ran];
+                if (xianScore &gt; 21) {
+                    cm.sendOk(&quot;對不起，您的點數大於21點，您輸了&quot;);
+                    cm.dispose();
+                } else {
+                    if ((xianScore &lt; 22 &amp;&amp; xianScore &lt;= zhuangScore &amp;&amp; zhuangScore &lt; 22) || (xianScore &gt;= 22 &amp;&amp; zhuangScore &gt;= 22)) {
+                        cm.sendOk(&quot;莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您輸了。&quot;);
+                        cm.dispose();
+                    } else {
+                        cm.sendOk(&quot;#fUI/UIWindow/Quest/reward#\r\n  莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您贏了。&quot;);
+                        cm.worldMessage(6,&quot;[賭博公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場二十一點贏了，將籌碼翻了【兩倍】獲得100點GASH!&quot;);
+                        cm.getPlayer().modifyCSPoints(1, 100, true);
+                        cm.gainItem(4031189,1);
+                        cm.dispose();
+                    }
+                }
+
+            } else if (selection == 7) {
+                if ((xianScore &lt; 22 &amp;&amp; xianScore &lt;= zhuangScore &amp;&amp; zhuangScore &lt; 22) || (xianScore &gt;= 22 &amp;&amp; zhuangScore &gt;= 22)) {
+                    cm.sendOk(&quot;莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您是輸了。&quot;);
+                    cm.dispose();
+                } else {
+                    cm.sendOk(&quot;#fUI/UIWindow/Quest/reward#\r\n  莊家的點數為 #r#e&quot; + zhuangScore + &quot;#n#k,您的點數為 #r#e&quot; + xianScore + &quot;#n#k,您贏了。&quot;);
+                    cm.worldMessage(6,&quot;[賭博公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場二十一點贏了，將籌碼翻了【兩倍】獲得100點GASH!&quot;);
+                    cm.getPlayer().modifyCSPoints(1, 100, true);
+                    cm.gainItem(4031189,1);
+                    cm.dispose();
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="十倍賭博機">十倍賭博機</h2>
+<p>其實就只是一個靠運氣的機器，沒有什麼玩法。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181073121.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181075673.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181077807.PNG" alt=""><br>
+這是贏的時候會有的廣播<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181080251.PNG" alt=""></p>
+<p>JS</p>
+<pre><code>var status = 0;
+var fee;
+var chance = Math.floor(Math.random() * 12 + 1); //這裡可以設定機率
+
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (mode == 0) {
+            cm.sendOk(&quot;#i3994125# - 我會繼續在這裡等著你。&quot;);
+            cm.dispose();
+            return;
+        }
+        if (mode == 1)
+            status++;
+        else
+            status--;
+        if (status == 0) {
+            cm.sendAcceptDecline(&quot;#r【十倍賭博機】\r\n#d-看來你的心很大啊，其他賭博機滿足不了你了嗎？#i3994125# #k\r\n &quot;);
+        } else if (status == 1) {
+            cm.sendOk(&quot;#i3994125#\r\n如果你能贏我，我會將你的籌碼數倍奉還，而且還有神秘禮品&quot;);
+        } else if (status == 2) {
+            fee = cm.getText();
+            cm.sendYesNo(&quot;#i3994125# - 你確認要繼續下注嗎？一次消耗#r50GASH#k。&quot;);
+        } else if (status == 3) {
+            if (cm.getPlayer().getLevel() &lt; 70) {
+                cm.sendOk(&quot;必須達到70級才能使用。&quot;);
+                cm.dispose();
+            } else if (cm.getPlayer().getCSPoints(1) &lt; 50) {
+                cm.sendOk(&quot;你沒有50GASH&quot;);
+                cm.dispose();
+            } else {
+                if (chance &lt;= 1) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                   // cm.worldMessage(6, &quot;[賭場公告]：玩家 &quot; + cm.getChar().getName() + &quot; ，在賭場十倍賭博機輸了，看來今天並不被女神眷顧!&quot;);
+                    cm.dispose();
+                } else if (chance == 2) {
+                    cm.sendNext(&quot;#i3994125# - #r這把不算，重新再來，你手不要抖動。#k&quot;);
+                    cm.dispose();
+                } else if (chance == 3) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                    cm.dispose();
+                } else if (chance == 4) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                    cm.dispose();
+                } else if (chance == 5) {
+                    cm.sendNext(&quot;#i3994125# - #r這把不算，重新再來，你手不要抖動。#k&quot;);
+                    cm.dispose();
+                } else if (chance == 6) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                    cm.dispose();
+                } else if (chance == 7) {
+                    cm.sendNext(&quot;#i3994125# - #r這把不算，重新再來，你手不要抖動。#k&quot;);
+                    cm.dispose();
+                } else if (chance == 8) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                    cm.dispose();
+                } else if (chance == 9) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                    cm.dispose();
+                } else if (chance == 10) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;#i3994125# - #r你輸了#k&quot;);
+                    cm.dispose();
+                } else if (chance == 11) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    cm.sendNext(&quot;哦··你的運氣不怎麼好哦··哈哈 再來一把嘛!&quot;);
+                    cm.dispose();
+                } else if (chance &gt;= 12) {
+                    cm.getPlayer().modifyCSPoints(1, 500, true);
+                    cm.gainItem(4031189,1);
+                    cm.sendNext(&quot;#i3994125# -#r不錯哦，恭喜你贏了，我願賭服輸!獲得500點數&quot;);
+                    cm.worldMessage(6,&quot;[賭場公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場十倍賭博機贏了，將籌碼翻了【十倍】獲得500點數!&quot;);
+                    cm.dispose();
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="比大小">比大小</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582181213643.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181219832.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181222722.PNG" alt=""><br>
+JS</p>
+<pre><code>var status = 0;
+//var 黑水晶 = 4021008;
+//var 藍色箭頭 = &quot;#fUI/UIWindow/Quest/icon2/7#&quot;;
+//var 紅色箭頭 = &quot;#fUI/UIWindow/Quest/icon6/7#&quot;;
+//var 圓形 = &quot;#fUI/UIWindow/Quest/icon3/6#&quot;;
+//var 美化new = &quot;#fUI/UIWindow/Quest/icon5/1#&quot;;
+//var 驚嘆號 = &quot;#fUI/UIWindow/Quest/icon0#&quot;;
+var 正方箭頭 = &quot;#fUI/Basic/BtHide3/mouseOver/0#&quot;;
+/*以上都是小圖示路徑，用來裝飾的，可以修改*/
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (status &gt;= 0 &amp;&amp; mode == 0) {
+            cm.dispose();
+            return;
+        }
+        if (mode == 1)
+            status++;
+        else
+            status--;
+        if (status == 0) {
+            var a1 = &quot;#L1##b&quot; + 正方箭頭 + &quot; 50 GASH 【大】【小】\r\n&quot;;
+            var a2 = &quot;#L2##b&quot; + 正方箭頭 + &quot; 250GASH 【大】【小】\r\n&quot;;
+            var a3 = &quot;#L3##b&quot; + 正方箭頭 + &quot; 500GASH 【大】【小】\r\n&quot;;
+
+
+            cm.sendSimple(&quot;\r\n#d-來來來，買大買小，買定離手#i3994122# #r【大小賭博機】\r\n#r  【賠率】1:2【概率】5:5\r\n&quot; + a1 + &quot;&quot; + a2 + &quot;&quot; + a3 + &quot;&quot;);
+
+        } else if (selection == 1) {
+            if (cm.getPlayer().getLevel() &lt; 70) {
+                cm.sendOk(&quot;必須達到70級才能使用。&quot;);
+                cm.dispose();
+                return;
+            } else {
+                if (cm.getPlayer().getCSPoints(1) &gt;= 50) {
+                    cm.getPlayer().modifyCSPoints(1, -50, true);
+                    var rand = Math.floor(Math.random() * 100);
+                    if (rand &lt; 50) {
+                        cm.getPlayer().modifyCSPoints(1, 100, true);
+                        cm.gainItem(4031189,1);
+                        cm.sendOk(&quot;恭喜你，贏了&quot;);
+                        cm.dispose();
+                        cm.worldMessage(6,&quot;[賭場公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場選大小點贏了，將籌碼x1翻了【兩倍】獲得100點GASH!&quot;);
+                        return;
+                    } else {
+                        cm.sendOk(&quot;唉，輸了&quot;);
+                        cm.dispose();
+                        return;
+                    }
+                } else {
+                    cm.sendOk(&quot;你沒有足夠的GASH.~&quot;);
+                    cm.dispose();
+                    return;
+                }
+            }
+        } else if (selection == 2) {
+            if (cm.getPlayer().getLevel() &lt; 25) {
+                cm.sendOk(&quot;必須達到25級才能使用。&quot;);
+                cm.dispose();
+                return;
+            } else {
+
+                if (cm.getPlayer().getCSPoints(1) &gt;= 250) {
+                    cm.getPlayer().modifyCSPoints(1, -250, true);
+                    var rand = Math.floor(Math.random() * 100);
+                    if (rand &lt; 50) {
+                        cm.getPlayer().modifyCSPoints(1, 500, true);
+                        cm.gainItem(4031189,1);
+                        cm.sendOk(&quot;恭喜你，贏了&quot;);
+                        cm.dispose();
+                        cm.worldMessage(6,&quot;[賭場公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場選大小點贏了，將籌碼x5翻了【兩倍】獲得500點GASH!&quot;);
+                        return;
+                    } else {
+                        cm.sendOk(&quot;唉，輸了&quot;);
+                        cm.dispose();
+                        return;
+                    }
+                } else {
+                    cm.sendOk(&quot;你沒有足夠的GASH~&quot;);
+                    cm.dispose();
+                    return;
+                }
+            }
+        } else if (selection == 3) {
+            if (cm.getPlayer().getLevel() &lt; 25) {
+                cm.sendOk(&quot;必須達到25級才能使用。&quot;);
+                cm.dispose();
+                return;
+            } else {
+                if (cm.getPlayer().getCSPoints(1) &gt;= 500) {
+                    cm.getPlayer().modifyCSPoints(1, -500, true);
+                    var rand = Math.floor(Math.random() * 100);
+                    if (rand &lt; 50) {
+                        cm.getPlayer().modifyCSPoints(1, 1000, true);
+                        cm.gainItem(4031189,1);
+                        cm.sendOk(&quot;恭喜你，贏了&quot;);
+                        cm.dispose();
+                        cm.worldMessage(6,&quot;[賭場公告]：玩家 &quot; + cm.getPlayer().getName() + &quot; ，在賭場選大小點贏了，將籌碼x10翻了【兩倍】獲得1000點GASH!&quot;);
+                        return;
+                    } else {
+                        cm.sendOk(&quot;唉，輸了&quot;);
+                        cm.dispose();
+                        return;
+                    }
+                } else {
+                    cm.sendOk(&quot;你沒有足夠的GASH~&quot;);
+                    cm.dispose();
+                    return;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="踩地雷">踩地雷</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582181391411.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181395341.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181398002.PNG" alt=""><br>
+勝利的時候也會有時間顯示<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582181400378.PNG" alt=""><br>
+JS</p>
+<pre><code>var DEBUG = false;
+var HIDDEN_ITEM = 4031325, MINE_ITEM = 5021013, EXPLODED_ITEM = 5120009;//這邊可以設定隱藏的圖示(HIDDEN_ITEM)、鞭炮的圖示(EXPLODED_ITEM)、地雷的圖示(MINE_ITEM)
+var Modes = [
+    [&quot;#d簡單#k&quot;, 5, 5, 4], //5*5 , 有3個地雷+1個鞭炮
+    [&quot;#b中等#k&quot;, 6, 6, 8], //6*6 , 有7個地雷+1個鞭炮
+    [&quot;#r困難#k&quot;, 7, 7, 15] //7*7 , 有14個地雷+1個鞭炮
+];
+var text = &quot;&quot;;
+
+var status;
+var Board, Revealed;
+var VALUE_REVEALED = 1, VALUE_HIDDEN = 0;
+var ModeSelected = -1, StartTime = -1, NumCols = -1,
+        NumRows = -1, NumMines = -1, LeftToBeRevealed = -1;
+var Neighbors = [
+    [-1, -1], [-1, 0], [-1, 1], [0, -1],
+    [0, 1], [1, -1], [1, 0], [1, 1]
+];
+var Numbers = [ //這邊可以設定數字的樣式,預設是裝飾聖誕樹的紅色數字
+    3990009, 3990000, 3990001, 3990002, 3990003,
+    3990004, 3990005, 3990006, 3990007, 3990008
+];
+
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+function Header() {
+    return &quot;#d============ 踩地雷 ============#k\r\n\r\n&quot;;
+}
+function ConstructModeSelectionString() {
+    var ret = &quot;&quot;;
+    for (var i = 0; i &lt; Modes.length; i++) {
+        ret += &quot;#L&quot; + i + &quot;#&quot; + Modes[i][0] + &quot; (&quot; + Modes[i][1] + &quot;x&quot; + Modes[i][2] + &quot;) 地雷數: &quot; + Modes[i][3] + &quot;#l\r\n&quot;;
+    }
+    return ret;
+}
+function InitializeBoard() {
+
+    NumCols = Modes[ModeSelected][1];
+    NumRows = Modes[ModeSelected][2];
+
+    NumMines = Modes[ModeSelected][3];
+
+    LeftToBeRevealed = NumCols * NumRows - NumMines;
+    if (LeftToBeRevealed == 21) {
+        text = &quot;簡單模式&quot;;
+    } else if (LeftToBeRevealed == 28) {
+        text = &quot;中等模式&quot;;
+    } else if (LeftToBeRevealed == 34) {
+        text = &quot;困難模式&quot;;
+    }
+    Board = new Array(NumCols);
+    for (var i = 0; i &lt; NumCols; i++) {
+        Board[i] = new Array(NumRows);
+    }
+    Revealed = new Array(NumCols);
+    for (i = 0; i &lt; NumCols; i++) {
+        Revealed[i] = new Array(NumRows);
+        for (var j = 0; j &lt; NumRows; j++) {
+            Revealed[i][j] = VALUE_HIDDEN;
+        }
+    }
+    InitializeMines();
+    InitializeMineCounts();
+    InitializeBlankSpaces();
+}
+function InitializeMines() {
+    var AllPosition = new Array(NumRows * NumCols);
+    for (var i = 0; i &lt; NumCols; i++) {
+        for (var j = 0; j &lt; NumRows; j++) {
+            AllPosition[(i * NumCols) + j] = [i, j];
+        }
+    }
+    Shuffle(AllPosition);
+    for (i = 0; i &lt; NumMines &amp;&amp; AllPosition.length &gt; 0; i++) {
+        var NewMine = AllPosition.pop();
+        Board[NewMine[0]][NewMine[1]] = MINE_ITEM;
+    }
+}
+function InitializeMineCounts() {
+    for (var r = 0; r &lt; NumCols; r++) {
+        for (var c = 0; c &lt; NumRows; c++) {
+            if (Board[r][c] != MINE_ITEM) {
+                var Count = 0;
+                for (var k = 0; k &lt; Neighbors.length; k++) {
+                    var NewR = r + Neighbors[k][0];
+                    var NewC = c + Neighbors[k][1]
+                    if (ValidPosition(NewR, NewC) &amp;&amp; Board[NewR][NewC] == MINE_ITEM) {
+                        Count++;
+                    }
+                }
+                Board[r][c] = Numbers[Count];
+            }
+        }
+    }
+}
+function InitializeBlankSpaces() {
+    for (var i = 0; i &lt; NumCols; i++) {
+        for (var j = 0; j &lt; NumRows; j++) {
+            if (Board[i][j] == null) {
+                Board[i][j] = HIDDEN_ITEM;
+            }
+        }
+    }
+}
+function ConstructBoardString() {
+    var ret = &quot;剩下的數字數目: &quot; + LeftToBeRevealed + &quot;\r\n&quot;;
+    var num = 0;
+    for (var i = 0; i &lt; NumCols; i++) {
+        for (var j = 0; j &lt; NumRows; j++) {
+            if (Revealed[i][j] == VALUE_REVEALED) {
+                ret += &quot;#L&quot; + num + &quot;##v&quot; + Board[i][j] + &quot;##l&quot;;
+            } else {
+                if (DEBUG &amp;&amp; Board[i][j] == MINE_ITEM) {
+                    ret += &quot;#L&quot; + num + &quot;##v&quot; + MINE_ITEM + &quot;##l&quot;;
+                } else {
+                    ret += &quot;#L&quot; + num + &quot;##v&quot; + HIDDEN_ITEM + &quot;##l&quot;;
+                }
+            }
+            num++;
+        }
+        ret += &quot;\r\n&quot;;
+    }
+    return ret;
+}
+function ConstructEndBoardString() {
+    var ret = &quot;&quot;;
+    var num = 0;
+    for (var i = 0; i &lt; NumCols; i++) {
+        for (var j = 0; j &lt; NumRows; j++) {
+            if (Revealed[i][j] == VALUE_REVEALED) {
+                if (Board[i][j] == MINE_ITEM) {
+                    ret += &quot;#v&quot; + EXPLODED_ITEM + &quot;#&quot;;
+                } else {
+                    ret += &quot;#v&quot; + Board[i][j] + &quot;#&quot;;
+                }
+            } else {
+                if (Board[i][j] == MINE_ITEM) {
+                    ret += &quot;#v&quot; + MINE_ITEM + &quot;#&quot;;
+                } else {
+                    ret += &quot;#v&quot; + HIDDEN_ITEM + &quot;#&quot;;
+                }
+            }
+            num++;
+        }
+        ret += &quot;\r\n&quot;;
+    }
+    return ret;
+}
+function Shuffle(arr) {
+    var i = arr.length;
+    if (i == 0)
+        return;
+    while (--i) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tempi = arr[i];
+        var tempj = arr[j];
+        arr[i] = tempj;
+        arr[j] = tempi;
+    }
+}
+function ValidPosition(r, c) {
+    return r &gt;= 0 &amp;&amp; r &lt; NumRows &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; NumCols;
+}
+function GetPositionFromSelection(sel) {
+    return [(sel / NumCols) | 0, (sel % NumCols) | 0];
+}
+function IsGameOver() {
+    return LeftToBeRevealed == 0;
+}
+function GetGameTime(End) {
+    var Diff = End - StartTime;
+    var MilliSec = (Diff % 1000) | 0;
+    Diff /= 1000;
+    var Min = (Diff / 60) | 0;
+    var Sec = (Diff % 60) | 0;
+    return ((Min &lt; 10) ? &quot;0&quot; + Min : Min) + &quot;:&quot; + ((Sec &lt; 10) ? &quot;0&quot; + Sec : Sec)
+            + &quot;.&quot; + ((MilliSec &lt; 100) ? &quot;0&quot; + ((MilliSec &lt; 10) ? &quot;0&quot; + MilliSec : MilliSec) : MilliSec);
+
+}
+function action(mode, type, selection) {
+    if (mode == -1 || mode == 0)
+        cm.dispose();
+    else {
+        if (status != 2)
+            status++;
+
+        if (status == 0) {
+            cm.sendSimple(Header() + &quot;請選擇模式:\r\n&quot; + ConstructModeSelectionString())
+        } else if (status == 1) {
+            if (selection &lt; 0 || selection &gt; Modes.length) {
+                cm.dispose();
+                return;
+            }
+            ModeSelected = selection;
+            InitializeBoard();
+            cm.sendSimple(Header() + ConstructBoardString());
+        } else if (status == 2) {
+            if (StartTime == -1) {
+                StartTime = (new Date()).getTime();
+            }
+            var SendStr = Header();
+            var Move = GetPositionFromSelection(selection);
+            if (!ValidPosition(Move[0], Move[1])) {
+                cm.sendOk(&quot;PE Detected ...&quot;);
+                return;
+            }
+            if (Revealed[Move[0]][Move[1]] == VALUE_REVEALED) {
+                SendStr += &quot;該空格已被打開啟 ...\r\n\r\n&quot; + ConstructBoardString();
+                cm.sendSimple(SendStr);
+                return;
+            }
+            Revealed[Move[0]][Move[1]] = VALUE_REVEALED;
+            LeftToBeRevealed--;
+            SendStr += ConstructBoardString();
+            if (Board[Move[0]][Move[1]] == MINE_ITEM) {
+                cm.sendOk(Header() + ConstructEndBoardString() + &quot;\r\n你輸了!! 遊戲時間: &quot; + GetGameTime((new Date()).getTime()));
+                cm.dispose();
+            } else {
+                if (IsGameOver()) {
+                    cm.sendOk(Header() + ConstructEndBoardString() + &quot;\r\n你贏了!! 遊戲時間: &quot; + GetGameTime((new Date()).getTime()));
+                    cm.worldMessage(6,&quot;『踩地雷小遊戲』：恭喜玩家:&quot; + cm.getPlayer().getName() + &quot; 花費: &quot; + GetGameTime((new Date()).getTime()) + &quot; 成功完成了&quot; + text + &quot;的踩地雷!!!&quot;);
+                    cm.getPlayer().modifyCSPoints(1, 200, true);
+                    cm.gainItem(4031189,1);
+                    cm.dispose();
+                } else {
+                    cm.sendSimple(SendStr);
+                }
+            }
+        }
+    }
+}  
+</code></pre>
+<h2 id="老虎機">老虎機</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582182104809.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582182107636.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582182112209.PNG" alt=""><br>
+這個本來也是下賭注的，但我一樣把它改成固定金額1000w</p>
+<p>JS</p>
+<pre><code>/*老虎機*/
+
+var status = 0;
+var fee;
+var winner;
+var item=4021000;
+
+var card1 = Math.floor(Math.random()*8+item);
+var card2 = Math.floor(Math.random()*8+item);
+var card3 = Math.floor(Math.random()*8+item);
+var card4 = Math.floor(Math.random()*8+item);
+var card5 = Math.floor(Math.random()*8+item);
+var card6 = Math.floor(Math.random()*8+item);
+var card7 = Math.floor(Math.random()*8+item);
+var card8 = Math.floor(Math.random()*8+item);
+var card9 = Math.floor(Math.random()*8+item);
+/*這台老虎機是用各類水晶來遊戲的，從4021000(石榴石)-4021007(鑽石)*/
+
+function start() {
+status = -1;
+action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+
+if (mode == -1) {
+cm.dispose();
+} else {
+if (mode == 0) {
+cm.sendOk(&quot;你的損失。你或許可以贏得大錢。&quot;);
+cm.dispose();
+return;
+}
+
+if (mode == 1)
+status++;
+else
+status--;
+
+if (status == 0) {
+cm.sendNext(&quot;你想玩#b老虎機#k嗎? 這個機台是六倍的賠率喔!!\r\n#v4021000##v4021001##v4021002##v4021003##v4021004##v4021005##v4021006##v4021007#寶石連線，就可獲勝&quot;);
+} else if (status == 1) {
+fee = 10000000;
+cm.sendYesNo(&quot;你確定要下注 #r&quot; + fee + &quot;#k 楓幣嗎?... &quot;);
+} else if (status == 2) {
+if (cm.getMeso() &lt; fee) {
+cm.sendOk(&quot;你沒有那麼多錢&quot;);
+cm.dispose();
+} else if (cm.getMeso() + fee * 6 &gt; 2100000000) {
+cm.sendOk(&quot;如果你贏了這一把，身上的錢會超過21億，請先將金錢存放至倉庫。&quot;);
+cm.dispose();
+} else { //這邊是判斷連線的部分
+if (card1 == card2 &amp;&amp; card2 == card3) {
+winner = 1;
+} else if (card1 == card5 &amp;&amp; card5 == card9) {
+winner = 1;
+} else if (card4 == card5 &amp;&amp; card5 == card6) {
+winner = 1;
+} else if (card7 == card8 &amp;&amp; card8 == card9) {
+winner = 1;
+} else if (card7 == card5 &amp;&amp; card5 == card3) {
+winner = 1;
+} else if (card1 == card4 &amp;&amp; card4 == card7) {
+winner = 1;
+} else if (card2 == card5 &amp;&amp; card5 == card8) {
+winner = 1;
+} else if (card3 == card6 &amp;&amp; card6 == card9) {
+winner = 1;
+} else {
+winner = 2;
+}
+
+if (winner == 1) {
+
+cm.sendOk(&quot;老虎機: \r\n\r\n#v&quot; +
+card1 + &quot;##v &quot; + card2 + &quot;##v &quot; + card3 + &quot;# \r\n#v&quot; +
+card4 + &quot;##v &quot; + card5 + &quot;##v &quot; + card6 + &quot;# \r\n#v&quot; +
+card7 + &quot;##v &quot; + card8 + &quot;##v &quot; + card9 +
+&quot;#\r\n\r\n 恭喜！你贏了！&quot;);
+
+cm.gainMeso(fee * 6); //這裡設定獎勵
+cm.gainItem(4031189,1);
+cm.dispose();
+
+} else if (winner == 2) {
+
+cm.sendOk(&quot;老虎機: \r\n\r\n#v&quot; +
+card1 + &quot;##v &quot; + card2 + &quot;##v &quot; + card3 + &quot;# \r\n#v&quot; +
+card4 + &quot;##v &quot; + card5 + &quot;##v &quot; + card6 + &quot;# \r\n#v&quot; +
+card7 + &quot;##v &quot; + card8 + &quot;##v &quot; + card9 +
+&quot;#\r\n\r\n 你輸了！再接再厲！&quot;);
+
+cm.gainMeso(-fee);
+cm.dispose();
+
+} else {
+cm.dispose();
+}
+}
+}
+}
+}
+
+</code></pre>
+<p>大概就是這樣，能隨意更改的部分我大多都有標上註解，當然，只要有創意怎麼改都行。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷私服v120 技能0CD/範圍擴大/數量增加/攻擊次數增加...]]></title>
         <id>https://Z1Nhouse.github.io//post/v-am4i5fY</id>
@@ -1047,62 +1844,6 @@ public class main{
            	}
     }
 };
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 10409 - die game]]></title>
-        <id>https://Z1Nhouse.github.io//post/eE2IFK7r0</id>
-        <link href="https://Z1Nhouse.github.io//post/eE2IFK7r0">
-        </link>
-        <updated>2020-01-14T14:07:01.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1350">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1350</a></p>
-<p><strong>Sample Input</strong><br>
-1<br>
-north<br>
-3<br>
-north<br>
-east<br>
-south<br>
-0</p>
-<p><strong>Sample Output</strong><br>
-5<br>
-1</p>
-<p><strong>題目大意：先輸入一個數字，表示要翻轉幾次，最後輸出翻轉到的骰子點數。</strong></p>
-<h2 id="骰子攤開圖">骰子攤開圖</h2>
-<figure data-type="image" tabindex="1"><img src="http://www.mathland.idv.tw/life/dice.gif" alt=""></figure>
-<h2 id="程式碼">程式碼</h2>
-<pre><code class="language-java">Scanner sc=new Scanner(System.in);
-		
-		int cases; 
-		while(sc.hasNextInt() &amp;&amp; (cases=sc.nextInt())!=0){
-			
-			int currPost=1;
-			int N=2,W=3,S=5,E=4;
-			
-			for(int i=0;i&lt;cases;i++){
-				String st=sc.next();
-				if(st.equals(&quot;north&quot;)){
-					N=currPost;
-					currPost=S;
-					S=7-N;
-				}else if(st.equals(&quot;south&quot;)){
-					S=currPost;
-					currPost=N;
-					N=7-S;
-				}else if(st.equals(&quot;east&quot;)){
-					E=currPost;
-					currPost=W;
-					W=7-E;
-				}else if(st.equals(&quot;west&quot;)){
-					W=currPost;
-					currPost=E;
-					E=7-W;
-				}
-			}
-			
-			System.out.println(currPost);
-		}
 </code></pre>
 ]]></content>
     </entry>
