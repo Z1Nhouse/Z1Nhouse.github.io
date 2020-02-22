@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>【楓之谷私服架設 相關問題彙整+解決辦法】 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582209665532">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582382828150">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582209665532" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582382828150" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -78,7 +78,7 @@
                 2020-01-14
               </span>
               <span>
-                6 min read
+                7 min read
               </span>
               
                 <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
@@ -91,11 +91,12 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>不限定版本，目前已成功架設的版本有：118,120,134,155,189... (目前專注於120白狐端)<br>
-架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。</p>
+                <p>不限定版本，目前已成功架設的版本有：113,118,120,134,155,189... (<strong>目前專注於120白狐端</strong>)<br>
+架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。<br>
+專注120白狐端的問題解決，113版有相同問題90%都可以採取一樣的解決方式。</p>
 <!-- more -->
 <h2 id="架設教程">架設教程</h2>
-<p>先放上文字版的私服架設教程(Youtube上很多教程,87楓谷也有詳細的教程)：<br>
+<p>先放上113,1188,120..這種舊版的私服架設教程(Youtube上很多教程,87楓谷也有詳細的教程)：<br>
 首先需要安裝<code>WAMP、N8、JDK8</code>，並且準備好端口以及相對應版本的客戶端。</p>
 <ol>
 <li>開啟WAMP並將WAMP切換到上線狀態</li>
@@ -239,16 +240,29 @@ break;
 <pre><code class="language-sql">UPDATE `cashshop_modified_items` SET `discount_price`='1' WHERE (`serial`='20000026')
 </code></pre>
 <p><strong>serial = 商品序列號，你也可以將serial調整成其他條件，比如只改某一種類別的商品。</strong></p>
+<p>─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
 <ol start="7">
 <li>dump的時候要注意，有時候會出問題，會出現重複的&quot;&quot;而導致伺服器無法開啟，如下圖。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1582023885979.PNG" alt=""><br>
 當錯誤訊息提示<code>xml....必須要使用&quot;&gt;或/&quot;&gt;</code>時，就要去檢查一下你剛剛dump的img有沒有問題。</li>
 </ol>
+<p>─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
+<ol start="8">
+<li>v120白狐端 使用<code>sendGetNumber</code>函數有輸入問題。</li>
+</ol>
+<p>打開tools/MaplePacketCreator.java</p>
+<p>搜索<code>getNPCTalkNum(int npc, String talk, int def, int min, int max)</code></p>
+<p>將mplew.write(4);改為mplew.write(5);</p>
+<p>將mplew.writeShort(3);改為mplew.writeShort(4);</p>
+<p>在這個函數下方找到 <code>getNPCTalkText</code> 函數</p>
+<p>將mplew.write(4);改為mplew.write(5);</p>
+<p>將mplew.writeShort(2);改為mplew.writeShort(3);</p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582380257518.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582380261060.PNG" alt=""></p>
 <hr>
 <h2 id="相關檔案">相關檔案</h2>
 <ul>
-<li><code>ijl15.dll</code>：<a href="https://mega.nz/#!5wY3hAjL!IH1hoWXOp52swXgiuIW7dn6YMRNhGltf6bMQ_s-gNJk">點擊下載</a></li>
-<li></li>
+<li>乾淨v120<code>ijl15.dll</code>：<a href="https://mega.nz/#!5wY3hAjL!IH1hoWXOp52swXgiuIW7dn6YMRNhGltf6bMQ_s-gNJk">點擊下載</a></li>
 <li>87楓之谷私服架設教學及工具包：<a href="https://www.87ms.net/erection">私服架設教學及工具包</a></li>
 </ul>
 <h2 id="推薦網站">推薦網站</h2>
