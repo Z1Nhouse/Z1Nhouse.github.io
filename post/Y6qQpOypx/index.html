@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package | Z1N&#39;s house</title>
+<title>楓之谷私服 - 點裝領取系統 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582391108153">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,116 +71,51 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              初學者也能快速上手的Python爬蟲(2) - 安裝兩個重要的Package
+              楓之谷私服 - 點裝領取系統
             </h2>
             <div class="post-info">
               <span>
-                2019-12-11
+                2020-02-23
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/hjQflVP_Uf" class="post-tag">
-                  # python
-                </a>
-              
-                <a href="https://Z1Nhouse.github.io//tag/NfH4Wu_XQT" class="post-tag">
-                  # 爬蟲
-                </a>
-              
-                <a href="https://Z1Nhouse.github.io//tag/iUU4umdC52" class="post-tag">
-                  # Jupyter notebook
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/3qgNl3ySw.png" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/Y6qQpOypx.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>上一篇：<a href="https://z1nhouse.github.io/post/lh0yq_CsU/">初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用</a></p>
-<p>今天會需要用到兩個package：</p>
+                <p>emmmm... 我是不知道別的服怎麼設計的，我就自己隨意寫的</p>
+<p>原理很簡單<br>
+首先確認你的端口有沒有以下兩種函數(99.99999%都有)</p>
 <ul>
-<li>Requests</li>
-<li>BeautifulSoup</li>
+<li>sendGetNumber</li>
+<li>isCash</li>
 </ul>
-<!-- more -->
-<h2 id="requests">Requests</h2>
-<p><img src="https://Z1Nhouse.github.io//post-images/1576073717730.png" alt=""><br>
-如果想要使用 Python 來下載網頁上的資料，最基本的作法就是以 requests 模組建立適當的 HTTP 請求，透過 HTTP 請求從網頁伺服器下載指定的資料。</p>
-<p>Requests 是以 PEP 20 的箴言為中心開發的</p>
-<ul>
-<li>Beautiful is better than ugly.(美麗優於醜陋)</li>
-<li>Explicit is better than implicit.(直白優於含蓄)</li>
-<li>Simple is better than complex.(簡單優於復雜)</li>
-<li>Complex is better than complicated.(複雜優於繁瑣)</li>
-<li>Readability counts.(可讀性很重要)</li>
-</ul>
-<h3 id="功能特性">功能特性</h3>
-<p>Requests 完全滿足今日 web 的需求。</p>
-<ul>
-<li>Keep-Alive &amp; 連接池</li>
-<li>國際化域名和 URL</li>
-<li>帶持久 Cookie 的會話</li>
-<li>瀏覽器式的 SSL 認證</li>
-<li>自動內容解碼</li>
-<li>基本/摘要式的身份認證</li>
-<li>優雅的 key/value Cookie</li>
-<li>自動解壓</li>
-<li>Unicode 響應體</li>
-<li>HTTP(S) 代理支持</li>
-<li>文件分塊上傳</li>
-<li>流下載</li>
-<li>連接超時</li>
-<li>分塊請求</li>
-<li>支持 .netrc</li>
-</ul>
-<h3 id="安裝方法">安裝方法</h3>
-<p>安裝及使用教程<a href="https://2.python-requests.org//zh_CN/latest/user/install.html#install">官方網站</a>也有詳細的說明，這邊就簡單提一下。</p>
-<p>你只需要打開終端運行指令即可安裝，例如在Jupyter Notebook的首頁找到<code>New - Terminal</code>打開終端，透過在終端輸入指令來安裝requests：</p>
-<pre><code>pip install requests
-</code></pre>
-<p><img src="https://Z1Nhouse.github.io//post-images/1576072544945.png" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1576072815665.PNG" alt=""></p>
-<h3 id="引入模組方法">引入模組方法</h3>
-<pre><code># 引入 Requests 模組
-import requests
-</code></pre>
-<h2 id="beautiful-soup">Beautiful Soup</h2>
-<p><img src="https://Z1Nhouse.github.io//post-images/1576073722370.png" alt=""><br>
-Beautiful Soup 是一個可以從HTML或XML文件中提取數據的Python庫。</p>
-<h3 id="安裝方法-2">安裝方法</h3>
-<p>同requests的安裝方法。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1576073463533.PNG" alt=""></p>
-<h3 id="引入模組方法-2">引入模組方法</h3>
-<pre><code># 引入 Beautiful Soup 模組
-from bs4 import BeautifulSoup
-</code></pre>
-<p>更多使用方法可以參閱<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/#">官方文檔</a></p>
+<p>兩個都有就99.99999%能寫出來</p>
+<ol>
+<li>先寫選單，看你要怎麼分類</li>
+<li>再來每個選單都sendGetNumber並規範一個範圍</li>
+<li>新增變數id = 玩家輸入的代碼</li>
+<li>得到id 物品</li>
+</ol>
+<p>這樣就能寫出來了，其他想新增什麼判斷再修一修就行。</p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582390992222.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582390994724.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582390996883.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582391000227.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582391002899.PNG" alt=""></p>
+<p>我這是很粗糙版本的，你可以多寫一個是否同意領取該道具，萬一玩家輸入錯誤就可以反悔。</p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#requests">Requests</a>
-<ul>
-<li><a href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7">功能特性</a></li>
-<li><a href="#%E5%AE%89%E8%A3%9D%E6%96%B9%E6%B3%95">安裝方法</a></li>
-<li><a href="#%E5%BC%95%E5%85%A5%E6%A8%A1%E7%B5%84%E6%96%B9%E6%B3%95">引入模組方法</a></li>
-</ul>
-</li>
-<li><a href="#beautiful-soup">Beautiful Soup</a>
-<ul>
-<li><a href="#%E5%AE%89%E8%A3%9D%E6%96%B9%E6%B3%95-2">安裝方法</a></li>
-<li><a href="#%E5%BC%95%E5%85%A5%E6%A8%A1%E7%B5%84%E6%96%B9%E6%B3%95-2">引入模組方法</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -189,9 +124,9 @@ from bs4 import BeautifulSoup
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/lh0yq_CsU">
+            <a href="https://Z1Nhouse.github.io//post/pv4fc18vn">
               <h3 class="post-title">
-                初學者也能快速上手的Python爬蟲(1) - Anaconda安裝與Jupyter Notebook使用
+                楓之谷私服教學 - 如何新增全新的任務?(打怪/蒐集物品)
               </h3>
             </a>
           </div>

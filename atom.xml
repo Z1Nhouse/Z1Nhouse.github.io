@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-22T14:47:12.800Z</updated>
+    <updated>2020-02-22T17:05:10.893Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,35 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服 - 點裝領取系統]]></title>
+        <id>https://Z1Nhouse.github.io//post/Y6qQpOypx</id>
+        <link href="https://Z1Nhouse.github.io//post/Y6qQpOypx">
+        </link>
+        <updated>2020-02-22T16:59:12.000Z</updated>
+        <content type="html"><![CDATA[<p>emmmm... 我是不知道別的服怎麼設計的，我就自己隨意寫的</p>
+<p>原理很簡單<br>
+首先確認你的端口有沒有以下兩種函數(99.99999%都有)</p>
+<ul>
+<li>sendGetNumber</li>
+<li>isCash</li>
+</ul>
+<p>兩個都有就99.99999%能寫出來</p>
+<ol>
+<li>先寫選單，看你要怎麼分類</li>
+<li>再來每個選單都sendGetNumber並規範一個範圍</li>
+<li>新增變數id = 玩家輸入的代碼</li>
+<li>得到id 物品</li>
+</ol>
+<p>這樣就能寫出來了，其他想新增什麼判斷再修一修就行。</p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582390992222.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582390994724.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582390996883.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582391000227.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582391002899.PNG" alt=""></p>
+<p>我這是很粗糙版本的，你可以多寫一個是否同意領取該道具，萬一玩家輸入錯誤就可以反悔。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷私服教學 - 如何新增全新的任務?(打怪/蒐集物品)]]></title>
         <id>https://Z1Nhouse.github.io//post/pv4fc18vn</id>
@@ -1958,48 +1987,6 @@ function get_stageId(mapid) {
 function isRestingSpot(id) {
     return (get_stageId(id) &gt; 0);
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【JAVA】UVA 10056 - What is the Probability? ]]></title>
-        <id>https://Z1Nhouse.github.io//post/OnsEcwuX-</id>
-        <link href="https://Z1Nhouse.github.io//post/OnsEcwuX-">
-        </link>
-        <updated>2020-01-14T15:00:16.000Z</updated>
-        <content type="html"><![CDATA[<p>題目原文：<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=997">https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=12&amp;page=show_problem&amp;problem=997</a></p>
-<p><strong>Sample Input:</strong><br>
-2<br>
-2 0.166666 1<br>
-2 0.166666 2</p>
-<p><strong>Sample Output:</strong><br>
-0.5455<br>
-0.4545</p>
-<p><strong>題目大意：給你一個骰子，設現在有n人，骰到某數獲勝(1/6)，計算出獲勝的機率。</strong></p>
-<p>第一行輸入<code>幾組測資</code><br>
-第二行輸入<code>參加遊戲的人數、獲勝的機率、第幾個人獲勝</code></p>
-<p>※設N=人數、P=獲勝機率、I=第幾個人獲勝</p>
-<p>那麼每個回合獲勝的機率即為：<br>
-<img src="https://Z1Nhouse.github.io//post-images/1579014935551.png" alt=""></p>
-<pre><code class="language-java">import java.util.*;
-public class main{
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-		int count = sc.nextInt();
-
-		for (int i = 0; i &lt; count; i++) {
-		int N = sc.nextInt();
-		double P = sc.nextDouble();
-		int I = sc.nextInt();
-	
-		System.out.printf(&quot;%.4f&quot;, P == 0 ? P : P * Math.pow(1 - P, I - 1) / (1 - Math.pow(1 - P, N)));
-		System.out.println();
-		}
-
-		sc.close();
-    }
-};
-
 </code></pre>
 ]]></content>
     </entry>
