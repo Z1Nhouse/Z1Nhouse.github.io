@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>【楓之谷私服架設 相關問題彙整+解決辦法】 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582391108153">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582461368955">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582391108153" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582461368955" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -78,7 +78,7 @@
                 2020-01-14
               </span>
               <span>
-                7 min read
+                8 min read
               </span>
               
                 <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
@@ -91,12 +91,13 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>不限定版本，目前已成功架設的版本有：113,118,120,134,155,189... (<strong>目前專注於120白狐端</strong>)<br>
+                <p>不限定版本，目前已成功架設的版本有：113,118,120,134,155,183,189... (<strong>目前專注於120白狐端</strong>)<br>
 架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。<br>
 專注120白狐端的問題解決，113版有相同問題90%都可以採取一樣的解決方式。</p>
+<p>舊版的端口+客戶端網路上一抓一大把，我這邊就不提供了，ZZMS189的端口+客戶端+破解X3都在文中，自行尋找。</p>
 <!-- more -->
 <h2 id="架設教程">架設教程</h2>
-<p>先放上113,1188,120..這種舊版的私服架設教程(Youtube上很多教程,87楓谷也有詳細的教程)：<br>
+<p>先放上113,118,120..這種舊版的私服架設教程(Youtube上很多教程,87楓谷也有詳細的教程)：<br>
 首先需要安裝<code>WAMP、N8、JDK8</code>，並且準備好端口以及相對應版本的客戶端。</p>
 <ol>
 <li>開啟WAMP並將WAMP切換到上線狀態</li>
@@ -113,7 +114,37 @@ C:\Program Files\Java\jre1.8.0_231\lib\security
 5. 點擊maplestory，在maplestory上按右鍵 - 執行批次任務檔案*(勾選遇到錯誤繼續) - 選擇端口內的sql檔案後按開始<br>
 6. 開啟伺服器<br>
 7. 製作登入器(若已有就直接打開吧，成功按play就可以開啟遊戲了)</p>
-<p>下方為相關問題彙總：</p>
+<p>=============<strong>❤️ZZMS V189</strong></p>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582461237713.PNG" alt=""><br>
+<strong>下載</strong>：<br>
+<a href="https://drive.google.com/drive/folders/1-zR3QxgBIpCcXRQkMHL3yGqlMSMtUX4I">189.1架設端</a><br>
+<a href="https://drive.google.com/file/d/0ByGiqGBMaLSpWUZFRi1CYkxBdEU/edit">189主程式</a></p>
+<p>Q：ZZMS v189開啟伺服器說⚠️無法連接MySQL...的解決辦法：<br>
+A：若有開啟Wamp記得關閉，然後打開server/MySQL/bin/mysqld.exe</p>
+<ol>
+<li>
+<p>將189主程式建立捷徑到桌面，右鍵－內容<br>
+將路徑後方加上 127.0.0.1 8484 儲存<br>
+ex：<code>D:/ZZMS189/MapleStory/MapleStory.exe 127.0.0.1 8484</code></p>
+</li>
+<li>
+<p>右鍵 - 工作管理員開啟ZZMSServer</p>
+</li>
+<li>
+<p>更改一下設置，然後點「更新數據庫WZ」 , 「重載腳本」 , 「加載包頭檔案」 , 「重新載入數據」</p>
+</li>
+<li>
+<p>「啟動伺服器」</p>
+</li>
+<li>
+<p>右鍵 - 以工作管理員開啟MapleStory.exe</p>
+</li>
+</ol>
+<p>Q：如果Play後無反應 的解決辦法：<br>
+A：下載破解x3，丟入主程式XignCode裡覆蓋</p>
+<p><a href="https://drive.google.com/file/d/1iga98_wv_erV86zKsNIIhiWYWM0QJtau/view?usp=sharing">破解x3</a></p>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1582461246225.PNG" alt=""></figure>
+<p>⚠️下方為相關問題彙總：</p>
 <h2 id="wamp">WAMP</h2>
 <p>首先是新手最容易卡住的部分<strong>WAMP</strong>：</p>
 <ol>
@@ -130,7 +161,7 @@ C:\Program Files\Java\jre1.8.0_231\lib\security
 <ol start="2">
 <li>特別要注意的一點是，請一定要讓wamp在上線狀態...</li>
 </ol>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1578989823252.PNG" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1578989823252.PNG" alt=""></figure>
 <hr>
 <h2 id="mysql">MySQL</h2>
 <p><strong>MySQL</strong>相關問題：</p>
@@ -145,7 +176,7 @@ A：WAMP沒打開，或者沒將WAMP上線。</li>
 <ol>
 <li>假設你有遇到如下的問題：</li>
 </ol>
-<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1578989859254.PNG" alt=""></figure>
+<figure data-type="image" tabindex="3"><img src="https://Z1Nhouse.github.io//post-images/1578989859254.PNG" alt=""></figure>
 <p>A：請重新安裝<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8</a>並記得設定環境變數。<br>
 設定java環境變數的方法：<a href="https://dotblogs.com.tw/897920/2017/04/29/031442">https://dotblogs.com.tw/897920/2017/04/29/031442</a><br>
 ─═♤═─‧─═♥═─‧─═♤═─‧─═♥═─‧─═♤═─</p>
@@ -263,6 +294,7 @@ break;
 <h2 id="相關檔案">相關檔案</h2>
 <ul>
 <li>乾淨v120<code>ijl15.dll</code>：<a href="https://mega.nz/#!5wY3hAjL!IH1hoWXOp52swXgiuIW7dn6YMRNhGltf6bMQ_s-gNJk">點擊下載</a></li>
+<li><a href="https://github.com/reanox/MapleStory-tool">v113 v120 ijl15破攻+多開</a></li>
 <li>87楓之谷私服架設教學及工具包：<a href="https://www.87ms.net/erection">私服架設教學及工具包</a></li>
 </ul>
 <h2 id="推薦網站">推薦網站</h2>
