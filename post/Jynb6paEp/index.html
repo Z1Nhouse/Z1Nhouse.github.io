@@ -1,0 +1,394 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>楓之谷私服 - 告別楓票! 簡易銀行系統 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582707886435">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582707886435" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              楓之谷私服 - 告別楓票! 簡易銀行系統
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-26
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/Jynb6paEp.PNG" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>其實概念非常簡單..就是新增一個資料表儲存 存款 罷了。<br>
+直接告別楓票，不必再跑去換錢袋<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706523573.PNG" alt=""></p>
+<h2 id="新增資料表">新增資料表</h2>
+<p>sql語法：</p>
+<pre><code>SET FOREIGN_KEY_CHECKS=0; 
+-- ---------------------------- 
+-- Table structure for bank 
+-- ---------------------------- 
+DROP TABLE IF EXISTS `bank`; 
+CREATE TABLE `bank` ( 
+  `id` int(11) NOT NULL auto_increment, 
+  `charid` int(11) NOT NULL UNIQUE, 
+  `money` int(11) NOT NULL, 
+  PRIMARY KEY  (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1; 
+</code></pre>
+<h2 id="src">SRC</h2>
+<p>打開<code>Scripting/NPCConversationManager.java</code>，在最後一個}前加上：</p>
+<pre><code>//銀行系統
+    
+    public int getMoney() 
+        { 
+            int money=0; 
+            try { 
+                int cid = getPlayer().getId(); 
+                Connection con = DatabaseConnection.getConnection(); 
+                PreparedStatement limitCheck = con.prepareStatement(&quot;SELECT * FROM Bank WHERE charid=&quot;+cid+&quot;&quot;); 
+                ResultSet rs = limitCheck.executeQuery(); 
+                if(rs.next()) 
+                { 
+                    money=rs.getInt(&quot;money&quot;); 
+                } 
+                limitCheck.close(); 
+                rs.close(); 
+                } catch (SQLException ex) { 
+                } 
+                return money; 
+        } 
+        
+        public int addMoney(int money,int type) 
+        {    
+            try { 
+                int cid = getPlayer().getId(); 
+              
+                Connection con = DatabaseConnection.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(&quot;select * from bank where charid=?&quot;); 
+                ps.setInt(1, cid); 
+                ResultSet rs=ps.executeQuery(); 
+                if(rs.next()) 
+                { 
+                    if(type==1) 
+                    { 
+                        if(money&gt;rs.getInt(&quot;money&quot;)) 
+                        { 
+                            return -1; 
+                        } 
+                    } 
+                    ps = con.prepareStatement(&quot;UPDATE Bank SET money =money+ &quot; + money + &quot; WHERE charid = &quot; + cid + &quot;&quot;); 
+                    return ps.executeUpdate();                    
+                } 
+                
+            } catch (SQLException ex) {                
+            } 
+              return 0; 
+        } 
+        public int addBank() 
+        { 
+            int r=0; 
+        try { 
+            Connection con = DatabaseConnection.getConnection(); 
+            PreparedStatement ps = con.prepareStatement(&quot;insert into bank (charid,money) values (?,0)&quot;); 
+            ps.setInt(1, getPlayer().getId());            
+            r=ps.executeUpdate(); 
+            ps.close(); 
+            
+        } catch (SQLException ex) { 
+          r=0; 
+        } 
+            return r; 
+        } 
+</code></pre>
+<h2 id="npc腳本">NPC腳本</h2>
+<p>實在太過簡單，不想解釋了，金額可以隨意更改，也可以新增金額。</p>
+<pre><code>/*簡易銀行系統*/
+var status = 0;
+var t=new Array(&quot;存錢&quot;,&quot;取錢&quot;,&quot;查看&quot;,&quot;開戶&quot;);
+var money=new Array(&quot;500W&quot;,&quot;1000W&quot;,&quot;5000W&quot;,&quot;1E&quot;); 
+var money1=new Array(&quot;5000000&quot;,&quot;10000000&quot;,&quot;50000000&quot;,&quot;100000000&quot;); 
+var x=0;
+function start() {
+status = -1;
+action(1, 0, 0);
+}
+function action(mode, type, selection) {
+    if (mode == -1) {
+      cm.dispose();
+    } else {
+          if (mode == 0 &amp;&amp; status == 0) {
+          cm.dispose();
+          return;
+      }
+      if (mode == 1)
+      status++;
+      else
+      status--;
+      if (status == 0) 
+      {
+        cm.sendNext(&quot;歡迎使用 #b銀行系統#k 我的朋友! 請先開戶後再進行存款以及取錢的動作，請注意#r存錢之後需要一點時間才能取錢#k，否則系統抓不到數據哦！&quot;); 
+      } 
+      else if (status == 1) { 
+        var a = &quot;請選擇你需要的功能.#b&quot;; 
+                    for (var i=0; i &lt; t.length; i++) { 
+                    a += &quot;\r\n#L&quot; + i + &quot;#&quot; + t[ i ]+&quot;&quot;; 
+                    } 
+                  cm.sendSimple(a); 
+        }
+      else if(status == 2)
+      {
+            x=selection;
+          if(x==2)
+          {
+            cm.sendOk(&quot;您的存款有&quot;+cm.getMoney()+&quot; &quot;);
+            cm.dispose();
+          }
+          else if (x==3)
+            {
+                if(cm.addBank()&gt;0)
+                {
+                    cm.sendOk(&quot;恭喜您,開戶成功!&quot;); 
+                    }
+                    else
+                    {
+                        cm.sendOk(&quot;很抱歉,開戶失敗!可能您已經開戶過了哦!&quot;);
+                    }
+                    cm.dispose();
+            }
+          else
+          {
+          
+          var b = &quot; 請選擇金額.#b&quot;; 
+                        for (var i=0; i &lt; money.length; i++) { 
+                        b += &quot;\r\n#L&quot; + i + &quot;#&quot; + money[ i ]+&quot;&quot;; 
+                        } 
+                        cm.sendSimple(b); 
+          }
+      }
+      else if (status == 3) { 
+          var choose=money1[selection];
+          if(x==0)//存 
+            { 
+            if(cm.getMeso()&lt;choose)
+            {
+                cm.sendOk(&quot;Oh,Sorry,您的錢不夠!&quot;);    
+            }
+            else if(cm.addMoney(choose,0)&gt;0)
+                {
+                cm.gainMeso(-choose);
+                cm.sendOk(&quot;好的,已經存入!&quot;);
+                }
+                else
+                {
+                cm.sendOk(&quot;Error:請反饋給管理員!&quot;);
+
+                }
+                cm.dispose();
+            } 
+            else if(x==1)//取 
+            { 
+            if(cm.getMoney()&lt;choose)
+            {
+                cm.sendOk(&quot;Oh,Sorry,您存款沒有那麼多呢!&quot;);    
+            }
+                else if(cm.addMoney(-choose,1)&gt;0)
+                {
+                cm.gainMeso(choose);
+                cm.sendOk(&quot;好的,請收好您的錢!&quot;);
+                }
+                else
+                {
+                cm.sendOk(&quot;Error:請反饋給管理員!&quot;);
+                }
+                cm.dispose();
+              }
+            
+      
+      }
+      else
+      {
+      cm.dispose();
+      }
+    }
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%96%B0%E5%A2%9E%E8%B3%87%E6%96%99%E8%A1%A8">新增資料表</a></li>
+<li><a href="#src">SRC</a></li>
+<li><a href="#npc%E8%85%B3%E6%9C%AC">NPC腳本</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/Y6qQpOypx">
+              <h3 class="post-title">
+                楓之谷私服 - 點裝領取系統/小便系統/賞金任務
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

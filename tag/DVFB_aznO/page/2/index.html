@@ -1,0 +1,166 @@
+<html>
+  <head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>楓之谷私服 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582707886435">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582707886435" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="current-tag-container">
+            <h2 class="title">
+                标签：# 楓之谷私服
+            </h2> 
+        </div>
+        <div class="post-container">
+  
+    <article class="post">
+      <a href="https://Z1Nhouse.github.io//post/WV7f4tGkt">
+        <h2 class="post-title">【楓之谷私服架設 相關問題彙整+解決辦法】</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2020-01-14
+        </span>
+        <span>
+          8 min read
+        </span>
+        
+          <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+            # 楓之谷私服
+          </a>
+        
+      </div>
+      
+        <a href="https://Z1Nhouse.github.io//post/WV7f4tGkt" class="post-feature-image" style="background-image: url('https://Z1Nhouse.github.io//post-images/WV7f4tGkt.PNG')">
+        </a>
+      
+      <div class="post-abstract">
+        <p>不限定版本，目前已成功架設的版本有：113,118,120,134,155,183,189... (<strong>目前專注於120白狐端</strong>)<br>
+架設過程中遇到的問題都會列出來，順便分享當時的解決辦法。<br>
+專注120白狐端的問題解決，113版有相同問題90%都可以採取一樣的解決方式。</p>
+<p>舊版的端口+客戶端網路上一抓一大把，我這邊就不提供了，ZZMS189的端口+客戶端+破解X3都在文中，自行尋找。</p>
+
+      </div>
+    </article>
+  
+</div>
+
+        <div class="pagination-container">
+  
+    <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO/" class="prev-page">上一页</a>
+  
+  
+</div>
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

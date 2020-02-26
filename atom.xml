@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-23T12:36:12.930Z</updated>
+    <updated>2020-02-26T09:04:55.700Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -11,12 +11,216 @@
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
     <entry>
-        <title type="html"><![CDATA[楓之谷私服 - 點裝領取系統]]></title>
+        <title type="html"><![CDATA[楓之谷私服 - 告別楓票! 簡易銀行系統]]></title>
+        <id>https://Z1Nhouse.github.io//post/Jynb6paEp</id>
+        <link href="https://Z1Nhouse.github.io//post/Jynb6paEp">
+        </link>
+        <updated>2020-02-26T08:36:16.000Z</updated>
+        <content type="html"><![CDATA[<p>其實概念非常簡單..就是新增一個資料表儲存 存款 罷了。<br>
+直接告別楓票，不必再跑去換錢袋<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706523573.PNG" alt=""></p>
+<h2 id="新增資料表">新增資料表</h2>
+<p>sql語法：</p>
+<pre><code>SET FOREIGN_KEY_CHECKS=0; 
+-- ---------------------------- 
+-- Table structure for bank 
+-- ---------------------------- 
+DROP TABLE IF EXISTS `bank`; 
+CREATE TABLE `bank` ( 
+  `id` int(11) NOT NULL auto_increment, 
+  `charid` int(11) NOT NULL UNIQUE, 
+  `money` int(11) NOT NULL, 
+  PRIMARY KEY  (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1; 
+</code></pre>
+<h2 id="src">SRC</h2>
+<p>打開<code>Scripting/NPCConversationManager.java</code>，在最後一個}前加上：</p>
+<pre><code>//銀行系統
+    
+    public int getMoney() 
+        { 
+            int money=0; 
+            try { 
+                int cid = getPlayer().getId(); 
+                Connection con = DatabaseConnection.getConnection(); 
+                PreparedStatement limitCheck = con.prepareStatement(&quot;SELECT * FROM Bank WHERE charid=&quot;+cid+&quot;&quot;); 
+                ResultSet rs = limitCheck.executeQuery(); 
+                if(rs.next()) 
+                { 
+                    money=rs.getInt(&quot;money&quot;); 
+                } 
+                limitCheck.close(); 
+                rs.close(); 
+                } catch (SQLException ex) { 
+                } 
+                return money; 
+        } 
+        
+        public int addMoney(int money,int type) 
+        {    
+            try { 
+                int cid = getPlayer().getId(); 
+              
+                Connection con = DatabaseConnection.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(&quot;select * from bank where charid=?&quot;); 
+                ps.setInt(1, cid); 
+                ResultSet rs=ps.executeQuery(); 
+                if(rs.next()) 
+                { 
+                    if(type==1) 
+                    { 
+                        if(money&gt;rs.getInt(&quot;money&quot;)) 
+                        { 
+                            return -1; 
+                        } 
+                    } 
+                    ps = con.prepareStatement(&quot;UPDATE Bank SET money =money+ &quot; + money + &quot; WHERE charid = &quot; + cid + &quot;&quot;); 
+                    return ps.executeUpdate();                    
+                } 
+                
+            } catch (SQLException ex) {                
+            } 
+              return 0; 
+        } 
+        public int addBank() 
+        { 
+            int r=0; 
+        try { 
+            Connection con = DatabaseConnection.getConnection(); 
+            PreparedStatement ps = con.prepareStatement(&quot;insert into bank (charid,money) values (?,0)&quot;); 
+            ps.setInt(1, getPlayer().getId());            
+            r=ps.executeUpdate(); 
+            ps.close(); 
+            
+        } catch (SQLException ex) { 
+          r=0; 
+        } 
+            return r; 
+        } 
+</code></pre>
+<h2 id="npc腳本">NPC腳本</h2>
+<p>實在太過簡單，不想解釋了，金額可以隨意更改，也可以新增金額。</p>
+<pre><code>/*簡易銀行系統*/
+var status = 0;
+var t=new Array(&quot;存錢&quot;,&quot;取錢&quot;,&quot;查看&quot;,&quot;開戶&quot;);
+var money=new Array(&quot;500W&quot;,&quot;1000W&quot;,&quot;5000W&quot;,&quot;1E&quot;); 
+var money1=new Array(&quot;5000000&quot;,&quot;10000000&quot;,&quot;50000000&quot;,&quot;100000000&quot;); 
+var x=0;
+function start() {
+status = -1;
+action(1, 0, 0);
+}
+function action(mode, type, selection) {
+    if (mode == -1) {
+      cm.dispose();
+    } else {
+          if (mode == 0 &amp;&amp; status == 0) {
+          cm.dispose();
+          return;
+      }
+      if (mode == 1)
+      status++;
+      else
+      status--;
+      if (status == 0) 
+      {
+        cm.sendNext(&quot;歡迎使用 #b銀行系統#k 我的朋友! 請先開戶後再進行存款以及取錢的動作，請注意#r存錢之後需要一點時間才能取錢#k，否則系統抓不到數據哦！&quot;); 
+      } 
+      else if (status == 1) { 
+        var a = &quot;請選擇你需要的功能.#b&quot;; 
+                    for (var i=0; i &lt; t.length; i++) { 
+                    a += &quot;\r\n#L&quot; + i + &quot;#&quot; + t[ i ]+&quot;&quot;; 
+                    } 
+                  cm.sendSimple(a); 
+        }
+      else if(status == 2)
+      {
+            x=selection;
+          if(x==2)
+          {
+            cm.sendOk(&quot;您的存款有&quot;+cm.getMoney()+&quot; &quot;);
+            cm.dispose();
+          }
+          else if (x==3)
+            {
+                if(cm.addBank()&gt;0)
+                {
+                    cm.sendOk(&quot;恭喜您,開戶成功!&quot;); 
+                    }
+                    else
+                    {
+                        cm.sendOk(&quot;很抱歉,開戶失敗!可能您已經開戶過了哦!&quot;);
+                    }
+                    cm.dispose();
+            }
+          else
+          {
+          
+          var b = &quot; 請選擇金額.#b&quot;; 
+                        for (var i=0; i &lt; money.length; i++) { 
+                        b += &quot;\r\n#L&quot; + i + &quot;#&quot; + money[ i ]+&quot;&quot;; 
+                        } 
+                        cm.sendSimple(b); 
+          }
+      }
+      else if (status == 3) { 
+          var choose=money1[selection];
+          if(x==0)//存 
+            { 
+            if(cm.getMeso()&lt;choose)
+            {
+                cm.sendOk(&quot;Oh,Sorry,您的錢不夠!&quot;);    
+            }
+            else if(cm.addMoney(choose,0)&gt;0)
+                {
+                cm.gainMeso(-choose);
+                cm.sendOk(&quot;好的,已經存入!&quot;);
+                }
+                else
+                {
+                cm.sendOk(&quot;Error:請反饋給管理員!&quot;);
+
+                }
+                cm.dispose();
+            } 
+            else if(x==1)//取 
+            { 
+            if(cm.getMoney()&lt;choose)
+            {
+                cm.sendOk(&quot;Oh,Sorry,您存款沒有那麼多呢!&quot;);    
+            }
+                else if(cm.addMoney(-choose,1)&gt;0)
+                {
+                cm.gainMeso(choose);
+                cm.sendOk(&quot;好的,請收好您的錢!&quot;);
+                }
+                else
+                {
+                cm.sendOk(&quot;Error:請反饋給管理員!&quot;);
+                }
+                cm.dispose();
+              }
+            
+      
+      }
+      else
+      {
+      cm.dispose();
+      }
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服 - 點裝領取系統/小便系統/賞金任務]]></title>
         <id>https://Z1Nhouse.github.io//post/Y6qQpOypx</id>
         <link href="https://Z1Nhouse.github.io//post/Y6qQpOypx">
         </link>
         <updated>2020-02-22T16:59:12.000Z</updated>
-        <content type="html"><![CDATA[<p>emmmm... 我是不知道別的服怎麼設計的，我就自己隨意寫的</p>
+        <content type="html"><![CDATA[<p>此篇文章先用來記錄我還沒來得及或者不想寫教程的那些系統...</p>
+<h2 id="點裝領取系統">點裝領取系統</h2>
+<p>emmmm... 我是不知道別的服怎麼設計的，我就自己隨意寫的</p>
 <p>原理很簡單<br>
 首先確認你的端口有沒有以下兩種函數(99.99999%都有)</p>
 <ul>
@@ -37,6 +241,18 @@
 <img src="https://Z1Nhouse.github.io//post-images/1582391000227.PNG" alt=""><br>
 <img src="https://Z1Nhouse.github.io//post-images/1582391002899.PNG" alt=""></p>
 <p>我這是很粗糙版本的，你可以多寫一個是否同意領取該道具，萬一玩家輸入錯誤就可以反悔。</p>
+<h2 id="小便系統">小便系統</h2>
+<p>沒打算寫教程，因為海外論壇就有了很詳細的教學：<a href="http://forum.ragezone.com/f427/pee-system-671884/">Pee System!</a></p>
+<p>這個系統可以用來防掛機，你可以修改需要上廁所的時間，也可以修改在哪裡上廁所<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706783158.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706786330.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706788967.PNG" alt=""></p>
+<p>輸入指令@pee就可以上廁所，不上會死跟人一樣，哈哈。</p>
+<h2 id="賞金任務">賞金任務</h2>
+<p>不需要手動改WZ就可以新增任務，非常方便。<br>
+需要新增一個資料表用來記錄玩家任務進行的狀態，除此之外真的純粹靠JS。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706841070.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582706942332.PNG" alt=""></p>
 ]]></content>
     </entry>
     <entry>
@@ -145,7 +361,7 @@ rewardSummary是在任務欄「任務獎勵」顯示的內容</p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[楓之谷私服 賭博JS(21點、倍數賭博機、比大小、踩地雷、老虎機)]]></title>
+        <title type="html"><![CDATA[分享賭博+小遊戲系列JS (21點、寶石連線、排列組合、踩地雷、老虎機)]]></title>
         <id>https://Z1Nhouse.github.io//post/5KthHuPnW</id>
         <link href="https://Z1Nhouse.github.io//post/5KthHuPnW">
         </link>
@@ -937,6 +1153,1613 @@ cm.dispose();
 }
 }
 
+</code></pre>
+<h2 id="black-jack-精緻版的21點腳本">Black Jack 精緻版的21點腳本</h2>
+<p>來源：<a href="http://forum.ragezone.com/f427/add-blackjack-npc-750290/">Sharky</a></p>
+<figure data-type="image" tabindex="1"><img src="https://xinchistory.com/ckeditor_upload/uploads/1582557264_GDlbvEBCseiCt26.PNG" alt=""></figure>
+<pre><code class="language-JavaScript">/**
+*
+* @author Sharky
+* @info BlackJack NPC
+*/
+importPackage(java.lang);
+var debug = false; // set to true for debugging checks to appear in your .bat files
+var status = 0, bet, selected;
+var whichFunction = {&quot;HowToPlay&quot; : false, &quot;PlayGame&quot; : false, &quot;SpendChips&quot; : false};
+var playingAction = {&quot;Hit&quot; : false, &quot;Stay&quot; : false};
+var CardsInDeck = [[], []], CardsInPlayerHand = [[], []], CardsInDealerHand = [[], []];
+var prizes = [[4001008], [10]]; // Item 4001008 (Pass) costs 10 Chips
+// var prizes = [[enter, item, ids, here, like, so], [enter, amount, of, chips, needed, for, corresponding, item, here, like, so]];
+
+function start() {
+cm.sendSimple(&quot;你好！我是#rBlackJack莊家#k.#b \r\n\t#L0#我該怎麼玩BlackJack？#l \r\n\t#L1#我想玩Black Jack！#l \r\n\t#L2#我想用我的Black Jack 籌碼換取獎品！#l&quot;);
+}
+
+function action(m,t,s) {
+if(m == -1 || (m != 1 &amp;&amp; whichFunction[&quot;PlayGame&quot;])) {
+cm.dispose();
+return;
+} else {
+if(m == 1) {
+status++;
+} else {
+status--;
+}
+if(!whichFunction[&quot;HowToPlay&quot;] &amp;&amp; !whichFunction[&quot;PlayGame&quot;] &amp;&amp; !whichFunction[&quot;SpendChips&quot;]) {
+whichFunction[s == 0 ? &quot;HowToPlay&quot; : s == 1 ? &quot;PlayGame&quot; : &quot;SpendChips&quot;] = true;
+}
+if(whichFunction[&quot;HowToPlay&quot;]) {
+HowToPlay();
+} else if (whichFunction[&quot;PlayGame&quot;]) {
+PlayGame(s);
+} else if (whichFunction[&quot;SpendChips&quot;]) {
+SpendChips(s);
+}
+}
+}
+
+function HowToPlay() {
+if(status == 1) {
+if(debug) {
+System.out.println(&quot;HowToPlay() is progressing...&quot;);
+}
+cm.sendNext(&quot;好吧，我看到我們這裡有一個菜鳥！不用擔心，我會很樂意教您如何玩 #rBlackJack#k!&quot;);
+} else if (status == 2) {
+cm.sendNextPrev(&quot;系統會給您 #b籌碼#k玩遊戲。這些#b籌碼#k 是給您用來下注的！在發給您任何牌之前，您必須先下注。如果您贏得一輪，您的籌碼將增加一倍，如果您只抽兩張牌就達到#bBlack Jack#k（21點），您的籌碼將被返還2.5倍！&quot;);
+} else if (status == 3) {
+cm.sendNextPrev(&quot;在遊戲開始時，您將獲得2張卡。計算這些卡並加總值。 #b遊戲的目標是當您將手中的所有卡牌加在一起時獲得21點（或接近21點）。#k. 完成此操作後，您可以選擇#bHit#k (用來抽出另一張牌), 或 #bStay#k. 如果您選擇#bhit#k, 請記住，超過21點將導致您#r爆掉#k, 或將游戲輸給發牌人。如果您認為自己已經接近21，並且希望#bstay#k, 您將和發牌者將比較大小，最接近21者勝！&quot;);
+} else if (status == 4) {
+cm.sendPrev(&quot;請記住，如果輸了，您給發牌者的所有#b籌碼#k都會輸掉！祝好運！&quot;);
+} else if (status == 5) {
+cm.dispose();
+}
+}    
+
+function PlayGame(s) {
+if(status == 1) {
+if(debug) {
+System.out.println(&quot;PlayGame() is progressing...&quot;);
+}
+if(cm.getPlayer().getBlackJackChips() == 0) {
+cm.getPlayer().gainBlackJackChips(5);
+}
+cm.sendGetNumber(&quot;您目前有 #b&quot; + cm.getPlayer().getBlackJackChips() + &quot; BlackJack 籌碼#k. 多少 #b籌碼#k 你想在本輪投注？&quot;, 1, 1, cm.getPlayer().getBlackJackChips());
+} else if (status == 2) {
+if(s &gt; 0 &amp;&amp; s &lt;= cm.getPlayer().getBlackJackChips()) { // packet edits
+bet = s;
+if(debug) {
+System.out.println(&quot;Deck Initializing...&quot;);
+}
+InitializeGame();
+var totP = GetTotalCardValue(&quot;Player&quot;), totD = GetTotalCardValue(&quot;Dealer&quot;);
+if(totD == 21 &amp;&amp; CardsInDealerHand[0].length == 2 &amp;&amp; totP == 21 &amp;&amp; CardsInPlayerHand[0].length == 2) {
+Finish(&quot;Tie&quot;);
+} else if (totP == 21 &amp;&amp; CardsInPlayerHand[0].length == 2) {
+Finish(&quot;Player21&quot;);
+} else if (totD == 21 &amp;&amp; CardsInDealerHand[0].length == 2) {
+Finish(&quot;Dealer21&quot;);
+} else {
+DisplayHandWithProgression();
+}
+}
+} else if (status &gt; 2) {
+playingAction[s == 0 ? &quot;Hit&quot; : &quot;Stay&quot;] = true;
+var totP, totD;
+if(playingAction[&quot;Stay&quot;]) {
+if(debug) {
+System.out.println(&quot;玩家選擇 Stay.&quot;);
+}
+if(totD &lt; 16) {
+CompleteDealer();
+if(debug) {
+System.out.println(&quot;當玩家選擇Stay時，發牌者低於16，發牌者成功完成。&quot;);
+}
+}
+totP = GetTotalCardValue(&quot;Player&quot;), totD = GetTotalCardValue(&quot;Dealer&quot;);
+if(totP &gt; 21 &amp;&amp; totD &gt; 21) {
+Finish(&quot;DoubleBust&quot;);
+} else if (totP &gt; 21) {
+Finish(&quot;PlayerBust&quot;);
+} else if (totD &gt; 21) {
+Finish(&quot;DealerBust&quot;);
+} else if(totP == totD) {
+Finish(&quot;Tie&quot;);
+} else if (totP == 21 &amp;&amp; CardsInPlayerHand[0].length == 2) {
+Finish(&quot;Player21&quot;);
+} else if (totD == 21 &amp;&amp; CardsInDealerHand[0].length == 2) {
+Finish(&quot;Dealer21&quot;);
+} else if (totP &gt; totD) {
+Finish(&quot;Win&quot;);
+} else if (totP &lt; totD) {
+Finish(&quot;Lose&quot;);
+}
+} else if(playingAction[&quot;Hit&quot;]) {
+AddCardToHand();
+totP = GetTotalCardValue(&quot;Player&quot;), totD = GetTotalCardValue(&quot;Dealer&quot;);
+if(totD == 21 &amp;&amp; CardsInDealerHand[0].length == 2 &amp;&amp; totP == 21 &amp;&amp; CardsInPlayerHand[0].length == 2) {
+Finish(&quot;Tie&quot;);
+} else if (totP == 21 &amp;&amp; CardsInPlayerHand[0].length == 2) {
+Finish(&quot;Player21&quot;);
+} else if (totD == 21 &amp;&amp; CardsInDealerHand[0].length == 2) {
+Finish(&quot;Dealer21&quot;);
+} else if (totP &gt; 21) {
+Finish(&quot;PlayerBust&quot;);
+} else if (totD &gt; 21) {
+Finish(&quot;DealerBust&quot;);
+} else {
+DisplayHandWithProgression();
+}
+}
+}
+}
+
+function InitializeGame() {
+var cardNames = [&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot;, &quot;Five&quot;, &quot;Six&quot;, &quot;Seven&quot;, &quot;Eight&quot;, &quot;Nine&quot;, &quot;Ten&quot;, &quot;Jack&quot;, &quot;Queen&quot;, &quot;King&quot;, &quot;Ace&quot;];
+var cardSuits = [&quot;Hearts&quot;, &quot;Spades&quot;, &quot;Diamonds&quot;, &quot;Clubs&quot;];
+for(var i = 0, a = 0; a &lt; cardNames.length; i++) {
+if(i == 4) {
+a++;
+i = 0;
+}
+CardsInDeck[0].push(cardNames[a]);
+CardsInDeck[1].push(cardSuits[i]);
+}
+CardsInDeck[0].splice(-1);
+CardsInDeck[1].splice(-1);
+if(debug) {
+for(var i = 0; i &lt; CardsInDeck[0].length; i++) {
+System.out.println(CardsInDeck[0][i] + &quot; of &quot; + CardsInDeck[1][i] + &quot; pushed.&quot;);
+}
+}
+AddCardToHand();
+AddCardToHand();
+}
+
+function AddCardToHand() {
+var random;
+random = Math.floor(Math.random() * CardsInDeck[0].length);
+CardsInPlayerHand[0].push(CardsInDeck[0][random]);
+CardsInPlayerHand[1].push(CardsInDeck[1][random]);
+if(debug) {
+System.out.println(&quot;Card Added to Player Hand: &quot; + CardsInDeck[0][random] + &quot; of &quot; + CardsInDeck[1][random]);
+}
+for(var i = 0; i &lt; CardsInDeck[0].length; i++) {
+if(CardsInPlayerHand[0][CardsInPlayerHand[0].length - 1] == CardsInDeck[0][i] &amp;&amp; CardsInPlayerHand[1][CardsInPlayerHand[1].length - 1] == CardsInDeck[1][i]) {
+if(debug) {
+System.out.println(&quot;Card Spliced from Deck: &quot; + CardsInDeck[0][i] + &quot; of &quot; + CardsInDeck[1][i]);
+}
+CardsInDeck[0].splice(i, 1);
+CardsInDeck[1].splice(i, 1);
+break;
+}
+}
+if(GetTotalCardValue(&quot;Dealer&quot;) &lt; 16) {
+random = Math.floor(Math.random() * CardsInDeck[0].length);
+CardsInDealerHand[0].push(CardsInDeck[0][random]);
+CardsInDealerHand[1].push(CardsInDeck[1][random]);
+if(debug) {
+System.out.println(&quot;Card Added to Dealer Hand: &quot; + CardsInDeck[0][random] + &quot; of &quot; + CardsInDeck[1][random]);
+}
+for(var i = 0; i &lt; CardsInDeck[0].length; i++) {
+if(CardsInDealerHand[0][CardsInDealerHand[0].length - 1] == CardsInDeck[0][i] &amp;&amp; CardsInDealerHand[1][CardsInDealerHand[1].length - 1] == CardsInDeck[1][i]) {
+if(debug) {
+System.out.println(&quot;Card Spliced from Deck: &quot; + CardsInDeck[0][i] + &quot; of &quot; + CardsInDeck[1][i]);
+}
+CardsInDeck[0].splice(i, 1);
+CardsInDeck[1].splice(i, 1);
+break;
+}
+}
+}
+}
+
+function CompleteDealer() {
+while (GetTotalCardValue(&quot;Dealer&quot;) &lt; 16) {
+var random = Math.floor(Math.random() * CardsInDeck[0].length);
+CardsInDealerHand[0].push(CardsInDeck[0][random]);
+CardsInDealerHand[1].push(CardsInDeck[1][random]);
+if(debug) {
+System.out.println(&quot;Card Added to Dealer Hand: &quot; + CardsInDeck[0][random] + &quot; of &quot; + CardsInDeck[1][random]);
+}
+for(var i = 0; i &lt; CardsInDeck[0].length; i++) {
+if(CardsInDealerHand[0][CardsInDealerHand[0].length - 1] == CardsInDeck[0][i] &amp;&amp; CardsInDealerHand[1][CardsInDealerHand.length - 1] == CardsInDeck[1][i]) {
+if(debug) {
+System.out.println(&quot;Card Spliced from Deck: &quot; + CardsInDeck[0][i] + &quot; of &quot; + CardsInDeck[1][i]);
+}
+CardsInDeck[0].splice(i, 1);
+CardsInDeck[1].splice(i, 1);
+break;
+}
+}
+}
+}
+
+function GetValueByName(name) {
+var nums = [[&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot;, &quot;Five&quot;, &quot;Six&quot;, &quot;Seven&quot;, &quot;Eight&quot;, &quot;Nine&quot;, &quot;Ten&quot;, &quot;Jack&quot;, &quot;Queen&quot;, &quot;King&quot;, &quot;Ace&quot;], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]];
+for(var i = 0; i &lt; nums[0].length; i++) {
+if(name == nums[0][i]) {
+return nums[1][i];
+}
+}
+}
+
+function DisplayHandWithProgression() {
+var text = &quot;#d#n你手中的牌:#k#e&quot;
+if(CardsInPlayerHand[0].length &gt; 1) {
+text += &quot;\r\n#e第一張牌:#n #d&quot; + CardsInPlayerHand[0][0] + &quot;#k of &quot; + (CardsInPlayerHand[1][0].equals(&quot;Hearts&quot;) || CardsInPlayerHand[1][0].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInPlayerHand[1][0] + &quot;#k&quot;) : CardsInPlayerHand[1][0]) +
+&quot;\r\n#e第二張牌:#n #d&quot; + CardsInPlayerHand[0][1] + &quot;#k of &quot; + (CardsInPlayerHand[1][1].equals(&quot;Hearts&quot;) || CardsInPlayerHand[1][1].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInPlayerHand[1][1] + &quot;#k&quot;) : CardsInPlayerHand[1][1]);
+}
+if (CardsInPlayerHand[0].length &gt; 2) {
+text += &quot;\r\n#e第三張牌:#n #d&quot; + CardsInPlayerHand[0][2] + &quot;#k of &quot; + (CardsInPlayerHand[1][2].equals(&quot;Hearts&quot;) || CardsInPlayerHand[1][2].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInPlayerHand[1][2] + &quot;#k&quot;) : CardsInPlayerHand[1][2]);
+}
+if (CardsInPlayerHand[0].length &gt; 3) {
+text += &quot;\r\n#e第四張牌:#n #d&quot; + CardsInPlayerHand[0][3] + &quot;#k of &quot; + (CardsInPlayerHand[1][3].equals(&quot;Hearts&quot;) || CardsInPlayerHand[1][3].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInPlayerHand[1][3] + &quot;#k&quot;) : CardsInPlayerHand[1][3]);
+}
+if (CardsInPlayerHand[0].length &gt; 4) {
+text += &quot;\r\n#e第五張牌:#n #d&quot; + CardsInPlayerHand[0][4] + &quot;#k of &quot; + (CardsInPlayerHand[1][4].equals(&quot;Hearts&quot;) || CardsInPlayerHand[1][4].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInPlayerHand[1][4] + &quot;#k&quot;) : CardsInPlayerHand[1][4]);
+}
+text += &quot;\r\n\r\n#e總額: #b&quot; + GetTotalCardValue(&quot;Player&quot;);
+if(CardsInPlayerHand[0].length &gt; 4) {
+text += &quot;\r\n看來您必須#bstay#k看看結果如何。#b \r\n\t#L1#Stay#l&quot;;
+} else {
+text += &quot;\r\n你想選擇什麼？#b \r\n\t#L0#Hit#l \r\n\t#L1#Stay#l&quot;;
+}
+cm.sendSimple(text);
+}
+
+function GetTotalCardValue(name) {
+var sum = 0;
+if(name.equals(&quot;Player&quot;)) {
+for(var i = 0; i &lt; CardsInPlayerHand[0].length; i++) {
+sum += GetValueByName(CardsInPlayerHand[0][i]);
+}
+} else if (name.equals(&quot;Dealer&quot;)) {
+for(var i = 0; i &lt; CardsInDealerHand[0].length; i++) {
+sum += GetValueByName(CardsInDealerHand[0][i]);
+}
+}
+return sum;
+}
+
+function Finish(action) {
+if(action.equals(&quot;DoubleBust&quot;)) {
+cm.sendOk(&quot;看起來我們倆都#r爆#k了! \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot; \r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n我想沒人勝利.&quot;);
+} else if (action.equals(&quot;PlayerBust&quot;)) {
+cm.sendOk(&quot;哈哈，你看起來 #r爆#k了! \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot; \r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n抱歉，但是我好像要把你的 #b籌碼#k拿走!&quot;);
+cm.getPlayer().gainBlackJackChips(-bet);
+} else if (action.equals(&quot;DealerBust&quot;)) {
+cm.sendOk(&quot;我不能相信! 我 #r爆#k了! \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot; \r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n看來您已經贏得了一些#b籌碼#k!&quot;);
+cm.getPlayer().gainBlackJackChips(bet);
+} else if (action.equals(&quot;Tie&quot;)) {
+cm.sendOk(&quot;We tied! \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot;\r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n看來我們倆都沒贏...&quot;);
+} else if (action.equals(&quot;Player21&quot;)) {
+cm.sendOk(&quot;Wow! 你有 #rBlackJack#k! 這代表你用兩張牌得到 #r21 #k! \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot; \r\n你贏得了 #b2.5x 的籌碼#k&quot;);
+cm.getPlayer().gainBlackJackChips(bet + (bet % 2 != 0 ? ((bet + 1) / 2) : (bet / 2)));
+} else if (action.equals(&quot;Dealer21&quot;)) {
+cm.sendOk(&quot;#rBLACKJACK!#k 哈哈，看來我以兩張牌贏了#r21#k! \r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n抱歉，看來我必須帶走您的#b籌碼#k! 下次好運！&quot;);
+cm.getPlayer().gainBlackJackChips(-bet);
+} else if (action.equals(&quot;Win&quot;)) {
+cm.sendOk(&quot;我不敢相信，你贏了! \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot;\r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n看來您贏了一些 #b籌碼#k!&quot;);
+cm.getPlayer().gainBlackJackChips(bet);
+} else if (action.equals(&quot;Lose&quot;)) {
+cm.sendOk(&quot;哈哈，看起來你輸了！ \r\n#b你手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Player&quot;) + &quot;\r\n#r我手中的牌:#k \r\n\t&quot; + DisplayCardsInHand(&quot;Dealer&quot;) + &quot; \r\n抱歉，看來我必須帶走您的#b籌碼#k! 下次好運！&quot;);
+cm.getPlayer().gainBlackJackChips(-bet);
+}
+if(debug) {
+System.out.println(&quot;Finish() carried out with a &quot; + action);
+}
+cm.dispose();
+}
+
+function DisplayCardsInHand(name) {
+var cards = &quot;&quot;;
+if(name.equals(&quot;Player&quot;)) {
+for(var i = 0; i &lt; CardsInPlayerHand[0].length; i++) {
+cards += (&quot;#d&quot; + CardsInPlayerHand[0][i] + &quot;#k of &quot; + (CardsInPlayerHand[1][i].equals(&quot;Hearts&quot;) || CardsInPlayerHand[1][i].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInPlayerHand[1][i] + &quot;#k&quot;) : CardsInPlayerHand[1][i]) + (i != (CardsInPlayerHand[0].length - 1) ? &quot;, &quot; : &quot;.&quot;));
+}
+} else if (name.equals(&quot;Dealer&quot;)) {
+for(var i = 0; i &lt; CardsInDealerHand[0].length; i++) {
+cards += (&quot;#d&quot; + CardsInDealerHand[0][i] + &quot;#k of &quot; + (CardsInDealerHand[1][i].equals(&quot;Hearts&quot;) || CardsInDealerHand[1][i].equals(&quot;Diamonds&quot;) ? (&quot;#r&quot; + CardsInDealerHand[1][i] + &quot;#k&quot;) : CardsInDealerHand[1][i]) + (i != (CardsInDealerHand[0].length - 1) ? &quot;, &quot; : &quot;.&quot;));
+}
+}
+return cards;
+}
+
+function SpendChips(s) {
+if(status == 1) {
+if(debug) {
+System.out.println(&quot;SpendChips() progressing...&quot;);
+}
+var text = &quot;你目前有 #b&quot; + cm.getPlayer().getBlackJackChips() + &quot; Black Jack 籌碼#k. 你想要換取什麼?&quot;;
+for(var i = 0; i &lt; prizes[0].length; text += &quot;\r\n#L&quot; + i + &quot;##i&quot; + prizes[0][i] + &quot;##b ~ #t&quot; + prizes[0][i] + &quot;##k for #r&quot; + prizes[1][i] + &quot; Black Jack 籌碼#k#l&quot;, i++);
+cm.sendSimple(text);
+} else if (status == 2) {
+selected = s;
+cm.sendYesNo(&quot;您確定要購買 #i&quot; + prizes[0][s] + &quot;##b ~ #t&quot; + prizes[0][s] + &quot;##k 以 #r&quot; + prizes[1][s] + &quot; Black Jack 籌碼#k?&quot;);
+} else if (status == 3) {
+if(cm.getPlayer().getBlackJackChips() &gt;= prizes[1][selected]) {
+cm.gainItem(prizes[0][selected]);
+cm.getPlayer().gainBlackJackChips(-prizes[1][selected]);
+cm.sendOk(&quot;感謝參與！享受您的獎品，然後再來！&quot;);
+cm.dispose();
+} else {
+cm.sendOk(&quot;你還需要 #r&quot; + (prizes[1][selected] - cm.getPlayer().getBlackJackChips()) + &quot;  Black Jack 籌碼#k 才能兌換這個獎品!&quot;);
+cm.dispose();
+}
+cm.dispose();
+}
+}
+</code></pre>
+<h2 id="gemz">GEMZ</h2>
+<p>來源：<a href="http://forum.ragezone.com/f427/add-gemz-game-npc-746806/">Emilyx3</a><br>
+<img src="https://xinchistory.com/ckeditor_upload/uploads/1582563197_R5wkSHx9lWjtT2x.PNG" alt=""></p>
+<pre><code class="language-Javascript">/**
+ * Gems Game NPC
+ * Author: Emilyx3 of UMaple
+ */
+
+var Board;
+var Score = 0;
+var GameType = -1, BoardSize = -1, NumCols = -1, NumRows = -1,
+NumGemTypes = -1, Difficulty = -1, NextComboMultiplier = 0,
+GameTime = 180000 /*3 Minutes in Milliseconds*/, GameStart = -1;
+var GameTypes = [
+[&quot;普通模式&quot;, &quot;玩一場常規遊戲&quot;],
+[&quot;時間攻擊模式&quot;, &quot;3分鐘內盡可能獲取多的積分&quot;]
+//, [&quot;Puzzle&quot;, &quot;Solve puzzles&quot;] // May add Puzzle mode later.
+];
+var BoardSizes = [
+//Board Size Name, Number of Rows, Number of Cols
+[&quot;Small&quot;, 6, 5],
+[&quot;Medium&quot;, 7, 6],
+[&quot;Large&quot;, 8, 7],
+[&quot;Huge&quot;, 10, 7]
+];
+var Difficulties = [
+//Difficulty Name, Number of Gem Types
+[&quot;Very Easy&quot;, 4],
+[&quot;Easy&quot;, 5],
+[&quot;Medium&quot;, 6],
+[&quot;Hard&quot;, 7]
+];
+var GameDropProbability = 0.01 / 100;
+var GameDrops = [
+//ItemID, Drop Probability (Should add Up to 1)
+[5200000, 0.25],[5200001, 0.20],[5200002, 0.15],
+[4031701, 0.05],[4001013, 0.10],[2340000, 0.25]
+];
+var Gems = [
+//Ore, Gem
+[4020000, 4021000], [4020001, 4021001], [4020002, 4021002], [4020003, 4021003],
+[4020004, 4021004], [4020005, 4021005], [4020006, 4021006], [4020007, 4021007],
+[4020008, 4021008]
+];
+var Neighbors4 = [[0,1],[0,-1],[-1,0],[1,0]];
+var Neighbors8 = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0], [1, 1]];
+var status;
+
+function Header() {
+    return &quot;#b============#kGEMZ#b============#k\r\n\r\n&quot;;
+}
+function MenuScreen() {
+    return Header() +
+    &quot;請選擇:\r\n\r\n&quot; +
+    &quot;#L0#開始遊戲#l\r\n&quot; +
+    &quot;#L1#遊戲介紹#l&quot;;
+}
+function SendGameInstructions() {
+    cm.sendNext(Header() +
+        &quot;#e遊戲介紹:#n\r\n&quot; +
+        &quot;1. 通過單擊3塊連線或更多塊連線的礦石/寶石以獲得分數。\r\n&quot; +
+        &quot;2. 您每破壞一組連線可獲得5點，如果消除高於3塊的連線可以+5%的分數。\r\n&quot; +
+        &quot;3. 當您破壞礦石有機會(1次)將變成一個寶石。&quot; +
+        &quot;如果寶石連線可得到30分。您也可以直接單擊寶石，但只能獲得20分。\r\n&quot; +
+        &quot;4. 過程中可能出現特殊道具。它們有各自的功用：\r\n&quot; +
+        &quot;    #v5021013# - 銷毀周圍的8格礦石/寶石（不影響特殊物品）。\r\n&quot; +
+        &quot;    #v4031051# - 將周圍的8格變成寶石。\r\n&quot; +
+        &quot;    #v4031311# - 將計時器增加2秒。（僅時間攻擊模式）\r\n&quot; +
+        &quot;    #v3990021##v3990023# - 紅色（水平銷毀所有礦石/寶石），綠色（水平銷毀所有礦石為寶石）\r\n&quot; +
+        &quot;    #v3991008##v3991034# - 紅色（垂直銷毀所有礦石/寶石），綠色（垂直銷毀所有礦石）\r\n&quot; +
+        &quot;    #v3990020# - 垂直和水平存儲所有礦石/寶石\r\n&quot; +
+        &quot;    每個被銷毀的礦石價值10分。被摧毀的寶石各值25分。特殊物品和掉落物品不會被銷毀。\r\n&quot; +
+        &quot;5. 過程中可能會出現獎勵道具。單擊它們可以獲取它們：\r\n&quot; +
+        &quot;    #v5200000##v5200001##v5200002##v4031701##v4001013##v2340000#\r\n&quot; +
+        &quot;\r\nGood Luck ~&quot;
+        );
+}
+function SendGameTypeSelectionMenu() {
+    var SendStr = Header();
+    for (var i = 0;i &lt; GameTypes.length;i++) {
+        SendStr += &quot;#L&quot;+i+&quot;#&quot;+GameTypes[i][0]+&quot; - &quot;+GameTypes[i][1]+&quot;#l\r\n&quot;;
+    }
+    cm.sendSimple(SendStr);
+}
+function SendBoardSizeSelectionMenu() {
+    var SendStr = Header();
+    for (var i = 0;i &lt; BoardSizes.length;i++) {
+        SendStr += &quot;#L&quot;+i+&quot;#&quot;+BoardSizes[i][0]+&quot; - &quot;+BoardSizes[i][1]+&quot;x&quot;+BoardSizes[i][2]+&quot;#l\r\n&quot;;
+    }
+    cm.sendSimple(SendStr);
+}
+function SendDifficultySelectionMenu() {
+    var SendStr = Header();
+    for (var i = 0;i &lt; Difficulties.length;i++) {
+        SendStr += &quot;#L&quot;+i+&quot;#&quot;+Difficulties[i][0]+&quot; - &quot;+Difficulties[i][1]+&quot; Gem Types#l\r\n&quot;;
+    }
+    cm.sendSimple(SendStr);
+}
+function InitializeBoard() {
+    NumRows = BoardSizes[BoardSize][1];
+    NumCols = BoardSizes[BoardSize][2];
+    Board = new Array(NumRows);
+    for (var i = 0;i &lt; Board.length;i++) {
+        Board[i] = new Array(NumCols);
+    }
+}
+function InitializeGems() {
+    NumGemTypes = Difficulties[Difficulty][1];
+    Shuffle(Gems);
+    for (var r = 0;r &lt; Board.length;r++) {
+        for (var c = 0;c &lt; Board[r].length;c++) {
+            Board[r][c] = GetRandomOre();
+        }
+    }
+}
+function GetRandomOre() {
+    return Gems[Math.floor(Math.random() * NumGemTypes)][0];
+}
+function GetScoreString() {
+    return &quot;#b#e遊戲分數:#n#k &quot; + AddCommas(Score.toFixed(2)) + &quot;\r\n&quot;;
+}
+function GetGameSettingsDescriptionString() {
+    return &quot;#d#e遊戲設定:#n#k &quot; + GameTypes[GameType][0]
+    + &quot; - 大小: &quot; + BoardSizes[BoardSize][0] + &quot;(&quot;+ BoardSizes[BoardSize][1]+&quot;x&quot; + BoardSizes[BoardSize][2]
+    + &quot;) - 難易度: &quot; + Difficulties[Difficulty][0] + &quot;\r\n&quot;;
+}
+function AddCommas(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length &gt; 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+function GetGameEndBoardString() {
+    var SendStr = &quot;&quot;;
+    for (var r = 0;r &lt; Board.length;r++) {
+        for (var c = 0;c &lt; Board[r].length;c++) {
+            SendStr += &quot;#v&quot;+Board[r][c]+&quot;#&quot;;
+        }
+        SendStr += &quot;\r\n&quot;;
+    }
+    SendStr += &quot;\r\n&quot;;
+    return SendStr;
+}
+function GetBoardSelectionString() {
+    var SendStr = &quot;&quot;;
+    var Count = 0;
+    for (var r = 0;r &lt; Board.length;r++) {
+        for (var c = 0;c &lt; Board[r].length;c++) {
+            SendStr += &quot;#L&quot;+(Count++)+&quot;##v&quot;+Board[r][c]+&quot;##l&quot;;
+        }
+        SendStr += &quot;\r\n&quot;;
+    }
+    SendStr += &quot;\r\n&quot;;
+    return SendStr;
+}
+function ContainsGem(Combo, GemGroup) {
+    for (var i = 0;i &lt; Combo.length;i++) {
+        if (Board[Combo[i][0]][Combo[i][1]] == GemGroup[1]) {
+            return true;
+        }
+    }
+    return false;
+}
+function DoMove(Move) {
+    var ItemID = Board[Move[0]][Move[1]];
+    var GemGroup = GetGemGroup(ItemID);
+    var Combo = new Array();
+    var IsSpecialItem = false;
+    Combo.push([Move[0],Move[1]]);
+    if (GemGroup != null) {
+        //Normal Gem
+        GetNeighborGems(Move[0],Move[1],GemGroup,Combo);
+        if (Combo.length &lt; 3) {
+            if (!ContainsGem(Combo, GemGroup)) {
+                return false;
+            }
+        }
+        AddScoreForCombination(Combo, GemGroup);
+    } else if (IsDropItem(ItemID)) {
+        cm.gainItem(ItemID, 1);
+    } else {
+        //Special Item
+        UseSpecialItem(ItemID, Move[0], Move[1], Combo);
+        IsSpecialItem = true;
+    }
+    RemoveAndGenerateNewGems(Combo, Move[0], Move[1], GemGroup, IsSpecialItem);
+    return true;
+}
+
+function RemoveGemAndShiftDown(r, c) {
+    for (var i = r;i &gt; 0;i--) {
+        Board[i][c] = Board[i-1][c];
+    }
+    return [0, c];
+}
+function RemoveAndGenerateNewGems(Combo, r, c, GemGroup, IsSpecialItem) {
+    var DropItemProb = (IsSpecialItem ? 0 : GameDropProbability + ((Combo.length &gt; 5) ? (GameDropProbability / 10) * (Combo.length - 5) : 0));
+    var SpecialItemProb = (IsSpecialItem ? 0 : 0.005 + (Combo.length &gt; 3 ? 0.01 * (Combo.length - 3) : 0.0) + DropItemProb);
+    for (var i = 0;i &lt; Combo.length;i++) {
+        var TurnToGemProb = 0.20 + ((Combo.length &gt; 3) ? 0.2 * (Combo.length - 3) : 0.0);
+        if (Combo[i][0] == r &amp;&amp; Combo[i][1] == c &amp;&amp; GemGroup != null
+            &amp;&amp; GemGroup[0] == Board[r][c] &amp;&amp; Math.random() &lt; TurnToGemProb) {
+            Board[r][c] = GemGroup[1];
+        } else {
+            var NewGemLocation = RemoveGemAndShiftDown(Combo[i][0],Combo[i][1]);
+            for (var j = i + 1; j &lt; Combo.length;j++) {
+                if (Combo[j][1] == Combo[i][1] &amp;&amp; Combo[j][0] &lt; Combo[i][0]) {
+                    Combo[j][0]++;
+                }
+            }
+            if (c == Combo[i][1] &amp;&amp; r &lt; Combo[i][0]) {
+                r++;
+            }
+            var Ret = RandomOreGemDrop(NewGemLocation[0], NewGemLocation[1], DropItemProb, SpecialItemProb);
+            //Only allow 1 item drop and 1 Special Item drop per combo.
+            if (Ret == 1) {
+                SpecialItemProb = 0;
+            } else if (Ret == 2) {
+                DropItemProb = 0; 
+            }
+        }
+    }
+}
+function UseSpecialItem(ItemID, r, c, ToBeRemoved) {
+    Score += 10;
+    var Targets = new Array();
+    switch (ItemID) {
+        case 5021013:
+        case 4031051:
+            for (var i = 0;i &lt; Neighbors8.length;i++) {
+                var NewR = r + Neighbors8[i][0];
+                var NewC = c + Neighbors8[i][1];
+                Targets.push([NewR, NewC]);
+            }
+            break;
+        case 3990021:
+        case 3990023:
+            for (i = 0;i &lt; Board[r].length;i++) {
+                if (i != c) {
+                    Targets.push([r, i]);
+                }
+            }
+            break;
+        case 3991008:
+        case 3991034:
+            for (i = 0;i &lt; Board.length;i++) {
+                if (i != r) {
+                    Targets.push([i, c]);
+                }
+            }
+            break;
+        case 3990020:
+            for (i = 0;i &lt; Board[r].length;i++) {
+                if (i != c) {
+                    Targets.push([r, i]);
+                }
+            }
+            for (i = 0;i &lt; Board.length;i++) {
+                if (i != r) {
+                    Targets.push([i, c]);
+                }
+            }
+            break;
+    }
+    if (ItemID == 4031311) {
+        GameTime += 2000;
+    }
+    switch (ItemID) {
+        case 4031051:
+        case 3990023:
+        case 3991034:
+            for (i = 0;i &lt; Targets.length;i++) {
+                if (ValidPosition(Targets[i][0], Targets[i][1])) {
+                    var GemGroup = GetGemGroup(Board[Targets[i][0]][Targets[i][1]]);
+                    if (GemGroup != null) {
+                        if (GemGroup[0] == Board[Targets[i][0]][Targets[i][1]]) {
+                            Board[Targets[i][0]][Targets[i][1]] = GemGroup[1];
+                        }
+                    }
+                }
+            }
+            break;
+        case 5021013:
+        case 3990021:
+        case 3991008:
+        case 3990020:
+            for (i = 0;i &lt; Targets.length;i++) {
+                if (ValidPosition(Targets[i][0], Targets[i][1])) {
+                    GemGroup = GetGemGroup(Board[Targets[i][0]][Targets[i][1]]);
+                    if (GemGroup != null) {
+                        if (GemGroup[0] == Board[Targets[i][0]][Targets[i][1]]) {
+                            Score += 10;
+                        } else if (GemGroup[1] == Board[Targets[i][0]][Targets[i][1]]) {
+                            Score += 25;
+                        }
+                        ToBeRemoved.push([Targets[i][0], Targets[i][1]]);
+                    }
+                }
+            }
+            break;
+    }
+}
+function IsDropItem(ItemID) {
+    var Len = GameDrops.length;
+    while (Len--) {
+        if (GameDrops[Len][0] == ItemID) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function IsOreOrGem(ItemID) {
+    for (var i = 0;i &lt; Gems.length;i++) {
+        for (var j = 0;j &lt; Gems[i].length;i++) {
+            if (Gems[i][j] == ItemID)
+                return true;
+        }
+    }
+    return false;
+}
+
+function GetDropItem() {
+    var R = Math.random();
+    var tot = 0;
+    for (var i = 0;i &lt; GameDrops.length;i++) {
+        tot += GameDrops[i][1];
+        if (R &lt; tot) {
+            return GameDrops[i][0];
+        }
+    }
+    return 5200000; //Just in case.
+}
+function RandomOreGemDrop(r, c, DropItemProb, SpecialItemProb) {
+    var R = Math.random();
+    if (R &lt; DropItemProb) {
+        //Generate a Drop
+        Board[r][c] = GetDropItem();
+        return 2;
+    } else if (R &lt; SpecialItemProb) {
+        //Generate Special Item
+        Board[r][c] = GetRandomSpecialItem();
+        return 1;
+    } else {
+        //Normal Ore
+        Board[r][c] = GetRandomOre();
+        return 0;
+    }
+}
+
+/*
+#v5021013# - Destroy surrounding 8 Ores/Gems (Does not affect special items). (25 points / destroyed item)\r\n&quot; +
+#v4031051# - Turns the surrounding 8 Ores into Gems.\r\n&quot; +
+#v4031311# - Add 2 seconds to timer. (Only Time Attack mode)\r\n&quot; +
+#v3990021##v3990023# - Red(Destroy all Ores/Gems Horizontally - 25 points / destroyed item), Green(Turn all Ores into Gems Horizontally)\r\n&quot; +
+#v3991008##v3991034# - Red(Destroy all Ores/Gems Vertically - 25 points / destroyed item), Green(Turn all Ores into Gems Vertically)\r\n&quot; +
+#v3990020# - Destory all Ores/Gems Vertically and Horizontally (25 points / destroyed item)\r\n&quot; +
+ */
+function GetRandomSpecialItem() {
+    var Prob = Math.random();
+    if (GameType == 1 &amp;&amp; Math.random() &lt; 0.25) {
+        return 4031311;
+    }
+    if (Prob &lt; 0.10) {
+        return 3990020;
+    } else if (Prob &lt; 0.25) {
+        return 3991008;
+    } else if (Prob &lt; 0.35) {
+        return 3991034;
+    } else if (Prob &lt; 0.50) {
+        return 3990021;
+    } else if (Prob &lt; 0.60) {
+        return 3990023;
+    } else if (Prob &lt; 0.70) {
+        return 4031051;
+    } else {
+        return 5021013;
+    }
+}
+function AddScoreForCombination(Combo, GemGroup) {
+    var Multiplier = 1.0 + (Combo.length &gt; 3 ? 0 : 0.05 * (Combo.length - 3))
+    + NextComboMultiplier;
+    if (Combo.length == 3) {
+        NextComboMultiplier = 0;
+    } else if (Combo.length == 4) {
+        NextComboMultiplier += 0.01;
+    } else if (Combo.length == 5) {
+        NextComboMultiplier += 0.015;
+    } else if (Combo.length &gt; 5) {
+        NextComboMultiplier += 0.02;
+    }
+    var Points = 0;
+    for (var i = 0;i &lt; Combo.length;i++) {
+        var ItemID = Board[Combo[i][0]][Combo[i][1]];
+        if (GemGroup[0] == ItemID) {
+            Points += 5;
+        } else if (GemGroup[1] == ItemID) {
+            if (Combo.length &gt;= 3) {
+                Points += 30;
+            } else {
+                Points += 20;
+            }
+        }
+    }
+    Score += (Points * Multiplier);
+}
+function NoMoreMoves() {
+    for (var i = 0;i &lt; Board.length;i++) {
+        for (var j = 0;j &lt; Board[i].length;j++) {
+            var GemGroup = GetGemGroup(Board[i][j]);
+            if (GemGroup == null) { //Special Item
+                return false;
+            } else {
+                var GetCount = new Array();
+                GetCount.push([i,j]);
+                GetNeighborGems(i, j, GemGroup, GetCount);
+                if (GetCount.length &gt; 2) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+function GetNeighborGems(r, c, GemGroup, ToBeRemoved) {
+    var CheckNeighbors = new Array();
+    for (var i = 0;i &lt; Neighbors4.length;i++) {
+        var NewR = r + Neighbors4[i][0];
+        var NewC = c + Neighbors4[i][1]
+        if (ValidPosition(NewR, NewC) &amp;&amp; Contains(Board[NewR][NewC], GemGroup)) {
+            if (PushIfNotPresent([NewR, NewC], ToBeRemoved)) {
+                CheckNeighbors.push([NewR, NewC]);
+            }
+        }
+    }
+    for (i = 0;i &lt; CheckNeighbors.length;i++) {
+        GetNeighborGems(CheckNeighbors[i][0], CheckNeighbors[i][1], GemGroup, ToBeRemoved);
+    }
+}
+function ValidPosition(r, c) {
+    return r &gt;= 0 &amp;&amp; r &lt; NumRows &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; NumCols;
+}
+function Contains(ItemID, GemGroup) {
+    var i = GemGroup.length;
+    while (i--) {
+        if (GemGroup[i] == ItemID) {
+            return true;
+        }
+    }
+    return false;
+}
+function PushIfNotPresent(Move, Combo) {
+    var i = Combo.length;
+    while (i--) {
+        var Comp = Combo[i];
+        if (Comp[0] == Move[0] &amp;&amp; Comp[1] == Move[1]) {
+            return false;
+        }
+    }
+    Combo.push(Move);
+    return true;
+}
+function GetPositionFromSelection(sel) {
+    return [(sel / NumCols) | 0, (sel % NumCols) | 0];
+}
+function GetGemGroup(ItemID) {
+    for (var i = 0; i &lt; Gems.length;i++) {
+        for (var j = 0;j &lt; Gems[i].length;j++) {
+            if (Gems[i][j] == ItemID) {
+                return Gems[i];
+            }
+        }
+    }
+    return null;
+}
+function Shuffle(arr) {
+    var i = arr.length;
+    if (i == 0)
+        return;
+    while (--i) {
+        var j = Math.floor( Math.random() * ( i + 1 ) );
+        var tempi = arr[i];
+        var tempj = arr[j];
+        arr[i] = tempj;
+        arr[j] = tempi;
+    }
+}
+function GetTimeLeftString() {
+    var Ret = &quot;Time Left: &quot;;
+    var Now = (new Date()).getTime();
+    var Diff = GameTime + GameStart - Now;
+    var MilliSec = (Diff % 1000) | 0;
+    Diff /= 1000;
+    var Min = (Diff / 60) | 0;
+    var Sec = (Diff % 60) | 0;
+    Ret += ((Min &lt; 10) ? &quot;0&quot; + Min : Min) + &quot;:&quot; + ((Sec &lt; 10) ? &quot;0&quot; + Sec : Sec)
+    + &quot;.&quot; + ((MilliSec &lt; 100) ? &quot;0&quot; + ((MilliSec &lt; 10) ? &quot;0&quot; + MilliSec : MilliSec) : MilliSec);
+    Ret += &quot; seconds\r\n&quot;;
+    return Ret;
+}
+function GetGameTime(End) {
+    var Diff = End - GameStart;
+    var MilliSec = (Diff % 1000) | 0;
+    Diff /= 1000;
+    var Min = (Diff / 60) | 0;
+    var Sec = (Diff % 60) | 0;
+    return ((Min &lt; 10) ? &quot;0&quot; + Min : Min) + &quot;:&quot; + ((Sec &lt; 10) ? &quot;0&quot; + Sec : Sec)
+    + &quot;.&quot; + ((MilliSec &lt; 100) ? &quot;0&quot; + ((MilliSec &lt; 10) ? &quot;0&quot; + MilliSec : MilliSec) : MilliSec);
+
+}
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+function CheckSelection(s, low, high) {
+    return s &lt; low &amp;&amp; s &gt; high;
+}
+function action(mode, type, selection) {
+    if (mode == -1 || mode == 0)
+        cm.dispose();
+    else {
+
+        if (mode == 1) {
+            if (status != 6) {
+                status++;
+            }
+        } else {
+            status--;
+        }
+
+        if (status == 0) {
+            cm.sendSimple(MenuScreen());
+        } else if (status == 1) {
+            if (selection == 0) {
+                action(1, 0, 0); //Move to Next
+            } else if (selection == 1) {
+                SendGameInstructions();
+            } else { //Packet Edits
+                cm.dispose();
+            }
+        } else if (status == 2) {
+            //Choose Game Type
+            SendGameTypeSelectionMenu();
+        } else if (status == 3) {
+            if (CheckSelection(selection, 0, GameTypes.length - 1)) {
+                cm.dispose();
+                return;
+            }
+            GameType = selection;
+            //Choose Board Size
+            SendBoardSizeSelectionMenu();
+        } else if (status == 4) {
+            if (CheckSelection(selection, 0, BoardSizes.length - 1)) {
+                cm.dispose();
+                return;
+            }
+            BoardSize = selection;
+            //Choose Difficulty
+            SendDifficultySelectionMenu();
+        } else if (status == 5) {
+            if (CheckSelection(selection, 0, Difficulties.length - 1)) {
+                cm.dispose();
+                return;
+            }
+            Difficulty = selection;
+            InitializeBoard();
+            InitializeGems();
+            //No Header while in game, it's just annoying
+            cm.sendSimple(GetScoreString() + GetBoardSelectionString() + GetGameSettingsDescriptionString());
+        } else if (status == 6) {
+            if (CheckSelection(selection, 0, NumCols * NumRows - 1)) {
+                cm.dispose();
+                return;
+            }
+            if (GameStart == -1) {
+                GameStart = (new Date()).getTime();
+            }
+            if (GameType == 1 &amp;&amp; GameStart + GameTime &lt; (new Date()).getTime()) {
+                //Time Over
+                status++;
+                action(1, 0, 0);
+                return;
+            }
+            var Move = GetPositionFromSelection(selection);
+            var ValidMove = DoMove(Move);
+            if (NoMoreMoves()) {
+                status++;
+                action(1, 0, 0);
+            } else {
+                cm.sendSimple(
+                    (ValidMove ? &quot;&quot; : &quot;無效的移動，您必須單擊一組3個或更多的礦石/寶石。\r\n&quot;)
+                    + GetScoreString()+ (GameType == 1 ? GetTimeLeftString() : &quot;&quot;)
+                    + GetBoardSelectionString() + GetGameSettingsDescriptionString());
+            }
+        } else if (status == 8) {
+            var SendStr = Header();
+            SendStr += &quot;#e#rGame Over#k#n\r\n&quot;;
+            SendStr += GetScoreString();
+            SendStr += GetGameSettingsDescriptionString();
+            SendStr += &quot;遊戲時間： &quot; + GetGameTime((new Date()).getTime()) + &quot;\r\n&quot;;
+            SendStr += GetGameEndBoardString();
+            cm.sendOk(SendStr);
+        } else {
+            cm.dispose();
+        }
+    }
+} 
+</code></pre>
+<h2 id="ox遊戲">OX遊戲</h2>
+<p>來源：<a href="http://forum.ragezone.com/f427/add-tic-tac-toe-npc-766436/">XxОsirisxX</a><br>
+<img src="https://xinchistory.com/ckeditor_upload/uploads/1582557835_ZZ66Ve6kiKWpRF9.PNG" alt=""></p>
+<pre><code class="language-Javascript">status = -1;
+playerFlag = 0;
+computerFlag = 0;
+var playerColor;
+var computerColor;
+
+function start() {
+    cm.sendYesNo(&quot;嗨 #h #.\r\n想與無腦的電腦玩OX遊戲嗎？勝利的話可以贏得#b#t5220000##k1張&quot;);
+}
+
+function action (mode, type, selection) {
+    if (mode != 1) {
+        if (type == 1 &amp;&amp; mode == 0) {
+            cm.sendNext(&quot;膽小鬼。&quot;);
+        }
+        cm.dispose();
+        return;
+    }
+    status++;
+    if (status == 0) {
+        cm.sendSimple(&quot;你想做?\r\n\r\n#b#L0#先手.\r\n#L1#後手.&quot;);
+    } else if (status == 1) {
+        playerColor = selection == 0 ? 3991040 : 3991049;
+        computerColor = selection == 0 ? 3991023 : 3991014;
+        if (selection == 1) {
+            computerMoves();
+        }
+        play();
+    } else {
+        if ((playerFlag &amp; (1 &lt;&lt; selection)) == (1 &lt;&lt; selection) || (computerFlag &amp; (1 &lt;&lt; selection)) == (1 &lt;&lt; selection) || selection &lt; 0 || selection &gt; 9) {
+            cm.sendNext(&quot;禁止作弊。&quot;);
+            cm.dispose();
+            return;
+        }
+        playerFlag |= 1 &lt;&lt; selection;
+        if (((playerFlag | computerFlag) ^ 511) == 0) {
+            tie();
+            return;
+        }
+        for (var i = 0; i &lt; 3; ) {
+            if (isWinner(playerFlag, i++)) {
+                win();
+                return;
+            }
+        }
+        computerMoves();
+        for (var i = 0; i &lt; 3; ) {
+            if (isWinner(computerFlag, i++)) {
+                lose();
+                return;
+            }
+        }
+        play();
+    }
+}
+
+function play() {
+    cm.sendSimple(loadText(true));
+}
+
+function win() {
+    if (cm.canHold(5220000)) {
+        cm.gainItem(5220000, 1);
+        cm.sendNext(loadText(false) + &quot;\r\n\r\n哇！你做到了！恭喜你！您贏得了#b#t5220000##k.&quot;);
+    } else {
+        cm.sendNext(&quot;哇！你做到了！恭喜你！但很抱歉告訴您，我不能給您 #b#t5220000##k 因為您的背包似乎已滿。稍後再試。&quot;);
+    }
+    cm.dispose();
+}
+
+function isWinner(player, val) {
+    return (player &amp; (7 &lt;&lt; (val * 3))) == 7 &lt;&lt; (val * 3) || (player &amp; (73 &lt;&lt; val)) == (73 &lt;&lt; val) || (((player &amp; (1 &lt;&lt; 4)) == 1 &lt;&lt; 4) &amp;&amp; (player &amp; ((1 &lt;&lt; 6) &lt;&lt; (val * 2))) &amp;&amp; ((player &amp; (1 &lt;&lt; 2) &gt;&gt; (val * 2))));
+}
+
+function lose() {
+    cm.sendNext(loadText(false) + &quot;\r\n\r\n您輕視了這台電腦。您應該再試一次，您可能只是累了。&quot;);
+    cm.dispose();
+}
+
+function computerMoves() {
+    if (playerFlag == 0) {
+        var rand = Math.random() * 9 | 0;
+        computerFlag |= 1 &lt;&lt; (rand + 1 &amp; 1 == 1 ? rand : 4);
+    } else {
+        if (computerFlag == 0) {
+            for (var i = 0; i &lt; 4; i++) {
+                if (playerFlag &amp; (2 &lt;&lt; i) == 2 &lt;&lt; i) {
+                    computerFlag |= 1 &lt;&lt; 4;
+                    return;
+                }
+            }
+            var rand = Math.random() * 9 | 0;
+            if (playerFlag == 1 &lt;&lt; 4) {
+                computerFlag |= 1 &lt;&lt; (rand + 1 &amp; 1 == 1 ? rand : 0);
+            } else {
+                if ((playerFlag &amp; 1) &lt;&lt; (rand + 1 &amp; 1 == 1 ? rand : 4) != 1 &lt;&lt; (rand + 1 &amp; 1 == 1 ? rand : 4)) {
+                    computerFlag |= 1 &lt;&lt; (rand + 1 &amp; 1 == 1 ? rand : 4);
+                } else {
+                    computerFlag |= 1 &lt;&lt; 4;
+                }
+            }
+        } else {
+            for (var i = 0; i &lt; 9; i++) {
+                if (((computerFlag | playerFlag) &amp; (1 &lt;&lt; i)) != 0) {
+                    continue;
+                }
+                var nextMove = (computerFlag | (1 &lt;&lt; i));
+                for (var x = 0; x &lt; 3; x++) {
+                    if (isWinner(nextMove, x)) {
+                        computerFlag |= 1 &lt;&lt; i;
+                        return;
+                    }
+                }
+                var playerPossibleMove = (playerFlag | (1 &lt;&lt; i));
+                for (var x = 0; x &lt; 3; x++) {
+                    if (isWinner(playerPossibleMove, x)) {
+                        computerFlag |= 1 &lt;&lt; i;
+                        return;
+                    }
+                }
+            }
+            for (var i = 0; i &lt; 9; i++) {
+                if (((computerFlag | playerFlag) &amp; (1 &lt;&lt; i)) != 0) {
+                    continue;
+                }
+                computerFlag |= 1 &lt;&lt; i;
+                break;
+            }
+        }
+    }
+}
+
+function loadText(sendSimple) {
+    var text = (sendSimple ? &quot;選擇你的位置.&quot; : &quot;比賽結果.&quot;) + &quot;\r\n\r\n&quot;;
+    for (var i = 0; i &lt; 9; i++) {
+        text += ((playerFlag &amp; (1 &lt;&lt; i)) == (1 &lt;&lt; i) ? &quot;#i&quot; + playerColor + &quot;#&quot; : (computerFlag &amp; (1 &lt;&lt; i)) == (1 &lt;&lt; i) ? &quot;#i&quot; + computerColor + &quot;#&quot; : ((sendSimple ? &quot;#L&quot; + i + &quot;#&quot; : &quot;&quot;) + &quot;___&quot;)) + &quot;\t\t&quot; + (((i + 1) % 3 == 0 ? &quot;\r\n&quot; : &quot;&quot;));
+    }
+    return text;
+}
+
+function tie() {
+    cm.sendNext(loadText(false) + &quot;\r\n\r\n哦，看起來您與電腦平手了。你需要更加努力。&quot;);
+    cm.dispose();
+}
+</code></pre>
+<h2 id="mastermind">Mastermind</h2>
+<p>來源：<a href="http://forum.ragezone.com/f427/add-mastermind-npc-747150/">Emilyx3</a><br>
+<img src="https://xinchistory.com/ckeditor_upload/uploads/1582557612_zxjLOKoH3x2ovIS.PNG" alt=""><br>
+<img src="https://xinchistory.com/ckeditor_upload/uploads/1582557657_Ngmvlql8zgWiDyS.PNG" alt=""></p>
+<pre><code class="language-JavaScript">/**
+ * Mastermind NPC
+ * Author: Emilyx3 of UMaple
+ */
+var status;
+var CorrectCombo;
+var CurrentCombo;
+var PreviousGuesses = new Array();
+var NumSpaces, NumColors;
+var SpaceDiffSelected, PieceDiffSelected;
+var Pieces = [4030002,4030003,4030004,4030005,4030006,4030007,4030008];
+var SpaceDifficulties = [[&quot;Beginner(3)&quot;, 3], [&quot;Easy(4)&quot;, 4], [&quot;Intermediate(5)&quot;, 5], [&quot;Hard(6)&quot;, 6], [&quot;Expert(7)&quot;, 7]];
+var PieceDifficulties = [[&quot;Beginner&quot;, 3], [&quot;Easy&quot;, 4], [&quot;Intermediate&quot;, 5], [&quot;Hard&quot;, 6], [&quot;Expert&quot;, 7]];
+var MaxGuesses = 25;
+//var CorrectPiece = 4031140, CorrectPieceAndSpace = 4005004;
+var CorrectPiece = 4001007, CorrectPieceAndSpace = 4001008, Blank = 4031325, DeletePrevious =3991002;
+var mount = Math.random()*50; //獎勵獲得的數量
+
+function Header() {
+    return &quot;#d============#k Mastermind #d============#k\r\n\r\n&quot;;
+}
+function SendMainMenu() {
+    cm.sendSimple(
+        Header() +
+        &quot;#L0#開始遊戲#l\r\n&quot; +
+        &quot;#L1#遊戲介紹#l&quot;
+    );
+}
+function SendGameInstructions() {
+    cm.sendNext(Header() +
+        &quot;#b#e歡迎來到 game Mastermind.#k#n\r\n&quot; +
+        &quot;#e遊戲介紹:#n\r\n&quot; +
+        &quot;1)遊戲目標是猜測正確的方塊組合。\r\n&quot; +
+        &quot;2)每次猜測之後，您將收到反饋，以了解如何正確推論。\r\n&quot; +
+        &quot;    #v&quot;+CorrectPieceAndSpace+&quot;# - 表示#b正確#k零件在#b正確#k位置\r\n&quot; +
+        &quot;    #v&quot;+CorrectPiece+&quot;# - 表示#b正確#k零件在#b不正確#k位置\r\n\r\n&quot; +
+        &quot;    Example: &quot; + GetFeedback([1,2]) + &quot; - 1個正確零件在正確位置，以及2個正確零件在錯誤位置。\r\n&quot; +
+        &quot;3)您擁有最多#r&quot; + MaxGuesses + &quot;#k次機會來嘗試獲得正確的組合。\r\n&quot;
+    );
+}
+function SendNumSpacesSelectionMenu() {
+    var SendStr = Header();
+    SendStr += &quot;#e請選擇您要遊戲的猜測數：#n\r\n&quot;
+    for (var i = 0;i &lt; SpaceDifficulties.length;i++) {
+        SendStr += &quot;#L&quot; + i + &quot;#&quot; + SpaceDifficulties[i][0] + &quot; - 猜測數：&quot; + SpaceDifficulties[i][1] + &quot;\r\n&quot;;
+    }
+    cm.sendSimple(SendStr);
+}
+function SendNumPiecesSelectionMenu() {
+    var SendStr = Header();
+    SendStr += &quot;#e請選擇您想玩的零件數：#n\r\n&quot;
+    for (var i = 0;i &lt; PieceDifficulties.length;i++) {
+        SendStr += &quot;#L&quot; + i + &quot;#&quot; + PieceDifficulties[i][0] + &quot; - 零件數：&quot; + PieceDifficulties[i][1] + &quot;\r\n&quot;;
+    }
+    cm.sendSimple(SendStr);
+}
+function GetGameSettingsDescription() {
+    return &quot;\r\n#d#e遊戲設定:#n#k\r\n&quot; +
+        SpaceDifficulties[SpaceDiffSelected][0] + &quot; - 猜測數：&quot; + SpaceDifficulties[SpaceDiffSelected][0] + &quot;\r\n&quot; +
+        PieceDifficulties[PieceDiffSelected][0] + &quot; - 零件數：&quot; +  PieceDifficulties[PieceDiffSelected][1] + &quot;\r\n&quot;;
+}
+function InitializeCorrectSequence() {
+    Shuffle(Pieces);
+    CorrectCombo = new Array(NumSpaces);
+    for (var i = 0;i &lt; CorrectCombo.length;i++) {
+        CorrectCombo[i] = Math.floor(Math.random() * NumColors);
+    }
+}
+function GetSequenceString(Sequence) {
+    var Ret = &quot;&quot;;
+    for (var i = 0;i &lt; Sequence.length;i++) {
+        Ret += &quot;#v&quot; + Pieces[Sequence[i]] + &quot;#&quot;;
+    }
+    return Ret;
+}
+function GetCurrentCombo() {
+    var Ret = &quot;你目前的猜測: &quot;;
+    for (var i = 0;i &lt; CurrentCombo.length;i++) {
+        Ret += &quot;#v&quot; + Pieces[CurrentCombo[i]] + &quot;#&quot;;
+    }
+    for (var j = 0;j &lt; NumSpaces - CurrentCombo.length;j++) {
+        Ret += &quot;#v&quot; + Blank + &quot;#&quot;;
+    }
+    return Ret + &quot;\r\n&quot;;
+}
+function GetPieceSelectionString() {
+    var Ret = &quot;請選擇一個方塊:\r\n&quot;;
+    for (var i = 0;i &lt; NumColors;i++) {
+        Ret += &quot;#L&quot; + i + &quot;##v&quot; + Pieces[i] + &quot;##l &quot;;
+    }
+    if (CurrentCombo.length &gt; 0) {
+        Ret += &quot;#L&quot; + NumColors + &quot;##v&quot; + DeletePrevious + &quot;##l&quot;;
+    }
+    return Ret + &quot;\r\n&quot;;
+
+}
+function CalculateMatch() {
+    var Correct = new Array();
+    for (var i = 0;i &lt; NumSpaces;i++) {
+        if (CorrectCombo[i] == CurrentCombo[i]) {
+            Correct.push(i);
+        }
+    }
+    var Ret1 = Correct.length;
+    for (var j = 0;j &lt; NumSpaces;j++) {
+        if (!Contains(j, Correct)) {
+            for (var k = 0;k &lt; NumSpaces;k++) {
+                if (!Contains(k, Correct)) {
+                    if (CurrentCombo[j] == CorrectCombo[k]) {
+                        Correct.push(k);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return [Ret1, Correct.length - Ret1];
+}
+function Contains(i, arr) {
+    for (var j = 0;j &lt; arr.length;j++) {
+        if (arr[j] == i) {
+            return true;
+        }
+    }
+    return false;
+}
+function GetFeedback(CorrectNumbers) {
+    var Ret = &quot;&quot;;
+    for (var i = 0;i &lt; CorrectNumbers[0];i++) {
+        Ret += &quot;#v&quot; + CorrectPieceAndSpace + &quot;#&quot;;
+    }
+    for (var j = 0;j &lt; CorrectNumbers[1];j++) {
+        Ret += &quot;#v&quot; + CorrectPiece + &quot;#&quot;;
+    }
+    return Ret;
+}
+function GetPreviousCombos() {
+    if (PreviousGuesses.length == 0) {
+        return &quot;&quot;;
+    }
+    var Ret = &quot;\r\n=== #e上一輪猜測#n ===\r\n&quot;;
+    for (var i = PreviousGuesses.length - 1;i &gt;= 0;i--) {
+        var PreviousGuess = PreviousGuesses[i];
+        Ret += ((i + 1) + &quot;. &quot;) + GetSequenceString(PreviousGuess[0]) + &quot;   &quot; + GetFeedback(PreviousGuess[1]) + &quot;\r\n&quot;;
+    }
+    return Ret + &quot;\r\n&quot;;
+}
+function Shuffle(arr) {
+    var i = arr.length;
+    if (i == 0)
+        return;
+    while (--i) {
+        var j = Math.floor( Math.random() * ( i + 1 ) );
+        var tempi = arr[i];
+        var tempj = arr[j];
+        arr[i] = tempj;
+        arr[j] = tempi;
+    }
+}
+function CheckSelection(s, low, high) {
+    return s &lt; low &amp;&amp; s &gt; high;
+}
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+function action(mode, type, selection) {
+    if (mode == -1 || (mode == 0 &amp;&amp; (status != 5 || CurrentCombo == null || CurrentCombo.length != NumSpaces))) {
+        cm.dispose();
+        return;
+    }
+    if (status != 5)
+        status++;
+
+    if (status == 0) {
+        SendMainMenu();
+    } else if (status == 1) {
+        if (selection == 0) {
+            action(1, 0, 0);
+        } else if (selection == 1) {
+            SendGameInstructions();
+        } else {
+            cm.dispose();
+        }
+    } else if (status == 2) {
+        SendNumSpacesSelectionMenu();
+    } else if (status == 3) {
+        if (CheckSelection(selection, 0, SpaceDifficulties.length - 1)) {
+            cm.dispose();
+            return;
+        }
+        SpaceDiffSelected = selection;
+        NumSpaces = SpaceDifficulties[selection][1];
+        SendNumPiecesSelectionMenu();
+    } else if (status == 4) {
+        if (CheckSelection(selection, 0, PieceDifficulties.length - 1)) {
+            cm.dispose();
+            return;
+        }
+        PieceDiffSelected = selection;
+        NumColors = PieceDifficulties[selection][1];
+        InitializeCorrectSequence();
+        CurrentCombo = new Array();
+        cm.sendSimple(Header() + GetCurrentCombo() + GetPieceSelectionString()
+            + GetPreviousCombos() + GetGameSettingsDescription());
+    } else if (status == 5) {
+        if (CurrentCombo.length == NumSpaces) {
+            if (mode == 0) { //No
+                CurrentCombo.pop();
+                cm.sendSimple(Header() + GetCurrentCombo() + GetPieceSelectionString()
+                    + GetPreviousCombos() + GetGameSettingsDescription());
+            } else if (mode == 1) { //Yes
+                var Match = CalculateMatch();
+                if (Match[0] == NumSpaces) {
+                    //Win
+                    cm.sendOk(Header() + &quot;#b#e恭喜你,你只花了 &quot;+(PreviousGuesses.length + 1)+&quot; 次猜測就贏了!#n#k\r\n&quot;
+                        + GetSequenceString(CurrentCombo) + &quot;    &quot; + GetFeedback(Match) + &quot;\r\n&quot;
+                        + GetPreviousCombos() + GetGameSettingsDescription());
+                    cm.gainItem(4001126,mount); //贏的獎勵
+                    cm.dispose();
+                } else if (PreviousGuesses.length + 1 == MaxGuesses) {
+                    //Lose
+                    PreviousGuesses.push([CurrentCombo, Match]);
+                    cm.sendOk(Header() + &quot;#b#e抱歉,你輸了!您超過了最大猜測數 (&quot;+MaxGuesses+&quot;)!#n#k\r\n&quot;
+                        + &quot;正確的組合是：&quot; +  GetSequenceString(CorrectCombo) + &quot;\r\n&quot;
+                        + GetPreviousCombos() + GetGameSettingsDescription());
+                    cm.dispose();
+                } else {
+                    //Continue
+                    PreviousGuesses.push([CurrentCombo, Match]);
+                    CurrentCombo = new Array();
+                    cm.sendSimple(Header() +
+                        &quot;#r抱歉，序列不正確。#k\r\n&quot;
+                        + GetCurrentCombo() + GetPieceSelectionString()
+                        + GetPreviousCombos() + GetGameSettingsDescription());
+                }
+            }
+        } else {
+            if (CheckSelection(selection, 0, (CurrentCombo.length &gt; 0 ? NumColors : NumColors - 1))) {
+                cm.dispose();
+                return;
+            }
+            if (selection == NumColors) {
+                CurrentCombo.pop();
+            } else {
+                CurrentCombo.push(selection);
+            }
+            if (CurrentCombo.length == NumSpaces) {
+                cm.sendYesNo(Header() + &quot;#r請確認您的選擇：#k\r\n&quot;
+                    + GetCurrentCombo() + GetPreviousCombos() + GetGameSettingsDescription()
+                );
+            } else {
+                cm.sendSimple(Header() + GetCurrentCombo() + GetPieceSelectionString()
+                    + GetPreviousCombos() + GetGameSettingsDescription());
+            }
+        }
+    } else {
+        cm.dispose();
+    }
+} 
+</code></pre>
+<h2 id="跳棋">跳棋</h2>
+<p>來源：<a href="http://forum.ragezone.com/f427/checkers-npc-812398/">Lapje</a><br>
+<img src="https://xinchistory.com/ckeditor_upload/uploads/1582563256_xY3hVp7ke9g9YLq.PNG" alt=""></p>
+<h2 id="數字猜猜猜">數字猜猜猜</h2>
+<p><img src="https://Z1Nhouse.github.io//post-images/1582707399837.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582707403673.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582707410714.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582707414391.PNG" alt=""></p>
+<p>這個稍微複雜點，註解必看。<br>
+獎池物品隨便放的，可以自行修改。</p>
+<pre><code class="language-JS">/*數字猜猜猜
+
+如果需要檢測背包容量功能,請在MapleCharacter加上
+
+    public short getSpace(int type) {
+        return getInventory(MapleInventoryType.getByType((byte) type)).getNumFreeSlot();
+    }
+
+    public boolean haveSpace(int type) {
+        short slot = getInventory(MapleInventoryType.getByType((byte) type)).getNextFreeSlot();
+        return (slot != -1);
+    }
+
+    public boolean haveSpaceForId(int itemid) {
+        short slot = getInventory(GameConstants.getInventoryType(itemid)).getNextFreeSlot();
+        return (slot != -1);
+    }
+
+PS.我的bosslog是getBossLog2和setBossLog2，看你自己的寫法，別照我的打。
+
+*/
+
+var a = 0;
+var randomNumber = Array();
+var n1;
+var n2;
+var n3;
+var itemData = Array(
+        1102275, 
+        1042187, 
+        1042174, 
+        1042149, 
+        1072437, 
+        1072448, 
+        1022005,
+        1022006,
+        1022007,
+        1022009,
+        1112414,
+        1022097,
+        1702256,
+        1702257,
+        1702258,
+        1702259,
+        1702260,
+        1102040,
+        1102041,
+        1102042,
+        1102043,
+        1482073,
+        1492073,
+        1122075
+        );
+var pass = true;
+var correct = 0
+var NumberPosition = Array();
+
+
+function start() {
+    a = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (mode == 1)
+            a++;
+        else
+            cm.dispose();
+        if (a == -1) {
+            cm.dispose();
+        } else if (a == 0) {
+            /* 沒有檢測背包容量功能這邊就不需要，有就可以把注釋消掉。
+            for (var i = 1; i &lt; 5; i++) {
+                if (cm.getSpace(i) &lt; 5) {
+                    pass = false;
+                }
+            }*/
+            if (cm.getBossLog2(&quot;數字猜猜猜&quot;) &gt;= 5) {
+                cm.sendOk(&quot;對不起，數字猜猜猜活動一天只能進行五次。&quot;);
+                cm.dispose();
+            } else {
+                cm.sendSimple(&quot;萬眾期待的HOTTIME時間又到了！親愛的冒險家，請問你要做什麼呢？ \r\n#b#L0# 我要玩數字猜猜猜活動！ \r\n#L1# 介紹一下此活動。&quot;);
+            }
+        } else if (a == 1) {
+            if (selection == 0) {//我要玩數字猜猜猜活動！
+                if (pass) {
+                    cm.sendNextS(&quot;系統將隨機產生10個數字，請您做好準備記錄下這10個數字。 \r\n#r -- 點擊下一步開始產生。 \r\n #r-- 如果切斷對話，參加活動所需的物品不歸還。&quot;, 3);
+                } else {
+                    cm.sendOk(&quot;請讓你的所有背包欄空出5個格子。&quot;);
+                    cm.dispose();
+                }
+            } else if (selection == 1) {//介紹一下此活動。
+                a = -1;
+                cm.sendNext(&quot;#e數字猜猜猜活動遊戲規則：#n#d\r\n\r\n1）系統會隨機給出10個數字，並且公示。 \r\n2）這10個數字將被打亂，且隱藏。 \r\n3）玩家會被隨機提問第N個數字是什麼\r\n如果回答正確即可得到獎勵！ \r\n4）玩家一共有3次提問的機會。 #e\r\n\r\n5）獎池中有隨機5個道具 \r\n - 回答正確1次，隨機從裡面得到1個道具。 \r\n - 回答正確2次，隨機從裡面得到3個道具。 \r\n - 回答正確3次，獎池內所有道具都帶走！ #n\r\n\r\n 參加活動的時候切記您的所有背包空格都有5格以上的空間。&quot;);
+            }//selection
+        } else if (a == 2) {
+            var temp;
+            var i = 0;
+            while (i &lt; 10) {
+                temp = Math.floor(Math.random() * 40);
+                if (checkid(temp)) {
+                    randomNumber.push(temp);//隨機0~39
+                    i++;
+                }
+            }
+            var text = &quot;這10個隨機數字依次為：\r\n #r- 請拿起您的筆記下這隨機的數字！\r\n\r\n#d&quot;;
+            for (var i = 0; i &lt; randomNumber.length; i++) {
+                text += &quot;第&quot; + (i + 1) + &quot;個數字為： - &quot; + randomNumber[i] + &quot;\r\n&quot;;
+            }
+            cm.sendNextS(text, 3);
+        } else if (a == 3) {
+            cm.sendNextS(&quot;正在打亂這10個數字，請點擊下一步……。&quot;, 3)
+        } else if (a == 4) {
+            randomNumber.sort(function() {
+                return 0.5 - Math.random();
+            })//隨機打亂
+            var temp = Math.floor(Math.random() * 10) + 1;
+            var i = 0;
+            while (i &lt; 3) {
+                temp = Math.floor(Math.random() * 10) + 1;
+                //cm.sendY(temp)
+                if (checkNumberPosition(temp)) {
+                    NumberPosition.push(temp);//隨機1~10
+                    i++;
+                }
+            }//隨機位數的數字猜
+            cm.sendGetNumber(&quot;現在請您輸入第&quot; + NumberPosition[0] + &quot;個數字：\r\n #r-- 如果切斷對話，參加活動所需的物品不歸還。\r\n&quot;, 0, 0, 999);
+        } else if (a == 5) {
+            n1 = selection; //記錄玩家第一次輸入
+            cm.sendGetNumber(&quot;現在請您輸入第&quot; + NumberPosition[1] + &quot;個數字：\r\n #r-- 如果切斷對話，參加活動所需的物品不歸還。\r\n&quot;, 0, 0, 999);
+        } else if (a == 6) {
+            n2 = selection;
+            cm.sendGetNumber(&quot;現在請您輸入第&quot; + NumberPosition[2] + &quot;個數字：\r\n #r-- 如果切斷對話，參加活動所需的物品不歸還。\r\n&quot;, 0, 0, 999);
+        } else if (a == 7) {
+            n3 = selection;
+            cm.sendNextS(&quot;你所輸入的數字為：\r\n\r\n 第&quot; + NumberPosition[0] + &quot;個數字 -- &quot; + n1 + &quot;\r\n 第&quot; + NumberPosition[1] + &quot;個數字 -- &quot; + n2 + &quot;\r\n 第&quot; + NumberPosition[2] + &quot;個數字 -- &quot; + n3 + &quot;.&quot;, 3);
+        } else if (a == 8) {
+            var text = &quot;現在我來公佈結果：\r\n 經過打亂後的10個數字為：\r\n\r\n#b&quot;;
+            for (var i = 0; i &lt; randomNumber.length; i++) {
+                if (i == (NumberPosition[0] - 1)) {
+                    text += &quot;第&quot; + (i + 1) + &quot;個數字為： - &quot; + randomNumber[i] + &quot; #r( 您的答案為：&quot; + n1 + &quot;)#b\r\n&quot;;
+                } else if (i == (NumberPosition[1] - 1)) {
+                    text += &quot;第&quot; + (i + 1) + &quot;個數字為： - &quot; + randomNumber[i] + &quot; #r( 您的答案為：&quot; + n2 + &quot;)#b\r\n&quot;;
+                } else if (i == (NumberPosition[2] - 1)) {
+                    text += &quot;第&quot; + (i + 1) + &quot;個數字為： - &quot; + randomNumber[i] + &quot; #r( 您的答案為：&quot; + n3 + &quot;)#b\r\n&quot;;
+                } else {
+                    text += &quot;第&quot; + (i + 1) + &quot;個數字為： - &quot; + randomNumber[i] + &quot;\r\n&quot;;
+                }
+            }
+            cm.sendNextS(text, 3);
+        } else if (a == 9) {//判斷是否答對部分
+            if (randomNumber[NumberPosition[0] - 1] == n1) {
+                correct += 1;
+            }
+            if (randomNumber[NumberPosition[1] - 1] == n2) {
+                correct += 1;
+            }
+            if (randomNumber[NumberPosition[2] - 1] == n3) {
+                correct += 1;
+            }
+            var text = &quot;系統判斷您一共答對了&quot; + correct + &quot;次。\r\n\r\n現在獎池裡面有下列的道具(隨機5個)：\r\n\r\n#b&quot;;
+
+            itemData.sort(function(){return Math.random()&gt;0.5?-1:1;});
+            //隨機打亂獎池
+            for (var i = 0; i &lt; 5; i++) {//拿前5个
+                text += &quot;#i&quot; + itemData[i] + &quot;#   #z&quot; + itemData[i] + &quot;#\r\n\r\n&quot;;
+            } 
+            cm.sendNextS(text + &quot;#d\r\n\r\n - 回答正確1次，隨機從裡面得到1個道具。 \r\n - 回答正確2次，隨機從裡面得到3個道具。 \r\n - 回答正確3次，獎池內所有道具都帶走！&quot;, 3);
+        } else if (a == 10) {
+            if (correct == 0) {//沒回答正確
+                cm.sendOk(&quot;對不起，你沒有回答正確。 \r\n領取物品的必要條件是必須至少回答一個正確。&quot;);
+                cm.dispose();
+            } else if (correct == 3) {//全部回答正確
+                var text = &quot;恭喜你！回答3個全部正確！你將獲取獎池內的所有物品！\r\n\r\n#b&quot;;
+                for (var i = 0; i &lt; 5; i++) {//拿前5个
+                    text += &quot;#i&quot; + itemData[i] + &quot;#   #z&quot; + itemData[i] + &quot;#\r\n\r\n&quot;;
+                }
+                cm.sendNextS(text + &quot;#d\r\n\r\n請妥善保管哦！&quot;, 3);
+            } else if (correct == 1) {//正確1個
+                cm.gainItem(itemData[0], 1);
+                cm.sendOk(&quot;贈送成功！喜歡獎池裡面的道具嗎？&quot;);
+                cm.dispose();
+            } else if (correct == 2) {//2個正確
+                var text = &quot;恭喜你！回答正確&quot; + correct + &quot;次，按照規則，你將獲取獎池內的：\r\n\r\n#b&quot;;
+                for (var i = 0; i &lt; 3; i++) {
+                    text += &quot;#i&quot; + itemData[i] + &quot;#   #z&quot; + itemData[i] + &quot;#\r\n\r\n&quot;;
+                }
+                a = 11;
+                cm.sendNextS(text + &quot;#d\r\n\r\n請妥善保管哦！&quot;, 3);
+            } else {
+                cm.sendOk(&quot;錯誤！請和管理員聯繫。\r\n錯誤代碼：&quot; + correct);
+            }
+            cm.setBossLog2(&quot;數字猜猜猜&quot;);
+        } else if (a == 11) {//全部正確
+            for (var i = 0; i &lt; 5; i++) {//拿前5个
+                cm.gainItem(itemData[i], 1);
+            }
+            cm.sendOk(&quot;贈送成功！喜歡獎池裡面的道具嗎？&quot;);
+            cm.dispose();
+        } else if (a == 12) {//2題
+            for (var i = 0; i &lt; 3; i++) {
+                cm.gainItem(itemData[i], 1);
+            }
+            cm.sendOk(&quot;贈送成功！喜歡獎池裡面的道具嗎？&quot;);
+            cm.dispose();
+        }//a
+    }//mode
+}//f
+
+
+function checkid(number) {//檢查是否重複
+    var i = 0;
+    while (randomNumber.length &gt;= i) {
+        if (randomNumber[i] == number) {
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
+
+function checkNumberPosition(number) {//檢查是否重複
+    var i = 0;
+    while (NumberPosition.length &gt;= i) {
+        if (NumberPosition[i] == number) {
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
 </code></pre>
 <p>大概就是這樣，能隨意更改的部分我大多都有標上註解，當然，只要有創意怎麼改都行。</p>
 ]]></content>
@@ -1736,256 +3559,6 @@ ta=&quot;#r&quot;;
 } 
 } 
 }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[楓之谷私服武陵道場NPC JS腳本]]></title>
-        <id>https://Z1Nhouse.github.io//post/dIb0rHox</id>
-        <link href="https://Z1Nhouse.github.io//post/dIb0rHox">
-        </link>
-        <updated>2020-01-30T07:15:11.000Z</updated>
-        <content type="html"><![CDATA[<p>適用端口：120白狐端</p>
-<h2 id="演示">演示：</h2>
-<p>兌換道具數量可在腳本內自行更改。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1581868964190.png" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1581868967442.png" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1581868972678.png" alt=""></p>
-<ul>
-<li>中文化：本人</li>
-<li>NPC：2091005</li>
-</ul>
-<h2 id="腳本">腳本：</h2>
-<pre><code class="language-javascript">var status = -1;
-var sel;
-var mapid;
-
-function start() {
-    mapid = cm.getMapId();
-
-    if (mapid == 925020001) {
-	cm.sendSimple(&quot;我的師傅是武陵中擁有最高功力的人，您現在是想告訴我您要挑戰我的師傅嗎？不要說我沒有警告過你。#b \n\r #L0#我想單人挑戰他#l \n\r #L1#我想組隊挑戰他#l \n\r #L2#我想兌換腰帶#l \n\r #L3#我想重設訓練點#l \n\r #L5#什麼是武陵修煉場？#l&quot;);
-    } else if (isRestingSpot(mapid)) {
-	cm.sendSimple(&quot;我很驚訝你已經安全地達到了這個樓層，但是不會再這麼容易了。你怎麼想？你想繼續嗎？#b \n\r #L0#是的，我要繼續。#l \n\r #L1#我想離開。#l \n\r #L2#我想儲存我的紀錄。#l&quot;);
-    } else {
-	cm.sendYesNo(&quot;什麼？你準備要離開了？您還可以進入下一個級別呢！你確定真的要離開？&quot;);
-    }
-}
-
-function action(mode, type, selection) {
-    if (mapid == 925020001) {
-	if (mode == 1) {
-	    status++;
-	} else {
-	    cm.dispose();
-		return;
-	}
-	if (status == 0) {
-	    sel = selection;
-
-	    if (sel == 5) {
-		cm.sendNext(&quot;我的師傅是武陵中擁有最高功力的人，且他也是建立這個武陵修練塔的人。武陵道場是一個龐大的訓練設施，共有38層。 每個樓層難度級別都不同。當然，憑藉您的功力，到達頂樓是不可能的...&quot;);
-		cm.dispose();
-	    } else if (sel == 3) {
-		cm.sendYesNo(&quot;您知道如果重新設置訓練點，它將恢復為0，對吧？老實說，這不一定是壞事。重置訓練點並重新開始後，那麼您就可以再次收到皮帶了。 你想重設訓練點嗎？&quot;);
-	    } else if (sel == 2) {
-		cm.sendSimple(&quot;到目前為止，您的總訓練點數是 #b&quot;+cm.getDojoPoints()+&quot;#k。 我的師父惜愛有才華的人，因此，如果您積累了足夠的訓練點， 您將可以根據自己的訓練點獲得腰帶...\n\r #L0##i1132000:# #t1132000# (50)#l \n\r #L1##i1132001:# #t1132001# (150)#l \n\r #L2##i1132002:# #t1132002# (300)#l \n\r #L3##i1132003:# #t1132003# (450)#l \n\r #L4##i1132004:# #t1132004# (600)#l\r\n&quot;);
-	    } else if (sel == 1) {
-		if (cm.getParty() != null) {
-		    if (cm.isLeader()) {
-			cm.sendOk(&quot;您要立即進入嗎？&quot;);
-		    } else {
-			cm.sendOk(&quot;嘿，您甚至都不是隊長。您想偷偷溜進去做什麼？如果您想進入該場所，請告訴您的隊長與我交談。&quot;);
-		    }
-		}
-	    } else if (sel == 0) {
-		if (cm.getParty() != null) {
-			cm.sendOk(&quot;請離開你的隊伍。&quot;);
-			cm.dispose();
-		}
-		var record = cm.getQuestRecord(150000);
-		var data = record.getCustomData();
-
-		if (data != null) {
-		    var idd = get_restinFieldID(parseInt(data));
-		    if (idd != 925020002) {
-		        cm.dojoAgent_NextMap(true, true , idd );
-		        record.setCustomData(null);
-		    } else {
-			cm.sendOk(&quot;請等等再嘗試一次。&quot;);
-		    }
-		} else {
-		    cm.start_DojoAgent(true, false);
-		}
-		cm.dispose();
-	    // cm.sendYesNo(&quot;The last time you took the challenge yourself, you were able to reach Floor #18. I can take you straight to that floor, if you want. Are you interested?&quot;);
-	    }
-	} else if (status == 1) {
-	    if (sel == 3) {
-		cm.setDojoRecord(true);
-		cm.sendOk(&quot;我已將您的訓練點重設為0&quot;);
-	    } else if (sel == 2) {
-		var record = cm.getDojoRecord();
-		var required = 0;
-		
-		switch (record) {
-		    case 0:
-			required = 500;
-			break;
-		    case 1:
-			required = 1500;
-			break;
-		    case 2:
-			required = 3000;
-			break;
-		    case 3:
-			required = 4500;
-			break;
-		    case 4:
-			required = 6000;
-			break;
-			case 5:
-			required = 9000;
-			break;
-			case 6:
-			required = 11000;
-			break;
-			case 7:
-			required = 15000;
-			break;
-		}
-
-		if (record == selection &amp;&amp; cm.getDojoPoints() &gt;= required) {
-		    var item = 1132000 + record;
-		    if (cm.canHold(item)) {
-			cm.gainItem(item, 1);
-			cm.setDojoRecord(false);
-		    } else {
-			cm.sendOk(&quot;請檢查背包中是否還有空位。&quot;);
-		    }
-		} else {
-		    cm.sendOk(&quot;您已經擁有或訓練點不足。請嘗試先獲取較低階的腰帶。&quot;);
-		}
-		cm.dispose();
-	    } else if (sel == 1) {
-		cm.start_DojoAgent(true, true);
-		cm.dispose();
-	    }
-	}
-    } else if (isRestingSpot(mapid)) {
-	if (mode == 1) {
-	    status++;
-	} else {
-	    cm.dispose();
-	    return;
-	}
-
-	if (status == 0) {
-	    sel = selection;
-
-	    if (sel == 0) {
-		if (cm.getParty() == null || cm.isLeader()) {
-		    cm.dojoAgent_NextMap(true, true);
-		} else {
-		    cm.sendOk(&quot;只有隊長可以繼續前進。&quot;);
-		}
-		//cm.getQuestRecord(150000).setCustomData(null);
-		cm.dispose();
-	    } else if (sel == 1) {
-		cm.askAcceptDecline(&quot;你想退出嗎？你真的想離開這裡嗎？&quot;);
-	    } else if (sel == 2) {
-		if (cm.getParty() == null) {
-			var stage = get_stageId(cm.getMapId());
-
-			cm.getQuestRecord(150000).setCustomData(stage);
-			cm.sendOk(&quot;我剛剛記錄了您的進度。下次您到達這裡時，我會直接將您送到此樓層。&quot;);
-			cm.dispose();
-		} else {
-			cm.sendOk(&quot;嘿..您無法記錄與隊伍合作的進度...&quot;);
-			cm.dispose();
-		}
-	    }
-	} else if (status == 1) {
-	    if (sel == 1) {
-		if (cm.isLeader()) {
-			cm.warpParty(925020002);
-		} else {
-			cm.warp(925020002);
-		}
-	    }
-	    cm.dispose();
-	}
-    } else {
-	if (mode == 1) {
-		if (cm.isLeader()) {
-			cm.warpParty(925020002);
-		} else {
-			cm.warp(925020002);
-		}
-	}
-	cm.dispose();
-    }
-}
-
-function get_restinFieldID(id) {
-	var idd = 925020002;
-    switch (id) {
-	case 1:
-	    idd =  925020600;
-	    break;
-	case 2:
-	    idd =  925021200;
-	    break;
-	case 3:
-	    idd =  925021800;
-	    break;
-	case 4:
-	    idd =  925022400;
-	    break;
-	case 5:
-	    idd =  925023000;
-	    break;
-	case 6:
-	    idd =  925023600;
-	    break;
-    }
-    for (var i = 0; i &lt; 10; i++) {
-	var canenterr = true;
-	for (var x = 1; x &lt; 39; x++) {
-		var map = cm.getMap(925020000 + 100 * x + i);
-		if (map.getCharactersSize() &gt; 0) {
-			canenterr = false;
-			break;
-		}
-	}
-	if (canenterr) {
-		idd += i;
-		break;
-	}
-}
-	return idd;
-}
-
-function get_stageId(mapid) {
-    if (mapid &gt;= 925020600 &amp;&amp; mapid &lt;= 925020614) {
-	return 1;
-    } else if (mapid &gt;= 925021200 &amp;&amp; mapid &lt;= 925021214) {
-	return 2;
-    } else if (mapid &gt;= 925021800 &amp;&amp; mapid &lt;= 925021814) {
-	return 3;
-    } else if (mapid &gt;= 925022400 &amp;&amp; mapid &lt;= 925022414) {
-	return 4;
-    } else if (mapid &gt;= 925023000 &amp;&amp; mapid &lt;= 925023014) {
-	return 5;
-    } else if (mapid &gt;= 925023600 &amp;&amp; mapid &lt;= 925023614) {
-	return 6;
-    }
-    return 0;
-}
-
-function isRestingSpot(id) {
-    return (get_stageId(id) &gt; 0);
 }
 </code></pre>
 ]]></content>
