@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-27T12:58:07.962Z</updated>
+    <updated>2020-02-27T18:15:57.878Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -394,7 +394,7 @@ function action(mode, type, selection) {
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[楓之谷私服 - 點裝領取系統/小便系統/賞金任務]]></title>
+        <title type="html"><![CDATA[楓之谷私服 - 點裝領取系統/小便系統/賞金任務/答題活動]]></title>
         <id>https://Z1Nhouse.github.io//post/Y6qQpOypx</id>
         <link href="https://Z1Nhouse.github.io//post/Y6qQpOypx">
         </link>
@@ -434,6 +434,14 @@ function action(mode, type, selection) {
 需要新增一個資料表用來記錄玩家任務進行的狀態，除此之外真的純粹靠JS。<br>
 <img src="https://Z1Nhouse.github.io//post-images/1582706841070.PNG" alt=""><br>
 <img src="https://Z1Nhouse.github.io//post-images/1582706942332.PNG" alt=""></p>
+<h2 id="答題活動">答題活動</h2>
+<p>真的很有趣<br>
+代碼也是真的長...<br>
+ps.請假裝他真的是孔明 哈!<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582827269133.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582827271754.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582827321332.PNG" alt=""><br>
+<img src="https://Z1Nhouse.github.io//post-images/1582827273931.PNG" alt=""></p>
 ]]></content>
     </entry>
     <entry>

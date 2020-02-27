@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>楓之谷私服v120 每日簽到系統 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582808274356">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582827352495">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582808274356" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582827352495" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -78,7 +78,7 @@
                 2020-01-31
               </span>
               <span>
-                11 min read
+                10 min read
               </span>
               
                 <a href="https://Z1Nhouse.github.io//tag/h_VbKyk9Z" class="post-tag">
@@ -102,6 +102,8 @@
 簽到過或者時長不足<br>
 <img src="https://Z1Nhouse.github.io//post-images/1580485053777.PNG" alt=""><br>
 簽到後會在資料表中自動寫入今天日期以及簽到的帳號id。</p>
+<p>在線時長領獎勵這種東西應該不需要分享了吧...<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582827155279.PNG" alt=""></p>
 <hr>
 <h2 id="️新建資料表">❗️新建資料表</h2>
 <ol>
@@ -366,50 +368,8 @@ var MonthB=objDate.getMonth()-1;
 var tzc =objDate.getDate();
 var Year =objDate.getFullYear();
 
-var itemList = Array(
-Array(5561000, 5),//從下一個開始
-Array(5561000, 3),//1 任意門高級劵
-Array(5220000, 10),//2 轉蛋劵
-Array(2450000, 3),//3 獵人的幸運
-Array(2022179, 5),//4 紫色的蘋果
-Array(2022462, 3),//5 卡4
-Array(2022463, 3),//6 卡5
-Array(2450000, 2),//7 獵人的幸運
-Array(5220010, 3),//8 超級轉蛋劵
-Array(5510000, 5),//9 原地復活術
-Array(5201003, 2),//10 小鋼珠盒子(100)
-Array(2101120, 5),//11 魚怪召喚袋
-Array(2450000, 1),//12 獵人的幸運
-Array(2450000, 1),//13 獵人的幸運
-Array(2450000, 1),//14 獵人的幸運
-Array(5201001, 1),//15 小鋼珠盒子(500)
-Array(4000313, 200),//16 黃金楓葉
-Array(2101120, 5), //17 魚怪召喚袋
-Array(2101120, 5),//18 魚怪召喚袋
-Array(5220010, 1),//19 超級轉蛋劵
-Array(2022179, 5),//20 紫色的蘋果
-Array(2022179, 5),//21 紫色的蘋果
-Array(4000313, 200),//22 黃金楓葉
-Array(5220000, 30),//23 轉蛋劵
-Array(2022462, 5),//24 卡4
-Array(2022463, 5),//25 卡5
-Array(5201003, 3),//26 小鋼珠盒子(100)
-Array(4000313, 200),//27 黃金楓葉
-Array(5561000 , 10),//28 任意門高級劵
-Array(5220000, 50),//29 轉蛋劵
-Array(5510000, 10),//30 原地復活術
-Array(5201001, 1) //31 小鋼珠盒子(500)
-
-); // 因為沒0日 從第1開始設置物品 第一格道具id 第二格設置數量
-
-var debug = false;
-
 function start() {
     status = -1;
-	if(debug &amp;&amp; cm.getPlayer().getGMLevel() &lt; 4){
-		cm.dispose();
-		return;
-	}
     action(1, 0, 0);
 }
 
@@ -424,7 +384,6 @@ function action(mode, type, selection) {
         if (mode == 1) status++;
         else status--;
         if (status == 0) {
-
 
 var tt=31;
 if (Month == 0 || Month == 2 || Month == 4 || Month == 6|| Month == 7 || Month == 9 || Month == 11) { // 1月 3月 5月 78 月 10月 12月
@@ -464,14 +423,10 @@ ta=&quot;#r&quot;;
              }
   if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日&quot;) &lt; 1 &amp;&amp; cm.getOnlineTime() &gt;= 60) { // 在線時數
                     cm.getPlayer().setPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日&quot;);
-           
-                  //  cm.gainItem(itemList[tzc][0], itemList[tzc][1]);
 					cm.getPlayer().modifyCSPoints(1, 100, true);
-
                     cm.sendOk(&quot;恭喜您成功進行簽到並獲取100點!!&quot;);
      cm.worldMessage(5,&quot;『xx谷』&quot; + &quot; : &quot; + &quot;玩家 &quot; + cm.getChar().getName() + &quot; 已進行每日簽到!!!&quot;);
                     cm.dispose();
-                        
                 } else{ 
                     cm.sendOk(&quot;已進行每日簽到或上線時間未達60分鐘!。&quot;);
                     cm.dispose();
