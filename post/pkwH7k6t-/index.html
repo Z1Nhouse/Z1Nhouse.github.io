@@ -1,0 +1,352 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>楓之谷私服 - 自由泡點 腳本+改法 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582808274356">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1582808274356" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              楓之谷私服 - 自由泡點 腳本+改法
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-27
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/pkwH7k6t-.PNG" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>這個是參考對岸了其他腳本隨便改的，所以就直接放出來了。<br>
+應該適用於113,118,120...等版本，更新的我就不曉得了。</p>
+<p>預設是掛機3分鐘得EXP、10分鐘得點數，你可以自由更改。<br>
+如果只需要泡點不需要經驗的話，可以自行省略一些步驟。</p>
+<h2 id="src">SRC</h2>
+<ol>
+<li>打開<code>ChannelServer.java</code>，在最後一個}前加上：</li>
+</ol>
+<pre><code>//泡點
+   
+   public void AutoGain(int jsexp) {
+        this.mapFactory.getMap(910000000).AutoGain(jsexp);
+    }
+
+    public void AutoNx(int jsNx) {
+        this.mapFactory.getMap(910000000).AutoNx(jsNx);
+    }
+
+    public void AutoPaoDian() {
+        for (MapleCharacter chr : this.players.getAllCharacters()) {
+            chr.setBossLog(&quot;在線泡點&quot;);
+        }
+    }
+</code></pre>
+<ol start="2">
+<li>打開<code>MapleMap.java</code> 在最後一個}前加上：</li>
+</ol>
+<pre><code>//泡點
+    public void AutoNx(int jsNx) { //cash
+        if (this.mapid != 999999992) { //這裡改你想泡點的地圖
+            return;
+        }
+        for (MapleCharacter chr : this.characters) {
+            int givNx = chr.getLevel() / 10 + jsNx;
+            chr.modifyCSPoints(1, givNx);
+            chr.dropMessage(5, new StringBuilder().append(&quot;[系統獎勵] 在線時間獎勵獲得 [&quot;).append(givNx).append(&quot;] 點CASH.&quot;).toString());
+        }
+    }
+
+    public void AutoGain(int jsexp) {
+        if (this.mapid != 999999992) { //這裡改你想泡點的地圖
+            return;
+        }
+        for (MapleCharacter chr : this.characters) {
+            if (chr.getLevel() &gt;= 200) {
+                return;
+            }
+            int givExp = jsexp * chr.getLevel() + chr.getClient().getChannelServer().getExpRate();
+            givExp *= 3;
+            chr.gainExp(givExp, true, false, true);
+            chr.dropMessage(5, new StringBuilder().append(&quot;[系統獎勵] 在線時間獎勵獲得 [&quot;).append(givExp).append(&quot;] 點經驗.&quot;).toString());
+        }
+    }
+</code></pre>
+<h2 id="event">Event</h2>
+<p>新增3個js分別為AutoGain.js、AutoNx.js、AutoPaoDian.js</p>
+<ul>
+<li>AutoGain.js</li>
+</ul>
+<pre><code>var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 3);
+    cal.set(java.util.Calendar.MINUTE, 50);
+    cal.set(java.util.Calendar.SECOND, 0);
+    var nextTime = cal.getTimeInMillis();
+    while (nextTime &lt;= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60 * 3;
+    }
+    setupTask = em.scheduleAtTimestamp(&quot;start&quot;, nextTime);
+}
+
+function cancelSchedule() {
+    setupTask.cancel(true);
+}
+
+function start() {
+    scheduleNew();
+    em.getChannelServer().AutoGain(10);
+}
+</code></pre>
+<ul>
+<li>AutoNx.js</li>
+</ul>
+<pre><code>var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 3);
+    cal.set(java.util.Calendar.MINUTE, 50);
+    cal.set(java.util.Calendar.SECOND, 0);
+    var nextTime = cal.getTimeInMillis();
+    while (nextTime &lt;= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60 * 10;
+    }
+    setupTask = em.scheduleAtTimestamp(&quot;start&quot;, nextTime);
+}
+
+function cancelSchedule() {
+    setupTask.cancel(true);
+}
+
+function start() {
+    scheduleNew();
+    em.getChannelServer().AutoNx(10);
+}
+</code></pre>
+<ul>
+<li>AutoPaoDian.js</li>
+</ul>
+<pre><code>var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 0);
+    cal.set(java.util.Calendar.MINUTE, 0);
+    cal.set(java.util.Calendar.SECOND, 0);
+    var nextTime = cal.getTimeInMillis();
+    while (nextTime &lt;= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60 * 1;
+    }
+    setupTask = em.scheduleAtTimestamp(&quot;start&quot;, nextTime);
+}
+
+function cancelSchedule() {
+    setupTask.cancel(true);
+}
+
+function start() {
+    scheduleNew();
+    em.getChannelServer().AutoPaoDian();
+    var iter = em.getInstances().iterator();
+    while (iter.hasNext()) {
+        var eim = iter.next();
+    }
+}
+</code></pre>
+<p>以上三個js都寫好後放到端口的Event裡，打開端口設定檔(一般都是<code>Settings</code>或者<code>world.properties</code>之類的)在<code>tms.Events:</code>後方加上AutoGain,AutoNx,AutoPaoDian<br>
+記得要用<strong>逗號</strong>隔開，就這樣。</p>
+<p>📢3個泡點Event下載：<a href="http://www.mediafire.com/file/1ouhrk1b4o7n5no/%25E6%25B3%25A1%25E9%25BB%259EEvent.rar/file">Download</a></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#src">SRC</a></li>
+<li><a href="#event">Event</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/Jynb6paEp">
+              <h3 class="post-title">
+                楓之谷私服 - 告別楓票! 簡易銀行系統
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

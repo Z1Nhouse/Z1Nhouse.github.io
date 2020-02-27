@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-26T09:04:55.700Z</updated>
+    <updated>2020-02-27T12:58:07.962Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,187 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷改login登入頁面背景]]></title>
+        <id>https://Z1Nhouse.github.io//post/XA05N8tyr</id>
+        <link href="https://Z1Nhouse.github.io//post/XA05N8tyr">
+        </link>
+        <updated>2020-02-27T12:53:24.000Z</updated>
+        <content type="html"><![CDATA[<p>很簡單也很無趣。<br>
+背景大小是800x600。</p>
+<p>120原版背景圖：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582808101653.png" alt=""></p>
+<h2 id="改法">改法</h2>
+<p>打開<code>Map.wz/Back/login.img/11</code>修改即可<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582808155380.PNG" alt=""></p>
+<p>至於邊框則在UI.wz裡頭，自己慢慢找吧。</p>
+<p>一些不錯的楓之谷800x600圖片下載：<a href="https://maplestory.nexon.com/Media/ArtWork">Here</a></p>
+<p>Like this<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582808199982.jpg" alt=""></p>
+<p>Have fun!</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服 - 自由泡點 腳本+改法]]></title>
+        <id>https://Z1Nhouse.github.io//post/pkwH7k6t-</id>
+        <link href="https://Z1Nhouse.github.io//post/pkwH7k6t-">
+        </link>
+        <updated>2020-02-27T12:38:50.000Z</updated>
+        <content type="html"><![CDATA[<p>這個是參考對岸了其他腳本隨便改的，所以就直接放出來了。<br>
+應該適用於113,118,120...等版本，更新的我就不曉得了。</p>
+<p>預設是掛機3分鐘得EXP、10分鐘得點數，你可以自由更改。<br>
+如果只需要泡點不需要經驗的話，可以自行省略一些步驟。</p>
+<h2 id="src">SRC</h2>
+<ol>
+<li>打開<code>ChannelServer.java</code>，在最後一個}前加上：</li>
+</ol>
+<pre><code>//泡點
+   
+   public void AutoGain(int jsexp) {
+        this.mapFactory.getMap(910000000).AutoGain(jsexp);
+    }
+
+    public void AutoNx(int jsNx) {
+        this.mapFactory.getMap(910000000).AutoNx(jsNx);
+    }
+
+    public void AutoPaoDian() {
+        for (MapleCharacter chr : this.players.getAllCharacters()) {
+            chr.setBossLog(&quot;在線泡點&quot;);
+        }
+    }
+</code></pre>
+<ol start="2">
+<li>打開<code>MapleMap.java</code> 在最後一個}前加上：</li>
+</ol>
+<pre><code>//泡點
+    public void AutoNx(int jsNx) { //cash
+        if (this.mapid != 999999992) { //這裡改你想泡點的地圖
+            return;
+        }
+        for (MapleCharacter chr : this.characters) {
+            int givNx = chr.getLevel() / 10 + jsNx;
+            chr.modifyCSPoints(1, givNx);
+            chr.dropMessage(5, new StringBuilder().append(&quot;[系統獎勵] 在線時間獎勵獲得 [&quot;).append(givNx).append(&quot;] 點CASH.&quot;).toString());
+        }
+    }
+
+    public void AutoGain(int jsexp) {
+        if (this.mapid != 999999992) { //這裡改你想泡點的地圖
+            return;
+        }
+        for (MapleCharacter chr : this.characters) {
+            if (chr.getLevel() &gt;= 200) {
+                return;
+            }
+            int givExp = jsexp * chr.getLevel() + chr.getClient().getChannelServer().getExpRate();
+            givExp *= 3;
+            chr.gainExp(givExp, true, false, true);
+            chr.dropMessage(5, new StringBuilder().append(&quot;[系統獎勵] 在線時間獎勵獲得 [&quot;).append(givExp).append(&quot;] 點經驗.&quot;).toString());
+        }
+    }
+</code></pre>
+<h2 id="event">Event</h2>
+<p>新增3個js分別為AutoGain.js、AutoNx.js、AutoPaoDian.js</p>
+<ul>
+<li>AutoGain.js</li>
+</ul>
+<pre><code>var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 3);
+    cal.set(java.util.Calendar.MINUTE, 50);
+    cal.set(java.util.Calendar.SECOND, 0);
+    var nextTime = cal.getTimeInMillis();
+    while (nextTime &lt;= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60 * 3;
+    }
+    setupTask = em.scheduleAtTimestamp(&quot;start&quot;, nextTime);
+}
+
+function cancelSchedule() {
+    setupTask.cancel(true);
+}
+
+function start() {
+    scheduleNew();
+    em.getChannelServer().AutoGain(10);
+}
+</code></pre>
+<ul>
+<li>AutoNx.js</li>
+</ul>
+<pre><code>var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 3);
+    cal.set(java.util.Calendar.MINUTE, 50);
+    cal.set(java.util.Calendar.SECOND, 0);
+    var nextTime = cal.getTimeInMillis();
+    while (nextTime &lt;= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60 * 10;
+    }
+    setupTask = em.scheduleAtTimestamp(&quot;start&quot;, nextTime);
+}
+
+function cancelSchedule() {
+    setupTask.cancel(true);
+}
+
+function start() {
+    scheduleNew();
+    em.getChannelServer().AutoNx(10);
+}
+</code></pre>
+<ul>
+<li>AutoPaoDian.js</li>
+</ul>
+<pre><code>var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 0);
+    cal.set(java.util.Calendar.MINUTE, 0);
+    cal.set(java.util.Calendar.SECOND, 0);
+    var nextTime = cal.getTimeInMillis();
+    while (nextTime &lt;= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60 * 1;
+    }
+    setupTask = em.scheduleAtTimestamp(&quot;start&quot;, nextTime);
+}
+
+function cancelSchedule() {
+    setupTask.cancel(true);
+}
+
+function start() {
+    scheduleNew();
+    em.getChannelServer().AutoPaoDian();
+    var iter = em.getInstances().iterator();
+    while (iter.hasNext()) {
+        var eim = iter.next();
+    }
+}
+</code></pre>
+<p>以上三個js都寫好後放到端口的Event裡，打開端口設定檔(一般都是<code>Settings</code>或者<code>world.properties</code>之類的)在<code>tms.Events:</code>後方加上AutoGain,AutoNx,AutoPaoDian<br>
+記得要用<strong>逗號</strong>隔開，就這樣。</p>
+<p>📢3個泡點Event下載：<a href="http://www.mediafire.com/file/1ouhrk1b4o7n5no/%25E6%25B3%25A1%25E9%25BB%259EEvent.rar/file">Download</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷私服 - 告別楓票! 簡易銀行系統]]></title>
         <id>https://Z1Nhouse.github.io//post/Jynb6paEp</id>
@@ -2981,585 +3162,6 @@ function action(mode, type, selection) {
     }
     
     }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[楓之谷私服v120 當前地圖怪物掉寶查詢]]></title>
-        <id>https://Z1Nhouse.github.io//post/6o_CeDq_a</id>
-        <link href="https://Z1Nhouse.github.io//post/6o_CeDq_a">
-        </link>
-        <updated>2020-01-31T15:58:15.000Z</updated>
-        <content type="html"><![CDATA[<p>照樣是搬來的，製作是彩虹工作室，但不記得從哪扒來的。<br>
-<img src="https://Z1Nhouse.github.io//post-images/1580486644944.PNG" alt=""></p>
-<h2 id="改src">改SRC</h2>
-<p>其實應該看著NPC腳本就會知道怎麼改了...<br>
-腳本的getAllMonstersThreadsafe是原端自帶<br>
-真正要加的是getAllUniqueMonsters、checkMapDrop以及checkDrop函數</p>
-<ol>
-<li>打開<code>Sever\Maps\MapleMap.java</code><br>
-在一串變數宣告下方貼上</li>
-</ol>
-<pre><code class="language-java">public List&lt;Integer&gt; getAllUniqueMonsters() {
-        ArrayList&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
-        mapobjectlocks.get(MapleMapObjectType.MONSTER).readLock().lock();
-        try {
-            for (MapleMapObject mmo : mapobjects.get(MapleMapObjectType.MONSTER).values()) {
-                int theId = ((MapleMonster) mmo).getId();
-                if (!ret.contains(theId)) {
-                    ret.add(theId);
-                }
-            }
-        } finally {
-            mapobjectlocks.get(MapleMapObjectType.MONSTER).readLock().unlock();
-        }
-        return ret;
-    }
-
-    /*怪物查詢*/
-    private Map&lt;Integer, MapleMapObject&gt; mapobjects1 = new LinkedHashMap&lt;Integer, MapleMapObject&gt;();
-
-    public Collection&lt;MapleMapObject&gt; getMapObjects() {
-        return Collections.unmodifiableCollection(mapobjects1.values());
-    }
-
-    public List&lt;Integer&gt; getUniqueMonsters() {
-        List&lt;Integer&gt; mobs = new ArrayList&lt;Integer&gt;();
-        for (MapleMapObject obj : this.getMapObjects()) {
-            MapleMonster mob = this.getMonsterByOid(obj.getObjectId());
-            if (mob != null) {
-                if (!mobs.contains(mob.getId())) {
-                    mobs.add(mob.getId());
-                }
-            }
-        }
-        return mobs;
-    }
-</code></pre>
-<ol start="2">
-<li>打開<code>scripting\NPCConversationManager.java</code></li>
-</ol>
-<p>在最下方}前貼上</p>
-<pre><code class="language-java">public String checkDrop(int mobId) {
-        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        List&lt;MonsterDropEntry&gt; ranks = MapleMonsterInformationProvider.getInstance().retrieveDrop(mobId);
-        if (!ranks.isEmpty() &amp;&amp; ranks.size() &gt; 0) {
-            int num = 0, itemId, chance;
-            MonsterDropEntry de;
-            StringBuilder name = new StringBuilder();
-            for (MonsterDropEntry rank : ranks) {
-                de = rank;
-                if (de.chance &gt; 0 &amp;&amp; (de.questid &lt;= 0 || (de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0))) {
-                    itemId = de.itemId;
-                    if (itemId == 0) {
-                        continue;
-                    } else if (!ii.itemExists(itemId)) {
-                        continue;
-                    }
-                    if (num == 0) {
-                        name.append(&quot;當前怪物 #o&quot;).append(mobId).append(&quot;# 的掉寶率為:\r\n&quot;);
-                        name.append(&quot;--------------------------------------\r\n&quot;);
-                    }
-                    String namez = &quot;&quot;;
-                    if (itemId == 0) { //金幣 物品ID為0就是金幣道具
-                        itemId = 4031041; //休咪的錢包 display sack of cash
-                        namez = (de.Minimum * getClient().getChannelServer().getMesoRate()) + &quot; - &quot; + (de.Maximum * getClient().getChannelServer().getMesoRate()) + &quot; 的金幣&quot;;
-                    } else {
-                        namez = &quot;#z&quot; + itemId + &quot;#&quot;;
-                    }
-                    chance = de.chance * getClient().getChannelServer().getDropRate();
-                    if (getPlayer().isAdmin()) {
-                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(namez).append(&quot; - &quot;).append(Integer.valueOf(chance &gt;= 999999 ? 1000000 : chance).doubleValue() / 10000.0).append(&quot;%的掉寶率. &quot;).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
-                    } else {
-                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(namez).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
-                    }
-                    num++;
-                }
-            }
-            if (name.length() &gt; 0) {
-                return name.toString();
-            }
-        }
-        return &quot;沒有找到這個怪物的掉寶率數據。&quot;;
-    }
-
-     public String checkMapDrop() {
-        List&lt;MonsterGlobalDropEntry&gt; ranks = new ArrayList&lt;&gt;(MapleMonsterInformationProvider.getInstance().getGlobalDrop());
-        int mapid = getPlayer().getMap().getId();
-//        int cashServerRate = getClient().getChannelServer().getCashRate(); //點卷掉寶率
-        //int globalServerRate = getClient().getChannelServer().getDropgRate(); //特殊數據庫道具掉寶率
-        int globalServerRate = 1; //特殊數據庫道具掉寶率
-        if (ranks != null &amp;&amp; ranks.size() &gt; 0) {
-            int num = 0, itemId, chance;
-            MonsterGlobalDropEntry de;
-            StringBuilder name = new StringBuilder();
-            for (MonsterGlobalDropEntry rank : ranks) {
-                de = rank;
-                if (de.continent &lt; 0 || (de.continent &lt; 10 &amp;&amp; mapid / 100000000 == de.continent) || (de.continent &lt; 100 &amp;&amp; mapid / 10000000 == de.continent) || (de.continent &lt; 1000 &amp;&amp; mapid / 1000000 == de.continent)) {
-                    itemId = de.itemId;
-                    if (num == 0) {
-                        name.append(&quot;當前地圖 #r&quot;).append(mapid).append(&quot;#k - #m&quot;).append(mapid).append(&quot;# 的全局掉寶率為:&quot;);
-                        name.append(&quot;\r\n--------------------------------------\r\n&quot;);
-                    }
-                    String names = &quot;#z&quot; + itemId + &quot;#&quot;;
-//                    if (itemId == 0 &amp;&amp; cashServerRate != 0) {
-//                        itemId = 4031041;
-//                        names = (de.minimum * cashServerRate) + &quot; - &quot; + (de.maximum * cashServerRate) + &quot; 的抵用卷&quot;;
-//                    }
-                    chance = de.chance * globalServerRate;
-                    if (getPlayer().isAdmin()) {
-                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(names).append(&quot; - &quot;).append(Integer.valueOf(chance &gt;= 999999 ? 1000000 : chance).doubleValue() / 10000.0).append(&quot;%的掉寶率. &quot;).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
-                    } else {
-                        name.append(num + 1).append(&quot;) #v&quot;).append(itemId).append(&quot;#&quot;).append(names).append(de.questid &gt; 0 &amp;&amp; MapleQuest.getInstance(de.questid).getName().length() &gt; 0 ? (&quot;需要接受任務: &quot; + MapleQuest.getInstance(de.questid).getName()) : &quot;&quot;).append(&quot;\r\n&quot;);
-                    }
-                    num++;
-                }
-            }
-            if (name.length() &gt; 0) {
-                return name.toString();
-            }
-        }
-        return &quot;當前地圖沒有設置全局掉寶率。&quot;;
-    }
-</code></pre>
-<h2 id="npc腳本">NPC腳本</h2>
-<p>隨便塞給一個NPC就行</p>
-<pre><code class="language-javascript">/*
-	製作：彩虹工作室
-	功能：查看地圖怪物爆率
-	時間：2016年12月23日
-*/
-
-var status = -1;
-
-function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else {
-        if (status == 0) {
-            cm.dispose();
-        }
-        status--;
-    }
-    if (status == 0) {
-        if (cm.getMap().getAllMonstersThreadsafe().size() &lt;= 0) {
-            cm.sendOk(&quot;當前地圖沒有刷新怪物，無法查看怪物掉寶資訊。&quot;);
-            cm.dispose();
-            return;
-        }
-        var selStr = &quot;請選擇你要查看怪物的掉寶資訊。\r\n\r\n#b&quot;;
-        var iz = cm.getMap().getAllUniqueMonsters().iterator();
-        while (iz.hasNext()) {
-            var zz = iz.next();
-            selStr += &quot;#L&quot; + zz + &quot;##o&quot; + zz + &quot;##l\r\n&quot;;
-        }
-        if (cm.getPlayer().isAdmin()) {
-            selStr += &quot;\r\n#L0# #r查看全地圖掉寶資訊#k#l&quot;;
-        }
-        cm.sendSimple(selStr);
-    } else if (status == 1) {
-        if (selection == 0) {
-            cm.sendNext(cm.checkMapDrop());
-        } else {
-             cm.sendOk(cm.checkDrop(selection));
-        }
-        cm.dispose();
-    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[楓之谷私服v120 每日簽到系統]]></title>
-        <id>https://Z1Nhouse.github.io//post/Kfyq7c531</id>
-        <link href="https://Z1Nhouse.github.io//post/Kfyq7c531">
-        </link>
-        <updated>2020-01-31T15:19:48.000Z</updated>
-        <content type="html"><![CDATA[<p>夢夢谷端口扒來的。<br>
-時間有點久遠，如果有哪裡漏掉了import還是什麼的...請自行補上吧。</p>
-<p>簽到成功<br>
-<img src="https://Z1Nhouse.github.io//post-images/1580485049904.PNG" alt=""><br>
-簽到過或者時長不足<br>
-<img src="https://Z1Nhouse.github.io//post-images/1580485053777.PNG" alt=""><br>
-簽到後會在資料表中自動寫入今天日期以及簽到的帳號id。</p>
-<hr>
-<h2 id="️新建資料表">❗️新建資料表</h2>
-<ol>
-<li>首先，在資料庫新增一個資料表<code>prizelog_n</code>：</li>
-</ol>
-<ul>
-<li>id/int/10/勾選主索引鍵/自動遞增</li>
-<li>accid/int/10</li>
-<li>bossid/varchar/20/字元集:utf8 整理:utf8_general_ci</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1580484064199.PNG" alt=""></figure>
-<ol start="2">
-<li>再新增第二個資料表<code>accounts_event</code>：<br>
-直接用sql語法新增，或者參考語法手動新增。</li>
-</ol>
-<pre><code>CREATE TABLE `accounts_event` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `accId` int(11) NOT NULL DEFAULT '0',
-  `eventId` varchar(20) NOT NULL DEFAULT '',
-  `count` int(11) NOT NULL DEFAULT '0',
-  `type` int(11) NOT NULL DEFAULT '0',
-  `updateTime` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `accid` (`accId`),
-  KEY `eventid` (`eventId`) 
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=big5;
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://Z1Nhouse.github.io//post-images/1582208152754.PNG" alt=""></figure>
-<hr>
-<h2 id="️改src">❗️改SRC</h2>
-<p>▶️1. 打開<code>client\MapleCharacter.java</code>，在最後一個}前貼上：</p>
-<pre><code class="language-java">public int getPrizeLog_n(String bossid) {
-        Connection con1 = DatabaseConnection.getConnection();
-        try {
-            int ret_count = 0;
-            PreparedStatement ps;
-            ps = con1.prepareStatement(&quot;select count(*) from prizelog_n where accid = ? and bossid = ?&quot;);
-            ps.setInt(1, getClient().getAccID());
-            ps.setString(2, bossid);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                ret_count = rs.getInt(1);
-            } else {
-                ret_count = -1;
-            }
-            rs.close();
-            ps.close();
-            return ret_count;
-        } catch (Exception Wx) {
-            return -1;
-        }
-    }
-    
-public void setPrizeLog_n(String bossid) {
-       Connection con1 = DatabaseConnection.getConnection();
-        try {
-            PreparedStatement ps;
-            ps = con1.prepareStatement(&quot;insert into prizelog_n (accid, bossid) values (?,?)&quot;);
-            ps.setInt(1, getClient().getAccID());
-            ps.setString(2, bossid);
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception Wx) {
-        }
-    }
-</code></pre>
-<p><strong>📣PS.如果你的端口已經有prizelog函數，此步驟可以跳過。</strong></p>
-<p>▶️2. 同樣是<code>MapleCharacter.java</code></p>
-<p>在最上方一堆變數宣告加上以下變數宣告</p>
-<pre><code class="language-java">private long logintime;//登入時間
-private long onlineTime;//上線時間
-//角色一些特殊變量數據
-private Timestamp todayonlinetimestamp;
-</code></pre>
-<p>在最後一個} 前加上</p>
-<pre><code class="language-java">/*
-     * OnlineTime 系統
-     */
-    public void initOnlineTime() {
-        onlineTime = getEventCount(&quot;OnlineTime&quot;, 0);
-    }
-
-    //獲得在線時間
-    public int getOnlineTime() {
-        long l2;
-        long l3 = getDaybyDay(1).getTimeInMillis() - getLogintime();
-        if (onlineTime &lt; 0) {
-            resetEventCount(&quot;OnlineTime&quot;, 0);
-            initOnlineTime();
-        }
-        if (l3 &gt;= 86400000) {//86400000 = 一天毫秒
-            l2 = getDaybyDay(1).getTimeInMillis() - 86400000;
-            setLogintime(getDaybyDay(0).getTimeInMillis());
-        } else {
-            l2 = getLogintime() - onlineTime;
-        }
-        return (int) (System.currentTimeMillis() - l2);
-    }
-
-    public void setOnlineTime() {
-        if (getLogintime() &gt; 0) {
-            long l2 = getDaybyDay(1).getTimeInMillis() - getLogintime();
-            if (onlineTime &lt; 0) {
-                resetEventCount(&quot;OnlineTime&quot;, 0);
-            }
-            setEventCount(&quot;OnlineTime&quot;, 0, (int) (System.currentTimeMillis() - (l2 &gt;= 86400000 ? getDaybyDay(1).getTimeInMillis() - 86400000 : getLogintime())));
-            setLogintime(System.currentTimeMillis());
-        }
-    }
-
-    public void setOnlineTime(long onlineTime) {
-        this.onlineTime = onlineTime;
-    }
-
-    /*
-     * Logintime 系統
-     */
-    public long getLogintime() {
-        return logintime;
-    }
-
-    public void setLogintime(long logintime) {
-        this.logintime = logintime;
-    }
-
-    public Calendar getDaybyDay(int n2) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + n2);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.AM_PM, 0);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
-    }
-    
-    /*
-     * 新增函數
-     * 帳號下的角色統計計算每日活動次數
-     */
-    public int getEventCount(String eventId) {
-        return getEventCount(eventId, 0);
-    }
-
-    public int getEventCount(String eventId, int type) {
-        try (Connection con = DatabaseConnection.getConnection()) {
-            int count = 0;
-            PreparedStatement ps = con.prepareStatement(&quot;SELECT * FROM accounts_event WHERE accId = ? AND eventId = ?&quot;);
-            ps.setInt(1, getClient().getAccID()); //1
-            ps.setString(2, eventId); //2
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                /*
-                 * 年：calendar.get(Calendar.YEAR)
-                 * 月：calendar.get(Calendar.MONTH)+1
-                 * 日：calendar.get(Calendar.DAY_OF_MONTH)
-                 * 星期：calendar.get(Calendar.DAY_OF_WEEK)-1
-                 */
-                count = rs.getInt(&quot;count&quot;);
-                Timestamp updateTime = rs.getTimestamp(&quot;updateTime&quot;);
-                if (type == 0) {
-                    Calendar sqlcal = Calendar.getInstance();
-                    if (updateTime != null) {
-                        sqlcal.setTimeInMillis(updateTime.getTime());
-                    }
-                    if (sqlcal.get(Calendar.DAY_OF_MONTH) + 1 &lt;= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) || sqlcal.get(Calendar.MONTH) + 1 &lt;= Calendar.getInstance().get(Calendar.MONTH) || sqlcal.get(Calendar.YEAR) + 1 &lt;= Calendar.getInstance().get(Calendar.YEAR)) {
-                        count = 0;
-                        PreparedStatement psu = con.prepareStatement(&quot;UPDATE accounts_event SET count = 0, updateTime = CURRENT_TIMESTAMP() WHERE accId = ? AND eventId = ?&quot;);
-                        psu.setInt(1, id); //1
-                        psu.setString(2, eventId); //2
-                        psu.executeUpdate();
-                        psu.close();
-                    }
-                }
-            } else {
-                PreparedStatement psu = con.prepareStatement(&quot;INSERT INTO accounts_event (accId, eventId, count, type) VALUES (?, ?, ?, ?)&quot;);
-                psu.setInt(1, getClient().getAccID()); //1 - 4
-                psu.setString(2, eventId);
-                psu.setInt(3, 0);
-                psu.setInt(4, type);
-                psu.executeUpdate();
-                psu.close();
-            }
-            rs.close();
-            ps.close();
-            return count;
-        } catch (Exception Ex) {
-            System.err.println(&quot;獲取 EventCount 次數.&quot; + Ex);
-            return -1;
-        }
-    }
-
-    /*
-     * 增加帳號下的角色統計計算每日活動次數
-     */
-    public void setEventCount(String eventId) {
-        setEventCount(eventId, 0);
-    }
-
-    public void setEventCount(String eventId, int type) {
-        setEventCount(eventId, type, 1);
-    }
-
-    public void setEventCount(String eventId, int type, int count) {
-        int eventCount = getEventCount(eventId, type);
-        try (Connection con = DatabaseConnection.getConnection()) {
-            PreparedStatement ps = con.prepareStatement(&quot;UPDATE accounts_event SET count = ?, type = ?, updateTime = CURRENT_TIMESTAMP() WHERE accId = ? AND eventId = ?&quot;);
-            ps.setInt(1, eventCount + count);
-            ps.setInt(2, type); //2
-            ps.setInt(3, getClient().getAccID()); //3
-            ps.setString(4, eventId); //4
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception Ex) {
-            System.err.println(&quot;增加 EventCount 次數失敗.&quot; + Ex);
-        }
-    }
-    
-    /*
-     * 重置帳號下的角色統計計算每日活動次數
-     */
-    public void resetEventCount(String eventId) {
-        resetEventCount(eventId, 0);
-    }
-
-    public void resetEventCount(String eventId, int type) {
-        try (Connection con = DatabaseConnection.getConnection()) {
-            PreparedStatement ps = con.prepareStatement(&quot;UPDATE accounts_event SET count = 0, type = ?, updateTime = CURRENT_TIMESTAMP() WHERE accId = ? AND eventId = ?&quot;);
-            ps.setInt(1, type); //1
-            ps.setInt(2, getClient().getAccID()); //2
-            ps.setString(3, eventId); //3
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception Ex) {
-            System.err.println(&quot;重置 EventCount 次數失敗&quot; + Ex);
-        }
-    }
-</code></pre>
-<p>▶️3. 還是<code>MapleCharacter.java</code>沒變，搜索<strong>函數MapleCharacter</strong>底下的<code>if (ChannelServer) {</code></p>
-<p>在下方加上</p>
-<pre><code class="language-JAVA">todayonlinetimestamp = new Timestamp(System.currentTimeMillis());//今天在線時間
-</code></pre>
-<p>▶️4. 打開<code>handling.channel.handler.InterServerHandler.java</code></p>
-<p>搜索 <code>player.sendMacros();</code> ，在上面加上</p>
-<pre><code class="language-JAVA">//更新在線時間
-c.getPlayer().initOnlineTime();
-player.setLogintime(System.currentTimeMillis());
-</code></pre>
-<hr>
-<h2 id="️簽到npc腳本">❗️簽到NPC腳本</h2>
-<p>最後一步就是找個NPC把腳本貼上，當成每日簽到的NPC來用。<br>
-腳本直接放上..自行研究吧。<br>
-可以調整每日贈送不一樣的物品或者點數，當然也可以都給..看你開心。</p>
-<pre><code class="language-javascript">var status = 0;
-var objDate=new Date();
-var day=objDate.getDay();
-var Month= objDate.getMonth();
-var MonthS =[&quot;1月&quot;,&quot;2月&quot;,&quot;3月&quot;,&quot;4月&quot;,&quot;5月&quot;,&quot;6月&quot;,&quot;7月&quot;,&quot;8月&quot;,&quot;9月&quot;,&quot;10月&quot;,&quot;11月&quot;,&quot;12月&quot;];
-var weekday = [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;];
-var MonthB=objDate.getMonth()-1;
-var tzc =objDate.getDate();
-var Year =objDate.getFullYear();
-
-var itemList = Array(
-Array(5561000, 5),//從下一個開始
-Array(5561000, 3),//1 任意門高級劵
-Array(5220000, 10),//2 轉蛋劵
-Array(2450000, 3),//3 獵人的幸運
-Array(2022179, 5),//4 紫色的蘋果
-Array(2022462, 3),//5 卡4
-Array(2022463, 3),//6 卡5
-Array(2450000, 2),//7 獵人的幸運
-Array(5220010, 3),//8 超級轉蛋劵
-Array(5510000, 5),//9 原地復活術
-Array(5201003, 2),//10 小鋼珠盒子(100)
-Array(2101120, 5),//11 魚怪召喚袋
-Array(2450000, 1),//12 獵人的幸運
-Array(2450000, 1),//13 獵人的幸運
-Array(2450000, 1),//14 獵人的幸運
-Array(5201001, 1),//15 小鋼珠盒子(500)
-Array(4000313, 200),//16 黃金楓葉
-Array(2101120, 5), //17 魚怪召喚袋
-Array(2101120, 5),//18 魚怪召喚袋
-Array(5220010, 1),//19 超級轉蛋劵
-Array(2022179, 5),//20 紫色的蘋果
-Array(2022179, 5),//21 紫色的蘋果
-Array(4000313, 200),//22 黃金楓葉
-Array(5220000, 30),//23 轉蛋劵
-Array(2022462, 5),//24 卡4
-Array(2022463, 5),//25 卡5
-Array(5201003, 3),//26 小鋼珠盒子(100)
-Array(4000313, 200),//27 黃金楓葉
-Array(5561000 , 10),//28 任意門高級劵
-Array(5220000, 50),//29 轉蛋劵
-Array(5510000, 10),//30 原地復活術
-Array(5201001, 1) //31 小鋼珠盒子(500)
-
-); // 因為沒0日 從第1開始設置物品 第一格道具id 第二格設置數量
-
-var debug = false;
-
-function start() {
-    status = -1;
-	if(debug &amp;&amp; cm.getPlayer().getGMLevel() &lt; 4){
-		cm.dispose();
-		return;
-	}
-    action(1, 0, 0);
-}
-
-function action(mode, type, selection) {
-    if (mode == -1) {
-        cm.dispose();
-    } else {
-        if (mode == 0 &amp;&amp; status == 0) {
-            cm.dispose();
-            return;
-        }
-        if (mode == 1) status++;
-        else status--;
-        if (status == 0) {
-
-
-var tt=31;
-if (Month == 0 || Month == 2 || Month == 4 || Month == 6|| Month == 7 || Month == 9 || Month == 11) { // 1月 3月 5月 78 月 10月 12月
-tt=32;
-}
-if (Month == 1) { // 2月的話
-tt=29;
-}			
-              var text3 = 0;
-for(var i=1; i&lt;tt; i++) {
-text3+= cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+i+&quot;日&quot;);}
-             
-              var ta=&quot;#b&quot;;
-
-              var text = &quot;&quot;;
-
-		for(var i=1,ytz=1; i&lt;tt; i++,ytz++) {
-if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+i+&quot;日&quot;) == 0) {
-ta=&quot;#b&quot;;
-}
-if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+i+&quot;日&quot;) != 0) {
-ta=&quot;#r&quot;;
-}
-			text+=ta+ytz+&quot;#i&quot;+itemList[i][0]+&quot;#&quot;+((i + 0) % 7 == 0 ? &quot;\r\n&quot;: &quot;&quot;);
-		}
-            var text2 = 0;
-
- cm.sendSimple(&quot;#e現在時間:#b&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日星期&quot;+weekday[day]+&quot;\r\n#k本月累積簽到【 #r&quot;+ text3 +&quot;#k 】天&quot;+&quot;\r\n#k本日在線時間【 #r&quot;+ cm.getOnlineTime() +&quot;#k 】分&quot;+&quot;\r\n#b上線時間需滿60分鐘才可進行每日簽到&quot;+&quot;\r\n#k&quot;+&quot;\r\n#L0# #r每日簽到獲得100點#l\r\n\r\n#k&quot;);
-} else if (status == 1) {
-
-
-            if (selection == 0) {
- if(!cm.canHold(itemList[tzc][0], itemList[tzc][1])){
-             cm.sendOk(&quot;您的背包空間不足&quot;);
-             cm.dispose();
-             return;   
-             }
-  if (cm.getPlayer().getPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日&quot;) &lt; 1 &amp;&amp; cm.getOnlineTime() &gt;= 60) { // 在線時數
-                    cm.getPlayer().setPrizeLog_n(&quot;&quot;+Year+&quot;年&quot;+MonthS[Month]+tzc+&quot;日&quot;);
-           
-                  //  cm.gainItem(itemList[tzc][0], itemList[tzc][1]);
-					cm.getPlayer().modifyCSPoints(1, 100, true);
-
-                    cm.sendOk(&quot;恭喜您成功進行簽到並獲取100點!!&quot;);
-     cm.worldMessage(5,&quot;『xx谷』&quot; + &quot; : &quot; + &quot;玩家 &quot; + cm.getChar().getName() + &quot; 已進行每日簽到!!!&quot;);
-                    cm.dispose();
-                        
-                } else{ 
-                    cm.sendOk(&quot;已進行每日簽到或上線時間未達60分鐘!。&quot;);
-                    cm.dispose();
-                 } 
-} 
-} 
-}
-}
 </code></pre>
 ]]></content>
     </entry>

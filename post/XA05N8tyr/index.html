@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>【JAVA】UVA 10101 - Bangla Numbers | Z1N&#39;s house</title>
+<title>楓之谷改login登入頁面背景 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1582808274356">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,105 +71,49 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              【JAVA】UVA 10101 - Bangla Numbers
+              楓之谷改login登入頁面背景
             </h2>
             <div class="post-info">
               <span>
-                2020-01-12
+                2020-02-27
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/KHcOjDSfE" class="post-tag">
-                  # UVA
-                </a>
-              
-                <a href="https://Z1Nhouse.github.io//tag/f_oCx_1wDi" class="post-tag">
-                  # JAVA
+                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
+                  # 楓之谷私服
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/vfdBp0VQV.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/XA05N8tyr.PNG" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>題目原文：<a href="https://onlinejudge.org/index.php?option=onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1042">https://onlinejudge.org/index.php?option=onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1042</a></p>
-<p><strong>題目大意：把輸入的阿拉伯數字改成孟加拉單位輸出</strong><br>
-kuti = 10,000,000 (千萬)<br>
-lakh = 100,000 (十萬)<br>
-hajar = 1000 (千)<br>
-shata = 100 (百)</p>
-<p><strong>Sample Input</strong><br>
-23764<br>
-45897458973958<br>
-0</p>
-<p><strong>Sample Output</strong></p>
-<ol>
-<li>23 hajar 7 shata 64</li>
-<li>
-<ol start="2">
-<li>45 lakh 89 hajar 7 shata 45 kuti 89 lakh 73 hajar 9 shata 58</li>
-</ol>
-</li>
-<li>0</li>
-</ol>
-<p>超過7位數就重新編排，透過kuti連接。</p>
-<pre><code class="language-java">import java.util.*;
-
-public class Main {
-	public static void calculate(long num) {
-		if (num == 0) 
-			return;
-		
-		if (num &gt;= 10000000) {	
-			calculate(num/10000000);
-			System.out.print(&quot; kuti&quot;);
-			calculate(num%10000000);
-		}
-    
-		else if (num &gt;= 100000) {
-			System.out.print(&quot; &quot; + num/100000 + &quot; lakh&quot;);
-			calculate(num%100000);
-		}
-    
-		else if (num &gt;= 1000) {
-			System.out.print(&quot; &quot; + num/1000 + &quot; hajar&quot;);
-			calculate(num%1000);
-		}
-    
-		else if (num &gt;= 100) {
-			System.out.print(&quot; &quot; + num/100 + &quot; shata&quot;);
-			calculate(num%100);
-		}
-    
-		else if (num % 100 != 0) 
-			System.out.print(&quot; &quot; + num);
-	}
-	
-	public static void main(String args[]) {
-		Scanner sc = new Scanner(System.in);
-		int count = 0;
-		while (sc.hasNextLine()) {
-			count++;
-			long num = Long.parseLong(sc.nextLine());
-			System.out.printf(&quot;%4d.&quot;, count);
-      
-			if (num == 0)
-				System.out.printf(&quot; 0&quot;);
-			else
-				calculate(num);
-        
-			System.out.println();
-		}
-	}
-}
-</code></pre>
+                <p>很簡單也很無趣。<br>
+背景大小是800x600。</p>
+<p>120原版背景圖：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582808101653.png" alt=""></p>
+<h2 id="改法">改法</h2>
+<p>打開<code>Map.wz/Back/login.img/11</code>修改即可<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582808155380.PNG" alt=""></p>
+<p>至於邊框則在UI.wz裡頭，自己慢慢找吧。</p>
+<p>一些不錯的楓之谷800x600圖片下載：<a href="https://maplestory.nexon.com/Media/ArtWork">Here</a></p>
+<p>Like this<br>
+<img src="https://Z1Nhouse.github.io//post-images/1582808199982.jpg" alt=""></p>
+<p>Have fun!</p>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%94%B9%E6%B3%95">改法</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -178,9 +122,9 @@ public class Main {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/VlC1oUM">
+            <a href="https://Z1Nhouse.github.io//post/pkwH7k6t-">
               <h3 class="post-title">
-                【JAVA】UVA 10929 - You can say 11
+                楓之谷私服 - 自由泡點 腳本+改法
               </h3>
             </a>
           </div>
