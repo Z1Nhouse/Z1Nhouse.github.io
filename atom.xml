@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-02-27T18:15:57.878Z</updated>
+    <updated>2020-03-01T11:44:07.805Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,135 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[楓之谷私服v113/v120 自動註冊]]></title>
+        <id>https://Z1Nhouse.github.io//post/cLXO_CwKT</id>
+        <link href="https://Z1Nhouse.github.io//post/cLXO_CwKT">
+        </link>
+        <updated>2020-03-01T09:59:19.000Z</updated>
+        <content type="html"><![CDATA[<p>應該一般端口都會有的... 我拿來備份一下</p>
+<ol>
+<li>在<code>ServerConstants.java</code>上方宣告處多加一條宣告</li>
+</ol>
+<pre><code>public static boolean AUTO_REGISTER = true;//自動註冊
+</code></pre>
+<ol start="2">
+<li>在<code>LoginServer.java</code>加上兩個函數</li>
+</ol>
+<pre><code>public static boolean getAutoReg() {
+        return ServerConstants.AUTO_REGISTER;
+    }
+
+public static void setAutoReg(boolean x) {
+        ServerConstants.AUTO_REGISTER = x;
+    }
+</code></pre>
+<ol start="3">
+<li>在<code>handling/login/handler</code>新增 <code>AutoRegister.java</code> 內容如下</li>
+</ol>
+<pre><code>package handling.login.handler;
+
+import client.LoginCrypto;
+import database.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class AutoRegister {
+
+    private static final int ACCOUNTS_PER_IP = 1;
+    public static boolean autoRegister = true;
+    public static boolean success = false;
+
+    public static boolean getAccountExists(String login) {
+        boolean accountExists = false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement(&quot;SELECT name FROM accounts WHERE name = ?&quot;);
+            ps.setString(1, login);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                accountExists = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return accountExists;
+    }
+
+    public static void createAccount(String login, String pwd, String eip) {
+        String sockAddr = eip;
+        Connection con;
+
+        try {
+            con = DatabaseConnection.getConnection();
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return;
+        }
+
+        try {
+            ResultSet rs;
+            PreparedStatement ipc = con.prepareStatement(&quot;SELECT SessionIP FROM accounts WHERE SessionIP = ?&quot;);
+
+            ipc.setString(1, sockAddr.substring(1, sockAddr.lastIndexOf(':')));
+            rs = ipc.executeQuery();
+            if ((rs.first() == false || rs.last() == true) &amp;&amp; rs.getRow() &lt; ACCOUNTS_PER_IP) {
+
+                PreparedStatement ps = con.prepareStatement(&quot;INSERT INTO accounts (name, password, email, birthday, macs, SessionIP) VALUES (?, ?, ?, ?, ?, ?)&quot;);/*) {*/
+
+                ps.setString(1, login);
+                ps.setString(2, LoginCrypto.hexSha1(pwd));
+                ps.setString(3, &quot;autoregister@mail.com&quot;);
+                ps.setString(4, &quot;2008-04-07&quot;);
+                ps.setString(5, &quot;00-00-00-00-00-00&quot;);
+                ps.setString(6, sockAddr.substring(1, sockAddr.lastIndexOf(':')));
+                ps.executeUpdate();
+            }
+
+            success = true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return;
+        }
+        /*                }
+         }
+         rs.close();
+         } catch (SQLException ex) {
+         System.out.println(ex);
+         }*/
+    }
+}
+
+</code></pre>
+<ol start="4">
+<li>在<code>handling/login/handler/CharLoginHandler.java</code><br>
+搜索</li>
+</ol>
+<pre><code>final boolean macBan = c.hasBannedMac();
+</code></pre>
+<p>在它底下加上</p>
+<pre><code>int loginok = 0;
+if (Boolean.parseBoolean(ServerProperties.getProperty(&quot;tms.AutoRegister&quot;))) {
+
+            if (AutoRegister.autoRegister &amp;&amp; !AutoRegister.getAccountExists(login) &amp;&amp; (!c.hasBannedIP() || !c.hasBannedMac())) {
+                if (pwd.equalsIgnoreCase(&quot;disconnect&quot;) || pwd.equalsIgnoreCase(&quot;fixme&quot;)) {
+                    c.getSession().write(MaplePacketCreator.serverNotice(1, &quot;This password is invalid.&quot;));
+                    c.getSession().write(LoginPacket.getLoginFailed(1)); //Shows no message, used for unstuck the login button
+                    return;
+                }
+                AutoRegister.createAccount(login, pwd, c.getSession().getRemoteAddress().toString());
+                if (AutoRegister.success) {
+//                    c.getSession().write(MaplePacketCreator.serverNotice(1, &quot;帳號創建成功,請重新登入!&quot;));
+//                    c.getSession().write(LoginPacket.getLoginFailed(1)); //Shows no message, used for unstuck the login button
+//                    return;
+                }
+            }
+        }
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[楓之谷改login登入頁面背景]]></title>
         <id>https://Z1Nhouse.github.io//post/XA05N8tyr</id>
@@ -3024,153 +3153,6 @@ NPC標示牌 2040034</p>
 <img src="https://Z1Nhouse.github.io//post-images/1581868684612.PNG" alt=""><br>
 <img src="https://Z1Nhouse.github.io//post-images/1581868689862.PNG" alt=""><br>
 <img src="https://Z1Nhouse.github.io//post-images/1581868687475.PNG" alt=""></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[楓之谷私服v120 點裝附魔系統]]></title>
-        <id>https://Z1Nhouse.github.io//post/ttJAM9tXu</id>
-        <link href="https://Z1Nhouse.github.io//post/ttJAM9tXu">
-        </link>
-        <updated>2020-01-31T16:25:01.000Z</updated>
-        <content type="html"><![CDATA[<p><img src="https://Z1Nhouse.github.io//post-images/1580488136327.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1580488139108.PNG" alt=""><br>
-<img src="https://Z1Nhouse.github.io//post-images/1580488141737.PNG" alt=""></p>
-<h2 id="src">SRC</h2>
-<ol>
-<li>打開<code>scripting\NPCConversationManager.java</code> 在最下方}前加上：<br>
-仔細看，裡頭可以修改附魔的能力，按照個人喜好設定。</li>
-</ol>
-<pre><code class="language-java">//點裝附魔
-   public String EnchantCashEqip(byte slot) {
-        Equip item = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot);
-        Equip sel = (Equip) item;
-        int itemid = c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot).getItemId();
-        boolean isCash = MapleItemInformationProvider.getInstance().isCash(itemid);
-        String msg = &quot;&quot;;
-
-        if (isCash) {
-            msg += &quot;您此次所附魔的點裝為#b#z&quot; + itemid + &quot;##k\r\n&quot;;
-            msg += &quot;您此次的附魔為:\r\n&quot;;
-            msg += &quot;－－－－－－－－－－－－－－－－－－－－－－－\r\n&quot;;
-
-            short Str = (short) Randomizer.rand(5, 10);
-            sel.setStr((short) (sel.getStr() + Str));
-            msg += &quot;力量 +&quot; + &quot; &quot; + Str + &quot;\r\n&quot;;
-
-            short Dex = (short) Randomizer.rand(5, 10);
-            sel.setDex((short) (sel.getDex() + Dex));
-            msg += &quot;敏捷: &quot; + &quot; &quot; + Dex + &quot;\r\n&quot;;
-
-            short Int = (short) Randomizer.rand(5, 10);
-            sel.setInt((short) (sel.getInt() + Int));
-            msg += &quot;智力: &quot; + &quot; &quot; + Int + &quot;\r\n&quot;;
-
-            short Luk = (short) Randomizer.rand(5, 10);
-            sel.setLuk((short) (sel.getLuk() + Luk));
-            msg += &quot;幸運: &quot; + &quot; &quot; + Luk + &quot;\r\n&quot;;
-
-            short Watk = (short) Randomizer.rand(5, 10);
-            sel.setWatk((short) (sel.getWatk() + Watk));
-            msg += &quot;物理攻擊: &quot; + &quot; &quot; + Watk + &quot;\r\n&quot;;
-
-            short Matk = (short) Randomizer.rand(5, 10);
-            sel.setMatk((short) (sel.getMatk() + Matk));
-            msg += &quot;魔法攻擊: &quot; + &quot; &quot; + Matk + &quot;\r\n&quot;;
-            msg += &quot;－－－－－－－－－－－－－－－－－－－－－－－\r\n&quot;;
-            msg += &quot;請問您是否要繼續附魔?\r\n#d[點選#r是#d,繼續附魔] [點選#r否#d,存取目前附魔]\r\n#d若裝備素質未改變,請重新登入或換頻即可生效!&quot;;
-            int used = StringTool.getIntFromString(sel.getOwner());
-            used++;
-            sel.setOwner(&quot;已附魔&quot; + used + &quot;次&quot;);
-            item = (Equip) sel.copy();
-            MapleInventoryManipulator.removeFromSlot(getClient(), MapleInventoryType.EQUIP, (short) slot, item.getQuantity(), false);
-            MapleInventoryManipulator.addFromDrop(getClient(), item, false);
-            c.getPlayer().equipChanged();
-            return msg;
-        } else {
-            return &quot;此裝備並非點裝唷!僅有點裝才可以附魔~&quot;;
-        }
-    }
-</code></pre>
-<h2 id="npc腳本">NPC腳本</h2>
-<p>隨便找一個NPC塞下方的腳本：</p>
-<pre><code class="language-javascript">load('nashorn:mozilla_compat.js');
-importPackage(java.lang);
-var status = -1;
-var slot = Array();
-var sel;
-var item = 4001126; //
-
-function start() {
-    //status = -1;
-    action(1, 0, 0);
-}
-var icon01 = &quot;#fUI/UIWindow.img/CashTradingRoom/BtCoin/normal/0#&quot;;
-var icon02 = &quot;#fUI/UIWindow.img/UserInfo/bossPetCrown#&quot;;
-var icon03 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/0#&quot;;
-var icon04 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/1#&quot;;
-var icon05 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/2#&quot;;
-var icon06 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/3#&quot;;
-var icon07 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/4#&quot;;
-var icon08 = &quot;#fUI/UIWindow.img/AriantMatch/characterIcon/5#&quot;;
-var icon09 = &quot;#fUI/UIWindow.img/Megaphone/0#&quot;;
-var icon10 = &quot;#fUI/UIWindow.img/CashTradingRoom/icon1#&quot;;
-
-var status = -1;
-
-function action(mode, type, selection) {
-    if (mode == 0 &amp;&amp; status == 0) {
-        cm.dispose();
-        return;
-    }
-    if (mode == 1) {
-        status++;
-    } else {
-        status--;
-    }
-    if (status == 0) {
-        cm.sendSimple(
-		&quot;#b請問您是否要使用點裝附魔功能呢?#d&quot;+	
-		&quot;\r\n\r\n#L1#附魔一次需要使用#r#z&quot;+item+&quot;##k#d350個!#l&quot;
-		);
-    } else if (status == 1) {
-		sel = selection;
-        var avail = &quot;&quot;;
-        for (var i = 0; i &lt; 96; i++) {
-            if (cm.getInventory(1).getItem(i) != null) {
-                if (Packages.server.MapleItemInformationProvider.getInstance().isCash(cm.getInventory(1).getItem(i).getItemId())) {
-                    avail += &quot;#L&quot; + Math.abs(i) + &quot;##z&quot; + cm.getInventory(1).getItem(i).getItemId() + &quot;##l\r\n&quot;;
-                }
-            }
-        }
-        if(avail == &quot;&quot;){
-             avail += &quot;很抱歉,您的裝備欄沒有任何的點裝哦!!~&quot;;    
-            }
-        cm.sendSimple(&quot;想要附魔哪一件點數裝備呢？？\r\n#b&quot; + avail);
-    } else if (status == 2) {
-        selected = selection;
-        cm.sendYesNo(&quot;你想要附魔的點裝是 #b#t&quot; + cm.getInventory(1).getItem(selected).getItemId() + &quot;##k.\r\n您確定要對此點裝賦魔？？\r\n&quot;);
-    } else if (status == 3) {
-		var type ;
-        if (cm.haveItem(item, 350)) {
-            status = 5;
-            cm.sendYesNo(cm.EnchantCashEqip(selected));
-			cm.gainItem(item,-350);
-        } else {
-            status = 3;
-            cm.sendOk(&quot;您的#b#z&quot; + item + &quot;##k不足哦!!&quot;);
-
-        }
-    } else if (status == 4) {
-        //cm.getPlayer().fakeRelog();
-        cm.dispose();
-
-    } else if (status == 6) {
-        status = 2;
-        cm.sendOk(&quot;即將花費#b#z&quot;+item+&quot;##k350個重新附魔此點裝...&quot;);
-    }
-    
-    }
-</code></pre>
 ]]></content>
     </entry>
 </feed>
