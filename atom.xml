@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-03-01T11:44:07.805Z</updated>
+    <updated>2020-03-03T17:12:42.864Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -318,6 +318,54 @@ function start() {
 <p>以上三個js都寫好後放到端口的Event裡，打開端口設定檔(一般都是<code>Settings</code>或者<code>world.properties</code>之類的)在<code>tms.Events:</code>後方加上AutoGain,AutoNx,AutoPaoDian<br>
 記得要用<strong>逗號</strong>隔開，就這樣。</p>
 <p>📢3個泡點Event下載：<a href="http://www.mediafire.com/file/1ouhrk1b4o7n5no/%25E6%25B3%25A1%25E9%25BB%259EEvent.rar/file">Download</a></p>
+<h2 id="補充">補充</h2>
+<p>我有看到對岸的另一種寫法 也提供給各位參考 MapleMap.java</p>
+<pre><code>    /**
+     * 计算方法暂时如下.
+     *
+     * @试运行: 一天24小时 1小时：41点 1小时等于60分钟 60分钟划分为6份 每份10分钟 每10分钟1次 每次7点
+     * @按等级计算公式： int givNx = ((jsNx * chr.getLevel()/2) + Nx);
+     * @备注信息： 以上计算方法结果如下： 100级玩家/每天最多獲得1000点券。
+     */
+    public void AutoNx(int jsNx, boolean isAutoPoints) {
+        if (mapid != 910000000) {
+            return;
+        }
+        for (MapleCharacter chr : characters) {
+            if (chr != null) {
+//                if (chr.getClient().getLastPing() &lt;= 0) {
+//                    chr.getClient().sendPing();
+//                }
+                if (isAutoPoints) {
+                    chr.gainPlayerPoints(jsNx);
+                    chr.dropMessage(5, &quot;[系統獎勵] 在線獎勵獲得 [&quot; + jsNx + &quot;] 點積分.&quot;);
+                } else {
+                    int givNx = ((chr.getLevel() / 10) + jsNx);
+                    chr.modifyCSPoints(2, givNx);
+                    chr.dropMessage(5, &quot;[系統獎勵] 在線獎勵獲得 [&quot; + givNx + &quot;] 點抵用券.&quot;);
+                }
+            }
+        }
+    }
+
+    /*
+     * 市场泡点
+     */
+    public void AutoGain(int jsexp, int expRate) {
+        if (mapid != 910000000) {
+            return;
+        }
+        for (MapleCharacter chr : characters) {
+            if (chr == null || chr.getLevel() &gt;= 250) {
+                return;
+            }
+            int givExp = ((jsexp * chr.getLevel()) + expRate);
+            givExp *= 3;
+            chr.gainExp(givExp, true, false, true);
+            chr.dropMessage(5, &quot;[系統獎勵] 在線獎勵獲得 [&quot; + givExp + &quot;] 點經驗.&quot;);
+        }
+    }
+</code></pre>
 ]]></content>
     </entry>
     <entry>

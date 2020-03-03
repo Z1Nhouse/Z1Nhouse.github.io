@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>楓之谷私服 - 自由泡點 腳本+改法 | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
-<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1583057108551">
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1583254987156">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Z1Nhouse.github.io/">
-  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1583057108551" alt="">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1583254987156" alt="">
   </a>
   <h1 class="site-title">
     Z1N&#39;s house
@@ -78,7 +78,7 @@
                 2020-02-27
               </span>
               <span>
-                4 min read
+                5 min read
               </span>
               
                 <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
@@ -244,6 +244,54 @@ function start() {
 <p>以上三個js都寫好後放到端口的Event裡，打開端口設定檔(一般都是<code>Settings</code>或者<code>world.properties</code>之類的)在<code>tms.Events:</code>後方加上AutoGain,AutoNx,AutoPaoDian<br>
 記得要用<strong>逗號</strong>隔開，就這樣。</p>
 <p>📢3個泡點Event下載：<a href="http://www.mediafire.com/file/1ouhrk1b4o7n5no/%25E6%25B3%25A1%25E9%25BB%259EEvent.rar/file">Download</a></p>
+<h2 id="補充">補充</h2>
+<p>我有看到對岸的另一種寫法 也提供給各位參考 MapleMap.java</p>
+<pre><code>    /**
+     * 计算方法暂时如下.
+     *
+     * @试运行: 一天24小时 1小时：41点 1小时等于60分钟 60分钟划分为6份 每份10分钟 每10分钟1次 每次7点
+     * @按等级计算公式： int givNx = ((jsNx * chr.getLevel()/2) + Nx);
+     * @备注信息： 以上计算方法结果如下： 100级玩家/每天最多獲得1000点券。
+     */
+    public void AutoNx(int jsNx, boolean isAutoPoints) {
+        if (mapid != 910000000) {
+            return;
+        }
+        for (MapleCharacter chr : characters) {
+            if (chr != null) {
+//                if (chr.getClient().getLastPing() &lt;= 0) {
+//                    chr.getClient().sendPing();
+//                }
+                if (isAutoPoints) {
+                    chr.gainPlayerPoints(jsNx);
+                    chr.dropMessage(5, &quot;[系統獎勵] 在線獎勵獲得 [&quot; + jsNx + &quot;] 點積分.&quot;);
+                } else {
+                    int givNx = ((chr.getLevel() / 10) + jsNx);
+                    chr.modifyCSPoints(2, givNx);
+                    chr.dropMessage(5, &quot;[系統獎勵] 在線獎勵獲得 [&quot; + givNx + &quot;] 點抵用券.&quot;);
+                }
+            }
+        }
+    }
+
+    /*
+     * 市场泡点
+     */
+    public void AutoGain(int jsexp, int expRate) {
+        if (mapid != 910000000) {
+            return;
+        }
+        for (MapleCharacter chr : characters) {
+            if (chr == null || chr.getLevel() &gt;= 250) {
+                return;
+            }
+            int givExp = ((jsexp * chr.getLevel()) + expRate);
+            givExp *= 3;
+            chr.gainExp(givExp, true, false, true);
+            chr.dropMessage(5, &quot;[系統獎勵] 在線獎勵獲得 [&quot; + givExp + &quot;] 點經驗.&quot;);
+        }
+    }
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -252,6 +300,7 @@ function start() {
 <ul>
 <li><a href="#src">SRC</a></li>
 <li><a href="#event">Event</a></li>
+<li><a href="#%E8%A3%9C%E5%85%85">補充</a></li>
 </ul>
 </li>
 </ul>
