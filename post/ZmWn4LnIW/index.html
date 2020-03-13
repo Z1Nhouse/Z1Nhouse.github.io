@@ -1,0 +1,374 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>初學者也能快速上手的Python爬蟲(4) - 發票兌獎 | Z1N&#39;s house</title>
+<meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
+<link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1584081391297">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Z1Nhouse.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Z1Nhouse.github.io/">
+  <img class="avatar" src="https://Z1Nhouse.github.io//images/avatar.png?v=1584081391297" alt="">
+  </a>
+  <h1 class="site-title">
+    Z1N&#39;s house
+  </h1>
+  <p class="site-description">
+    System.out.print("Welcome to Z1N's house！");
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首頁
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          歸檔
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          標籤
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Z1Nhouse" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              初學者也能快速上手的Python爬蟲(4) - 發票兌獎
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-13
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://Z1Nhouse.github.io//tag/hjQflVP_Uf" class="post-tag">
+                  # python
+                </a>
+              
+                <a href="https://Z1Nhouse.github.io//tag/NfH4Wu_XQT" class="post-tag">
+                  # 爬蟲
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/ZmWn4LnIW.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>💜在開始之前推薦一個很棒的在線編輯網站，可寫python即時預覽<a href="https://repl.it/">repl.it</a></p>
+<p>統一發票：<a href="http://invoice.etax.nat.gov.tw/">http://invoice.etax.nat.gov.tw/</a></p>
+<p>首先，我們需要安裝的套件有：</p>
+<ol>
+<li><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">BeautifulSoup</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/urllib.request.html">urllib.request</a> - 用於打開URL</li>
+<li><a href="https://github.com/jazzband/prettytable">prettytable</a> - 用於設計好看的表格</li>
+</ol>
+<p>Beautifulsoup我記得之前有說過如何安裝了，其他其實也是相同的安裝方式。<br>
+下載套件：<a href="https://pypi.org/">https://pypi.org/</a></p>
+<h2 id="程式碼">程式碼</h2>
+<p>首先先引入需要使用到的套件</p>
+<pre><code class="language-python">#import
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from prettytable import PrettyTable
+</code></pre>
+<hr>
+<p>接著使用<code>urlopen()</code>來抓該網站的數據，接著以<code>Beautiful Soup</code>解析 HTML 程式碼：</p>
+<pre><code class="language-python">html = urlopen(&quot;http://invoice.etax.nat.gov.tw/&quot;).read().decode('utf-8')
+soup = BeautifulSoup(html,'html.parser')
+</code></pre>
+<p>❗️注意：<br>
+在python 2.x的版本，是用<code>urllib2</code>，而在python 3.x的版本，改用<code>urllib</code>，兩者的功能其實很相似。<br>
+urllib可以存取網頁、下載資料、剖析資料、修改表頭(header)、執行GET與POST的請求…。</p>
+<hr>
+<p>再來打開統一發票的網站，按下F12打開<strong>開發人員工具</strong>並按下Ctrl+Shift+C指向想抓取的資料位置，<br>
+比如說中獎號碼：<br>
+<img src="https://Z1Nhouse.github.io//post-images/1584079860033.png" alt=""></p>
+<p>你可以發現中獎號碼的html大概都長這樣：</p>
+<pre><code class="language-html">&lt;span class=&quot;t18Red&quot;&gt;59647042&lt;/span&gt;
+...
+&lt;span id=&quot;newFirstPrize&quot; class=&quot;t18Red&quot;&gt;01616970&lt;br&gt;69921388&lt;br&gt;53451508&lt;/span&gt;
+...
+</code></pre>
+<p>他們之間的共同處有：</p>
+<ol>
+<li>都使用span標籤</li>
+<li>class都是t18Red</li>
+</ol>
+<p>如果有點基礎，你大概就知道要怎麼抓數據了。<br>
+這邊我使用<code>find_all</code>抓取<strong>全部</strong>class為t18Red的span標籤</p>
+<pre><code class="language-python">data = soup.find_all('span',class_='t18Red')
+</code></pre>
+<p>❗️注意：<br>
+由於 class 是 Python 程式語言的保留字，所以 Beautiful Soup 改以 <code>class_</code> 這個名稱代表 HTML 節點的 class 屬性</p>
+<hr>
+<p>以下為關於find_all()的用法，轉自<a href="https://blog.csdn.net/qq_16912257/article/details/53336353">BrownWong</a></p>
+<p><strong>find_all()</strong></p>
+<ul>
+<li>查找标签 soup.find_all('tag')</li>
+<li>查找文本 soup.find_all(text='text')</li>
+<li>根据id查找 soup.find_all(id='tag id')</li>
+<li>使用正则 soup.find_all(text=re.compile('your re')), soup.find_all(id=re.compile('your re'))</li>
+<li>指定属性查找标签 soup.find_all('tag', {'id': 'tag id', 'class': 'tag class'})<br>
+————————————————<br>
+版权声明：本文为CSDN博主「BrownWong」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>
+原文链接：https://blog.csdn.net/qq_16912257/article/details/53336353</li>
+</ul>
+<hr>
+<p>再來，可利用的資料還有</p>
+<pre><code class="language-html">&lt;h2&gt;108年11-12月&lt;/h2&gt;
+&lt;p class=&quot;date&quot;&gt;領獎期間自109年02月06日起至109年05月05日止&lt;/p&gt;
+</code></pre>
+<p>如果你仔細看，可以看見網頁中第一個使用h2標籤的並非這句，而是</p>
+<pre><code class="language-html">&lt;h2 id=&quot;tabTitle&quot;&gt;&lt;span&gt;統一發票號碼獎中獎號碼&lt;/span&gt; | &lt;a href=&quot;/nowNumber.html&quot;&gt;雲端發票專屬獎中獎號碼&lt;/a&gt;&lt;/h2&gt;
+</code></pre>
+<p>因此，若要抓日期的話，要取h2標籤第一個資料，而不是第零個。</p>
+<pre><code class="language-python">version = soup.find_all('h2')
+print(&quot;當前期數：&quot;+version[1].text+&quot;\n&quot;)
+</code></pre>
+<p>再來領獎期限就更好抓了，不解釋</p>
+<pre><code class="language-python">date = soup.find('p',class_='date')
+print(date.text)
+</code></pre>
+<hr>
+<p>該抓的數據都抓好了，剩下就是美化跟排版</p>
+<p>獎類方面我是直接手打儲存成list</p>
+<pre><code class="language-python">A = ['特別獎','特獎','頭獎','增開六獎']
+</code></pre>
+<p>截至目前為止，我們的程式碼應該長這樣：</p>
+<pre><code class="language-python">#import
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from prettytable import PrettyTable
+
+html = urlopen(&quot;http://invoice.etax.nat.gov.tw/&quot;).read().decode('utf-8')
+soup = BeautifulSoup(html,'html.parser')
+data = soup.find_all('span',class_='t18Red')
+version = soup.find_all('h2')
+date = soup.find('p',class_='date')
+
+A = ['特別獎','特獎','頭獎','增開六獎']
+print(&quot;當前期數：&quot;+version[1].text+&quot;\n&quot;+date.text+&quot;\n&quot;)
+</code></pre>
+<p>再來，新增一個list B還有i = 0</p>
+<pre><code class="language-python">i = 0
+B = []
+</code></pre>
+<p>新增一個迴圈用來顯示中獎號碼</p>
+<pre><code class="language-python">for number in data:
+    B = [number.text]
+    k = 0
+    while i&lt;4 and k&lt;1:
+        table = PrettyTable(['獎別','中獎號碼'])
+        table.add_row([A[i],B[k]])
+        
+        #print(A[i])
+        #print(B[k])
+        i = i+1
+        k = k+1
+
+        print(table)
+
+        if i== 1 :
+            print(&quot;同期統一發票收執聯8位數號碼與特別獎號碼相同者獎金1,000萬元\n&quot;)
+        elif i== 2 :
+            print(&quot;同期統一發票收執聯8位數號碼與特獎號碼相同者獎金200萬元\n&quot;)
+        elif i== 3 :
+            print(&quot;同期統一發票收執聯8位數號碼與頭獎號碼相同者獎金20萬元\n&quot;)
+        elif i== 4 :
+            print(&quot;同期統一發票收執聯末3位數號碼與增開六獎號碼相同者各得獎金2百元\n&quot;)
+</code></pre>
+<p>最後在迴圈<strong>外面</strong>加上其他獎類的說明：</p>
+<pre><code class="language-python">print(&quot;二獎　同期統一發票收執聯末7 位數號碼與頭獎中獎號碼末7 位相同者各得獎金4萬元\n三獎　同期統一發票收執聯末6 位數號碼與頭獎中獎號碼末6 位相同者各得獎金1萬元\n四獎　同期統一發票收執聯末5 位數號碼與頭獎中獎號碼末5 位相同者各得獎金4千元\n五獎　同期統一發票收執聯末4 位數號碼與頭獎中獎號碼末4 位相同者各得獎金1千元\n六獎　同期統一發票收執聯末3 位數號碼與 頭獎中獎號碼末3 位相同者各得獎金2百元&quot;)
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://Z1Nhouse.github.io//post-images/1584081337661.PNG" alt=""></figure>
+<p>如此一來，簡單的發票網頁爬蟲就已經結束，你還可以挖掘更多的玩法或者美化它，剩下的就交給你啦！<br>
+接著就是PrettyTable的一些補充，有興趣就繼續看吧。</p>
+<h2 id="pretty-table">Pretty Table</h2>
+<p>這之中我們用到了PrettyTable，這是一個python的第三方套件，主要功能是將文字內容以表格的方式整齊、簡潔的輸出成一個文字檔，並且可以自行控制表格框線、排序方式、對齊方式，另外Pretty Table也支援從現有的文件來產生表格(CSV、HTML、SQL)。<br>
+詳細的使用說明歡迎請教谷歌大師，</p>
+<p>簡單的用法範例，下面為Row by Row</p>
+<pre><code class="language-python">from prettytable import PrettyTable
+x = PrettyTable()
+x.field_names = [&quot;City name&quot;, &quot;Area&quot;, &quot;Population&quot;, &quot;Annual Rainfall&quot;]
+x.add_row([&quot;Adelaide&quot;,1295, 1158259, 600.5])
+x.add_row([&quot;Brisbane&quot;,5905, 1857594, 1146.4])
+x.add_row([&quot;Darwin&quot;, 112, 120900, 1714.7])
+x.add_row([&quot;Hobart&quot;, 1357, 205556, 619.5])
+x.add_row([&quot;Sydney&quot;, 2058, 4336374, 1214.8])
+x.add_row([&quot;Melbourne&quot;, 1566, 3806092, 646.9])
+x.add_row([&quot;Perth&quot;, 5386, 1554769, 869.4])
+</code></pre>
+<p>Column by Column</p>
+<pre><code class="language-python">from prettytable import PrettyTable
+x = PrettyTable()
+x.add_column(&quot;City name&quot;,
+[&quot;Adelaide&quot;,&quot;Brisbane&quot;,&quot;Darwin&quot;,&quot;Hobart&quot;,&quot;Sydney&quot;,&quot;Melbourne&quot;,&quot;Perth&quot;])
+x.add_column(&quot;Area&quot;, [1295, 5905, 112, 1357, 2058, 1566, 5386])
+x.add_column(&quot;Population&quot;, [1158259, 1857594, 120900, 205556, 4336374, 3806092,
+1554769])
+x.add_column(&quot;Annual Rainfall&quot;,[600.5, 1146.4, 1714.7, 619.5, 1214.8, 646.9,
+869.4])
+</code></pre>
+<p>引入CSV檔案的數據</p>
+<pre><code class="language-python">from prettytable import from_csv
+fp = open(&quot;myfile.csv&quot;, &quot;r&quot;)
+mytable = from_csv(fp)
+fp.close()
+</code></pre>
+<p>引入數據庫資料</p>
+<pre><code class="language-python">import sqlite3
+from prettytable import from_cursor
+
+connection = sqlite3.connect(&quot;mydb.db&quot;)
+cursor = connection.cursor()
+cursor.execute(&quot;SELECT field1, field2, field3 FROM my_table&quot;)
+mytable = from_cursor(cursor)
+</code></pre>
+<p>其他的官方說明文件都有：<a href="https://github.com/jazzband/prettytable">https://github.com/jazzband/prettytable</a></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC">程式碼</a></li>
+<li><a href="#pretty-table">Pretty Table</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Z1Nhouse.github.io//post/cLXO_CwKT">
+              <h3 class="post-title">
+                楓之谷私服v113/v120 自動註冊
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'e5c1a1597ef592d472ea',
+    clientSecret: 'f7693b11e4023f6556063c4302faab8119ed81aa',
+    repo: 'z1nhouse.github.io',
+    owner: 'z1nhouse',
+    admin: ['z1nhouse'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://Z1Nhouse.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
