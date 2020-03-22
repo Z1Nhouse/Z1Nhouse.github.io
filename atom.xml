@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Z1Nhouse.github.io/</id>
     <title>Z1N&apos;s house</title>
-    <updated>2020-03-13T06:36:39.728Z</updated>
+    <updated>2020-03-22T12:26:27.434Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Z1Nhouse.github.io/"/>
     <link rel="self" href="https://Z1Nhouse.github.io//atom.xml"/>
@@ -10,6 +10,48 @@
     <logo>https://Z1Nhouse.github.io//images/avatar.png</logo>
     <icon>https://Z1Nhouse.github.io//favicon.ico</icon>
     <rights>All rights reserved 2020, Z1N&apos;s house</rights>
+    <entry>
+        <title type="html"><![CDATA[Visual Studio Code手動新增右鍵功能表 [以VSCode開啟]]]></title>
+        <id>https://Z1Nhouse.github.io//post/1iRiaxD7L</id>
+        <link href="https://Z1Nhouse.github.io//post/1iRiaxD7L">
+        </link>
+        <updated>2020-03-22T12:16:40.000Z</updated>
+        <content type="html"><![CDATA[<p>一般來說有兩種方式：</p>
+<p>第一種就是安裝的時候<strong>將「以Code開啟」功能打勾</strong>。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1584879636290.png" alt=""><br>
+但若是安裝時忘記打勾或者非常規安裝呢？</p>
+<p>第二種辦法是<strong>使用註冊檔</strong>。</p>
+<p>新增一個txt檔，將以下內容貼上：</p>
+<pre><code>Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\Open with VS Code]
+@=&quot;Edit with VS Code&quot;
+&quot;Icon&quot;=&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe,0&quot;
+
+[HKEY_CLASSES_ROOT\*\shell\Open with VS Code\command]
+@=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;
+
+[HKEY_CLASSES_ROOT\Directory\shell\vscode]
+@=&quot;Open Folder as VS Code Project&quot;
+&quot;Icon&quot;=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot;,0&quot;
+
+[HKEY_CLASSES_ROOT\Directory\shell\vscode\command]
+@=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\vscode]
+@=&quot;Open Folder as VS Code Project&quot;
+&quot;Icon&quot;=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot;,0&quot;
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\vscode\command]
+@=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;
+</code></pre>
+<p>📢請注意，若你的VSCode並非在C:\Program Files\Microsoft VS Code，請記得修改路徑。</p>
+<p>另存成<code>VSCodeRightClick.reg</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1584879823605.png" alt=""></p>
+<p>接著點開檔案，確定登錄即可。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1584879921440.png" alt=""></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[初學者也能快速上手的Python爬蟲(4) - 發票兌獎]]></title>
         <id>https://Z1Nhouse.github.io//post/ZmWn4LnIW</id>
@@ -3307,35 +3349,6 @@ function checkNumberPosition(number) {//檢查是否重複
 }
 </code></pre>
 <p>大概就是這樣，能隨意更改的部分我大多都有標上註解，當然，只要有創意怎麼改都行。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[楓之谷私服v120 技能0CD/範圍擴大/數量增加/攻擊次數增加...]]></title>
-        <id>https://Z1Nhouse.github.io//post/v-am4i5fY</id>
-        <link href="https://Z1Nhouse.github.io//post/v-am4i5fY">
-        </link>
-        <updated>2020-02-16T17:31:29.000Z</updated>
-        <content type="html"><![CDATA[<p>暫時只放演示，以下GIF無加速，皆為原速。</p>
-<ul>
-<li>
-<p>天怒 全圖+施放延遲時間縮短<br>
-<img src="https://upload.cc/i1/2020/02/17/zZlbQV.gif" alt=""></p>
-</li>
-<li>
-<p>龍咆哮 全圖+延遲時間縮短<br>
-<img src="https://media.giphy.com/media/MdGVtWG4nCTuMQWBfb/giphy.gif" alt=""></p>
-</li>
-<li>
-<p>閃連殺 次數由6下改為12下<br>
-<img src="https://media.giphy.com/media/RJEJs7CaWSNs6q7q93/giphy.gif" alt=""></p>
-</li>
-<li>
-<p>魔龍降臨 數量由6隻改為12隻<br>
-<img src="https://media.giphy.com/media/LrRMuYsrAjZLLUTMKC/giphy.gif" alt=""></p>
-</li>
-</ul>
-<p>暫時只改了這些，其他有想玩的職業再改。<br>
-只需要改Skill.wz與Character.wz就好，等哪天心情好了再放教程。</p>
 ]]></content>
     </entry>
 </feed>

@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>楓之谷改login登入頁面背景 | Z1N&#39;s house</title>
+<title>Visual Studio Code手動新增右鍵功能表 [以VSCode開啟] | Z1N&#39;s house</title>
 <meta name="description" content="System.out.print("Welcome to Z1N's house！");" />
 <link rel="shortcut icon" href="https://Z1Nhouse.github.io//favicon.ico?v=1584879982540">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -71,49 +71,64 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              楓之谷改login登入頁面背景
+              Visual Studio Code手動新增右鍵功能表 [以VSCode開啟]
             </h2>
             <div class="post-info">
               <span>
-                2020-02-27
+                2020-03-22
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://Z1Nhouse.github.io//tag/DVFB_aznO" class="post-tag">
-                  # 楓之谷私服
+                <a href="https://Z1Nhouse.github.io//tag/g9-URoyfJ" class="post-tag">
+                  # VS Code
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/XA05N8tyr.PNG" alt="">
+              <img class="post-feature-image" src="https://Z1Nhouse.github.io//post-images/1iRiaxD7L.png" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>很簡單也很無趣。<br>
-背景大小是800x600。</p>
-<p>120原版背景圖：<br>
-<img src="https://Z1Nhouse.github.io//post-images/1582808101653.png" alt=""></p>
-<h2 id="改法">改法</h2>
-<p>打開<code>Map.wz/Back/login.img/11</code>修改即可<br>
-<img src="https://Z1Nhouse.github.io//post-images/1582808155380.PNG" alt=""></p>
-<p>至於邊框則在UI.wz裡頭，自己慢慢找吧。</p>
-<p>一些不錯的楓之谷800x600圖片下載：<a href="https://maplestory.nexon.com/Media/ArtWork">Here</a></p>
-<p>Like this<br>
-<img src="https://Z1Nhouse.github.io//post-images/1582808199982.jpg" alt=""></p>
-<p>Have fun!</p>
+                <p>一般來說有兩種方式：</p>
+<p>第一種就是安裝的時候<strong>將「以Code開啟」功能打勾</strong>。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1584879636290.png" alt=""><br>
+但若是安裝時忘記打勾或者非常規安裝呢？</p>
+<p>第二種辦法是<strong>使用註冊檔</strong>。</p>
+<p>新增一個txt檔，將以下內容貼上：</p>
+<pre><code>Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\Open with VS Code]
+@=&quot;Edit with VS Code&quot;
+&quot;Icon&quot;=&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe,0&quot;
+
+[HKEY_CLASSES_ROOT\*\shell\Open with VS Code\command]
+@=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;
+
+[HKEY_CLASSES_ROOT\Directory\shell\vscode]
+@=&quot;Open Folder as VS Code Project&quot;
+&quot;Icon&quot;=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot;,0&quot;
+
+[HKEY_CLASSES_ROOT\Directory\shell\vscode\command]
+@=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\vscode]
+@=&quot;Open Folder as VS Code Project&quot;
+&quot;Icon&quot;=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot;,0&quot;
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\vscode\command]
+@=&quot;\&quot;C:\\Program Files\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;
+</code></pre>
+<p>📢請注意，若你的VSCode並非在C:\Program Files\Microsoft VS Code，請記得修改路徑。</p>
+<p>另存成<code>VSCodeRightClick.reg</code><br>
+<img src="https://Z1Nhouse.github.io//post-images/1584879823605.png" alt=""></p>
+<p>接著點開檔案，確定登錄即可。<br>
+<img src="https://Z1Nhouse.github.io//post-images/1584879921440.png" alt=""></p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E6%94%B9%E6%B3%95">改法</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -122,9 +137,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://Z1Nhouse.github.io//post/pkwH7k6t-">
+            <a href="https://Z1Nhouse.github.io//post/ZmWn4LnIW">
               <h3 class="post-title">
-                楓之谷私服 - 自由泡點 腳本+改法
+                初學者也能快速上手的Python爬蟲(4) - 發票兌獎
               </h3>
             </a>
           </div>
